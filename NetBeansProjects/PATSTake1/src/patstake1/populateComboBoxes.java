@@ -7,6 +7,7 @@ package patstake1;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -51,6 +52,23 @@ public class populateComboBoxes {
         }
         return venues;
     }
+    
+    //populates the lessons for a given parentName
+    public String [] getLessonsFromMotherName(String name) {
+        mothersArray ma = new mothersArray();
+        lessonDataArray la = new lessonDataArray();
+        studentsArray sa = new studentsArray();
+        ArrayList<String> lessons = new ArrayList<>();
+        
+        for (int i = 0; i < ma.getStudentsFromMotherName(name).length; i++) {
+            for (int k = 0; k < sa.lessonKeysFromStudentID(sa.studentIDFromName(ma.getStudentsFromMotherName(name)[i])).length; k++) {
+                lessons.add(sa.lessonStringArrayFromKeyArray(sa.studentIDFromName(ma.getStudentsFromMotherName(name)[i]))[k]);
+            }     
+        }
+        String StringLessonDataArray [] = lessons.toArray(new String[lessons.size()]);
+        return StringLessonDataArray;
+    }
+    
     
     //populates a corrected combo box of students according to grade
     public String [] correctStudentsAccordingToGrade(String gradeSelected) {

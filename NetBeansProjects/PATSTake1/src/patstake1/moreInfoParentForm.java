@@ -5,17 +5,33 @@
  */
 package patstake1;
 
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author YishaiBasserabie
  */
 public class moreInfoParentForm extends javax.swing.JFrame {
 
+    static String MOTHER_SELECTED = mothers.MOTHER_SELECTED;
+    static String MOTHER_EMAIL = mothers.MOTHER_EMAIL;
+    static String MOTHER_CELL = mothers.MOTHER_CELL;
     /**
      * Creates new form moreInfoParentForm
      */
     public moreInfoParentForm() {
         initComponents();
+        //populate the lessonList
+        populateComboBoxes pop = new populateComboBoxes();
+        DefaultListModel lessonListModel = new DefaultListModel();
+        for (int i = 0; i < pop.getLessonsFromMotherName(MOTHER_SELECTED).length; i++) {
+            lessonListModel.addElement(pop.getLessonsFromMotherName(MOTHER_SELECTED)[i]);
+        }
+        this.lessonList.setModel(lessonListModel);
+        //populate the email label
+        this.emailLabel.setText(MOTHER_EMAIL);
+        //populates the cell label
+        this.cellLabel.setText(MOTHER_CELL);
     }
     
     public void setParentNameText(String name) {

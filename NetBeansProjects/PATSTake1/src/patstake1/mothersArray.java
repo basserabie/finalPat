@@ -134,20 +134,4 @@ public class mothersArray {
         }
     }
     
-    
-    
-//    public String [] getLessonsFromMotherName(String name) {
-//        lessonDataArray la = new lessonDataArray();
-//        studentsArray sa = new studentsArray();
-//        ArrayList<String> lessons = new ArrayList<>();
-//        
-//        for (int i = 0; i < this.getStudentsFromMotherName(name).length; i++) {
-//            for (int k = 0; k < la.getLessonDataArray().size(); k++) {
-//                if (la.getLessonDataArray().get(k).getStudentID() == sa.studentIDFromName(this.getStudentsFromMotherName(name)[i])) {
-//                    
-//                }
-//            }
-//        }
-//        
-//    }
 }

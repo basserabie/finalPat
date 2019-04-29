@@ -19,6 +19,8 @@ public class mothers extends javax.swing.JFrame {
      * Creates new form mothers
      */
     public static String MOTHER_SELECTED;
+    public static String MOTHER_EMAIL;
+    public static String MOTHER_CELL;
     
     public mothers() {
         initComponents();
@@ -230,6 +232,8 @@ public class mothers extends javax.swing.JFrame {
         editMotherForm emf = new editMotherForm();
         if (!this.parentsTable.getSelectionModel().isSelectionEmpty()) {
             this.selectedParentLabel.setText(this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 0).toString());
+            MOTHER_EMAIL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 1).toString();
+            MOTHER_CELL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 2).toString();
             MOTHER_SELECTED = this.selectedParentLabel.getText();
             ma.passSelectedMotherNameToEdit(this.selectedParentLabel.getText());
         } else {

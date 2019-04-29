@@ -53,6 +53,23 @@ public class populateComboBoxes {
         return venues;
     }
     
+    public String [] getStudentsFromMotherName(String name) {
+        mothersArray ma = new mothersArray();
+        ArrayList<String> students = new ArrayList<>();
+        studentsArray sa = new studentsArray();
+        for (int i = 0; i < ma.getMothersArray().size(); i++) {
+            if (ma.getMotherNameFromIndex(i).equals(name)) {
+                for (int k = 0; k < sa.getStudentArray().size(); k++) {
+                    if (ma.getMotherName(sa.getStudentArray().get(k).getMotherID()).equals(name)) {
+                        students.add(sa.studentNameFromID(sa.getStudentArray().get(k).getStudentID()));
+                    }
+                }
+            }
+        }
+        String studentsArray [] = students.toArray(new String[students.size()]);
+        return studentsArray;
+    }
+    
     //populates the lessons for a given parentName
     public String [] getLessonsFromMotherName(String name) {
         mothersArray ma = new mothersArray();

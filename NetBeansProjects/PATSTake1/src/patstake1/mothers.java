@@ -246,7 +246,10 @@ public class mothers extends javax.swing.JFrame {
         mothersArray ma = new mothersArray();
         if (!this.parentsTable.getSelectionModel().isSelectionEmpty()) {
             this.selectedParentLabel.setText(this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 0).toString());
+            MOTHER_EMAIL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 1).toString();
+            MOTHER_CELL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 2).toString();
             MOTHER_SELECTED = this.selectedParentLabel.getText();
+            System.out.println("mothers: " + MOTHER_CELL + "   " + MOTHER_EMAIL);
             ma.passSelectedMotherToInfo(this.selectedParentLabel.getText());
         } else {
             JOptionPane.showMessageDialog(null, "Please select a parent (row) first :)");

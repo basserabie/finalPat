@@ -12,29 +12,35 @@ import javax.swing.DefaultListModel;
  * @author YishaiBasserabie
  */
 public class moreInfoParentForm extends javax.swing.JFrame {
-
-    static String MOTHER_SELECTED = mothers.MOTHER_SELECTED;
-    static String MOTHER_EMAIL = mothers.MOTHER_EMAIL;
-    static String MOTHER_CELL = mothers.MOTHER_CELL;
+    
     /**
      * Creates new form moreInfoParentForm
      */
     public moreInfoParentForm() {
         initComponents();
-        //populate the lessonList
+        //populates the students list
         populateComboBoxes pop = new populateComboBoxes();
+        DefaultListModel studentsListModel = new DefaultListModel();
+        for (int i = 0; i < pop.getStudentsFromMotherName(mothers.MOTHER_SELECTED).length; i++) {
+            studentsListModel.addElement(pop.getStudentsFromMotherName(mothers.MOTHER_SELECTED)[i]);
+        }
+        this.childrenList.setModel(studentsListModel);
+        //populate the lessonList
         DefaultListModel lessonListModel = new DefaultListModel();
-        for (int i = 0; i < pop.getLessonsFromMotherName(this.motherSelectedLabel.getText()).length; i++) {
-            lessonListModel.addElement(pop.getLessonsFromMotherName(this.motherSelectedLabel.getText())[i]);
+        for (int i = 0; i < pop.getLessonsFromMotherName(mothers.MOTHER_SELECTED).length; i++) {
+            lessonListModel.addElement(pop.getLessonsFromMotherName(mothers.MOTHER_SELECTED)[i]);
         }
         this.lessonList.setModel(lessonListModel);
-        
+        //populates email label text
+        this.emailLabel.setText(mothers.MOTHER_EMAIL);
+        //populates cell label text
+        this.cellLabel.setText(mothers.MOTHER_CELL);
     }
     
     public void setParentNameText(String name) {
         this.motherSelectedLabel.setText(name);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -164,6 +170,7 @@ public class moreInfoParentForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

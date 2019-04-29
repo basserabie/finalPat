@@ -233,9 +233,9 @@ public class studentsArray {
             }
         }
         String [] keysArray = keys.toArray(new String[keys.size()]);
-        for (int i = 0; i < keys.size(); i++) {
-            System.out.println(keys.get(i));
-        }
+//        for (int i = 0; i < keys.size(); i++) {
+//            System.out.println(keys.get(i));
+//        }
         System.out.println();
         return keysArray;
     }

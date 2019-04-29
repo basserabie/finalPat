@@ -823,6 +823,19 @@ public class lessonDataArray {
         return lessons;
     }
     
+    public String getDateFromKeyAndStudentID(String key, int id) {
+        keysArray ka = new keysArray();
+        String date = "";
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+            if (ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()).equals(key) &&
+                    this.lessonDataArray.get(i).getStudentID() == id) {
+                date = this.lessonDataArray.get(i).getLessonDate();
+                break;
+            }
+        }
+        return date;
+    }
+    
 }
 
 

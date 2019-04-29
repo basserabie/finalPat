@@ -223,64 +223,65 @@ public class studentsArray {
             if (la.getLessonDataArray().get(i).getStudentID() == id) {
                 //streams array of keys to check if key already is in array
                 for (int k = 0; k < keys.size(); k++) {
-                    if (ka.getKeyArray().get(i).getLessonKey().equals(keys.get(k))) {
-                        keyAlreadyIn = true;
+                    if (ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()).equals(keys.get(k))) {
+                       keyAlreadyIn = true;
                     }
                 }
                 if (keyAlreadyIn == false) {
-                    keys.add(ka.getKeyArray().get(i).getLessonKey());
+                    keys.add(ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()));
                 }
             }
         }
         String [] keysArray = keys.toArray(new String[keys.size()]);
+        for (int i = 0; i < keys.size(); i++) {
+            System.out.println(keys.get(i));
+        }
+        System.out.println();
         return keysArray;
     }
     
     public String [] lessonStringArrayFromKeyArray(int id) {
         CalendarHandler ch = new CalendarHandler();
         keysArray ka = new keysArray();
-        
+        lessonDataArray la = new lessonDataArray();
+        la.sortArray();
         String [] keys = this.lessonKeysFromStudentID(id);
         
-        
-        lessonDataArray la = new lessonDataArray();
         ArrayList<String> lessonsData = new ArrayList<>();
         String lessonIntro = "";
-        String date = "";
+        String getDate = "";
         
         if (keys.length > 0) {
             String time = "";
             String venue = "";
             String students = "";
-            //populates lessonsData with the data for all of the lessons on the selected date
+            String date = "";
+            //populates lessonsData with the data for all of the lessons for the children of the slected parent
             for (int i = 0; i < keys.length; i++) {
-                
-                for (int k = 0; k < la.getLessonDataArray().size(); k++) {
-                    if (ka.getKeyArray().get(k).getLessonKey().equals(keys[i])) {
-                        date = la.getLessonDataArray().get(i).getLessonDate();
-                    }
-                }
-                
+                getDate = la.getDateFromKeyAndStudentID(keys[i], id);
                 if (la.getFrequencyFromKey(keys[i]).equals("once-off")) {
                     lessonIntro = "This is a once-off lesson:\n";
+                    date = "Date: " + getDate + "\n";
                     time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
                     venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
-                    students = "Student(s): " + ch.studentsStringFromArray(ch.studentsFromLessonKey(keys[i], date, ch.StartTimeFromLessonKey(keys[i])));
-                    lessonsData.add(lessonIntro + time + venue + students + "\n");
+                    students = "Student(s): " + ch.studentsStringFromArray(ch.studentsFromLessonKey(getDate, ch.StartTimeFromLessonKey(keys[i])));
+                    lessonsData.add(lessonIntro + date + time + venue + students + "\n");
                 } else {
                     if (la.getFrequencyFromKey(keys[i]).equals("weekly")) {
                         lessonIntro = "This is a weekly lesson:\n";
+                        date = "Date: " + getDate + "\n";
                         time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
                         venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
-                        students = "Student(s): " + ch.studentsStringFromArray(ch.studentsFromLessonKey(keys[i], date, ch.StartTimeFromLessonKey(keys[i])));
-                        lessonsData.add(lessonIntro + time + venue + students + "\n");
+                        students = "Student(s): " + ch.studentsStringFromArray(ch.studentsFromLessonKey(getDate, ch.StartTimeFromLessonKey(keys[i])));
+                        lessonsData.add(lessonIntro + date + time + venue + students + "\n");
                     } else {
                         if (la.getFrequencyFromKey(keys[i]).equals("monthly")) {
                             lessonIntro = "This is a monthly lesson:\n";
+                            date = "Date: " + getDate + "\n";
                             time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
                             venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
-                            students = "Student(s): " + ch.studentsStringFromArray(ch.studentsFromLessonKey(keys[i], date, ch.StartTimeFromLessonKey(keys[i])));
-                            lessonsData.add(lessonIntro + time + venue + students + "\n");
+                            students = "Student(s): " + ch.studentsStringFromArray(ch.studentsFromLessonKey(getDate, ch.StartTimeFromLessonKey(keys[i])));
+                            lessonsData.add(lessonIntro + date + time + venue + students + "\n");
                         }
                     }
                 }
@@ -289,6 +290,8 @@ public class studentsArray {
             lessonsData.add("this parent's children have no lessons booked");
         }
         String lessonsStringArray [] = lessonsData.toArray(new String[lessonsData.size()]);
+        for (int i = 0; i < lessonsData.size(); i++) {
+        }
         return  lessonsStringArray;   
     }
 }

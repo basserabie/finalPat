@@ -106,6 +106,11 @@ public class mothers extends javax.swing.JFrame {
         });
 
         infoButton.setText("more info on selected parent");
+        infoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoButtonActionPerformed(evt);
+            }
+        });
 
         displayAllButton.setText("display all!");
         displayAllButton.addActionListener(new java.awt.event.ActionListener() {
@@ -226,11 +231,23 @@ public class mothers extends javax.swing.JFrame {
         if (!this.parentsTable.getSelectionModel().isSelectionEmpty()) {
             this.selectedParentLabel.setText(this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 0).toString());
             MOTHER_SELECTED = this.selectedParentLabel.getText();
-            ma.passSelectedMotherName(this.selectedParentLabel.getText());
+            ma.passSelectedMotherNameToEdit(this.selectedParentLabel.getText());
         } else {
             JOptionPane.showMessageDialog(null, "Please select a parent (row) first :)");
         }
     }//GEN-LAST:event_editButtonActionPerformed
+
+    private void infoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoButtonActionPerformed
+        moreInfoParentForm mi = new moreInfoParentForm();
+        mothersArray ma = new mothersArray();
+        if (!this.parentsTable.getSelectionModel().isSelectionEmpty()) {
+            this.selectedParentLabel.setText(this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 0).toString());
+            MOTHER_SELECTED = this.selectedParentLabel.getText();
+            ma.passSelectedMotherToInfo(this.selectedParentLabel.getText());
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a parent (row) first :)");
+        }
+    }//GEN-LAST:event_infoButtonActionPerformed
 
     /**
      * 

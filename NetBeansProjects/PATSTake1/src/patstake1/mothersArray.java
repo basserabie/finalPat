@@ -68,21 +68,6 @@ public class mothersArray {
         return name;
     }
     
-    public String [] getChildrenFromMotherNameAndGrade(String grade, String name) {
-        studentsArray sa = new studentsArray();
-        ArrayList<String> children = new ArrayList<>();
-        for (int i = 0; i < sa.getStudentArray().size(); i++) {
-            for (int k = 0; k < this.getStudentsFromMotherName(name).length; k++) {
-                if ((""+sa.getStudentArray().get(i).getGrade()).equals(grade) 
-                        && sa.studentNameFromID(sa.getStudentArray().get(i).getStudentID()) == this.getStudentsFromMotherName(name)[k]) {
-                    children.add(this.getStudentsFromMotherName(name)[k]);
-                }
-            }
-        }
-        String childrenArray [] = children.toArray(new String[children.size()]);
-        return childrenArray;
-    }
-    
     public String [] getStudentsFromMotherName(String name) {
         ArrayList<String> students = new ArrayList<>();
         studentsArray sa = new studentsArray();
@@ -109,10 +94,16 @@ public class mothersArray {
         return id;
     }
     
-    public void passSelectedMotherName(String name) {
+    public void passSelectedMotherNameToEdit(String name) {
         editMotherForm emf = new editMotherForm();
         emf.setParentNameText(name);
         emf.setVisible(true);
+    }
+    
+    public void passSelectedMotherToInfo(String name) {
+        moreInfoParentForm mi = new moreInfoParentForm();
+        mi.setParentNameText(name);
+        mi.setVisible(true);
     }
     
     public void editMother(String name, String email, String cell) {
@@ -144,4 +135,19 @@ public class mothersArray {
     }
     
     
+    
+//    public String [] getLessonsFromMotherName(String name) {
+//        lessonDataArray la = new lessonDataArray();
+//        studentsArray sa = new studentsArray();
+//        ArrayList<String> lessons = new ArrayList<>();
+//        
+//        for (int i = 0; i < this.getStudentsFromMotherName(name).length; i++) {
+//            for (int k = 0; k < la.getLessonDataArray().size(); k++) {
+//                if (la.getLessonDataArray().get(k).getStudentID() == sa.studentIDFromName(this.getStudentsFromMotherName(name)[i])) {
+//                    
+//                }
+//            }
+//        }
+//        
+//    }
 }

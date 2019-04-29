@@ -8,8 +8,10 @@ package patstake1;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showConfirmDialog;
 
@@ -207,7 +209,86 @@ public class studentsArray {
                     }
                 }
         }
+            
+    }
+
+    public String [] lessonKeysFromStudentID(int id) {
+        lessonDataArray la = new lessonDataArray();
+        keysArray ka = new keysArray();
+        boolean keyAlreadyIn = false;
+        ArrayList<String> keys = new ArrayList<>();
+        int count1 = 0;
+        
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
+            if (la.getLessonDataArray().get(i).getStudentID() == id) {
+                //streams array of keys to check if key already is in array
+                for (int k = 0; k < keys.size(); k++) {
+                    if (ka.getKeyArray().get(i).getLessonKey().equals(keys.get(k))) {
+                        keyAlreadyIn = true;
+                    }
+                }
+                if (keyAlreadyIn == false) {
+                    keys.add(ka.getKeyArray().get(i).getLessonKey());
+                }
+            }
+        }
+        String [] keysArray = keys.toArray(new String[keys.size()]);
+        return keysArray;
     }
     
-    
+    public String [] lessonStringArrayFromKeyArray(int id) {
+        CalendarHandler ch = new CalendarHandler();
+        keysArray ka = new keysArray();
+        
+        String [] keys = this.lessonKeysFromStudentID(id);
+        
+        
+        lessonDataArray la = new lessonDataArray();
+        ArrayList<String> lessonsData = new ArrayList<>();
+        String lessonIntro = "";
+        String date = "";
+        
+        if (keys.length > 0) {
+            String time = "";
+            String venue = "";
+            String students = "";
+            //populates lessonsData with the data for all of the lessons on the selected date
+            for (int i = 0; i < keys.length; i++) {
+                
+                for (int k = 0; k < la.getLessonDataArray().size(); k++) {
+                    if (ka.getKeyArray().get(k).getLessonKey().equals(keys[i])) {
+                        date = la.getLessonDataArray().get(i).getLessonDate();
+                    }
+                }
+                
+                if (la.getFrequencyFromKey(keys[i]).equals("once-off")) {
+                    lessonIntro = "This is a once-off lesson:\n";
+                    time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
+                    venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
+                    students = "Student(s): " + ch.studentsStringFromArray(ch.studentsFromLessonKey(keys[i], date, ch.StartTimeFromLessonKey(keys[i])));
+                    lessonsData.add(lessonIntro + time + venue + students + "\n");
+                } else {
+                    if (la.getFrequencyFromKey(keys[i]).equals("weekly")) {
+                        lessonIntro = "This is a weekly lesson:\n";
+                        time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
+                        venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
+                        students = "Student(s): " + ch.studentsStringFromArray(ch.studentsFromLessonKey(keys[i], date, ch.StartTimeFromLessonKey(keys[i])));
+                        lessonsData.add(lessonIntro + time + venue + students + "\n");
+                    } else {
+                        if (la.getFrequencyFromKey(keys[i]).equals("monthly")) {
+                            lessonIntro = "This is a monthly lesson:\n";
+                            time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
+                            venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
+                            students = "Student(s): " + ch.studentsStringFromArray(ch.studentsFromLessonKey(keys[i], date, ch.StartTimeFromLessonKey(keys[i])));
+                            lessonsData.add(lessonIntro + time + venue + students + "\n");
+                        }
+                    }
+                }
+            }
+        } else {
+            lessonsData.add("this parent's children have no lessons booked");
+        }
+        String lessonsStringArray [] = lessonsData.toArray(new String[lessonsData.size()]);
+        return  lessonsStringArray;   
+    }
 }

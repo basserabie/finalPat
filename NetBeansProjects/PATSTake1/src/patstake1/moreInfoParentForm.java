@@ -24,14 +24,11 @@ public class moreInfoParentForm extends javax.swing.JFrame {
         //populate the lessonList
         populateComboBoxes pop = new populateComboBoxes();
         DefaultListModel lessonListModel = new DefaultListModel();
-        for (int i = 0; i < pop.getLessonsFromMotherName(MOTHER_SELECTED).length; i++) {
-            lessonListModel.addElement(pop.getLessonsFromMotherName(MOTHER_SELECTED)[i]);
+        for (int i = 0; i < pop.getLessonsFromMotherName(this.motherSelectedLabel.getText()).length; i++) {
+            lessonListModel.addElement(pop.getLessonsFromMotherName(this.motherSelectedLabel.getText())[i]);
         }
         this.lessonList.setModel(lessonListModel);
-        //populate the email label
-        this.emailLabel.setText(MOTHER_EMAIL);
-        //populates the cell label
-        this.cellLabel.setText(MOTHER_CELL);
+        
     }
     
     public void setParentNameText(String name) {

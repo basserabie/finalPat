@@ -65,12 +65,18 @@ public class schoolsArray {
     }
     
     public void deleteSchool(String school) {
-        ConnectDB db = new ConnectDB();
-        String delete = "DELETE * FROM schools WHERE schoolName = '" + school + "'";
-        try {
-            db.UpdateDatabase(delete);
-        } catch (SQLException ex) {
-            Logger.getLogger(schoolsArray.class.getName()).log(Level.SEVERE, null, ex);
+        int yes = JOptionPane.YES_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "are you sure you want to delete this school?", "delete school confirmation", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == yes) {
+            ConnectDB db = new ConnectDB();
+            String delete = "DELETE * FROM schools WHERE schoolName = '" + school + "'";
+            try {
+                db.UpdateDatabase(delete);
+            } catch (SQLException ex) {
+                Logger.getLogger(schoolsArray.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "School information not deleted");
         }
     }
     

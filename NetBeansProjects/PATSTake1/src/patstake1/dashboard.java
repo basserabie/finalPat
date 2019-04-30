@@ -250,13 +250,11 @@ public class dashboard extends javax.swing.JFrame {
 
     private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentButtonActionPerformed
        addStudentForm add = new addStudentForm();
-       this.hide();
        add.setVisible(true);
     }//GEN-LAST:event_addStudentButtonActionPerformed
 
     private void addschoolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addschoolButtonActionPerformed
         addSchoolForm add = new addSchoolForm();
-        this.hide();
         add.setVisible(true);
     }//GEN-LAST:event_addschoolButtonActionPerformed
 

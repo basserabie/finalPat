@@ -230,13 +230,10 @@ public class studentsArray {
                 if (keyAlreadyIn == false) {
                     keys.add(ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()));
                 }
+                keyAlreadyIn = false;
             }
         }
         String [] keysArray = keys.toArray(new String[keys.size()]);
-//        for (int i = 0; i < keys.size(); i++) {
-//            System.out.println(keys.get(i));
-//        }
-        System.out.println();
         return keysArray;
     }
     
@@ -264,7 +261,7 @@ public class studentsArray {
                     date = "Date: " + getDate + "\n";
                     time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
                     venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
-                    students = "Student(s): " + ch.studentsStringFromArray(ch.studentsFromLessonKey(getDate, ch.StartTimeFromLessonKey(keys[i])));
+                    students = "Student(s): " + ch.studentsStringFromArrayForParent(ch.studentsFromLessonKey(getDate, ch.StartTimeFromLessonKey(keys[i])));
                     lessonsData.add(lessonIntro + date + time + venue + students + "\n");
                 } else {
                     if (la.getFrequencyFromKey(keys[i]).equals("weekly")) {
@@ -272,7 +269,7 @@ public class studentsArray {
                         date = "Date: " + getDate + "\n";
                         time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
                         venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
-                        students = "Student(s): " + ch.studentsStringFromArray(ch.studentsFromLessonKey(getDate, ch.StartTimeFromLessonKey(keys[i])));
+                        students = "Student(s): " + ch.studentsStringFromArrayForParent(ch.studentsFromLessonKey(getDate, ch.StartTimeFromLessonKey(keys[i])));
                         lessonsData.add(lessonIntro + date + time + venue + students + "\n");
                     } else {
                         if (la.getFrequencyFromKey(keys[i]).equals("monthly")) {
@@ -280,7 +277,7 @@ public class studentsArray {
                             date = "Date: " + getDate + "\n";
                             time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
                             venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
-                            students = "Student(s): " + ch.studentsStringFromArray(ch.studentsFromLessonKey(getDate, ch.StartTimeFromLessonKey(keys[i])));
+                            students = "Student(s): " + ch.studentsStringFromArrayForParent(ch.studentsFromLessonKey(getDate, ch.StartTimeFromLessonKey(keys[i])));
                             lessonsData.add(lessonIntro + date + time + venue + students + "\n");
                         }
                     }

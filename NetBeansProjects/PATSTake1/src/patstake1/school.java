@@ -5,12 +5,16 @@
  */
 package patstake1;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author YishaiBasserabie
  */
 public class school extends javax.swing.JFrame {
 
+    static String SCHOOL;
+    
     /**
      * Creates new form school
      */
@@ -18,7 +22,6 @@ public class school extends javax.swing.JFrame {
         initComponents();
         //TODO: why the fuck wont it work from schoolsArray class
         populateComboBoxes pop = new populateComboBoxes();
-        ConnectDB db = new ConnectDB();
         this.schoolsTable.setModel(pop.schools());
     }
 
@@ -120,7 +123,16 @@ public class school extends javax.swing.JFrame {
     }//GEN-LAST:event_backToDashboardActionPerformed
 
     private void deleteSchoolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSchoolButtonActionPerformed
-
+        populateComboBoxes pop = new populateComboBoxes();
+        schoolsArray sa = new schoolsArray();
+        if (!this.schoolsTable.getSelectionModel().isSelectionEmpty()) {
+            SCHOOL = this.schoolsTable.getModel().getValueAt(this.schoolsTable.getSelectedRow(), 0).toString();
+            sa.deleteSchool(SCHOOL);
+            this.schoolsTable.setModel(pop.schools());
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a school first");
+        }
+        
     }//GEN-LAST:event_deleteSchoolButtonActionPerformed
 
     /**

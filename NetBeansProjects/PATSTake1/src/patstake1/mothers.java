@@ -82,6 +82,11 @@ public class mothers extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        parentsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                parentsTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(parentsTable);
 
         jLabel2.setText("search parent by:");
@@ -231,11 +236,7 @@ public class mothers extends javax.swing.JFrame {
         mothersArray ma = new mothersArray();
         editMotherForm emf = new editMotherForm();
         if (!this.parentsTable.getSelectionModel().isSelectionEmpty()) {
-            this.selectedParentLabel.setText(this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 0).toString());
-            MOTHER_EMAIL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 1).toString();
-            MOTHER_CELL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 2).toString();
-            MOTHER_SELECTED = this.selectedParentLabel.getText();
-            ma.passSelectedMotherNameToEdit(this.selectedParentLabel.getText());
+            ma.passSelectedMotherNameToEdit(MOTHER_SELECTED);
         } else {
             JOptionPane.showMessageDialog(null, "Please select a parent (row) first :)");
         }
@@ -245,16 +246,18 @@ public class mothers extends javax.swing.JFrame {
         moreInfoParentForm mi = new moreInfoParentForm();
         mothersArray ma = new mothersArray();
         if (!this.parentsTable.getSelectionModel().isSelectionEmpty()) {
-            this.selectedParentLabel.setText(this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 0).toString());
-            MOTHER_EMAIL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 1).toString();
-            MOTHER_CELL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 2).toString();
-            MOTHER_SELECTED = this.selectedParentLabel.getText();
-            System.out.println("mothers: " + MOTHER_CELL + "   " + MOTHER_EMAIL);
-            ma.passSelectedMotherToInfo(this.selectedParentLabel.getText());
+            ma.passSelectedMotherToInfo(MOTHER_SELECTED);
         } else {
             JOptionPane.showMessageDialog(null, "Please select a parent (row) first :)");
         }
     }//GEN-LAST:event_infoButtonActionPerformed
+
+    private void parentsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_parentsTableMouseClicked
+            MOTHER_EMAIL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 1).toString();
+            MOTHER_CELL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 2).toString();
+            MOTHER_SELECTED = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 0).toString();
+            this.selectedParentLabel.setText(MOTHER_SELECTED);
+    }//GEN-LAST:event_parentsTableMouseClicked
 
     /**
      * 

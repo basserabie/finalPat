@@ -140,6 +140,14 @@ public class CalendarHandler {
         return students;
     }
     
+    public String studentsStringFromArrayForParent(String [] studentsArray) {
+        String students = "";
+        for (int i = 0; i < studentsArray.length; i++) {
+            students += studentsArray[i] + ", ";
+        }
+        return students;
+    }
+    
     public String getKeyFromPositionInDayAndDate(int index, String date) {
         String key = "";
         for (int i = 0; i < this.keysOnDay(date).length; i++) {

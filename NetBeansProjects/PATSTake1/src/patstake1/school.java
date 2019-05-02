@@ -5,6 +5,7 @@
  */
 package patstake1;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,9 +21,12 @@ public class school extends javax.swing.JFrame {
      */
     public school() {
         initComponents();
-        //TODO: why the fuck wont it work from schoolsArray class
+        //populates school table
         populateComboBoxes pop = new populateComboBoxes();
         this.schoolsTable.setModel(pop.schools());
+        //populates filter type comboBox
+        DefaultComboBoxModel filterType = new DefaultComboBoxModel(pop.populateSchoolFilterTypeComboBox());
+        this.filterComboBox.setModel(filterType);
     }
 
     /**
@@ -43,7 +47,6 @@ public class school extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         filterComboBox = new javax.swing.JComboBox<>();
         searchTextField = new javax.swing.JTextField();
-        searchButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,7 +85,11 @@ public class school extends javax.swing.JFrame {
 
         filterComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        searchButton.setText("search!");
+        searchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchTextFieldKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,9 +117,7 @@ public class school extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(searchTextField)
-                            .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
+                        .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -133,9 +138,7 @@ public class school extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
                 .addGap(14, 14, 14))
         );
 
@@ -161,6 +164,21 @@ public class school extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_deleteSchoolButtonActionPerformed
+
+    private void searchTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyTyped
+        populateComboBoxes pop = new populateComboBoxes();
+        switch (this.filterComboBox.getSelectedItem().toString()) {
+            case "school name":
+                this.schoolsTable.setModel(pop.schoolsByName(this.searchTextField.getText()));
+                break;
+            case "principal name":
+                this.schoolsTable.setModel(pop.schoolsByPrincipalName(this.searchTextField.getText()));
+                break;
+            case "student name":
+                this.schoolsTable.setModel(pop.schoolsByStudentName(this.searchTextField.getText()));
+                break;
+        }
+    }//GEN-LAST:event_searchTextFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -206,7 +224,6 @@ public class school extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable schoolsTable;
-    private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchTextField;
     // End of variables declaration//GEN-END:variables
 }

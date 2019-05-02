@@ -80,4 +80,14 @@ public class schoolsArray {
         }
     }
     
+    public int getSchoolIDFromName(String name) {
+        int id = 0;
+        for (int i = 0; i < this.schoolsDataArray.size(); i++) {
+            if (this.schoolsDataArray.get(i).getSchoolName().equals(name)) {
+                id = this.schoolsDataArray.get(i).getSchoolID();
+            }
+        }
+        return id;
+    }
+    
 }

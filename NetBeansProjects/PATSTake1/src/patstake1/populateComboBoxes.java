@@ -29,6 +29,11 @@ public class populateComboBoxes {
         return types;
     }
     
+    public String [] populateSchoolFilterTypeComboBox() {
+        String types [] = {"school name", "principle name", "student name"};
+        return types;
+    }
+    
     //populates schools combo boxes
     public String [] populateSchools() {
         schoolsArray sa = new schoolsArray();
@@ -82,6 +87,19 @@ public class populateComboBoxes {
                 lessons.add(sa.lessonStringArrayFromKeyArray(sa.studentIDFromName(ma.getStudentsFromMotherName(name)[i]))[k]);
             }     
         }
+        String StringLessonDataArray [] = lessons.toArray(new String[lessons.size()]);
+        return StringLessonDataArray;
+    }
+    
+    //populates a list of lessons from a given student name
+    public String [] getLessonsFromStudentName(String name) {
+        studentsArray sa = new studentsArray();
+        lessonDataArray la = new lessonDataArray();
+        ArrayList<String> lessons = new ArrayList<>();
+        
+            for (int k = 0; k < sa.lessonKeysFromStudentID(sa.studentIDFromName(name)).length; k++) {
+                lessons.add(sa.lessonStringArrayFromKeyArray(sa.studentIDFromName(name))[k]);
+            }     
         String StringLessonDataArray [] = lessons.toArray(new String[lessons.size()]);
         return StringLessonDataArray;
     }
@@ -148,6 +166,58 @@ public class populateComboBoxes {
         return model;
      }
     
+    public DefaultTableModel schoolsByName(String name) {
+         schoolsArray sa = new schoolsArray();
+         DefaultTableModel model = null;
+         Object columnNames[] = {"school", "principal", "principal emial"};
+         model = new DefaultTableModel(columnNames, 0);
+         for (int i = 0; i < sa.getSchoolsDataArray().size(); i++) {
+             String school = sa.getSchoolsDataArray().get(i).getSchoolName();
+             String principal = sa.getSchoolsDataArray().get(i).getPFName() + " " + sa.getSchoolsDataArray().get(i).getPLName();
+             String email = sa.getSchoolsDataArray().get(i).getPEmail();
+             
+             if (school.toLowerCase().startsWith(name.toLowerCase())) {
+                 model.addRow(new Object[] {school, principal, email});
+             }
+         }
+        return model;
+     }
+    
+    public DefaultTableModel schoolsByPrincipalName(String name) {
+         schoolsArray sa = new schoolsArray();
+         DefaultTableModel model = null;
+         Object columnNames[] = {"school", "principal", "principal emial"};
+         model = new DefaultTableModel(columnNames, 0);
+         for (int i = 0; i < sa.getSchoolsDataArray().size(); i++) {
+             String school = sa.getSchoolsDataArray().get(i).getSchoolName();
+             String principal = sa.getSchoolsDataArray().get(i).getPFName() + " " + sa.getSchoolsDataArray().get(i).getPLName();
+             String email = sa.getSchoolsDataArray().get(i).getPEmail();
+             
+             if (principal.toLowerCase().startsWith(name.toLowerCase())) {
+                 model.addRow(new Object[] {school, principal, email});
+             }
+         }
+        return model;
+     }
+    
+    public DefaultTableModel schoolsByStudentName(String name) {
+         studentsArray sta = new studentsArray();
+         schoolsArray sa = new schoolsArray();
+         DefaultTableModel model = null;
+         Object columnNames[] = {"school", "principal", "principal emial"};
+         model = new DefaultTableModel(columnNames, 0);
+         for (int i = 0; i < sa.getSchoolsDataArray().size(); i++) {
+             String school = sa.getSchoolsDataArray().get(i).getSchoolName();
+             String principal = sa.getSchoolsDataArray().get(i).getPFName() + " " + sa.getSchoolsDataArray().get(i).getPLName();
+             String email = sa.getSchoolsDataArray().get(i).getPEmail();
+             
+             if (sa.getSchoolNameFromID(sta.schoolIDFromStudentName(name)).toLowerCase().equals(name.toLowerCase())) {
+                 model.addRow(new Object[] {school, principal, email});
+             }
+         }
+        return model;
+     }
+    
     public DefaultTableModel Lessons() {
         lessonDataArray la = new lessonDataArray();
         venueArray va = new venueArray();
@@ -175,9 +245,13 @@ public class populateComboBoxes {
         mothersArray ma = new mothersArray();
         studentsArray sa = new studentsArray();
         DefaultTableModel model = null;
-        Object columnNames[] = {"student ID","student name", "grade", "school", "parent name", "upcoming-lesson date", 
-            "upcoming-lesson time", "upcoming-lesson venue", "upcoming-Lesson Day"};
+        Object columnNames[] = {"student name", "grade", "school", "parent name", "upcoming-lesson date", 
+            "time", "venue", "Day"};
         model = new DefaultTableModel(columnNames, 0);
+        
+        String upcomingLessonVenue = "";
+        String upcomingLessonDay = "";
+        
         for (int i = 0; i < sa.getStudentArray().size(); i++) {
             
             int StudentID = sa.getStudentArray().get(i).getStudentID();
@@ -187,11 +261,17 @@ public class populateComboBoxes {
             String motherName = ma.getMotherNameFromStudentID(StudentID);
             String upcomingLessonDate = la.upcomingDate(StudentID);
             String upcomingLessonTime = la.upcomingTime(StudentID, upcomingLessonDate);
-            String upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
-            String upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, upcomingLessonTime);
+            if (!upcomingLessonTime.equals("N/A")) {
+                String testOtherFieldsAgainstTime = upcomingLessonTime.substring(0, 5);
+                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
+                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
+            } else {
+                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
+                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, upcomingLessonTime);
+            }
             
             if (motherName.toLowerCase().startsWith(name.toLowerCase())) {
-                model.addRow(new Object[] {StudentID, StudentName, grade, school, motherName, upcomingLessonDate, 
+                model.addRow(new Object[] {StudentName, grade, school, motherName, upcomingLessonDate, 
                     upcomingLessonTime, upcomingLessonVenue, upcomingLessonDay});
             }
         }
@@ -206,9 +286,13 @@ public class populateComboBoxes {
         mothersArray ma = new mothersArray();
         studentsArray sa = new studentsArray();
         DefaultTableModel model = null;
-        Object columnNames[] = {"student ID","student name", "grade", "school", "parent name", "upcoming-lesson date", 
+        Object columnNames[] = {"student name", "grade", "school", "parent name", "upcoming-lesson date", 
             "upcoming-lesson time", "upcoming-lesson venue", "upcoming-Lesson Day"};
         model = new DefaultTableModel(columnNames, 0);
+        
+        String upcomingLessonVenue = "";
+        String upcomingLessonDay = "";
+        
         for (int i = 0; i < sa.getStudentArray().size(); i++) {
             
             int StudentID = sa.getStudentArray().get(i).getStudentID();
@@ -218,11 +302,17 @@ public class populateComboBoxes {
             String motherName = ma.getMotherNameFromStudentID(StudentID);
             String upcomingLessonDate = la.upcomingDate(StudentID);
             String upcomingLessonTime = la.upcomingTime(StudentID, upcomingLessonDate);
-            String upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
-            String upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, upcomingLessonTime);
+            if (!upcomingLessonTime.equals("N/A")) {
+                String testOtherFieldsAgainstTime = upcomingLessonTime.substring(0, 5);
+                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
+                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
+            } else {
+                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
+                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, upcomingLessonTime);
+            }
             
             if (grade.equals(inputtedGrade)) {
-                model.addRow(new Object[] {StudentID, StudentName, grade, school, motherName, upcomingLessonDate, 
+                model.addRow(new Object[] {StudentName, grade, school, motherName, upcomingLessonDate, 
                     upcomingLessonTime, upcomingLessonVenue, upcomingLessonDay});
             }
         }
@@ -237,9 +327,13 @@ public class populateComboBoxes {
         mothersArray ma = new mothersArray();
         studentsArray sa = new studentsArray();
         DefaultTableModel model = null;
-        Object columnNames[] = {"student ID","student name", "grade", "school", "parent name", "upcoming-lesson date", 
+        Object columnNames[] = {"student name", "grade", "school", "parent name", "upcoming-lesson date", 
             "upcoming-lesson time", "upcoming-lesson venue", "upcoming-Lesson Day"};
         model = new DefaultTableModel(columnNames, 0);
+        
+        String upcomingLessonVenue = "";
+        String upcomingLessonDay = "";
+        
         for (int i = 0; i < sa.getStudentArray().size(); i++) {
             
             int StudentID = sa.getStudentArray().get(i).getStudentID();
@@ -249,11 +343,17 @@ public class populateComboBoxes {
             String motherName = ma.getMotherNameFromStudentID(StudentID);
             String upcomingLessonDate = la.upcomingDate(StudentID);
             String upcomingLessonTime = la.upcomingTime(StudentID, upcomingLessonDate);
-            String upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
-            String upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, upcomingLessonTime);
+            if (!upcomingLessonTime.equals("N/A")) {
+                String testOtherFieldsAgainstTime = upcomingLessonTime.substring(0, 5);
+                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
+                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
+            } else {
+                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
+                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, upcomingLessonTime);
+            }
             
             if (school.toLowerCase().startsWith(inputtedSchool.toLowerCase())) {
-                model.addRow(new Object[] {StudentID, StudentName, grade, school, motherName, upcomingLessonDate, 
+                model.addRow(new Object[] {StudentName, grade, school, motherName, upcomingLessonDate, 
                     upcomingLessonTime, upcomingLessonVenue, upcomingLessonDay});
             }
         }
@@ -268,9 +368,13 @@ public class populateComboBoxes {
         mothersArray ma = new mothersArray();
         studentsArray sa = new studentsArray();
         DefaultTableModel model = null;
-        Object columnNames[] = {"student ID","student name", "grade", "school", "parent name", "upcoming-lesson date", 
+        Object columnNames[] = {"student name", "grade", "school", "parent name", "upcoming-lesson date", 
             "upcoming-lesson time", "upcoming-lesson venue", "upcoming-Lesson Day"};
         model = new DefaultTableModel(columnNames, 0);
+        
+        String upcomingLessonVenue = "";
+        String upcomingLessonDay = "";
+        
         for (int i = 0; i < sa.getStudentArray().size(); i++) {
             
             int StudentID = sa.getStudentArray().get(i).getStudentID();
@@ -280,11 +384,17 @@ public class populateComboBoxes {
             String motherName = ma.getMotherNameFromStudentID(StudentID);
             String upcomingLessonDate = la.upcomingDate(StudentID);
             String upcomingLessonTime = la.upcomingTime(StudentID, upcomingLessonDate);
-            String upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
-            String upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, upcomingLessonTime);
+            if (!upcomingLessonTime.equals("N/A")) {
+                String testOtherFieldsAgainstTime = upcomingLessonTime.substring(0, 5);
+                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
+                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
+            } else {
+                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
+                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, upcomingLessonTime);
+            }
             
             if (StudentName.toLowerCase().startsWith(name.toLowerCase())) {
-                model.addRow(new Object[] {StudentID, StudentName, grade, school, motherName, upcomingLessonDate, 
+                model.addRow(new Object[] {StudentName, grade, school, motherName, upcomingLessonDate, 
                     upcomingLessonTime, upcomingLessonVenue, upcomingLessonDay});
             }
         }
@@ -299,10 +409,15 @@ public class populateComboBoxes {
         mothersArray ma = new mothersArray();
         studentsArray sa = new studentsArray();
         DefaultTableModel model = null;
-        Object columnNames[] = {"student ID","student name", "grade", "school", "parent name", "upcoming-lesson date", 
+        Object columnNames[] = {"student name", "grade", "school", "parent name", "upcoming-lesson date", 
             "upcoming-lesson time", "upcoming-lesson venue", "upcoming-Lesson Day"};
         model = new DefaultTableModel(columnNames, 0);
+        
+        String upcomingLessonVenue = "";
+        String upcomingLessonDay = "";
+        
         for (int i = 0; i < sa.getStudentArray().size(); i++) {
+            
             int StudentID = sa.getStudentArray().get(i).getStudentID();
             String StudentName = sa.studentNameFromID(StudentID);
             String grade = sa.getStudentArray().get(i).getGrade();
@@ -310,12 +425,55 @@ public class populateComboBoxes {
             String motherName = ma.getMotherNameFromStudentID(StudentID);
             String upcomingLessonDate = la.upcomingDate(StudentID);
             String upcomingLessonTime = la.upcomingTime(StudentID, upcomingLessonDate);
-            String upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
-            String upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, upcomingLessonTime);
+            if (!upcomingLessonTime.equals("N/A")) {
+                String testOtherFieldsAgainstTime = upcomingLessonTime.substring(0, 5);
+                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
+                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
+            } else {
+                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
+                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, upcomingLessonTime);
+            }
             
-            model.addRow(new Object[] {StudentID, StudentName, grade, school, motherName, upcomingLessonDate, 
+            model.addRow(new Object[] {StudentName, grade, school, motherName, upcomingLessonDate, 
                 upcomingLessonTime, upcomingLessonVenue, upcomingLessonDay});
         }
+        return model;
+     }
+    
+    public DefaultTableModel StudentInfo(int id) {
+        lessonDataArray la = new lessonDataArray();
+        schoolsArray sca = new schoolsArray();
+        venueArray va = new venueArray();
+        mothersArray ma = new mothersArray();
+        studentsArray sa = new studentsArray();
+        DefaultTableModel model = null;
+        Object columnNames[] = {"student name", "grade", "school", "parent name", "upcoming-lesson date", 
+            "upcoming-lesson time", "upcoming-lesson venue", "upcoming-Lesson Day"};
+        int index = sa.StudentIndexFromStudentID(id);
+        model = new DefaultTableModel(columnNames, 0);
+           
+        String upcomingLessonVenue = "";
+        String upcomingLessonDay = "";
+            
+            int StudentID = sa.getStudentArray().get(index).getStudentID();
+            System.out.println("id: " + StudentID);
+            System.out.println("index: " + index);
+            String StudentName = sa.studentNameFromID(StudentID);
+            String grade = sa.getStudentArray().get(index).getGrade();
+            String school = sca.getSchoolNameFromID(sa.getStudentArray().get(index).getSchoolID());
+            String motherName = ma.getMotherNameFromStudentID(StudentID);
+            String upcomingLessonDate = la.upcomingDate(StudentID);
+            String upcomingLessonTime = la.upcomingTime(StudentID, upcomingLessonDate);
+            if (!upcomingLessonTime.equals("N/A")) {
+                String testOtherFieldsAgainstTime = upcomingLessonTime.substring(0, 5);
+                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
+                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
+            } else {
+                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
+                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, upcomingLessonTime);
+            }
+            model.addRow(new Object[] {StudentName, grade, school, motherName, upcomingLessonDate, 
+                upcomingLessonTime, upcomingLessonVenue, upcomingLessonDay});
         return model;
      }
     

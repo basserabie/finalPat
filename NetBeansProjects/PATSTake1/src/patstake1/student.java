@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import static patstake1.mothers.MOTHER_SELECTED;
 
 /**
  *
@@ -16,6 +19,8 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class student extends javax.swing.JFrame {
 
+    public static String STUDENT_NAME;
+    
     /**
      * Creates new form student
      */
@@ -26,6 +31,10 @@ public class student extends javax.swing.JFrame {
         this.studentTable.setAutoCreateRowSorter(true);
         DefaultComboBoxModel filterTypeModel = new DefaultComboBoxModel(pop.populateStudentFilterTypeComboBox());
         this.filterTypeComboBox.setModel(filterTypeModel);
+    }
+    
+    public void setTableModel(DefaultTableModel model) {
+        this.studentTable.setModel(model);
     }
 
     /**
@@ -43,7 +52,6 @@ public class student extends javax.swing.JFrame {
         studentTable = new javax.swing.JTable();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         searchTextField = new javax.swing.JTextField();
-        searchButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         filterTypeComboBox = new javax.swing.JComboBox<>();
         deleteSelectedLessonButton = new javax.swing.JButton();
@@ -73,14 +81,18 @@ public class student extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        studentTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(studentTable);
 
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        searchButton.setText("search!");
-        searchButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchButtonActionPerformed(evt);
+        searchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchTextFieldKeyTyped(evt);
             }
         });
 
@@ -89,7 +101,6 @@ public class student extends javax.swing.JFrame {
         filterTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLayeredPane1.setLayer(searchTextField, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(searchButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(filterTypeComboBox, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -104,9 +115,7 @@ public class student extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(filterTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(searchButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(searchTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jLayeredPane1Layout.setVerticalGroup(
@@ -118,9 +127,7 @@ public class student extends javax.swing.JFrame {
                 .addComponent(filterTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchButton)
-                .addContainerGap())
+                .addGap(10, 10, 10))
         );
 
         deleteSelectedLessonButton.setText("delete selected student");
@@ -215,31 +222,18 @@ public class student extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_backToDashboardActionPerformed
 
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        populateComboBoxes pop = new populateComboBoxes();
-        switch (this.filterTypeComboBox.getSelectedItem().toString()) {
-            case "Student Name":
-                this.studentTable.setModel(pop.StudentsByName(this.searchTextField.getText()));
-                break;
-            case "Mother Name":
-                this.studentTable.setModel(pop.StudentsByMotherName(this.searchTextField.getText()));
-                break;
-            case "School":
-                this.studentTable.setModel(pop.StudentsBySchool(this.searchTextField.getText()));
-                break;
-            case "Grade":
-                this.studentTable.setModel(pop.StudentsByGrade(this.searchTextField.getText()));
-                break;
-        }
-    }//GEN-LAST:event_searchButtonActionPerformed
-
     private void displayAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayAllButtonActionPerformed
         populateComboBoxes pop = new populateComboBoxes();
         this.studentTable.setModel(pop.Students());
     }//GEN-LAST:event_displayAllButtonActionPerformed
 
     private void editStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editStudentButtonActionPerformed
-        
+        editStudentForm esf = new editStudentForm();
+        if (!this.studentTable.getSelectionModel().isSelectionEmpty()) {
+            esf.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a student (row) first :)");
+        }
     }//GEN-LAST:event_editStudentButtonActionPerformed
 
     private void deleteSelectedLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSelectedLessonButtonActionPerformed
@@ -256,8 +250,35 @@ public class student extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteSelectedLessonButtonActionPerformed
 
     private void infoOnSelectedLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoOnSelectedLessonButtonActionPerformed
-        // TODO add your handling code here:
+        MoreInfoStudentForm misf = new MoreInfoStudentForm();
+        if (!this.studentTable.getSelectionModel().isSelectionEmpty()) {
+            misf.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a student (row) first :)");
+        }
     }//GEN-LAST:event_infoOnSelectedLessonButtonActionPerformed
+
+    private void studentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentTableMouseClicked
+        STUDENT_NAME = this.studentTable.getModel().getValueAt(this.studentTable.getSelectedRow(), 0).toString();
+    }//GEN-LAST:event_studentTableMouseClicked
+
+    private void searchTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyTyped
+        populateComboBoxes pop = new populateComboBoxes();
+        switch (this.filterTypeComboBox.getSelectedItem().toString()) {
+            case "Student Name":
+                this.studentTable.setModel(pop.StudentsByName(this.searchTextField.getText()));
+                break;
+            case "Mother Name":
+                this.studentTable.setModel(pop.StudentsByMotherName(this.searchTextField.getText()));
+                break;
+            case "School":
+                this.studentTable.setModel(pop.StudentsBySchool(this.searchTextField.getText()));
+                break;
+            case "Grade":
+                this.studentTable.setModel(pop.StudentsByGrade(this.searchTextField.getText()));
+                break;
+        }
+    }//GEN-LAST:event_searchTextFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -305,7 +326,6 @@ public class student extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchTextField;
     private javax.swing.JTable studentTable;
     // End of variables declaration//GEN-END:variables

@@ -157,7 +157,7 @@ public class editMotherForm extends javax.swing.JFrame {
         }
         ma.editMother(mothers.MOTHER_SELECTED, this.newEmailTextField.getText(), this.newCellTextField.getText());
         JOptionPane.showMessageDialog(null, "information updated");
-        m.resetTable(pop.parents());
+        m.setTableModelTable(pop.parents());
         this.setVisible(false);
     }//GEN-LAST:event_confirmUpdateButtonActionPerformed
 

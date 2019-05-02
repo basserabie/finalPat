@@ -753,7 +753,7 @@ public class lessonDataArray {
             String time = "";
         for (int i = 0; i < this.lessonDataArray.size(); i++) {
             if (upcomingDate.equals(this.lessonDataArray.get(i).getLessonDate()) && studentID == this.lessonDataArray.get(i).getStudentID()) {
-                time = this.lessonDataArray.get(i).getLessonTime();
+                time = this.lessonDataArray.get(i).getLessonTime() + " - " +  this.getEndTime(this.lessonDataArray.get(i).getLessonTime(), this.lessonDataArray.get(i).getLessonDuration());
             }
         }
         return time;

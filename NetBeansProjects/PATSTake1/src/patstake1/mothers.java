@@ -31,11 +31,10 @@ public class mothers extends javax.swing.JFrame {
     }
     
 
-    public void resetTable(DefaultTableModel model) {
+    public void setTableModelTable(DefaultTableModel model) {
         this.parentsTable.setModel(model);
     }
     
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,7 +51,6 @@ public class mothers extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         filterTypeComboBox = new javax.swing.JComboBox<>();
         searchTextField = new javax.swing.JTextField();
-        filterButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
         infoButton = new javax.swing.JButton();
         displayAllButton = new javax.swing.JButton();
@@ -98,10 +96,12 @@ public class mothers extends javax.swing.JFrame {
             }
         });
 
-        filterButton.setText("filter");
-        filterButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filterButtonActionPerformed(evt);
+        searchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchTextFieldKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchTextFieldKeyPressed(evt);
             }
         });
 
@@ -141,13 +141,13 @@ public class mothers extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(filterTypeComboBox, 0, 184, Short.MAX_VALUE)
-                            .addComponent(searchTextField))
-                        .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(filterTypeComboBox, 0, 184, Short.MAX_VALUE)
+                                    .addComponent(searchTextField))
+                                .addGap(37, 37, 37)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -156,19 +156,15 @@ public class mothers extends javax.swing.JFrame {
                                     .addComponent(contactButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(displayAllButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(selectedParentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 183, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(backToDashboard)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(filterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(backToDashboard)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -191,9 +187,8 @@ public class mothers extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(contactButton)
                         .addComponent(infoButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(filterButton)
                     .addComponent(jLabel3)
                     .addComponent(selectedParentLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -214,18 +209,6 @@ public class mothers extends javax.swing.JFrame {
     private void filterTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterTypeComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_filterTypeComboBoxActionPerformed
-
-    private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterButtonActionPerformed
-        populateComboBoxes pop = new populateComboBoxes();
-        switch (this.filterTypeComboBox.getSelectedItem().toString()) {
-            case "Parent Name":
-                this.parentsTable.setModel(pop.parentsByParentName(this.searchTextField.getText()));
-                break;
-            case "Child Name":
-                this.parentsTable.setModel(pop.parentsByChildName(this.searchTextField.getText()));
-                break;
-        }
-    }//GEN-LAST:event_filterButtonActionPerformed
 
     private void displayAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayAllButtonActionPerformed
         populateComboBoxes pop = new populateComboBoxes();
@@ -258,6 +241,21 @@ public class mothers extends javax.swing.JFrame {
             MOTHER_SELECTED = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 0).toString();
             this.selectedParentLabel.setText(MOTHER_SELECTED);
     }//GEN-LAST:event_parentsTableMouseClicked
+
+    private void searchTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyTyped
+        
+    }//GEN-LAST:event_searchTextFieldKeyTyped
+
+    private void searchTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyPressed
+        populateComboBoxes pop = new populateComboBoxes();
+        switch (this.filterTypeComboBox.getSelectedItem().toString()) {
+            case "Child Name":
+                this.parentsTable.setModel(pop.parentsByChildName(this.searchTextField.getText()));
+                break;
+            case "Parent Name":
+                this.parentsTable.setModel(pop.parentsByParentName(this.searchTextField.getText()));
+        }
+    }//GEN-LAST:event_searchTextFieldKeyPressed
 
     /**
      * 
@@ -300,7 +298,6 @@ public class mothers extends javax.swing.JFrame {
     private javax.swing.JButton contactButton;
     private javax.swing.JButton displayAllButton;
     private javax.swing.JButton editButton;
-    private javax.swing.JButton filterButton;
     private javax.swing.JComboBox<String> filterTypeComboBox;
     private javax.swing.JButton infoButton;
     private javax.swing.JLabel jLabel1;

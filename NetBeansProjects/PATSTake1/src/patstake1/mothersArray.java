@@ -50,7 +50,7 @@ public class mothersArray {
         studentsArray sa = new studentsArray();
         String name = "";
         for (int i = 0; i < this.mothersArray.size(); i++) {
-            if (sa.getStudentArray().get(sa.StudentIndexFromID(id)).getMotherID() == this.mothersArray.get(i).getMotherID()) {
+            if (sa.getStudentArray().get(sa.StudentIndexFromMotherID(id)).getMotherID() == this.mothersArray.get(i).getMotherID()) {
                 name = this.mothersArray.get(i).getMotherFName() + " " + this.mothersArray.get(i).getMotherLName();
             }
         }

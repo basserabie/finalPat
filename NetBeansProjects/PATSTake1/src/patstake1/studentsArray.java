@@ -29,7 +29,7 @@ public class studentsArray {
         ResultSet r = db.getResults("SELECT * FROM sDetTable");
         try {
             while(r.next()) {
-                fetchStudentDetails fsd = new fetchStudentDetails(r.getInt("StudID"), r.getInt("schoolD"), 
+                fetchStudentDetails fsd = new fetchStudentDetails(r.getInt("StudID"), r.getInt("schoolID"), 
                         r.getInt("motherID"), r.getString("fName"), r.getString("lName"), r.getString("grade"));
                 studentArray.add(fsd);
             }
@@ -48,16 +48,22 @@ public class studentsArray {
         this.studentArray = studentArray;
     }
     
+    public int schoolIDFromStudentName(String name) {
+        int id = 0;
+        for (int i = 0; i < this.studentArray.size(); i++) {
+            if (this.studentNameFromID(this.studentArray.get(i).getStudentID()).equals(name)) {
+                id = this.studentArray.get(i).getSchoolID();
+            }
+        }
+        return id;
+    }
+    
     public int studentIDFromName(String name) {
         String fname = "";
         String lname = "";
         int id = 0;
-        for (int i = 0; i < name.length(); i++) {
-            if (Character.isSpaceChar(name.charAt(i))) {
-                fname = name.substring(0, i);
-                lname = name.substring(i+1);
-            }
-        }
+        fname = name.substring(0, name.indexOf(" "));
+        lname = name.substring(name.indexOf(" ")+1);
         for (int i = 0; i < studentArray.size(); i++) {
             if (fname.equals(studentArray.get(i).getfName()) && lname.equals(studentArray.get(i).getlName())) {
                 id = studentArray.get(i).getStudentID();
@@ -93,7 +99,7 @@ public class studentsArray {
             String schoolID = ""+sa.getSchoolID(school);
             
             //push student
-            String pushStudent = "INSERT INTO sDetTable (fname, lName, grade, schoolD, motherID) VALUES ('" + fname 
+            String pushStudent = "INSERT INTO sDetTable (fname, lName, grade, schoolID, motherID) VALUES ('" + fname 
                     + "', '" + lname + "', '" + grade + "', '" + schoolID + "', '" + motherID+ "')";
             System.out.println(pushStudent);
             db.UpdateDatabase(pushStudent);//pushes student
@@ -102,7 +108,18 @@ public class studentsArray {
         }
     }
     
-    public int StudentIndexFromID(int id) {
+    public int StudentIndexFromStudentID(int id) {
+        int index = 0;
+        for (int i = 0; i < this.studentArray.size(); i++) {
+            if (this.studentArray.get(i).getStudentID() == id) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+    
+    public int StudentIndexFromMotherID(int id) {
         int index = 0;
         for (int i = 0; i < this.studentArray.size(); i++) {
             if (this.studentArray.get(i).getMotherID() == id) {
@@ -159,66 +176,77 @@ public class studentsArray {
     public void deleteStudent(String name) throws SQLException {
         System.out.println(name);
         
-        ConnectDB db = new ConnectDB();
-        lessonDataArray la = new lessonDataArray();
-        String deleteStudents = "";
-        String deleteParent = "";
-        String deleteLessons = "";
-        int dialogResult = 0;
-        int motherID = this.getMotherIDFromStudentName(name);
-        int countMothers = 0;
-        for (int i = 0; i < this.studentArray.size(); i++) {
-            if (this.studentArray.get(i).getMotherID() == this.getMotherIDFromStudentName(name)) {
-                System.out.println("into coutn mothers if statement");
-                countMothers++;
+        int dialogType1 = JOptionPane.YES_NO_OPTION;
+        int firstConfirmationResult = JOptionPane.showConfirmDialog(null, "Are you sure you would like to continue the deletetionProcess of the student: " + name, "delete student", dialogType1);
+        if (firstConfirmationResult == JOptionPane.YES_OPTION) {
+            ConnectDB db = new ConnectDB();
+            lessonDataArray la = new lessonDataArray();
+            String deleteStudents = "";
+            String deleteParent = "";
+            String deleteLessons = "";
+            String deleteKeys = "";
+            int dialogResult = 0;
+            int motherID = this.getMotherIDFromStudentName(name);
+            int countMothers = 0;
+            for (int i = 0; i < this.studentArray.size(); i++) {
+                if (this.studentArray.get(i).getMotherID() == this.getMotherIDFromStudentName(name)) {
+                    System.out.println("into count mothers if statement");
+                    countMothers++;
+                }
             }
-        }
-        //if more than one student with same parent, than deals accordingly
-        if (countMothers > 1) {
-            int dialogType = JOptionPane.YES_NO_CANCEL_OPTION;
-            dialogResult = JOptionPane.showConfirmDialog(null, "there is more than one student registered with the same parent:\nWould you like "
-                    + "to either\n\nYES: delete the other family member student(s) along with their lessons and parent?\nNO: Just delete this student "
-                    + "and their lessons while keeping the other siblings and the parent", "delete student", dialogType);
-            System.out.println("dialog result: " + dialogResult);
-        }
-            //checks the dialog result and deletes accordingly
-            if (dialogResult == JOptionPane.YES_OPTION) {
-                System.out.println("enetered yes option");
-                deleteParent = "DELETE * FROM mothers WHERE MotherID = " + motherID;                
-                //deltes parent
-                try {
-                    db.UpdateDatabase(deleteParent);
-                } catch (SQLException ex) {
-                    Logger.getLogger(studentsArray.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                for (int i = 0; i < this.findSiblingIDs(name).length; i++) {
-                    deleteLessons = "DELETE * FROM lessonData WHERE studentID = " + this.findSiblingIDs(name)[i];
-                    deleteStudents = "DELETE * FROM sDetTable WHERE StudID = " + this.findSiblingIDs(name)[i];
-                    //deletes lessons
+            //if more than one student with same parent, than deals accordingly
+            if (countMothers > 1) {
+                int dialogType = JOptionPane.YES_NO_CANCEL_OPTION;
+                dialogResult = JOptionPane.showConfirmDialog(null, "there is more than one student registered with the same parent:\nWould you like "
+                        + "to either\n\nYES: delete the other family member student(s) along with their lessons and parent?\nNO: Just delete this student "
+                        + "and their lessons while keeping the other siblings and the parent", "delete student", dialogType);
+                System.out.println("dialog result: " + dialogResult);
+            }
+                //checks the dialog result and deletes accordingly
+                if (dialogResult == JOptionPane.YES_OPTION) {
+                    System.out.println("enetered yes option");
+                    deleteParent = "DELETE * FROM mothers WHERE MotherID = " + motherID;                
+                    //deletes parent
                     try {
-                        db.UpdateDatabase(deleteLessons);
+                        db.UpdateDatabase(deleteParent);
                     } catch (SQLException ex) {
                         Logger.getLogger(studentsArray.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    //deletes students
-                    try {
-                        db.UpdateDatabase(deleteStudents);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(studentsArray.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            } else {
-                int confirmDelete = JOptionPane.showConfirmDialog(null, "are you sure you want to delete student: " + name + " and all of their data?", "confirm delete", JOptionPane.YES_NO_OPTION);
-                if (confirmDelete == JOptionPane.YES_OPTION) {
-                    if (dialogResult == JOptionPane.NO_OPTION) {
-                        deleteLessons = "DELETE * FROM lessonData WHERE studentID = " + this.studentIDFromName(name);
-                        deleteStudents = "DELETE * FROM sDetTable WHERE StudID = " + this.studentIDFromName(name);
+                    for (int i = 0; i < this.findSiblingIDs(name).length; i++) {
+                        deleteLessons = "DELETE * FROM lessonData WHERE studentID = " + this.findSiblingIDs(name)[i];
+                        deleteStudents = "DELETE * FROM sDetTable WHERE StudID = " + this.findSiblingIDs(name)[i];
+                        deleteKeys = "DELETE * FROM lessonKeys WHERE lessonID NOT IN (SELECT LessonID FROM lessonData)";
                         //deletes lessons
-                        db.UpdateDatabase(deleteLessons);
-                        //deletes studnt
-                        db.UpdateDatabase(deleteStudents);
+                        try {
+                            db.UpdateDatabase(deleteLessons);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(studentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        //deletes keys
+                        db.UpdateDatabase(deleteKeys);
+                        //deletes students
+                        try {
+                            db.UpdateDatabase(deleteStudents);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(studentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
-                }
+                } else {
+                    int confirmDelete = JOptionPane.showConfirmDialog(null, "are you sure you want to delete student: " + name + " and all of their data?", "confirm delete", JOptionPane.YES_NO_OPTION);
+                    if (confirmDelete == JOptionPane.YES_OPTION) {
+                        if (dialogResult == JOptionPane.NO_OPTION) {
+                            deleteLessons = "DELETE * FROM lessonData WHERE studentID = " + this.studentIDFromName(name);
+                            deleteStudents = "DELETE * FROM sDetTable WHERE StudID = " + this.studentIDFromName(name);
+                            deleteKeys = "DELETE * FROM lessonKeys WHERE lessonID NOT IN (SELECT LessonID FROM lessonData)";
+                            //deletes lessons
+                            db.UpdateDatabase(deleteLessons);
+                            //deletes keys
+                            db.UpdateDatabase(deleteKeys);
+                            //deletes student
+                            db.UpdateDatabase(deleteStudents);
+                        }
+                    }
+            }
         }
             
     }
@@ -302,4 +330,28 @@ public class studentsArray {
         }
         return  lessonsStringArray;   
     }
+    
+    public void editStudent(String name, String school) {
+        int yes = JOptionPane.YES_OPTION;
+        int confirmResult = JOptionPane.showConfirmDialog(null, "are you sure you would like to update " + name + "'s school?", "Update School", JOptionPane.YES_NO_OPTION);
+        if (confirmResult == yes) {
+            ConnectDB db = new ConnectDB();
+            schoolsArray sa = new schoolsArray();
+            int id = this.studentIDFromName(name);
+            String updateSchool = "";
+            //checks if the user wants to update the email
+            if (!school.equals("")) {
+                updateSchool = "UPDATE sDetTable SET schoolID = '" + sa.getSchoolIDFromName(school) + "' WHERE StudID = " + this.studentIDFromName(name);
+                try {
+                    db.UpdateDatabase(updateSchool);
+                } catch (SQLException ex) {
+                    System.out.println("error updating email");
+                    Logger.getLogger(mothersArray.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            JOptionPane.showMessageDialog(null, "student information updated");
+        } 
+    }
+    
+    
 }

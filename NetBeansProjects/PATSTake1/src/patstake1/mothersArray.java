@@ -46,12 +46,23 @@ public class mothersArray {
         return temp;
     }
     
-    public String getMotherName(int id) {
+    public String getMotherNameForLessonArray(int id) {
+        studentsArray sa = new studentsArray();
+        String name = "";
+        for (int i = 0; i < this.mothersArray.size(); i++) {
+            if (sa.getStudentArray().get(sa.StudentIndexFromID(id)).getMotherID() == this.mothersArray.get(i).getMotherID()) {
+                name = this.mothersArray.get(i).getMotherFName() + " " + this.mothersArray.get(i).getMotherLName();
+            }
+        }
+        return name;
+    } 
+    
+    public String getMotherNameFromStudentID(int id) {
         studentsArray sa = new studentsArray();
         String name = "";
         
         for (int i = 0; i < this.mothersArray.size(); i++) {
-            if (sa.getStudentArray().get(sa.StudentIndexFromID(id)).getMotherID() == this.mothersArray.get(i).getMotherID()) {
+            if (sa.getStudentArray().get(sa.MotherIndexFromStudentID(id)).getMotherID() == this.mothersArray.get(i).getMotherID()) {
                 name = this.mothersArray.get(i).getMotherFName() + " " + this.mothersArray.get(i).getMotherLName();
             }
         }
@@ -70,11 +81,13 @@ public class mothersArray {
     
     public String [] getStudentsFromMotherName(String name) {
         ArrayList<String> students = new ArrayList<>();
+        int count = 0;
         studentsArray sa = new studentsArray();
         for (int i = 0; i < this.mothersArray.size(); i++) {
             if (this.getMotherNameFromIndex(i).equals(name)) {
                 for (int k = 0; k < sa.getStudentArray().size(); k++) {
-                    if (this.getMotherName(sa.getStudentArray().get(k).getMotherID()).equals(name)) {
+                    if (this.getMotherNameForLessonArray(sa.getStudentArray().get(k).getMotherID()).equals(name)) {
+                        count ++;
                         students.add(sa.studentNameFromID(sa.getStudentArray().get(k).getStudentID()));
                     }
                 }
@@ -87,7 +100,7 @@ public class mothersArray {
     public int getMotherIDFromName(String name) {
         int id = 0;
         for (int i = 0; i < this.mothersArray.size(); i++) {
-            if (this.getMotherName(this.mothersArray.get(i).getMotherID()).equals(name)) {
+            if (this.getMotherNameForLessonArray(this.mothersArray.get(i).getMotherID()).equals(name)) {
                 id = this.mothersArray.get(i).getMotherID();
             }
         }
@@ -111,11 +124,9 @@ public class mothersArray {
         int id = this.getMotherIDFromName(name);
         String updateEmail = "";
         String updateCell = "";
-        System.out.println(email + "   " + cell);
         //checks if the user wants to update the email
         if (!email.equals("")) {
             updateEmail = "UPDATE mothers SET motherEmail = '" + email + "' WHERE MotherID = " + this.getMotherIDFromName(name);
-            System.out.println("id: " + this.getMotherIDFromName(name));
             try {
                 db.UpdateDatabase(updateEmail);
             } catch (SQLException ex) {

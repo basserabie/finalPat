@@ -60,7 +60,7 @@ public class populateComboBoxes {
         for (int i = 0; i < ma.getMothersArray().size(); i++) {
             if (ma.getMotherNameFromIndex(i).equals(name)) {
                 for (int k = 0; k < sa.getStudentArray().size(); k++) {
-                    if (ma.getMotherName(sa.getStudentArray().get(k).getMotherID()).equals(name)) {
+                    if (ma.getMotherNameForLessonArray(sa.getStudentArray().get(k).getMotherID()).equals(name)) {
                         students.add(sa.studentNameFromID(sa.getStudentArray().get(k).getStudentID()));
                     }
                 }
@@ -184,7 +184,7 @@ public class populateComboBoxes {
             String StudentName = sa.studentNameFromID(StudentID);
             String grade = sa.getStudentArray().get(i).getGrade();
             String school = sca.getSchoolNameFromID(sa.getStudentArray().get(i).getSchoolID());
-            String motherName = ma.getMotherName(StudentID);
+            String motherName = ma.getMotherNameFromStudentID(StudentID);
             String upcomingLessonDate = la.upcomingDate(StudentID);
             String upcomingLessonTime = la.upcomingTime(StudentID, upcomingLessonDate);
             String upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
@@ -215,7 +215,7 @@ public class populateComboBoxes {
             String StudentName = sa.studentNameFromID(StudentID);
             String grade = sa.getStudentArray().get(i).getGrade();
             String school = sca.getSchoolNameFromID(sa.getStudentArray().get(i).getSchoolID());
-            String motherName = ma.getMotherName(StudentID);
+            String motherName = ma.getMotherNameFromStudentID(StudentID);
             String upcomingLessonDate = la.upcomingDate(StudentID);
             String upcomingLessonTime = la.upcomingTime(StudentID, upcomingLessonDate);
             String upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
@@ -246,7 +246,7 @@ public class populateComboBoxes {
             String StudentName = sa.studentNameFromID(StudentID);
             String grade = sa.getStudentArray().get(i).getGrade();
             String school = sca.getSchoolNameFromID(sa.getStudentArray().get(i).getSchoolID());
-            String motherName = ma.getMotherName(StudentID);
+            String motherName = ma.getMotherNameFromStudentID(StudentID);
             String upcomingLessonDate = la.upcomingDate(StudentID);
             String upcomingLessonTime = la.upcomingTime(StudentID, upcomingLessonDate);
             String upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
@@ -277,7 +277,7 @@ public class populateComboBoxes {
             String StudentName = sa.studentNameFromID(StudentID);
             String grade = sa.getStudentArray().get(i).getGrade();
             String school = sca.getSchoolNameFromID(sa.getStudentArray().get(i).getSchoolID());
-            String motherName = ma.getMotherName(StudentID);
+            String motherName = ma.getMotherNameFromStudentID(StudentID);
             String upcomingLessonDate = la.upcomingDate(StudentID);
             String upcomingLessonTime = la.upcomingTime(StudentID, upcomingLessonDate);
             String upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
@@ -307,7 +307,7 @@ public class populateComboBoxes {
             String StudentName = sa.studentNameFromID(StudentID);
             String grade = sa.getStudentArray().get(i).getGrade();
             String school = sca.getSchoolNameFromID(sa.getStudentArray().get(i).getSchoolID());
-            String motherName = ma.getMotherName(StudentID);
+            String motherName = ma.getMotherNameFromStudentID(StudentID);
             String upcomingLessonDate = la.upcomingDate(StudentID);
             String upcomingLessonTime = la.upcomingTime(StudentID, upcomingLessonDate);
             String upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);

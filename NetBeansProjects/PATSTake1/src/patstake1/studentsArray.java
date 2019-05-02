@@ -107,6 +107,17 @@ public class studentsArray {
         for (int i = 0; i < this.studentArray.size(); i++) {
             if (this.studentArray.get(i).getMotherID() == id) {
                 index = i;
+                break;
+            }
+        }
+        return index;
+    }
+    
+    public int MotherIndexFromStudentID(int id) {
+        int index = 0;
+        for (int i = 0; i < this.studentArray.size(); i++) {
+            if (this.studentArray.get(i).getStudentID() == id) {
+                index = i;
             }
         }
         return index;
@@ -167,7 +178,7 @@ public class studentsArray {
             int dialogType = JOptionPane.YES_NO_CANCEL_OPTION;
             dialogResult = JOptionPane.showConfirmDialog(null, "there is more than one student registered with the same parent:\nWould you like "
                     + "to either\n\nYES: delete the other family member student(s) along with their lessons and parent?\nNO: Just delete this student "
-                    + "and their lessons while keeping the other siblings and the parent", "delete all students, mothers, and lessons?", dialogType);
+                    + "and their lessons while keeping the other siblings and the parent", "delete student", dialogType);
             System.out.println("dialog result: " + dialogResult);
         }
             //checks the dialog result and deletes accordingly

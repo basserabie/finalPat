@@ -24,8 +24,14 @@ public class populateComboBoxes {
         return grades;
     }
     
+    //populate lesson primary lesson search filter
+    public String [] populatePrimaryFilterTpeLessonsComboBox() {
+        String types [] = {"Date", "Venue", "Student"};
+        return types;
+    }
+    
     public String [] populateStudentFilterTypeComboBox() {
-        String types [] = {"Student Name", "Mother Name", "Grade", "School"};
+        String types [] = {"Student Name", "Mother Name", "School"};
         return types;
     }
     
@@ -223,17 +229,132 @@ public class populateComboBoxes {
         venueArray va = new venueArray();
         studentsArray sa = new studentsArray();
         DefaultTableModel model = null;
-        Object columnNames[] = {"student ID","student name", "venue", "date", "start-time", "end-time", "Day"};
+        Object columnNames[] = {"student name", "venue", "date", "Time", "Day"};
         model = new DefaultTableModel(columnNames, 0);
         for (int i = 0; i < la.getLessonDataArray().size(); i++) {
             int StudentID = la.getLessonDataArray().get(i).getStudentID();
             String StudentName = sa.studentNameFromID(StudentID);
             String venue = va.venueNameFromID(la.getLessonDataArray().get(i).getVenueID());
             String date = la.getLessonDataArray().get(i).getLessonDate();
-            String startTime = la.getLessonDataArray().get(i).getLessonTime();
-            String endTime = la.GetEndTimeForSpecificStudent(la.getLessonDataArray().get(i).getLessonDuration(), la.getLessonDataArray().get(i).getLessonTime(), i);
+            String time = la.getTimeFromLessonID(la.getLessonDataArray().get(i).getLessonID());
             String day = la.getLessonDataArray().get(i).getDay();
-            model.addRow(new Object[] {StudentID, StudentName, venue, date, startTime, endTime, day});
+            model.addRow(new Object[] {StudentName, venue, date, time, day});
+        }
+        return model;
+     }
+    
+    public DefaultTableModel LessonsByDate(String dateInputted) {
+        lessonDataArray la = new lessonDataArray();
+        venueArray va = new venueArray();
+        studentsArray sa = new studentsArray();
+        
+        DefaultTableModel model = null;
+        Object columnNames[] = {"student name", "venue", "date", "Time", "Day"};
+        model = new DefaultTableModel(columnNames, 0);
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
+            int StudentID = la.getLessonDataArray().get(i).getStudentID();
+            String StudentName = sa.studentNameFromID(StudentID);
+            String venue = va.venueNameFromID(la.getLessonDataArray().get(i).getVenueID());
+            String date = la.getLessonDataArray().get(i).getLessonDate();
+            String time = la.getTimeFromLessonID(la.getLessonDataArray().get(i).getLessonID());
+            String day = la.getLessonDataArray().get(i).getDay();
+            if (dateInputted.equals(date)) {
+                model.addRow(new Object[] {StudentName, venue, date, time, day});
+            }
+        }
+        return model;
+     }
+    
+    public DefaultTableModel LessonsByVenue(String venueInputted) {
+        lessonDataArray la = new lessonDataArray();
+        venueArray va = new venueArray();
+        studentsArray sa = new studentsArray();
+        
+        DefaultTableModel model = null;
+        Object columnNames[] = {"student name", "venue", "date", "Time", "Day"};
+        model = new DefaultTableModel(columnNames, 0);
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
+            int StudentID = la.getLessonDataArray().get(i).getStudentID();
+            String StudentName = sa.studentNameFromID(StudentID);
+            String venue = va.venueNameFromID(la.getLessonDataArray().get(i).getVenueID());
+            String date = la.getLessonDataArray().get(i).getLessonDate();
+            String time = la.getTimeFromLessonID(la.getLessonDataArray().get(i).getLessonID());
+            String day = la.getLessonDataArray().get(i).getDay();
+            
+            if (venueInputted.equals(venue)) {
+                model.addRow(new Object[] {StudentName, venue, date, time, day});
+            }
+        }
+        return model;
+     }
+    
+    public DefaultTableModel LessonsByStudentName(String nameInputted) {
+        lessonDataArray la = new lessonDataArray();
+        venueArray va = new venueArray();
+        studentsArray sa = new studentsArray();
+        
+        DefaultTableModel model = null;
+        Object columnNames[] = {"student name", "venue", "date", "Time", "Day"};
+        model = new DefaultTableModel(columnNames, 0);
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
+            int StudentID = la.getLessonDataArray().get(i).getStudentID();
+            String StudentName = sa.studentNameFromID(StudentID);
+            String venue = va.venueNameFromID(la.getLessonDataArray().get(i).getVenueID());
+            String date = la.getLessonDataArray().get(i).getLessonDate();
+            String time = la.getTimeFromLessonID(la.getLessonDataArray().get(i).getLessonID());
+            String day = la.getLessonDataArray().get(i).getDay();
+            if (StudentName.toLowerCase().startsWith(nameInputted.toLowerCase())) {
+                model.addRow(new Object[] {StudentName, venue, date, time, day});
+            }
+        }
+        return model;
+     }
+    
+    public DefaultTableModel LessonsByParentSName(String nameInputted) {
+        lessonDataArray la = new lessonDataArray();
+        mothersArray ma = new mothersArray();
+        venueArray va = new venueArray();
+        studentsArray sa = new studentsArray();
+        
+        DefaultTableModel model = null;
+        Object columnNames[] = {"student name", "venue", "date", "Time", "Day"};
+        model = new DefaultTableModel(columnNames, 0);
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
+            int StudentID = la.getLessonDataArray().get(i).getStudentID();
+            String StudentName = sa.studentNameFromID(StudentID);
+            String venue = va.venueNameFromID(la.getLessonDataArray().get(i).getVenueID());
+            String date = la.getLessonDataArray().get(i).getLessonDate();
+            String time = la.getTimeFromLessonID(la.getLessonDataArray().get(i).getLessonID());
+            String day = la.getLessonDataArray().get(i).getDay();
+            String parentName = ma.getMotherNameFromStudentID(StudentID);
+            if (parentName.startsWith(nameInputted.toLowerCase())) {
+                model.addRow(new Object[] {StudentName, venue, date, time, day});
+            }
+        }
+        return model;
+     }
+    
+    public DefaultTableModel LessonsBySchool(String schoolInputted) {
+        lessonDataArray la = new lessonDataArray();
+        mothersArray ma = new mothersArray();
+        venueArray va = new venueArray();
+        schoolsArray sca = new schoolsArray();
+        studentsArray sa = new studentsArray();
+        
+        DefaultTableModel model = null;
+        Object columnNames[] = {"student name", "venue", "date", "Time", "Day"};
+        model = new DefaultTableModel(columnNames, 0);
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
+            int StudentID = la.getLessonDataArray().get(i).getStudentID();
+            String StudentName = sa.studentNameFromID(StudentID);
+            String venue = va.venueNameFromID(la.getLessonDataArray().get(i).getVenueID());
+            String date = la.getLessonDataArray().get(i).getLessonDate();
+            String time = la.getTimeFromLessonID(la.getLessonDataArray().get(i).getLessonID());
+            String day = la.getLessonDataArray().get(i).getDay();
+            String school = sca.getSchoolFtomStudentID(StudentID);
+            if (school.toLowerCase().startsWith(schoolInputted.toLowerCase())) {
+                model.addRow(new Object[] {StudentName, venue, date, time, day});
+            }
         }
         return model;
      }
@@ -271,47 +392,6 @@ public class populateComboBoxes {
             }
             
             if (motherName.toLowerCase().startsWith(name.toLowerCase())) {
-                model.addRow(new Object[] {StudentName, grade, school, motherName, upcomingLessonDate, 
-                    upcomingLessonTime, upcomingLessonVenue, upcomingLessonDay});
-            }
-        }
-            
-        return model;
-     }
-    
-    public DefaultTableModel StudentsByGrade(String inputtedGrade) {
-        lessonDataArray la = new lessonDataArray();
-        schoolsArray sca = new schoolsArray();
-        venueArray va = new venueArray();
-        mothersArray ma = new mothersArray();
-        studentsArray sa = new studentsArray();
-        DefaultTableModel model = null;
-        Object columnNames[] = {"student name", "grade", "school", "parent name", "upcoming-lesson date", 
-            "upcoming-lesson time", "upcoming-lesson venue", "upcoming-Lesson Day"};
-        model = new DefaultTableModel(columnNames, 0);
-        
-        String upcomingLessonVenue = "";
-        String upcomingLessonDay = "";
-        
-        for (int i = 0; i < sa.getStudentArray().size(); i++) {
-            
-            int StudentID = sa.getStudentArray().get(i).getStudentID();
-            String StudentName = sa.studentNameFromID(StudentID);
-            String grade = sa.getStudentArray().get(i).getGrade();
-            String school = sca.getSchoolNameFromID(sa.getStudentArray().get(i).getSchoolID());
-            String motherName = ma.getMotherNameFromStudentID(StudentID);
-            String upcomingLessonDate = la.upcomingDate(StudentID);
-            String upcomingLessonTime = la.upcomingTime(StudentID, upcomingLessonDate);
-            if (!upcomingLessonTime.equals("N/A")) {
-                String testOtherFieldsAgainstTime = upcomingLessonTime.substring(0, 5);
-                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
-                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, testOtherFieldsAgainstTime);
-            } else {
-                upcomingLessonVenue = la.upcomingVenue(StudentID, upcomingLessonDate, upcomingLessonTime);
-                upcomingLessonDay = la.upcomingDay(StudentID, upcomingLessonDate, upcomingLessonTime);
-            }
-            
-            if (grade.equals(inputtedGrade)) {
                 model.addRow(new Object[] {StudentName, grade, school, motherName, upcomingLessonDate, 
                     upcomingLessonTime, upcomingLessonVenue, upcomingLessonDay});
             }

@@ -90,14 +90,17 @@ public class studentsArray {
         
         //push
         try {
+            int motherID = ma.getMothersArray().get(ma.getMothersArray().size()-1).getMotherID()+1;
             //get motherID
             String pushMother = "INSERT INTO mothers (motherfName, motherLName, motherEmail, motherCell) VALUES('" + mfname + "', '" 
                 + mlname + "', '" + memail + "', '" + mcell + "')";
-            db.UpdateDatabase(pushMother);//pushes mother
-            String motherID = ""+ma.getMotherID(mcell);
+            //pushes mother
+            db.UpdateDatabase(pushMother);
+            System.out.println(pushMother);
             //get SchoolID
             String schoolID = ""+sa.getSchoolID(school);
-            
+            //gets mother ID
+            System.out.println("motherID: " + motherID);
             //push student
             String pushStudent = "INSERT INTO sDetTable (fname, lName, grade, schoolID, motherID) VALUES ('" + fname 
                     + "', '" + lname + "', '" + grade + "', '" + schoolID + "', '" + motherID+ "')";

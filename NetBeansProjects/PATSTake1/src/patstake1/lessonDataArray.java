@@ -836,6 +836,19 @@ public class lessonDataArray {
         return date;
     }
     
+    public int getLessoIDFromDateTimeAndStudentID(String date, String time, int studentID) {
+        int id = 0;
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+            String startTime = time.substring(0, 5);
+            if (this.lessonDataArray.get(i).getLessonDate().equals(date) &&
+                    this.lessonDataArray.get(i).getLessonTime().equals(startTime) &&
+                    this.lessonDataArray.get(i).getStudentID() == studentID) {
+                id = this.lessonDataArray.get(i).getLessonID();
+            }
+        }
+        return id;
+    }
+    
 }
 
 

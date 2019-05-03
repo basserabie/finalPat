@@ -274,9 +274,6 @@ public class student extends javax.swing.JFrame {
             case "School":
                 this.studentTable.setModel(pop.StudentsBySchool(this.searchTextField.getText()));
                 break;
-            case "Grade":
-                this.studentTable.setModel(pop.StudentsByGrade(this.searchTextField.getText()));
-                break;
         }
     }//GEN-LAST:event_searchTextFieldKeyTyped
 

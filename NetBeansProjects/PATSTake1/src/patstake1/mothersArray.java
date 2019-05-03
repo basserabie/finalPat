@@ -41,11 +41,6 @@ public class mothersArray {
         return mothersArray;
     }
     
-    public int getMotherID(String cell) {
-        int temp = this.mothersArray.get(mothersArray.size()-1).getMotherID()+1;
-        return temp;
-    }
-    
     public String getMotherNameForLessonArray(int id) {
         studentsArray sa = new studentsArray();
         String name = "";

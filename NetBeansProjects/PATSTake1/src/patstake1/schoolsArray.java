@@ -90,4 +90,15 @@ public class schoolsArray {
         return id;
     }
     
+    public String getSchoolFtomStudentID(int id) {
+        String school = "";
+        studentsArray sa = new studentsArray();
+        for (int i = 0; i < sa.getStudentArray().size(); i++) {
+            if (sa.getStudentArray().get(i).getStudentID() == id) {
+                school = this.getSchoolNameFromID(sa.getStudentArray().get(i).getSchoolID());
+            }
+        }
+        return school;
+    }
+    
 }

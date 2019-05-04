@@ -9,6 +9,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +28,7 @@ public class lesson extends javax.swing.JFrame {
     public lesson() {
         initComponents();
         this.selectedLessonLabel.setText("----------------");
+        this.seeStudentsButton.setText("---------");
         populateComboBoxes pop = new populateComboBoxes();
         this.searchComboBox.removeAllItems();
         this.filterTypeStudent.removeAllItems();;
@@ -43,6 +45,10 @@ public class lesson extends javax.swing.JFrame {
     public void setTableModel(DefaultTableModel model) {
         this.lessonsTable.setModel(model);
     } 
+
+    public JButton getSeeStudentsButton() {
+        return seeStudentsButton;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,6 +78,7 @@ public class lesson extends javax.swing.JFrame {
         selectedLessonLabel = new javax.swing.JLabel();
         searchComboBox = new javax.swing.JComboBox<>();
         searchByDate = new javax.swing.JButton();
+        seeStudentsButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -189,6 +196,13 @@ public class lesson extends javax.swing.JFrame {
             }
         });
 
+        seeStudentsButton.setText("See Students!");
+        seeStudentsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seeStudentsButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,7 +234,10 @@ public class lesson extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(deleteLesson, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(moreInfoLesson, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(moreInfoLesson, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(seeStudentsButton))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(editLesson, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -228,8 +245,8 @@ public class lesson extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(selectedLessonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 199, Short.MAX_VALUE)))
+                                .addComponent(selectedLessonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 194, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -239,16 +256,21 @@ public class lesson extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 28, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(secondarySearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(editLesson)
                                     .addComponent(reset))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(deleteLesson)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(moreInfoLesson))
-                            .addComponent(secondarySearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(moreInfoLesson))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(27, 27, 27)
+                                        .addComponent(seeStudentsButton)))))
+                        .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(backToDashboardButton)
@@ -356,10 +378,26 @@ public class lesson extends javax.swing.JFrame {
     }//GEN-LAST:event_resetActionPerformed
 
     private void lessonsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lessonsTableMouseClicked
-//        populateComboBoxes pop = new populateComboBoxes();
-//        lessonDataArray la = new lessonDataArray();
-//        SELECTED_LESSON_ID = la.getLessoIDFromDateTimeAndStudentID(, time, WIDTH)
+        populateComboBoxes pop = new populateComboBoxes();
+        lessonDataArray la = new lessonDataArray();
+        studentsArray sa = new studentsArray();
+        this.seeStudentsButton.setText("See Students!");
+        String date = this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 2).toString();
+        int studentID = sa.studentIDFromName(this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 0).toString());
+        String time = this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 3).toString().substring(0, 5);
+        SELECTED_LESSON_ID = la.getLessoIDFromDateTimeAndStudentID(date, time, studentID);
+        this.selectedLessonLabel.setText(pop.populateSelectedLessonLabel(SELECTED_LESSON_ID));
     }//GEN-LAST:event_lessonsTableMouseClicked
+
+    private void seeStudentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeStudentsButtonActionPerformed
+     seeStudentsForm ssf = new seeStudentsForm();
+     if (!this.lessonsTable.getSelectionModel().isSelectionEmpty()) {
+         ssf.setLocation((this.seeStudentsButton.getLocationOnScreen().x - 358), (this.seeStudentsButton.getLocationOnScreen().y));
+         ssf.setVisible(true);
+     } else {
+         JOptionPane.showMessageDialog(null, "Please Select A Lesson (row) First");
+     }
+    }//GEN-LAST:event_seeStudentsButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -415,6 +453,7 @@ public class lesson extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> searchComboBox;
     private javax.swing.JTextField searchTextField;
     private javax.swing.JLayeredPane secondarySearchPanel;
+    private javax.swing.JButton seeStudentsButton;
     private javax.swing.JLabel selectedLessonLabel;
     // End of variables declaration//GEN-END:variables
 }

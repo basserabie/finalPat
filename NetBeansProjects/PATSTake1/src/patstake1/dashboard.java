@@ -14,6 +14,7 @@ import javax.accessibility.AccessibleContext;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JScrollBar;
@@ -67,6 +68,7 @@ public class dashboard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         Calendar = new com.toedter.calendar.JCalendar();
         parentsButton = new javax.swing.JButton();
+        dohSound = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -172,6 +174,13 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
+        dohSound.setText("click if stressed");
+        dohSound.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dohSoundActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -201,6 +210,8 @@ public class dashboard extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(signOutButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dohSound)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -235,7 +246,9 @@ public class dashboard extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(Calendar, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(signOutButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(signOutButton)
+                    .addComponent(dohSound))
                 .addContainerGap())
         );
 
@@ -296,6 +309,11 @@ public class dashboard extends javax.swing.JFrame {
         m.setVisible(true);
     }//GEN-LAST:event_parentsButtonActionPerformed
 
+    private void dohSoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dohSoundActionPerformed
+        dohSound ds = new dohSound();
+        ds.playSound();
+    }//GEN-LAST:event_dohSoundActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -337,6 +355,7 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JButton addlessonButton;
     private javax.swing.JButton addschoolButton;
     private java.awt.Canvas canvas1;
+    private javax.swing.JButton dohSound;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;

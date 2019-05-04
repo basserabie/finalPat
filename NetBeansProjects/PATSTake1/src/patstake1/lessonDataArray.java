@@ -803,6 +803,11 @@ public class lessonDataArray {
         return time;
     }
     
+    public String getLessonTimeFromStartTimeAndDuration(String startTime, int duration) {
+        String time = startTime + " - " + this.getEndTime(startTime, duration);
+        return time;
+    }
+    
     public String getTimeFromLessonID(int id) {
         String time = "";
         for (int i = 0;  i < this.lessonDataArray.size(); i++) {

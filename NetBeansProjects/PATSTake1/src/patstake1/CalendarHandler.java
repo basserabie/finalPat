@@ -106,21 +106,21 @@ public class CalendarHandler {
                     lessonIntro = "This is a once-off lesson:\n";
                     time = "Time: " + this.timeFromLessonKey(key) + "\n";
                     venue = "Venue: " + this.venueFromLessonKey(key) + "\n";
-                    students = "Student(s): " + this.studentsStringFromArray(this.studentsFromLessonKey(date, this.StartTimeFromLessonKey(key)));
+                    students = "Student(s): " + this.studentsStringFromArray(this.studentsFromLessonDateAndTime(date, this.StartTimeFromLessonKey(key)));
                     lessonsOnDayData += lessonIntro + time + venue + students + "\n";
                 } else {
                     if (la.getFrequencyFromKey(key).equals("weekly")) {
                         lessonIntro = "This is a weekly lesson:\n";
                         time = "Time: " + this.timeFromLessonKey(key) + "\n";
                         venue = "Venue: " + this.venueFromLessonKey(key) + "\n";
-                        students = "Student(s): " + this.studentsStringFromArray(this.studentsFromLessonKey(date, this.StartTimeFromLessonKey(key)));
+                        students = "Student(s): " + this.studentsStringFromArray(this.studentsFromLessonDateAndTime(date, this.StartTimeFromLessonKey(key)));
                         lessonsOnDayData += lessonIntro + time + venue + students + "\n";
                     } else {
                         if (la.getFrequencyFromKey(key).equals("monthly")) {
                             lessonIntro = "This is a monthly lesson:\n";
                             time = "Time: " + this.timeFromLessonKey(key) + "\n";
                             venue = "Venue: " + this.venueFromLessonKey(key) + "\n";
-                            students = "Student(s): " + this.studentsStringFromArray(this.studentsFromLessonKey(date, this.StartTimeFromLessonKey(key)));
+                            students = "Student(s): " + this.studentsStringFromArray(this.studentsFromLessonDateAndTime(date, this.StartTimeFromLessonKey(key)));
                             lessonsOnDayData += lessonIntro + time + venue + students + "\n";
                         }
                     }
@@ -246,7 +246,7 @@ public class CalendarHandler {
         return keys.size();
     }
     
-    public String [] studentsFromLessonKey(String date, String time) {
+    public String [] studentsFromLessonDateAndTime(String date, String time) {
         lessonDataArray la = new lessonDataArray();
         keysArray ka = new keysArray();
         studentsArray sa = new studentsArray();

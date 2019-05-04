@@ -55,6 +55,30 @@ public class populateComboBoxes {
         return types;
     }
     
+    public String populateSelectedLessonLabel(int id) {
+        lessonDataArray la = new lessonDataArray();
+        venueArray va = new venueArray();
+        String lessonData = "";
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
+            if (la.getLessonDataArray().get(i).getLessonID() == id) {
+                String date = la.getLessonDataArray().get(i).getLessonDate();
+                String time = la.getTimeFromLessonID(la.getLessonDataArray().get(i).getLessonID());
+                String venue = va.venueNameFromID(la.getLessonDataArray().get(i).getVenueID());
+                lessonData = "Date: " + date + " / Time: " + time + " / venue: " + venue;
+            }
+        }
+        return lessonData;
+    }
+    
+    public String [] populateSelectedLessonStudentsList(int lessonID) {
+        lessonDataArray la = new lessonDataArray();
+        CalendarHandler ch = new CalendarHandler();
+        String date = la.getLessonDataArray().get(la.getIndexFromID(lessonID)).getLessonDate();
+        String time = la.getLessonDataArray().get(la.getIndexFromID(lessonID)).getLessonTime();
+        String [] students = ch.studentsFromLessonDateAndTime(date, time);
+        return students;
+    }
+    
     public String [] populateVenues() {
         venueArray va = new venueArray();
         String venues [] = new String [va.getVenuesArray().size()];
@@ -114,14 +138,7 @@ public class populateComboBoxes {
     //populates a corrected combo box of students according to grade
     public String [] correctStudentsAccordingToGrade(String gradeSelected) {
         studentsArray sa = new studentsArray();
-        int count1 = 0;
-        int count2 = 0;
-        for (int i = 0; i < sa.getStudentArray().size(); i++) {
-            if (sa.getStudentArray().get(i).getGrade().equals(gradeSelected)) {
-                count1++;
-            }
-        }
-        String students [] = new String[count1];
+        ArrayList<String> studentList = new ArrayList<>();
         for (int i = 0; i < sa.getStudentArray().size(); i++) {
              String fname = "";
              String lname = "";
@@ -129,10 +146,33 @@ public class populateComboBoxes {
                  fname = sa.getStudentArray().get(i).getfName();
                  lname = sa.getStudentArray().get(i).getlName();
                  //adds item of fname and lname
-                 students[count2]  = fname + " " + lname;
-                 count2++;
+                 studentList.add(fname + " " + lname);
              }
          }
+        String students [] = studentList.toArray(new String[studentList.size()]);
+        return students;
+    }
+    
+    public String [] correctStudentsAccordingToSearchTextField(String gradeSelected, String nameInputted) {
+        studentsArray sa = new studentsArray();
+        ArrayList<String> studentList = new ArrayList<>();
+        
+        for (int i = 0; i < sa.getStudentArray().size(); i++) {
+             String fname = "";
+             String lname = "";
+             if (sa.getStudentArray().get(i).getGrade().equals(gradeSelected)) {
+                 fname = sa.getStudentArray().get(i).getfName();
+                 lname = sa.getStudentArray().get(i).getlName();
+                 //adds item of fname and lname
+                 studentList.add(fname + " " + lname);
+                 for (int k = 0; k < studentList.size(); k++) {
+                    if (!studentList.get(k).toLowerCase().startsWith(nameInputted.toLowerCase())) {
+                        studentList.remove(k);
+                    }
+                 }
+             }
+         }
+        String students [] = studentList.toArray(new String[studentList.size()]);
         return students;
     }
     

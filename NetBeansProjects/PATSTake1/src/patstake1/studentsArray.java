@@ -303,7 +303,7 @@ public class studentsArray {
                     date = "Date: " + getDate + "\n";
                     time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
                     venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
-                    students = "Student(s): " + ch.studentsStringFromArrayForParent(ch.studentsFromLessonKey(getDate, ch.StartTimeFromLessonKey(keys[i])));
+                    students = "Student(s): " + ch.studentsStringFromArrayForParent(ch.studentsFromLessonDateAndTime(getDate, ch.StartTimeFromLessonKey(keys[i])));
                     lessonsData.add(lessonIntro + date + time + venue + students + "\n");
                 } else {
                     if (la.getFrequencyFromKey(keys[i]).equals("weekly")) {
@@ -311,7 +311,7 @@ public class studentsArray {
                         date = "Date: " + getDate + "\n";
                         time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
                         venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
-                        students = "Student(s): " + ch.studentsStringFromArrayForParent(ch.studentsFromLessonKey(getDate, ch.StartTimeFromLessonKey(keys[i])));
+                        students = "Student(s): " + ch.studentsStringFromArrayForParent(ch.studentsFromLessonDateAndTime(getDate, ch.StartTimeFromLessonKey(keys[i])));
                         lessonsData.add(lessonIntro + date + time + venue + students + "\n");
                     } else {
                         if (la.getFrequencyFromKey(keys[i]).equals("monthly")) {
@@ -319,7 +319,7 @@ public class studentsArray {
                             date = "Date: " + getDate + "\n";
                             time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
                             venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
-                            students = "Student(s): " + ch.studentsStringFromArrayForParent(ch.studentsFromLessonKey(getDate, ch.StartTimeFromLessonKey(keys[i])));
+                            students = "Student(s): " + ch.studentsStringFromArrayForParent(ch.studentsFromLessonDateAndTime(getDate, ch.StartTimeFromLessonKey(keys[i])));
                             lessonsData.add(lessonIntro + date + time + venue + students + "\n");
                         }
                     }

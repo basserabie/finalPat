@@ -7,6 +7,7 @@ package patstake1;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +23,7 @@ import javax.swing.SpinnerListModel;
  */
 public class addLessonForm extends javax.swing.JFrame {
 
+    public static ArrayList<String> ADDED_ARRAY = new ArrayList<>();
     String lessonKey;
     
     /**
@@ -402,9 +404,20 @@ public class addLessonForm extends javax.swing.JFrame {
 
     private void addStudentToLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentToLessonButtonActionPerformed
         ConnectDB db = new ConnectDB();
-        String name = this.addStudentNameComboBox.getSelectedItem().toString();
         lessonDataArray la = new lessonDataArray();
-        la.addToNamesList(this.addStudentNameComboBox.getSelectedItem().toString());
+        
+        boolean alreadyIn  = false;
+        String name = this.addStudentNameComboBox.getSelectedItem().toString();
+        for (int i = 0; i < ADDED_ARRAY.size(); i++) {
+            if (ADDED_ARRAY.get(i).equals(name)) {
+                alreadyIn = true;
+            }
+        }
+        if (alreadyIn == false) {
+            ADDED_ARRAY.add(name);
+        }
+        la.setNamesList(ADDED_ARRAY);
+        this.StudentsAddedListModel.removeAllElements();
         for (int i = 0; i < la.getNames().size(); i++) {
             StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));
         }
@@ -423,8 +436,10 @@ public class addLessonForm extends javax.swing.JFrame {
 //TODO: fix the deletion and validation
     private void deleteStudentFromLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStudentFromLessonButtonActionPerformed
         lessonDataArray la = new lessonDataArray();
-        la.removeStudentAdded(this.studentsAddedList.getSelectedValue());
-        System.out.println("selected: " + this.studentsAddedList.getSelectedValue());
+        
+        String name = this.studentsAddedList.getSelectedValue();
+        ADDED_ARRAY.remove(name);
+        la.setNamesList(ADDED_ARRAY);
         this.StudentsAddedListModel.removeAllElements();
         for (int i = 0; i < la.getNames().size(); i++) {
             StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));

@@ -46,25 +46,25 @@ public class ConnectDB {
         return rs;//returns the resultset to the user to be used
     }
     
-     public DefaultTableModel getLessonData(String sqlS) {
-        DefaultTableModel model = null;
-        ResultSet r = this.getResults(sqlS);
-        Object columnNames[] = {"LessonID","StudentID", "venue","dateTime"};
-        model = new DefaultTableModel(columnNames, 0);
-        try {
-            while(r.next()) {
-                int LessonID = r.getInt("LessonID");
-                int StudentID = r.getInt("StudentID");
-                String venue = r.getString("venue");
-                String dateTime = r.getString("dateTime");
-                model.addRow(new Object[] {LessonID ,StudentID, venue, dateTime});
-            }
-            r.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return model;
-     }
+//     public DefaultTableModel getLessonData(String sqlS) {
+//        DefaultTableModel model = null;
+//        ResultSet r = this.getResults(sqlS);
+//        Object columnNames[] = {"LessonID","StudentID", "venue","dateTime"};
+//        model = new DefaultTableModel(columnNames, 0);
+//        try {
+//            while(r.next()) {
+//                int LessonID = r.getInt("LessonID");
+//                int StudentID = r.getInt("StudentID");
+//                String venue = r.getString("venue");
+//                String dateTime = r.getString("dateTime");
+//                model.addRow(new Object[] {LessonID ,StudentID, venue, dateTime});
+//            }
+//            r.close();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return model;
+//     }
     
     public void UpdateDatabase(String G) throws SQLException{
         stmt.executeUpdate(G);

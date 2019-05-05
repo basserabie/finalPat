@@ -51,6 +51,16 @@ public class keysArray {
         return key;
     }
     
+    public int getFirstLessonIDFromKey(String key) {
+        int id = 0;
+        for (int i = 0; i < this.keyArray.size(); i++) {
+            if (this.keyArray.get(i).getLessonKey().equals(key)) {
+                id = this.keyArray.get(i).getLessonID();
+            }
+        }
+        return id;
+    }
+    
     public String getStartTimeFromKey(String key) {
         lessonDataArray la = new lessonDataArray();
         String startTime = "";
@@ -58,11 +68,26 @@ public class keysArray {
         System.out.println(this.keyArray.size() + "    key array");
         for (int i = 0; i < la.getLessonDataArray().size(); i++) {
             if (this.getKeyArray().get(i).getLessonKey().equals(key)) {
-                startTime = la.getStartTimeFromIndex(i);
+                startTime = la.getLessonDataArray().get(i).getLessonTime();  //FIX HERE IF DOESNT WORK
             }
         }
         System.out.println(startTime);
         return startTime;
+    }
+    
+    public String getEndTimeFromKey(String key) {
+        lessonDataArray la = new lessonDataArray();
+        String startTime = "";
+        String endTime = "";
+        
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
+            if (this.getKeyArray().get(i).getLessonKey().equals(key)) {
+                startTime = la.getStartTimeFromIndex(i);
+                endTime = la.getEndTime(startTime, la.getLessonDataArray().get(i).getLessonDuration());
+            }
+        }
+        System.out.println(endTime);
+        return endTime;
     }
     
 }

@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
 public class lesson extends javax.swing.JFrame {
 
     public static int SELECTED_LESSON_ID;
+    public static String SELECTED_LESSON_DATE;
+    public static String SELECTED_LESSON_TIME;
     
     /**
      * Creates new form lesson
@@ -166,6 +168,11 @@ public class lesson extends javax.swing.JFrame {
         );
 
         editLesson.setText("Edit Lesson");
+        editLesson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editLessonActionPerformed(evt);
+            }
+        });
 
         deleteLesson.setText("Delete Lesson");
 
@@ -386,6 +393,8 @@ public class lesson extends javax.swing.JFrame {
         int studentID = sa.studentIDFromName(this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 0).toString());
         String time = this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 3).toString().substring(0, 5);
         SELECTED_LESSON_ID = la.getLessoIDFromDateTimeAndStudentID(date, time, studentID);
+        SELECTED_LESSON_DATE = date;
+        SELECTED_LESSON_TIME = time;
         this.selectedLessonLabel.setText(pop.populateSelectedLessonLabel(SELECTED_LESSON_ID));
     }//GEN-LAST:event_lessonsTableMouseClicked
 
@@ -398,6 +407,11 @@ public class lesson extends javax.swing.JFrame {
          JOptionPane.showMessageDialog(null, "Please Select A Lesson (row) First");
      }
     }//GEN-LAST:event_seeStudentsButtonActionPerformed
+
+    private void editLessonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editLessonActionPerformed
+        editLessonForm elf = new editLessonForm();
+        elf.setVisible(true);
+    }//GEN-LAST:event_editLessonActionPerformed
 
     /**
      * @param args the command line arguments

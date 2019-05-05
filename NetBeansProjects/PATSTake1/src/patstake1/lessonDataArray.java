@@ -39,6 +39,7 @@ public class lessonDataArray {
     private ArrayList<fetchLessonData> lessonDataArray = new ArrayList<>();
     private ArrayList<String> names = new ArrayList<>();
     private String lessonKey;
+    private static String studentLost = "";
 
     public lessonDataArray() {
         ResultSet r = db.getResults("SELECT * FROM lessonData");
@@ -78,6 +79,21 @@ public class lessonDataArray {
 
     public void setLessonKey(String lessonKey) {
         this.lessonKey = lessonKey;
+    }
+    
+    public void setNamesList(ArrayList<String> list) {
+        boolean alreadyIn = false;
+        for (int i = 0; i < list.size(); i++) {
+            for (int k = 0; k < this.names.size(); k++) {
+                if (this.names.get(k).equals(list.get(i))) {
+                    alreadyIn = true;
+                }
+            }
+            if (alreadyIn == false) {
+                this.names.add(list.get(i));
+            }
+            alreadyIn = false;
+        }
     }
     
     public int getIndexFromID(int id) {
@@ -297,6 +313,7 @@ public class lessonDataArray {
     public void AddStudentsAdded(String name) {
         this.names.add(name);
             for (int i = 0; i < this.names.size(); i++) {
+                System.out.println("list: " + this.names.get(i));
             }
     }
     public void removeStudentAdded(String name) {
@@ -305,6 +322,7 @@ public class lessonDataArray {
     
     public String getArrayOfStudentsAdded(int index) {
         String namesArray [] = this.names.toArray(new String[this.names.size()]);
+        System.out.println(namesArray[index]);
         return namesArray[index];
     }
     
@@ -532,6 +550,57 @@ public class lessonDataArray {
         }
         
     }
+    
+    public String [] notInNewStudents(String [] list1, ArrayList<String> list2) {
+        ArrayList<String> notIn = new ArrayList(Arrays.asList(list1));
+        for (int i = 0; i < list2.size(); i++) {
+            if (notIn.contains(list2.get(i))) {
+                System.out.println("entered contains with: " + list2.get(i));
+                notIn.remove(list2.get(i));
+            } else {
+                System.out.println("not contains with: " + list2.get(i));
+                notIn.add(list2.get(i));
+                System.out.println("added to not in: " + notIn.get(1));
+                studentLost = list1[i];
+                System.out.println("lost: " + studentLost);
+            }
+        }
+         String StringArray [] = notIn.toArray(new String[notIn.size()]);
+         System.out.println("student to be set: " + StringArray[1]);
+         return StringArray;
+    }
+    
+   public void editLessonStudents(boolean studentsChanged, ArrayList<String> list, int id, String date, String time) {
+       ConnectDB db = new ConnectDB();
+       keysArray ka = new keysArray();
+       CalendarHandler ch = new CalendarHandler();
+       studentsArray sa = new studentsArray();
+       String key = ka.getKeyFromLessonID(id);
+       ArrayList<String> originalStudents = new ArrayList<>();
+       
+       System.out.println("lessonID: " + id);
+       
+       String update = "";
+       if (studentsChanged) {
+           if (ch.studentsFromLessonDateAndTime(date, time).length == list.size()) {
+                   update = "UPDATE lessonData SET studentID = " + sa.studentIDFromName(this.notInNewStudents(ch.studentsFromLessonDateAndTime(date, time), list)[1]) + " WHERE studentID = "
+                           + sa.studentIDFromName(studentLost) +  " AND (SELECT lessonKey FROM lessonKeys WHERE lessonID = " + id + ") = " + "71c2b689-1854-4837-8e45-48d4715d2fe7";
+                   
+                   System.out.println("student ID to be set = " + sa.studentIDFromName(this.notInNewStudents(ch.studentsFromLessonDateAndTime(date, time), list)[1]));
+                   System.out.println("ID being replaced: " + sa.studentIDFromName(studentLost));
+                   System.out.println("key: " + key);
+                   
+                   try {
+                       db.UpdateDatabase(update);
+                   } catch (SQLException ex) {
+                       Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+                       System.out.println("couldntUpdate same number");
+                   }
+               
+           }
+       }
+   }
+    
     
     public int getDurationFromTimeAndDate(String time, String date) {
         int duration = 0;

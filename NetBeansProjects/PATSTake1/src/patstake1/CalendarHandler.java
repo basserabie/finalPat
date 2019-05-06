@@ -102,7 +102,32 @@ public class CalendarHandler {
         return formattedDate;
     }
     
-    
+    public int getIndexOfEndTimeFromTartTime(String date, String startTime) {
+        int index = 0;
+        for (int i = 0; i < this.getStartTimesOnDate(date).length; i++) {
+            DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
+            Calendar start = Calendar.getInstance(); // adds instance to cal
+            Calendar nextStart = Calendar.getInstance();
+            Calendar end = Calendar.getInstance();
+            if (i < this.getStartTimesOnDate(date).length-1) {
+                try {
+                    start.setTime(sdf.parse(startTime)); 
+                    end.setTime(sdf.parse(date + " " + this.getEndTimesOnDate(date)[i]));
+                    nextStart.setTime(sdf.parse(date + " " + this.getStartTimesOnDate(date)[i+1]));
+                } catch (ParseException ex) {
+                    Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (end.after(start) && end.before(nextStart)) {
+                    index = i;
+                    break;
+                }
+            } else {
+                index = i;
+            }
+        }
+        System.out.println("endTime of floor lesson: " + this.getEndTimesOnDate(date)[index]);
+        return index;
+    }
     
     public String CielingStartTime(String attemptedTime, String date) {
         lessonDataArray la = new lessonDataArray();
@@ -111,31 +136,45 @@ public class CalendarHandler {
         
         //create a date fromatter
             DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
+            DateFormat sdf2 = new SimpleDateFormat("HH:mm");
             Calendar timeObject = Calendar.getInstance(); // adds instance to cal
             try {
-                timeObject.setTime(sdf.parse(date + " " + attemptedTime)); 
-                System.out.println("getTime: " + timeObject.getTime());
+                timeObject.setTime(sdf.parse(date + " " + attemptedTime));
+                
             } catch (ParseException ex) {
                 Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
             }
         
         for (int i = 0; i < this.getStartTimesOnDate(date).length; i++) {
             //create a date fromatter
-            Calendar timeIn = Calendar.getInstance(); // adds instance to cal
+            Calendar startTime = Calendar.getInstance(); // adds instance to timeIn
             try {
-                timeIn.setTime(sdf.parse(date + " " + this.getStartTimesOnDate(date)[i])); 
-                System.out.println("getTime: " + timeIn.getTime());
-                times.add(timeIn.getTime());
+                startTime.setTime(sdf.parse(date + " " + this.getStartTimesOnDate(date)[i])); 
+                times.add(startTime.getTime());
             } catch (ParseException ex) {
                 Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
-        DateFormat sdf2 = new SimpleDateFormat("HH:mm");    
-        Date ceiling = times.ceiling(timeObject.getTime());
-        if (ceiling != null)  {
-           time =  sdf2.format(ceiling);
+        boolean overTime = true;    
+        Date floor = times.floor(timeObject.getTime());
+        
+        Calendar endTime = Calendar.getInstance();
+        Calendar checkTime = Calendar.getInstance();
+        try {
+            endTime.setTime(sdf2.parse(this.getEndTimesOnDate(date)[this.getIndexOfEndTimeFromTartTime(date, sdf.format(floor.getTime()))]));
+            checkTime.setTime(sdf2.parse(sdf2.format(timeObject.getTime())));
+            if (checkTime.before(endTime) && floor != null) {
+                overTime = false;
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        if (floor != null && overTime == false)  {
+           time = sdf2.format(floor);
+        }
+        System.out.println("startTime of selected: " + time);
         return time;
     }
     
@@ -180,44 +219,36 @@ public class CalendarHandler {
     
     public String getLessonDataOnThatDateAndTime(String date, String timeInputted) {
         lessonDataArray la = new lessonDataArray();
+        keysArray ka = new keysArray();
         String lessonsOnDayData = "Youre lessons on this day are:\n\n";
         String lessonIntro = "";
         
         String timeRef = this.CielingStartTime(timeInputted, date);
         
-        if (this.NumberOfLessonsOnDay(date) > 0) {
+        if (!timeRef.equals("")) {
             String time = "";
             String venue = "";
             String students = "";
             //populates lessonsOnDayData with the data for all of the lessons on the selected date
-            for (int i = 0; i < this.NumberOfLessonsOnDay(date); i++) {
-                String key = this.getKeyFromPositionInDayAndDate(i, date);
-                if (la.getFrequencyFromKey(key).equals("once-off")) {
-                    lessonIntro = "This is a once-off lesson:\n";
-                    time = "Time: " + this.timeFromLessonKey(key) + "\n";
-                    venue = "Venue: " + this.venueFromLessonKey(key) + "\n";
-                    students = "Student(s): " + this.studentsStringFromArray(this.studentsFromLessonDateAndTime(date, this.StartTimeFromLessonKey(key)));
-                    lessonsOnDayData += lessonIntro + time + venue + students + "\n";
-                } else {
-                    if (la.getFrequencyFromKey(key).equals("weekly")) {
+                String key = ka.getKeyFromDateAndTime(date, timeRef);
+                
+                switch (la.getFrequencyFromKey(key)) {
+                    case "once-off":
+                        lessonIntro = "This is a once-off lesson:\n";
+                        break;
+                    case "weekly":
                         lessonIntro = "This is a weekly lesson:\n";
-                        time = "Time: " + this.timeFromLessonKey(key) + "\n";
-                        venue = "Venue: " + this.venueFromLessonKey(key) + "\n";
-                        students = "Student(s): " + this.studentsStringFromArray(this.studentsFromLessonDateAndTime(date, this.StartTimeFromLessonKey(key)));
-                        lessonsOnDayData += lessonIntro + time + venue + students + "\n";
-                    } else {
-                        if (la.getFrequencyFromKey(key).equals("monthly")) {
-                            lessonIntro = "This is a monthly lesson:\n";
-                            time = "Time: " + this.timeFromLessonKey(key) + "\n";
-                            venue = "Venue: " + this.venueFromLessonKey(key) + "\n";
-                            students = "Student(s): " + this.studentsStringFromArray(this.studentsFromLessonDateAndTime(date, this.StartTimeFromLessonKey(key)));
-                            lessonsOnDayData += lessonIntro + time + venue + students + "\n";
-                        }
-                    }
+                        break;
+                    case "monthly":
+                        lessonIntro = "This is a monthly lesson:\n";
+                        break;
                 }
-            }
+            time = "Time: " + this.timeFromLessonKey(key) + "\n";
+            venue = "Venue: " + this.venueFromLessonKey(key) + "\n";
+            students = "Student(s): " + this.studentsStringFromArray(this.studentsFromLessonDateAndTime(date, this.StartTimeFromLessonKey(key)));
+            lessonsOnDayData += lessonIntro + time + venue + students + "\n";
         } else {
-            lessonsOnDayData = "you have no lessons on this day!";
+            lessonsOnDayData = "You ave no lesson at this time! :) :)";
         }
        return  lessonsOnDayData;
     }
@@ -363,7 +394,6 @@ public class CalendarHandler {
         }
         time.add(Calendar.MINUTE, 15);
         String StringTime = sdf.format(time.getTime());
-        System.out.println("endTime: " + StringTime);
         return StringTime;
     }
     
@@ -374,7 +404,6 @@ public class CalendarHandler {
         ArrayList<String> keys = new ArrayList<>();
         ArrayList<String> startsBooked = new ArrayList<>();
         ArrayList<String> endsBooked = new ArrayList<>();
-        System.out.println("time: " + time + " date: " + date);
         for (int i = 0; i < la.getLessonDataArray().size(); i++) {
             if (la.getLessonDataArray().get(i).getLessonDate().equals(date)) {
                 if (!keys.contains(ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()))) {
@@ -396,7 +425,6 @@ public class CalendarHandler {
         try {
             attemptedStartTime.setTime(sdf.parse(date + " " + time)); 
             attemptedEndTime.setTime(sdf.parse(this.getEndSegTime(time, date)));
-            System.out.println("atte times: " + attemptedStartTime + "  " + attemptedEndTime);
         } catch (ParseException ex) {
             Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -407,7 +435,6 @@ public class CalendarHandler {
             try {
                 refStartTime.setTime(sdf.parse(date + " " + startsBooked.get(i)));
                 refEndTime.setTime(sdf.parse(date + " " + endsBooked.get(i)));
-                System.out.println("ref times: " + refStartTime + "  " + refEndTime);
             } catch (ParseException ex) {
                 Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -418,6 +445,9 @@ public class CalendarHandler {
                 segHasLessonBooked = true;
             }
         }
+        
+        
+        
         return segHasLessonBooked;
     }
     

@@ -64,14 +64,11 @@ public class keysArray {
     public String getStartTimeFromKey(String key) {
         lessonDataArray la = new lessonDataArray();
         String startTime = "";
-        System.out.println(la.getLessonDataArray().size() + "    lesson array");
-        System.out.println(this.keyArray.size() + "    key array");
         for (int i = 0; i < la.getLessonDataArray().size(); i++) {
             if (this.getKeyArray().get(i).getLessonKey().equals(key)) {
                 startTime = la.getLessonDataArray().get(i).getLessonTime();  //FIX HERE IF DOESNT WORK
             }
         }
-        System.out.println(startTime);
         return startTime;
     }
     
@@ -86,8 +83,19 @@ public class keysArray {
                 endTime = la.getEndTime(startTime, la.getLessonDataArray().get(i).getLessonDuration());
             }
         }
-        System.out.println(endTime);
         return endTime;
+    }
+    
+    public String getKeyFromDateAndTime(String date, String time) {
+        lessonDataArray la = new lessonDataArray();
+        String key = "";
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
+            if (la.getLessonDataArray().get(i).getLessonDate().equals(date) &&
+                    la.getLessonDataArray().get(i).getLessonTime().equals(time)) {
+                key = this.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID());
+            }
+        }
+        return key;
     }
     
 }

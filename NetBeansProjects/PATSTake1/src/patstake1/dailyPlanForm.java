@@ -7,6 +7,7 @@ package patstake1;
 
 import java.awt.Color;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import static javax.swing.JTable.AUTO_RESIZE_OFF;
@@ -54,6 +55,11 @@ public class dailyPlanForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         backButton.setText("back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Your plan for:");
 
@@ -72,8 +78,12 @@ public class dailyPlanForm extends javax.swing.JFrame {
         ));
         dayTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         dayTable.setRowHeight(200);
-        dayTable.setRowHeight(200);
         dayTable.setRowSelectionAllowed(false);
+        dayTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dayTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(dayTable);
 
         showDay.setText("show day");
@@ -110,7 +120,8 @@ public class dailyPlanForm extends javax.swing.JFrame {
                     .addComponent(dateLabel)
                     .addComponent(showDay))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -120,6 +131,17 @@ public class dailyPlanForm extends javax.swing.JFrame {
         CalendarHandler ch = new CalendarHandler();
         this.dayTable.setModel(ch.selectedDateModel(this.dateLabel.getText()));
     }//GEN-LAST:event_showDayActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void dayTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dayTableMouseClicked
+        CalendarHandler ch = new CalendarHandler();
+        String timeClicked = this.dayTable.getColumnName(this.dayTable.getSelectedColumn());
+        System.out.println("Column selected: " + timeClicked);
+        JOptionPane.showMessageDialog(null, ch.getLessonDataOnThatDateAndTime(this.dateLabel.getText(), timeClicked));
+    }//GEN-LAST:event_dayTableMouseClicked
 
     /**
      * @param args the command line arguments

@@ -10,10 +10,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TreeSet;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +44,6 @@ public class CalendarHandler {
         public void propertyChange(PropertyChangeEvent e) {
             CalendarHandler ch = new CalendarHandler();
             String date = ch.getFormattedDateFromJCalendar(cal.getDate().toString());
-//            JOptionPane.showMessageDialog(null, ch.getLessonDataOnThatDate(date));
             
             ch.passToDailyPlan(date);
         }  
@@ -98,42 +102,79 @@ public class CalendarHandler {
         return formattedDate;
     }
     
-    public String getStartTimeFromDuringTime(String date, String duringTime) {
+    
+    
+    public String CielingStartTime(String attemptedTime, String date) {
+        lessonDataArray la = new lessonDataArray();
+        TreeSet<Date> times = new TreeSet<> ();
+        String time = "";
+        
+        //create a date fromatter
+            DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
+            Calendar timeObject = Calendar.getInstance(); // adds instance to cal
+            try {
+                timeObject.setTime(sdf.parse(date + " " + attemptedTime)); 
+                System.out.println("getTime: " + timeObject.getTime());
+            } catch (ParseException ex) {
+                Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        for (int i = 0; i < this.getStartTimesOnDate(date).length; i++) {
+            //create a date fromatter
+            Calendar timeIn = Calendar.getInstance(); // adds instance to cal
+            try {
+                timeIn.setTime(sdf.parse(date + " " + this.getStartTimesOnDate(date)[i])); 
+                System.out.println("getTime: " + timeIn.getTime());
+                times.add(timeIn.getTime());
+            } catch (ParseException ex) {
+                Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        DateFormat sdf2 = new SimpleDateFormat("HH:mm");    
+        Date ceiling = times.ceiling(timeObject.getTime());
+        if (ceiling != null)  {
+           time =  sdf2.format(ceiling);
+        }
+        return time;
+    }
+    
+    public String [] getStartTimesOnDate(String date) {
         lessonDataArray la = new lessonDataArray();
         keysArray ka = new keysArray();
-        String startTime = "";
         ArrayList<String> startTimes = new ArrayList<>();
-        ArrayList<String> endTimes = new ArrayList<>();
-        ArrayList<Integer> lessonIDs = new ArrayList<>();
         
         for (int i = 0; i < this.keysOnDay(date).length; i++) {
             String startAttemptedTime = ka.getStartTimeFromKey(this.keysOnDay(date)[i]);
-            String endAttemptedTime = ka.getEndTimeFromKey(this.keysOnDay(date)[i]);
             startTimes.add(startAttemptedTime);
+        }
+        String times [] = startTimes.toArray(new String[startTimes.size()]);
+        return times;
+    }
+    
+    public String [] getEndTimesOnDate(String date) {
+        lessonDataArray la = new lessonDataArray();
+        keysArray ka = new keysArray();
+        ArrayList<String> endTimes = new ArrayList<>();
+        
+        for (int i = 0; i < this.keysOnDay(date).length; i++) {
+            String endAttemptedTime = ka.getEndTimeFromKey(this.keysOnDay(date)[i]);
             endTimes.add(endAttemptedTime);
+        }
+        String times [] = endTimes.toArray(new String[endTimes.size()]);
+        return times;
+    }
+    
+    public int [] getLessonIDsOnDate(String date) {
+        lessonDataArray la = new lessonDataArray();
+        keysArray ka = new keysArray();
+        ArrayList<Integer> lessonIDs = new ArrayList<>();
+        
+        for (int i = 0; i < this.keysOnDay(date).length; i++) {
             lessonIDs.add(ka.getFirstLessonIDFromKey(this.keysOnDay(date)[i]));
         }
-        
-        int minsAttemptedTime = (Integer.parseInt(duringTime.substring(0, 2))*60)+Integer.parseInt(duringTime.substring(3, 5));
-        int minsAttemptedEndTime = minsAttemptedTime+15;
-        for (int i = 0; i < this.keysOnDay(date).length; i++) {
-            
-            int minsRefStartTime = (Integer.parseInt(startTimes.get(i).substring(0, 2))*60)+Integer.parseInt(startTimes.get(i).substring(3, 5));
-            int minsRefEndTime = (Integer.parseInt(endTimes.get(i).substring(0, 2))*60)+Integer.parseInt(endTimes.get(i).substring(3, 5));
-            
-            boolean check1 = minsRefStartTime-minsAttemptedTime > 0 && minsRefEndTime-minsAttemptedEndTime > 0 && !(minsAttemptedEndTime <= minsRefStartTime);
-             boolean check2 = minsRefStartTime-minsAttemptedTime > 0 && minsRefEndTime-minsAttemptedEndTime == 0;
-              boolean check3 = minsRefStartTime-minsAttemptedTime == 0 && minsRefEndTime-minsAttemptedEndTime > 0;
-               boolean check4 = minsRefStartTime-minsAttemptedTime == 0 && minsRefEndTime-minsAttemptedEndTime < 0;
-                boolean check5 = minsRefStartTime-minsAttemptedTime < 0 && minsRefEndTime-minsAttemptedEndTime > 0;
-                 boolean check6 = minsRefStartTime-minsAttemptedTime < 0 && minsRefEndTime-minsAttemptedEndTime < 0 && !(minsRefStartTime-minsAttemptedEndTime <= 0);
-                  boolean check7 = minsRefStartTime-minsAttemptedTime == 0 && minsRefEndTime-minsAttemptedEndTime == 0;
-            
-            if (check1 || check2 || check3 || check4 || check5 || check6 || check7) {
-                
-            }
-        }
-        return startTime;
+        int ids [] = lessonIDs.stream().mapToInt(i -> i).toArray();
+        return ids;
     }
     
     
@@ -141,6 +182,8 @@ public class CalendarHandler {
         lessonDataArray la = new lessonDataArray();
         String lessonsOnDayData = "Youre lessons on this day are:\n\n";
         String lessonIntro = "";
+        
+        String timeRef = this.CielingStartTime(timeInputted, date);
         
         if (this.NumberOfLessonsOnDay(date) > 0) {
             String time = "";
@@ -309,6 +352,21 @@ public class CalendarHandler {
         return studentsArray;
     }
     
+    public String getEndSegTime(String segStartTime, String date) {
+        //create a date fromatter
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
+        Calendar time = Calendar.getInstance(); // adds instance to cal
+        try {
+            time.setTime(sdf.parse(date + " " + segStartTime)); 
+        } catch (ParseException ex) {
+            Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        time.add(Calendar.MINUTE, 15);
+        String StringTime = sdf.format(time.getTime());
+        System.out.println("endTime: " + StringTime);
+        return StringTime;
+    }
+    
     public boolean TimeHasLesson(String date, String time) {
         lessonDataArray la = new lessonDataArray();
         keysArray ka = new keysArray();
@@ -331,25 +389,32 @@ public class CalendarHandler {
             endsBooked.add(endTime);
         }
         
-        int minsAttemptedTime = (Integer.parseInt(time.substring(0, 2))*60)+Integer.parseInt(time.substring(3, 5));
-        int minsAttemptedEndTime = minsAttemptedTime+15;
-        
-        int attemptedHour = Integer.parseInt(time.substring(0, 2));
-        int attemptedMin = Integer.parseInt(time.substring(3, 5));
+        //create a date fromatter
+        DateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");
+        Calendar attemptedStartTime = Calendar.getInstance(); // adds instance to cal
+        Calendar attemptedEndTime = Calendar.getInstance();
+        try {
+            attemptedStartTime.setTime(sdf.parse(date + " " + time)); 
+            attemptedEndTime.setTime(sdf.parse(this.getEndSegTime(time, date)));
+            System.out.println("atte times: " + attemptedStartTime + "  " + attemptedEndTime);
+        } catch (ParseException ex) {
+            Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+        }
         for (int i = 0; i < keys.size(); i++) {
             
-            int minsRefStartTime = (Integer.parseInt(startsBooked.get(i).substring(0, 2))*60)+Integer.parseInt(startsBooked.get(i).substring(3, 5));
-            int minsRefEndTime = (Integer.parseInt(endsBooked.get(i).substring(0, 2))*60)+Integer.parseInt(endsBooked.get(i).substring(3, 5));
+            Calendar refStartTime = Calendar.getInstance();
+            Calendar refEndTime = Calendar.getInstance();
+            try {
+                refStartTime.setTime(sdf.parse(date + " " + startsBooked.get(i)));
+                refEndTime.setTime(sdf.parse(date + " " + endsBooked.get(i)));
+                System.out.println("ref times: " + refStartTime + "  " + refEndTime);
+            } catch (ParseException ex) {
+                Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
-            boolean check1 = minsRefStartTime-minsAttemptedTime > 0 && minsRefEndTime-minsAttemptedEndTime > 0 && !(minsAttemptedEndTime <= minsRefStartTime);
-             boolean check2 = minsRefStartTime-minsAttemptedTime > 0 && minsRefEndTime-minsAttemptedEndTime == 0;
-              boolean check3 = minsRefStartTime-minsAttemptedTime == 0 && minsRefEndTime-minsAttemptedEndTime > 0;
-               boolean check4 = minsRefStartTime-minsAttemptedTime == 0 && minsRefEndTime-minsAttemptedEndTime < 0;
-                boolean check5 = minsRefStartTime-minsAttemptedTime < 0 && minsRefEndTime-minsAttemptedEndTime > 0;
-                 boolean check6 = minsRefStartTime-minsAttemptedTime < 0 && minsRefEndTime-minsAttemptedEndTime < 0 && !(minsRefStartTime-minsAttemptedEndTime <= 0);
-                  boolean check7 = minsRefStartTime-minsAttemptedTime == 0 && minsRefEndTime-minsAttemptedEndTime == 0;
-            
-            if (check1 || check2 || check3 || check4 || check5 || check6 || check7) {
+            if (attemptedStartTime.equals(refStartTime) ||
+                    attemptedEndTime.equals(refEndTime) ||
+                    attemptedStartTime.after(refStartTime) && attemptedEndTime.before(refEndTime)) {
                 segHasLessonBooked = true;
             }
         }
@@ -359,7 +424,7 @@ public class CalendarHandler {
     public String formatEventAtHour(String date, String time) {
         String lessonDataEventFiller = "";
         if (this.TimeHasLesson(date, time)) {
-            lessonDataEventFiller = "------------";
+            lessonDataEventFiller = "---------";
         }
         return lessonDataEventFiller;
     }

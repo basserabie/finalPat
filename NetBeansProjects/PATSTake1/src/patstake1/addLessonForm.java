@@ -218,7 +218,7 @@ public class addLessonForm extends javax.swing.JFrame {
 
         jLabel11.setText("Time:");
 
-        addLessonTimeHourComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
+        addLessonTimeHourComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
         addLessonTimeHourComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addLessonTimeHourComboBoxActionPerformed(evt);

@@ -923,6 +923,18 @@ public class lessonDataArray {
         return id;
     }
     
+    public int getLessonIDFromDuringTimeAndDate(String date, String duringTime) {
+        CalendarHandler ch = new CalendarHandler();
+        int id = 0;
+        String startTime = ch.CielingStartTime(date, duringTime);
+        for (int i = 0; i < this.getLessonDataArray().size(); i++) {
+            if (this.getLessonDataArray().get(i).getLessonDate().equals(date) && this.getLessonDataArray().get(i).getLessonTime().equals(startTime)) {
+                id = this.getLessonDataArray().get(i).getLessonID();
+            }
+        }
+        return id;
+    }
+    
 }
 
 

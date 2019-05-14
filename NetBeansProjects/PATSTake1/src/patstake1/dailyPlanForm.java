@@ -139,7 +139,6 @@ public class dailyPlanForm extends javax.swing.JFrame {
     private void dayTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dayTableMouseClicked
         CalendarHandler ch = new CalendarHandler();
         String timeClicked = this.dayTable.getColumnName(this.dayTable.getSelectedColumn());
-        System.out.println("Column selected: " + timeClicked);
         JOptionPane.showMessageDialog(null, ch.getLessonDataOnThatDateAndTime(this.dateLabel.getText(), timeClicked));
     }//GEN-LAST:event_dayTableMouseClicked
 

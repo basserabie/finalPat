@@ -25,7 +25,7 @@ public class dailyPlanForm extends javax.swing.JFrame {
      */
     public dailyPlanForm() {
         initComponents();
-        
+        this.dayTable.setVisible(false);
         this.dayTable.setAutoResizeMode(AUTO_RESIZE_OFF);
         this.dayTable.getColumnModel().getColumn(0).setPreferredWidth(5);
         this.dayTable.setRowHeight(120);
@@ -34,6 +34,18 @@ public class dailyPlanForm extends javax.swing.JFrame {
     
     public void setDateLabel(String date) {
         this.dateLabel.setText(date);
+    }
+    
+    public void setDayTableVisible(boolean set) {
+        this.dayTable.setVisible(set);
+    }
+    
+    public void setLoadingLabelVisible(boolean set) {
+        this.loadingLabel.setVisible(set);
+    }
+    
+    public void setLoadingLabelText(String text) {
+        this.loadingLabel.setText(text);
     }
     
     /**
@@ -51,6 +63,7 @@ public class dailyPlanForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         dayTable = new javax.swing.JTable();
         showDay = new javax.swing.JButton();
+        loadingLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,6 +106,8 @@ public class dailyPlanForm extends javax.swing.JFrame {
             }
         });
 
+        loadingLabel.setText("LOADING DAY.........");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,6 +120,8 @@ public class dailyPlanForm extends javax.swing.JFrame {
                 .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(showDay)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(loadingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -118,7 +135,8 @@ public class dailyPlanForm extends javax.swing.JFrame {
                     .addComponent(backButton)
                     .addComponent(jLabel1)
                     .addComponent(dateLabel)
-                    .addComponent(showDay))
+                    .addComponent(showDay)
+                    .addComponent(loadingLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -183,6 +201,7 @@ public class dailyPlanForm extends javax.swing.JFrame {
     private javax.swing.JTable dayTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel loadingLabel;
     private javax.swing.JButton showDay;
     // End of variables declaration//GEN-END:variables
 }

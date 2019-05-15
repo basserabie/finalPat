@@ -40,7 +40,9 @@ import static net.ucanaccess.converters.Functions.date;
  */
 public class CalendarHandler {
     
+    private static boolean HAD_LESSON = true;
     private static int COLOUR = 0;
+    private static int COLOUR2 = 0;
     private static String CURRENT_LESSON_START_TIME = "";
     private static String PREV_LESSON_START_TIME = "";
     
@@ -135,7 +137,7 @@ public class CalendarHandler {
         return index;
     }
     
-    public String CielingStartTime(String attemptedTime, String date) {
+    public String floorStartTime(String attemptedTime, String date) {
         lessonDataArray la = new lessonDataArray();
         TreeSet<Date> times = new TreeSet<> ();
         String time = "";
@@ -250,7 +252,7 @@ public class CalendarHandler {
         String timeRef = "";
         //checks if there is a startTime to the selected time and assignes that startTime to timeRef
         if (this.TimeHasLesson(date, timeInputted)) {
-            timeRef = this.CielingStartTime(timeInputted, date);
+            timeRef = this.floorStartTime(timeInputted, date);
         }
         
         if (!timeRef.equals("")) {
@@ -480,23 +482,66 @@ public class CalendarHandler {
     public String formatEventAtHour(String date, String time, String startTime, String firstStartTimeOfDay) {
         lessonDataArray la = new lessonDataArray();
         String lessonDataEventFiller = "";
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
         String colours [] = {"red", "blue", "green", "pink", "purple", "yellow", "orange"};
-        String colour = "red";
+        String colour = colours[COLOUR2];
+        boolean over = false;
         
-        CURRENT_LESSON_START_TIME = startTime;
-        if (!PREV_LESSON_START_TIME.equals(CURRENT_LESSON_START_TIME) && !PREV_LESSON_START_TIME.equals("")) {
-            if (COLOUR < colours.length-1) {
-                COLOUR++;
-                colour = colours[COLOUR];
-                PREV_LESSON_START_TIME = CURRENT_LESSON_START_TIME;
-            } else {
-                COLOUR = 0;
-            }
-        }
+        System.out.println("startTimeOfSeg: " + startTime);
         
         if (this.TimeHasLesson(date, time)) {
-                lessonDataEventFiller = "<html><font color=\"" + colour + "\">--------</font></html>";
+            CURRENT_LESSON_START_TIME = startTime;
+            HAD_LESSON = true;
+            
+            String endTime = "";
+            for (int i = 0; i < la.getLessonDataArray().size(); i++) {
+                if (la.getLessonDataArray().get(i).getLessonDate().equals(date) && la.getLessonDataArray().get(i).getLessonTime().equals(CURRENT_LESSON_START_TIME)) {
+                    endTime = la.getEndTime(la.getLessonDataArray().get(i).getLessonTime(), la.getLessonDataArray().get(i).getLessonDuration());
+                }
+            }
+            
+            Calendar timeDate = Calendar.getInstance();
+            Calendar startTimeDateSeg = Calendar.getInstance();
+            Calendar startTimeDateRef = Calendar.getInstance();
+            Calendar endTimeDateRef = Calendar.getInstance();
+            
+            try {
+                timeDate.setTime(sdf.parse(date + " " + time));
+                startTimeDateSeg.setTime(sdf.parse(date + " " + startTime));
+                System.out.println("startTimeDateSeg: " + startTimeDateSeg.getTime());
+                startTimeDateRef.setTime(sdf.parse(date + " " + PREV_LESSON_START_TIME));
+                System.out.println("startTimeDateRef: " + startTimeDateRef.getTime());
+                endTimeDateRef.setTime(sdf.parse(date + " " + endTime));
+                System.out.println("endTimeDateRef: " + endTimeDateRef.getTime());
+            } catch (ParseException ex) {
+                Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if (timeDate.after(endTimeDateRef)) {
+                System.out.println("entered time after if statement with: " + timeDate.getTime());
+                if (COLOUR < colours.length-1) {
+                    COLOUR++;
+                    colour = colours[COLOUR];
+                } else {
+                    COLOUR = 0;
+                }
+            } else {
+                System.out.println("did not entered time after if statement with: " + timeDate.getTime());
+                over = true;
+                PREV_LESSON_START_TIME = CURRENT_LESSON_START_TIME;
+            }
+            lessonDataEventFiller = "<html><font color=\"" + colour + "\">----------</font></html>";
+            if (over) {
+                if (COLOUR2 < colours.length-1) {
+                    COLOUR2++;
+                } else {
+                    COLOUR2 = 0;
+                }
+            }
+        } else {
+            HAD_LESSON = false;
         }
+
         return lessonDataEventFiller;
     }
     
@@ -517,78 +562,78 @@ public class CalendarHandler {
                     "22:00", "22:15", "22:30", "22:45", "23:00", "23:15", "23:30", "23:45"};
             model = new DefaultTableModel(columnNames, 0);
 
-                String sixAM = this.formatEventAtHour(date, "06:00", this.CielingStartTime("06:00", date), firstsTartTime);
-                String six15AM = this.formatEventAtHour(date, "06:15", this.CielingStartTime("06:15", date), firstsTartTime);
-                String six30AM = this.formatEventAtHour(date, "06:30", this.CielingStartTime("06:30", date), firstsTartTime);
-                String six45AM = this.formatEventAtHour(date, "06:45", this.CielingStartTime("06:45", date), firstsTartTime);
-                String sevenAM = this.formatEventAtHour(date, "07:00", this.CielingStartTime("07:00", date), firstsTartTime);
-                String seven15AM = this.formatEventAtHour(date, "07:15", this.CielingStartTime("07:15", date), firstsTartTime);
-                String seven30AM = this.formatEventAtHour(date, "07:30", this.CielingStartTime("07:30", date), firstsTartTime);
-                String seven45AM = this.formatEventAtHour(date, "07:45", this.CielingStartTime("07:45", date), firstsTartTime);
-                String eightAM = this.formatEventAtHour(date, "08:00", this.CielingStartTime("08:00", date), firstsTartTime);
-                String eight15AM = this.formatEventAtHour(date, "08:15", this.CielingStartTime("08:15", date), firstsTartTime);
-                String eight30AM = this.formatEventAtHour(date, "08:30", this.CielingStartTime("08:30", date), firstsTartTime);
-                String eight45AM = this.formatEventAtHour(date, "08:45", this.CielingStartTime("08:45", date), firstsTartTime);
-                String nineAM = this.formatEventAtHour(date, "09:00", this.CielingStartTime("09:00", date), firstsTartTime);
-                String nine15AM = this.formatEventAtHour(date, "09:15", this.CielingStartTime("09:15", date), firstsTartTime);
-                String nine30AM = this.formatEventAtHour(date, "09:30", this.CielingStartTime("09:30", date), firstsTartTime);
-                String nine45AM = this.formatEventAtHour(date, "09:45", this.CielingStartTime("09:45", date), firstsTartTime);
-                String tenAM = this.formatEventAtHour(date, "10:00", this.CielingStartTime("10:00", date), firstsTartTime);
-                String ten15AM = this.formatEventAtHour(date, "10:15", this.CielingStartTime("10:15", date), firstsTartTime);
-                String ten30AM = this.formatEventAtHour(date, "10:30", this.CielingStartTime("10:30", date), firstsTartTime);
-                String ten45AM = this.formatEventAtHour(date, "10:45", this.CielingStartTime("10:45", date), firstsTartTime);
-                String elevenAM = this.formatEventAtHour(date, "11:00", this.CielingStartTime("11:00", date), firstsTartTime);
-                String eleven15AM = this.formatEventAtHour(date, "11:15", this.CielingStartTime("11:15", date), firstsTartTime);
-                String eleven30AM = this.formatEventAtHour(date, "11:30", this.CielingStartTime("11:30", date), firstsTartTime);
-                String eleven45AM = this.formatEventAtHour(date, "11:45", this.CielingStartTime("11:45", date), firstsTartTime);
-                String twelvePM = this.formatEventAtHour(date, "12:00", this.CielingStartTime("12:00", date), firstsTartTime);
-                String twelve15PM = this.formatEventAtHour(date, "12:15", this.CielingStartTime("12:15", date), firstsTartTime);
-                String twelve30PM = this.formatEventAtHour(date, "12:30", this.CielingStartTime("12:30", date), firstsTartTime);
-                String twelve45PM = this.formatEventAtHour(date, "12:45", this.CielingStartTime("12:45", date), firstsTartTime);
-                String onePM = this.formatEventAtHour(date, "13:00", this.CielingStartTime("13:00", date), firstsTartTime);
-                String one15PM = this.formatEventAtHour(date, "13:15", this.CielingStartTime("13:15", date), firstsTartTime);
-                String one30PM = this.formatEventAtHour(date, "13:30", this.CielingStartTime("13:30", date), firstsTartTime);
-                String one45PM = this.formatEventAtHour(date, "13:45", this.CielingStartTime("13:45", date), firstsTartTime);
-                String twoPM = this.formatEventAtHour(date, "14:00", this.CielingStartTime("14:00", date), firstsTartTime);
-                String two15PM = this.formatEventAtHour(date, "14:15", this.CielingStartTime("14:15", date), firstsTartTime);
-                String two30PM = this.formatEventAtHour(date, "14:30", this.CielingStartTime("14:30", date), firstsTartTime);
-                String two45PM = this.formatEventAtHour(date, "14:45", this.CielingStartTime("14:45", date), firstsTartTime);
-                String threePM = this.formatEventAtHour(date, "15:00", this.CielingStartTime("15:00", date), firstsTartTime);
-                String three15PM = this.formatEventAtHour(date, "15:15", this.CielingStartTime("15:15", date), firstsTartTime);
-                String three30PM = this.formatEventAtHour(date, "15:30", this.CielingStartTime("15:30", date), firstsTartTime);
-                String three45PM = this.formatEventAtHour(date, "15:45", this.CielingStartTime("15:45", date), firstsTartTime);
-                String fourPM = this.formatEventAtHour(date, "16:00", this.CielingStartTime("16:00", date), firstsTartTime);
-                String four15PM = this.formatEventAtHour(date, "16:15", this.CielingStartTime("16:15", date), firstsTartTime);
-                String four30PM = this.formatEventAtHour(date, "16:30", this.CielingStartTime("16:30", date), firstsTartTime);
-                String four45PM = this.formatEventAtHour(date, "16:45", this.CielingStartTime("16:45", date), firstsTartTime);
-                String fivePM = this.formatEventAtHour(date, "17:00", this.CielingStartTime("17:00", date), firstsTartTime);
-                String five15PM = this.formatEventAtHour(date, "17:15", this.CielingStartTime("17:15", date), firstsTartTime);
-                String five30PM = this.formatEventAtHour(date, "17:30", this.CielingStartTime("17:30", date), firstsTartTime);
-                String five45PM = this.formatEventAtHour(date, "17:45", this.CielingStartTime("17:45", date), firstsTartTime);
-                String sixPM = this.formatEventAtHour(date, "18:00", this.CielingStartTime("18:00", date), firstsTartTime);
-                String six15PM = this.formatEventAtHour(date, "18:15", this.CielingStartTime("18:15", date), firstsTartTime);
-                String six30PM = this.formatEventAtHour(date, "18:30", this.CielingStartTime("18:30", date), firstsTartTime);
-                String six45PM = this.formatEventAtHour(date, "18:45", this.CielingStartTime("18:45", date), firstsTartTime);
-                String sevenPM = this.formatEventAtHour(date, "19:00", this.CielingStartTime("19:00", date), firstsTartTime);
-                String seven15PM = this.formatEventAtHour(date, "19:15", this.CielingStartTime("19:15", date), firstsTartTime);
-                String seven30PM = this.formatEventAtHour(date, "19:30", this.CielingStartTime("19:30", date), firstsTartTime);
-                String seven45PM = this.formatEventAtHour(date, "19:45", this.CielingStartTime("19:45", date), firstsTartTime);
-                String eightPM = this.formatEventAtHour(date, "20:00", this.CielingStartTime("20:00", date), firstsTartTime);
-                String eight15PM = this.formatEventAtHour(date, "20:15", this.CielingStartTime("20:15", date), firstsTartTime);
-                String eight30PM = this.formatEventAtHour(date, "20:30", this.CielingStartTime("20:30", date), firstsTartTime);
-                String eight45PM = this.formatEventAtHour(date, "20:45", this.CielingStartTime("20:45", date), firstsTartTime);
-                String ninePM = this.formatEventAtHour(date, "21:00", this.CielingStartTime("21:00", date), firstsTartTime);
-                String nine15PM = this.formatEventAtHour(date, "21:15", this.CielingStartTime("21:15", date), firstsTartTime);
-                String nine30PM = this.formatEventAtHour(date, "21:30", this.CielingStartTime("21:30", date), firstsTartTime);
-                String nine45PM = this.formatEventAtHour(date, "21:45", this.CielingStartTime("21:45", date), firstsTartTime);
-                String tenPM = this.formatEventAtHour(date, "22:00", this.CielingStartTime("22:00", date), firstsTartTime);
-                String ten15PM = this.formatEventAtHour(date, "22:15", this.CielingStartTime("22:15", date), firstsTartTime);
-                String ten30PM = this.formatEventAtHour(date, "22:30", this.CielingStartTime("22:30", date), firstsTartTime);
-                String ten45PM = this.formatEventAtHour(date, "22:45", this.CielingStartTime("22:45", date), firstsTartTime);
-                String elevenPM = this.formatEventAtHour(date, "23:00", this.CielingStartTime("23:00", date), firstsTartTime);
-                String eleven15PM = this.formatEventAtHour(date, "23:15", this.CielingStartTime("23:15", date), firstsTartTime);
-                String eleven30PM = this.formatEventAtHour(date, "23:30", this.CielingStartTime("23:30", date), firstsTartTime);
-                String eleven45PM = this.formatEventAtHour(date, "23:45", this.CielingStartTime("32:45", date), firstsTartTime);
+                String sixAM = this.formatEventAtHour(date, "06:00", this.floorStartTime("06:00", date), firstsTartTime);
+                String six15AM = this.formatEventAtHour(date, "06:15", this.floorStartTime("06:15", date), firstsTartTime);
+                String six30AM = this.formatEventAtHour(date, "06:30", this.floorStartTime("06:30", date), firstsTartTime);
+                String six45AM = this.formatEventAtHour(date, "06:45", this.floorStartTime("06:45", date), firstsTartTime);
+                String sevenAM = this.formatEventAtHour(date, "07:00", this.floorStartTime("07:00", date), firstsTartTime);
+                String seven15AM = this.formatEventAtHour(date, "07:15", this.floorStartTime("07:15", date), firstsTartTime);
+                String seven30AM = this.formatEventAtHour(date, "07:30", this.floorStartTime("07:30", date), firstsTartTime);
+                String seven45AM = this.formatEventAtHour(date, "07:45", this.floorStartTime("07:45", date), firstsTartTime);
+                String eightAM = this.formatEventAtHour(date, "08:00", this.floorStartTime("08:00", date), firstsTartTime);
+                String eight15AM = this.formatEventAtHour(date, "08:15", this.floorStartTime("08:15", date), firstsTartTime);
+                String eight30AM = this.formatEventAtHour(date, "08:30", this.floorStartTime("08:30", date), firstsTartTime);
+                String eight45AM = this.formatEventAtHour(date, "08:45", this.floorStartTime("08:45", date), firstsTartTime);
+                String nineAM = this.formatEventAtHour(date, "09:00", this.floorStartTime("09:00", date), firstsTartTime);
+                String nine15AM = this.formatEventAtHour(date, "09:15", this.floorStartTime("09:15", date), firstsTartTime);
+                String nine30AM = this.formatEventAtHour(date, "09:30", this.floorStartTime("09:30", date), firstsTartTime);
+                String nine45AM = this.formatEventAtHour(date, "09:45", this.floorStartTime("09:45", date), firstsTartTime);
+                String tenAM = this.formatEventAtHour(date, "10:00", this.floorStartTime("10:00", date), firstsTartTime);
+                String ten15AM = this.formatEventAtHour(date, "10:15", this.floorStartTime("10:15", date), firstsTartTime);
+                String ten30AM = this.formatEventAtHour(date, "10:30", this.floorStartTime("10:30", date), firstsTartTime);
+                String ten45AM = this.formatEventAtHour(date, "10:45", this.floorStartTime("10:45", date), firstsTartTime);
+                String elevenAM = this.formatEventAtHour(date, "11:00", this.floorStartTime("11:00", date), firstsTartTime);
+                String eleven15AM = this.formatEventAtHour(date, "11:15", this.floorStartTime("11:15", date), firstsTartTime);
+                String eleven30AM = this.formatEventAtHour(date, "11:30", this.floorStartTime("11:30", date), firstsTartTime);
+                String eleven45AM = this.formatEventAtHour(date, "11:45", this.floorStartTime("11:45", date), firstsTartTime);
+                String twelvePM = this.formatEventAtHour(date, "12:00", this.floorStartTime("12:00", date), firstsTartTime);
+                String twelve15PM = this.formatEventAtHour(date, "12:15", this.floorStartTime("12:15", date), firstsTartTime);
+                String twelve30PM = this.formatEventAtHour(date, "12:30", this.floorStartTime("12:30", date), firstsTartTime);
+                String twelve45PM = this.formatEventAtHour(date, "12:45", this.floorStartTime("12:45", date), firstsTartTime);
+                String onePM = this.formatEventAtHour(date, "13:00", this.floorStartTime("13:00", date), firstsTartTime);
+                String one15PM = this.formatEventAtHour(date, "13:15", this.floorStartTime("13:15", date), firstsTartTime);
+                String one30PM = this.formatEventAtHour(date, "13:30", this.floorStartTime("13:30", date), firstsTartTime);
+                String one45PM = this.formatEventAtHour(date, "13:45", this.floorStartTime("13:45", date), firstsTartTime);
+                String twoPM = this.formatEventAtHour(date, "14:00", this.floorStartTime("14:00", date), firstsTartTime);
+                String two15PM = this.formatEventAtHour(date, "14:15", this.floorStartTime("14:15", date), firstsTartTime);
+                String two30PM = this.formatEventAtHour(date, "14:30", this.floorStartTime("14:30", date), firstsTartTime);
+                String two45PM = this.formatEventAtHour(date, "14:45", this.floorStartTime("14:45", date), firstsTartTime);
+                String threePM = this.formatEventAtHour(date, "15:00", this.floorStartTime("15:00", date), firstsTartTime);
+                String three15PM = this.formatEventAtHour(date, "15:15", this.floorStartTime("15:15", date), firstsTartTime);
+                String three30PM = this.formatEventAtHour(date, "15:30", this.floorStartTime("15:30", date), firstsTartTime);
+                String three45PM = this.formatEventAtHour(date, "15:45", this.floorStartTime("15:45", date), firstsTartTime);
+                String fourPM = this.formatEventAtHour(date, "16:00", this.floorStartTime("16:00", date), firstsTartTime);
+                String four15PM = this.formatEventAtHour(date, "16:15", this.floorStartTime("16:15", date), firstsTartTime);
+                String four30PM = this.formatEventAtHour(date, "16:30", this.floorStartTime("16:30", date), firstsTartTime);
+                String four45PM = this.formatEventAtHour(date, "16:45", this.floorStartTime("16:45", date), firstsTartTime);
+                String fivePM = this.formatEventAtHour(date, "17:00", this.floorStartTime("17:00", date), firstsTartTime);
+                String five15PM = this.formatEventAtHour(date, "17:15", this.floorStartTime("17:15", date), firstsTartTime);
+                String five30PM = this.formatEventAtHour(date, "17:30", this.floorStartTime("17:30", date), firstsTartTime);
+                String five45PM = this.formatEventAtHour(date, "17:45", this.floorStartTime("17:45", date), firstsTartTime);
+                String sixPM = this.formatEventAtHour(date, "18:00", this.floorStartTime("18:00", date), firstsTartTime);
+                String six15PM = this.formatEventAtHour(date, "18:15", this.floorStartTime("18:15", date), firstsTartTime);
+                String six30PM = this.formatEventAtHour(date, "18:30", this.floorStartTime("18:30", date), firstsTartTime);
+                String six45PM = this.formatEventAtHour(date, "18:45", this.floorStartTime("18:45", date), firstsTartTime);
+                String sevenPM = this.formatEventAtHour(date, "19:00", this.floorStartTime("19:00", date), firstsTartTime);
+                String seven15PM = this.formatEventAtHour(date, "19:15", this.floorStartTime("19:15", date), firstsTartTime);
+                String seven30PM = this.formatEventAtHour(date, "19:30", this.floorStartTime("19:30", date), firstsTartTime);
+                String seven45PM = this.formatEventAtHour(date, "19:45", this.floorStartTime("19:45", date), firstsTartTime);
+                String eightPM = this.formatEventAtHour(date, "20:00", this.floorStartTime("20:00", date), firstsTartTime);
+                String eight15PM = this.formatEventAtHour(date, "20:15", this.floorStartTime("20:15", date), firstsTartTime);
+                String eight30PM = this.formatEventAtHour(date, "20:30", this.floorStartTime("20:30", date), firstsTartTime);
+                String eight45PM = this.formatEventAtHour(date, "20:45", this.floorStartTime("20:45", date), firstsTartTime);
+                String ninePM = this.formatEventAtHour(date, "21:00", this.floorStartTime("21:00", date), firstsTartTime);
+                String nine15PM = this.formatEventAtHour(date, "21:15", this.floorStartTime("21:15", date), firstsTartTime);
+                String nine30PM = this.formatEventAtHour(date, "21:30", this.floorStartTime("21:30", date), firstsTartTime);
+                String nine45PM = this.formatEventAtHour(date, "21:45", this.floorStartTime("21:45", date), firstsTartTime);
+                String tenPM = this.formatEventAtHour(date, "22:00", this.floorStartTime("22:00", date), firstsTartTime);
+                String ten15PM = this.formatEventAtHour(date, "22:15", this.floorStartTime("22:15", date), firstsTartTime);
+                String ten30PM = this.formatEventAtHour(date, "22:30", this.floorStartTime("22:30", date), firstsTartTime);
+                String ten45PM = this.formatEventAtHour(date, "22:45", this.floorStartTime("22:45", date), firstsTartTime);
+                String elevenPM = this.formatEventAtHour(date, "23:00", this.floorStartTime("23:00", date), firstsTartTime);
+                String eleven15PM = this.formatEventAtHour(date, "23:15", this.floorStartTime("23:15", date), firstsTartTime);
+                String eleven30PM = this.formatEventAtHour(date, "23:30", this.floorStartTime("23:30", date), firstsTartTime);
+                String eleven45PM = this.formatEventAtHour(date, "23:45", this.floorStartTime("32:45", date), firstsTartTime);
 
                 model.addRow(new Object[] {sixAM, six15AM, six30AM, six45AM, sevenAM, seven15AM, seven30AM,
                     seven45AM,eightAM, eight15AM, eight30AM, eight45AM, nineAM, nine15AM, nine30AM, nine45AM

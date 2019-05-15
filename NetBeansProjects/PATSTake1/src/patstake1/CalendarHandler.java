@@ -483,6 +483,7 @@ public class CalendarHandler {
         lessonDataArray la = new lessonDataArray();
         String lessonDataEventFiller = "";
         DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
+        DateFormat sdf2 = new SimpleDateFormat("HH:mm");
         String colours [] = {"red", "blue", "green", "pink", "purple", "yellow", "orange"};
         String colour = colours[COLOUR2];
         boolean over = false;
@@ -501,6 +502,7 @@ public class CalendarHandler {
             }
             
             Calendar timeDate = Calendar.getInstance();
+            Calendar endTimeDate = Calendar.getInstance();
             Calendar startTimeDateSeg = Calendar.getInstance();
             Calendar startTimeDateRef = Calendar.getInstance();
             Calendar endTimeDateRef = Calendar.getInstance();
@@ -508,16 +510,14 @@ public class CalendarHandler {
             try {
                 timeDate.setTime(sdf.parse(date + " " + time));
                 startTimeDateSeg.setTime(sdf.parse(date + " " + startTime));
-                System.out.println("startTimeDateSeg: " + startTimeDateSeg.getTime());
+                endTimeDate.setTime(sdf.parse(this.getEndSegTime(sdf2.format(timeDate.getTime()), date)));
                 startTimeDateRef.setTime(sdf.parse(date + " " + PREV_LESSON_START_TIME));
-                System.out.println("startTimeDateRef: " + startTimeDateRef.getTime());
                 endTimeDateRef.setTime(sdf.parse(date + " " + endTime));
-                System.out.println("endTimeDateRef: " + endTimeDateRef.getTime());
             } catch (ParseException ex) {
                 Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            if (timeDate.after(endTimeDateRef)) {
+            if (endTimeDate.equals(endTimeDateRef)) {
                 System.out.println("entered time after if statement with: " + timeDate.getTime());
                 if (COLOUR < colours.length-1) {
                     COLOUR++;
@@ -525,11 +525,11 @@ public class CalendarHandler {
                 } else {
                     COLOUR = 0;
                 }
-            } else {
                 System.out.println("did not entered time after if statement with: " + timeDate.getTime());
                 over = true;
                 PREV_LESSON_START_TIME = CURRENT_LESSON_START_TIME;
             }
+            System.out.println("\ncolour: " + colour + "\n");
             lessonDataEventFiller = "<html><font color=\"" + colour + "\">----------</font></html>";
             if (over) {
                 if (COLOUR2 < colours.length-1) {

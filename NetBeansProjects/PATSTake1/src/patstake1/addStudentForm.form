@@ -25,40 +25,55 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="backToDashboardButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="144" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="31" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="addStudentButton" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+                      <Component id="backToDashboardButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" pref="144" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel2" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
-                          <Component id="jLabel9" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
-                          <Component id="jLabel8" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
-                          <Component id="jLabel7" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
-                          <Component id="jLabel6" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="addStudentButton" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel2" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
+                                      <Component id="jLabel9" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
+                                      <Component id="jLabel8" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
+                                      <Component id="jLabel6" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
+                                      <Component id="jLabel3" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
+                                      <Component id="jLabel4" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
+                                      <Component id="jLabel5" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="studentSchoolComboBox" min="-2" max="-2" attributes="0"/>
+                                      <Component id="studentGradeComboBox" min="-2" max="-2" attributes="0"/>
+                                      <Component id="studentlNameT" min="-2" pref="219" max="-2" attributes="0"/>
+                                      <Component id="motherFNameT" min="-2" pref="219" max="-2" attributes="0"/>
+                                      <Component id="motherLNameT" min="-2" pref="219" max="-2" attributes="0"/>
+                                      <Component id="motherEmailT" min="-2" pref="219" max="-2" attributes="0"/>
+                                      <Component id="motherCellT" min="-2" pref="219" max="-2" attributes="0"/>
+                                      <Component id="studentfNameT" min="-2" pref="219" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="genderSlider" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="studentSchoolComboBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="studentGradeComboBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="studentlNameT" min="-2" pref="219" max="-2" attributes="0"/>
-                          <Component id="motherFNameT" min="-2" pref="219" max="-2" attributes="0"/>
-                          <Component id="motherLNameT" min="-2" pref="219" max="-2" attributes="0"/>
-                          <Component id="motherEmailT" min="-2" pref="219" max="-2" attributes="0"/>
-                          <Component id="motherCellT" min="-2" pref="219" max="-2" attributes="0"/>
-                          <Component id="studentfNameT" min="-2" pref="219" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -75,22 +90,32 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="studentfNameT" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="studentlNameT" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="studentlNameT" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="studentGradeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="studentGradeComboBox" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="studentSchoolComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel10" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="genderSlider" alignment="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="motherFNameT" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -110,9 +135,9 @@
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="motherCellT" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="addStudentButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="82" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -223,6 +248,23 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addStudentButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel10">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Gender:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSlider" name="genderSlider">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel11">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="M"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel12">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="F"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

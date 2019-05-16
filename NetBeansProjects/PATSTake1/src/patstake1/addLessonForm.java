@@ -479,6 +479,7 @@ public class addLessonForm extends javax.swing.JFrame {
                     Integer.parseInt(this.durationSpinner.getValue().toString()), this.lessonKey);
         }
         la.sortArray();
+        ADDED_ARRAY.removeAll(ADDED_ARRAY);
         this.hide();
     }//GEN-LAST:event_addLessonButtonActionPerformed
 

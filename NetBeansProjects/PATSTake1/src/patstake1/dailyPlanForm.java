@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import static javax.swing.JTable.AUTO_RESIZE_OFF;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 /**
@@ -25,10 +26,12 @@ public class dailyPlanForm extends javax.swing.JFrame {
      */
     public dailyPlanForm() {
         initComponents();
-        this.dayTable.setVisible(false);
+        CalendarHandler ch = new CalendarHandler();
+
         this.dayTable.setAutoResizeMode(AUTO_RESIZE_OFF);
         this.dayTable.getColumnModel().getColumn(0).setPreferredWidth(5);
         this.dayTable.setRowHeight(120);
+        this.dayTable.setModel(ch.DefModel());
         
     }
     
@@ -121,7 +124,7 @@ public class dailyPlanForm extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addComponent(showDay)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loadingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loadingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -147,7 +150,16 @@ public class dailyPlanForm extends javax.swing.JFrame {
 
     private void showDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showDayActionPerformed
         CalendarHandler ch = new CalendarHandler();
-        this.dayTable.setModel(ch.selectedDateModel(this.dateLabel.getText()));
+        ch.LessonsOnDay(this.dateLabel.getText());
+        if (CalendarHandler.DAY_HAS_LESSON) {
+            this.dayTable.setModel(ch.selectedDateModel(this.dateLabel.getText()));
+            this.loadingLabel.setText("NOW SHOWING LESSONS:");
+        } else {
+            this.dayTable.setModel(ch.noLessonModel());
+            this.dayTable.setVisible(false);
+            this.loadingLabel.setText("NO LESSONS ON THIS DAY :), WATCH A MOVIE!");
+        }
+        
     }//GEN-LAST:event_showDayActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed

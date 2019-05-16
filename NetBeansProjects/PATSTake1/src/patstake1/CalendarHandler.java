@@ -40,8 +40,8 @@ import static net.ucanaccess.converters.Functions.date;
  */
 public class CalendarHandler {
     
+    public static boolean DAY_HAS_LESSON = true;
     private static int COLOUR = 0;
-    private static int COLOUR2 = 0;
     
     public void JCalendarActionPerformed(JCalendar cal) {
         cal.getDayChooser().addPropertyChangeListener("day", new PropertyChangeListener() {
@@ -198,7 +198,6 @@ public class CalendarHandler {
             time = sdf2.format(times.floor(floor));
           } 
         }
-        System.out.println("FinalStart: " + time);
         return time;
     }
     
@@ -247,7 +246,8 @@ public class CalendarHandler {
         String lessonsOnDayData = "Youre lesson at this time is:\n\n";
         String lessonIntro = "";
         String timeRef = "";
-        //checks if there is a startTime to the selected time and assignes that startTime to timeRef
+        
+         //checks if there is a startTime to the selected time and assignes that startTime to timeRef
         if (this.TimeHasLesson(date, timeInputted)) {
             timeRef = this.floorStartTime(timeInputted, date);
         }
@@ -276,6 +276,7 @@ public class CalendarHandler {
         } else {
             lessonsOnDayData = "You ave no lesson at this time! :) :)";
         }
+        
        return  lessonsOnDayData;
     }
     
@@ -482,10 +483,8 @@ public class CalendarHandler {
         DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
         DateFormat sdf2 = new SimpleDateFormat("HH:mm");
         String colours [] = {"red", "blue", "green", "pink", "purple", "yellow", "orange"};
-        String colour = colours[COLOUR2];
+        String colour = colours[COLOUR];
         boolean after = false;
-        
-        System.out.println("startTimeOfSeg: " + startTime);
         
         if (this.TimeHasLesson(date, time)) {
             
@@ -508,34 +507,28 @@ public class CalendarHandler {
                 Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            lessonDataEventFiller = "<html><font color=\"" + colour + "\">----------</font></html>";
+            lessonDataEventFiller = "<html><font size = 200 color=\"" + colour + "\">■■■■</font></html>";
             
             if (endTimeDate.equals(endTimeDateRef)) {
-                System.out.println("entered time after if statement with: " + timeDate.getTime());
                 if (COLOUR < colours.length-1) {
                     COLOUR++;
-                    colour = colours[COLOUR];
                 } else {
                     COLOUR = 0;
-                }
-                System.out.println("did not entered time after if statement with: " + timeDate.getTime());
-                if (COLOUR2 < colours.length-1) {
-                    COLOUR2++;
-                } else {
-                    COLOUR2 = 0;
                 }
             }
         }
         return lessonDataEventFiller;
     }
+     public void LessonsOnDay(String date) {
+         if (this.getStartTimesOnDate(date).length == 0) {
+             DAY_HAS_LESSON = false;
+         }
+     }
     
     public DefaultTableModel selectedDateModel(String date) {
         DefaultTableModel model = null;
         lessonDataArray la = new lessonDataArray();
-        dailyPlanForm dpf = new dailyPlanForm();
-        dpf.setDayTableVisible(false);
         
-        if (this.getStartTimesOnDate(date).length != 0) {
             Object columnNames[] = {"06:00", "06:15", "06:30", "06:45", "07:00", "07:15", "07:30", "07:45", "08:00",
                 "08:15", "08:30", "08:45", "09:00", "09:15", "09:30", "09:45", "10:00", "10:15", "10:30", "10:45",
                     "11:00", "11:15", "11:30", "11:45", "12:00", "12:15", "12:30", "12:45", "13:00", "13:15", "13:30",
@@ -626,13 +619,23 @@ public class CalendarHandler {
                         fivePM, five15PM, five30PM, five45PM, sixPM, six15PM, six30PM, six45PM, sevenPM, seven15PM
                         , seven30PM, seven45PM, eightPM, eight15PM, eight30PM, eight45PM, ninePM, nine15PM, nine30PM
                         , nine45PM, tenPM, ten15PM, ten30PM, ten45PM, elevenPM, eleven15PM, eleven30PM, eleven45PM});
-                
-                dpf.setLoadingLabelText("NOW SHOWING DAY:");
-                dpf.setDayTableVisible(true);
-        } else {
-            dpf.setLoadingLabelText("NO LESSONS ON THIS DAY :)");
-        }
         
+        return model;
+    }
+    
+    public DefaultTableModel noLessonModel() {
+        DefaultTableModel model = null;
+        Object columnNames[] = {"N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"};
+        model = new DefaultTableModel(columnNames, 0);
+        model.addRow(new Object[] {"N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"});
+        return model;
+    }
+    
+    public DefaultTableModel DefModel() {
+        DefaultTableModel model = null;
+        Object columnNames[] = {"↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻"};
+        model = new DefaultTableModel(columnNames, 0);
+        model.addRow(new Object[] {"↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻"});
         return model;
     }
 

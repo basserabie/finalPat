@@ -625,17 +625,19 @@ public class CalendarHandler {
     
     public DefaultTableModel noLessonModel() {
         DefaultTableModel model = null;
-        Object columnNames[] = {"N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"};
+        String n = "<html><font size = 20 color=\" black\">N/A</font></html>";
+        Object columnNames[] = {n, n, n, n, n, n, n, n, n, n, n, n, n};
         model = new DefaultTableModel(columnNames, 0);
-        model.addRow(new Object[] {"N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"});
+        model.addRow(new Object[] {n, n, n, n, n, n, n, n, n, n, n, n, n});
         return model;
     }
     
     public DefaultTableModel DefModel() {
         DefaultTableModel model = null;
-        Object columnNames[] = {"↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻"};
+        String l = "<html><font size = 200 color=\" black\">↻</font></html>";
+        Object columnNames[] = {l, l, l, l, l, l, l, l, l, l, l, l, l, l};
         model = new DefaultTableModel(columnNames, 0);
-        model.addRow(new Object[] {"↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻", "↻"});
+        model.addRow(new Object[] {l, l, l, l, l, l, l, l, l, l, l, l, l, l});
         return model;
     }
 
@@ -644,5 +646,5 @@ public class CalendarHandler {
         dp.setDateLabel(date);
         dp.setVisible(true);
     }
-    
+   
 }

@@ -41,12 +41,8 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="testSpinner" min="-2" pref="108" max="-2" attributes="0"/>
-                          </Group>
                           <Component id="addLessonButton" alignment="0" min="-2" pref="586" max="-2" attributes="0"/>
+                          <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -79,16 +75,8 @@
                           <Component id="jPanel1" max="32767" attributes="0"/>
                           <Component id="jPanel2" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="testSpinner" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="addLessonButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -310,24 +298,26 @@
                       <Component id="jLabel10" min="-2" pref="84" max="-2" attributes="0"/>
                       <Component id="jLabel11" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="addLessonTimeHourComboBox" min="-2" pref="82" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="addLessonTimeMinuteComboBox" min="-2" pref="87" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel13" min="-2" pref="92" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="frequencyComboBox" min="-2" pref="149" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="durationSpinner" min="-2" pref="57" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="timeSetLabel" min="-2" pref="147" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="HourSpinner" min="-2" pref="64" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="minuteSpinner" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="durationSpinner" min="-2" pref="57" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -345,10 +335,10 @@
                   <Component id="addDateComboBox" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="addLessonTimeHourComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="addLessonTimeMinuteComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="HourSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="minuteSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -387,51 +377,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Time:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="addLessonTimeHourComboBox">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="18">
-                <StringItem index="0" value="06"/>
-                <StringItem index="1" value="07"/>
-                <StringItem index="2" value="08"/>
-                <StringItem index="3" value="09"/>
-                <StringItem index="4" value="10"/>
-                <StringItem index="5" value="11"/>
-                <StringItem index="6" value="12"/>
-                <StringItem index="7" value="13"/>
-                <StringItem index="8" value="14"/>
-                <StringItem index="9" value="15"/>
-                <StringItem index="10" value="16"/>
-                <StringItem index="11" value="17"/>
-                <StringItem index="12" value="18"/>
-                <StringItem index="13" value="19"/>
-                <StringItem index="14" value="20"/>
-                <StringItem index="15" value="21"/>
-                <StringItem index="16" value="22"/>
-                <StringItem index="17" value="23"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addLessonTimeHourComboBoxActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="addLessonTimeMinuteComboBox">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addLessonTimeMinuteComboBoxActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
@@ -474,6 +419,16 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="HourSpinner">
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="HourSpinnerStateChanged"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="minuteSpinner">
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="minuteSpinnerStateChanged"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -538,7 +493,5 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JSpinner" name="testSpinner">
-    </Component>
   </SubComponents>
 </Form>

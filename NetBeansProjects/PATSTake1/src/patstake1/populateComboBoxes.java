@@ -176,12 +176,18 @@ public class populateComboBoxes {
         return students;
     }
     
+    public String [] populateHourSpinner() {
+        String hours [] = {"06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"};
+        return hours;
+    }
+    
     public String [] populateMinuteComboBoxAccordingToHour(String hourSelected) {
         String minutes [] = new String [4];
         int min = 15;
         minutes[0] = hourSelected + ":" + "00";
         for (int i = 0; i < 3; i++) {
             minutes[i+1] = hourSelected + ":" + ""+min;
+            System.out.println("minsss: " + minutes[i+1]);
             min += 15;
         }
         return minutes;

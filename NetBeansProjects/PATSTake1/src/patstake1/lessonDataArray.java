@@ -874,6 +874,7 @@ public class lessonDataArray {
     
     public String getLessonTimeFromStartTimeAndDuration(String startTime, int duration) {
         String time = startTime + " - " + this.getEndTime(startTime, duration);
+        System.out.println("Time: " + time);
         return time;
     }
     

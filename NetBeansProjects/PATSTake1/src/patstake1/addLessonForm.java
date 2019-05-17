@@ -15,6 +15,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
 
 /**
@@ -24,6 +25,7 @@ import javax.swing.SpinnerListModel;
 public class addLessonForm extends javax.swing.JFrame {
 
     public static ArrayList<String> ADDED_ARRAY = new ArrayList<>();
+    private static boolean HOUR_CHOSEN = false;
     String lessonKey;
     
     /**
@@ -45,7 +47,9 @@ public class addLessonForm extends javax.swing.JFrame {
         //populates duration spinner with hour options
         SpinnerListModel hours = new SpinnerListModel(pop.populateDurationSpinner());
         this.durationSpinner.setModel(hours);
-        
+        //populates hourSpinner
+        SpinnerListModel hourModel = new SpinnerListModel(pop.populateHourSpinner());
+        this.HourSpinner.setModel(hourModel);
         //generates the lesson key for lesson to be added
         lessonDataArray la = new lessonDataArray();
         this.lessonKey = la.generateLessonKey();
@@ -82,18 +86,17 @@ public class addLessonForm extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         addDateComboBox = new com.toedter.calendar.JDateChooser();
         jLabel11 = new javax.swing.JLabel();
-        addLessonTimeHourComboBox = new javax.swing.JComboBox<>();
-        addLessonTimeMinuteComboBox = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         durationSpinner = new javax.swing.JSpinner();
         jLabel12 = new javax.swing.JLabel();
         timeSetLabel = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         frequencyComboBox = new javax.swing.JComboBox<>();
+        HourSpinner = new javax.swing.JSpinner();
+        minuteSpinner = new javax.swing.JSpinner();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         addVenueComboBox = new javax.swing.JComboBox<>();
-        testSpinner = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -219,19 +222,6 @@ public class addLessonForm extends javax.swing.JFrame {
 
         jLabel11.setText("Time:");
 
-        addLessonTimeHourComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
-        addLessonTimeHourComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addLessonTimeHourComboBoxActionPerformed(evt);
-            }
-        });
-
-        addLessonTimeMinuteComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addLessonTimeMinuteComboBoxActionPerformed(evt);
-            }
-        });
-
         jLabel8.setText("Duration(hours):");
 
         durationSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -253,6 +243,18 @@ public class addLessonForm extends javax.swing.JFrame {
             }
         });
 
+        HourSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                HourSpinnerStateChanged(evt);
+            }
+        });
+
+        minuteSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                minuteSpinnerStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -267,21 +269,22 @@ public class addLessonForm extends javax.swing.JFrame {
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(addLessonTimeHourComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addLessonTimeMinuteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(frequencyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(durationSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(timeSetLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(timeSetLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(HourSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(minuteSpinner))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(durationSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -295,10 +298,10 @@ public class addLessonForm extends javax.swing.JFrame {
                 .addComponent(addDateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(7, 7, 7)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addLessonTimeHourComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addLessonTimeMinuteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(HourSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minuteSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -367,11 +370,8 @@ public class addLessonForm extends javax.swing.JFrame {
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(testSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(addLessonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(addLessonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -395,13 +395,8 @@ public class addLessonForm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(testSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addLessonButton)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -460,30 +455,17 @@ public class addLessonForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_addVenueComboBoxActionPerformed
 
-    private void addLessonTimeHourComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonTimeHourComboBoxActionPerformed
-        populateComboBoxes pop = new populateComboBoxes();
-        lessonDataArray la = new lessonDataArray();
-        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.addLessonTimeHourComboBox.getSelectedItem().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-        this.timeSetLabel.setText(timeSet);
-        //populates minute combo box according to hour selected
-        this.addLessonTimeMinuteComboBox.removeAllItems();//removes previously generated items in minute combo box
-        DefaultComboBoxModel minutes = new DefaultComboBoxModel(pop.populateMinuteComboBoxAccordingToHour(this.addLessonTimeHourComboBox.getSelectedItem().toString()));
-        this.addLessonTimeMinuteComboBox.setModel(minutes);
-        SpinnerListModel testModel = new SpinnerListModel(pop.populateMinuteComboBoxAccordingToHour(this.addLessonTimeHourComboBox.getSelectedItem().toString()));
-        this.testSpinner.setModel(testModel);
-    }//GEN-LAST:event_addLessonTimeHourComboBoxActionPerformed
-
     private void addLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonButtonActionPerformed
         lessonDataArray la = new lessonDataArray();
         //gets and formats date
-        String time = this.addLessonTimeMinuteComboBox.getSelectedItem().toString();
+        String time = this.minuteSpinner.getModel().getValue().toString();
         String date = la.formatDate(this.addDateComboBox.getDate().toString());
         String day = la.formatDay(this.addDateComboBox.getDate().toString());
         //pushes lesson
         for (int i = 0; i < this.StudentsAddedListModel.size(); i++) {
             la.addLesson(this.addVenueComboBox.getSelectedItem().toString(), 
                     la.formatDate(this.addDateComboBox.getDate().toString()), 
-                    this.addLessonTimeMinuteComboBox.getSelectedItem().toString(), 
+                    this.minuteSpinner.getModel().getValue().toString(), 
                     la.formatDay(this.addDateComboBox.getDate().toString()), 
                     this.StudentsAddedListModel.size(), 
                     this.StudentsAddedListModel.get(i).toString(), this.frequencyComboBox.getSelectedIndex(),
@@ -497,6 +479,7 @@ public class addLessonForm extends javax.swing.JFrame {
     private void backToDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardButtonActionPerformed
         dashboard d = new dashboard();
         lessonDataArray la = new lessonDataArray();
+        ADDED_ARRAY.removeAll(ADDED_ARRAY);
         la.sortArray();
         d.setVisible(true);
         this.hide();
@@ -506,21 +489,14 @@ public class addLessonForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_frequencyComboBoxActionPerformed
 
-    private void addLessonTimeMinuteComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonTimeMinuteComboBoxActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.addLessonTimeMinuteComboBox.getSelectedItem().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-        this.timeSetLabel.setText(timeSet);
-    }//GEN-LAST:event_addLessonTimeMinuteComboBoxActionPerformed
-
     private void durationSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_durationSpinnerStateChanged
-        if (!this.addLessonTimeHourComboBox.getSelectedItem().toString().equals("")) {
-            if (this.addLessonTimeMinuteComboBox.getSelectedItem().toString().equals("")) {
-                lessonDataArray la = new lessonDataArray();
-                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.addLessonTimeHourComboBox.getSelectedItem().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
+        lessonDataArray la = new lessonDataArray();
+        if (HOUR_CHOSEN) {
+            if (this.minuteSpinner.getModel().getValue().toString().equals("")) {
+                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.HourSpinner.getModel().getValue().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
                 this.timeSetLabel.setText(timeSet);
             } else {
-                lessonDataArray la = new lessonDataArray();
-                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.addLessonTimeMinuteComboBox.getSelectedItem().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
+                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
                 this.timeSetLabel.setText(timeSet);
             }
         } else {
@@ -545,6 +521,22 @@ public class addLessonForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Before you start typing please select the grade :)");
         }
     }//GEN-LAST:event_studentBeingAddedTextFieldKeyPressed
+
+    private void HourSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_HourSpinnerStateChanged
+        HOUR_CHOSEN = true;
+        populateComboBoxes pop = new populateComboBoxes();
+        lessonDataArray la = new lessonDataArray();
+        SpinnerListModel minuteModel = new SpinnerListModel(pop.populateMinuteComboBoxAccordingToHour(this.HourSpinner.getModel().getValue().toString()));
+        this.minuteSpinner.setModel(minuteModel);
+        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.HourSpinner.getModel().getValue().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
+        this.timeSetLabel.setText(timeSet);
+    }//GEN-LAST:event_HourSpinnerStateChanged
+
+    private void minuteSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_minuteSpinnerStateChanged
+            lessonDataArray la = new lessonDataArray();
+            String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
+            this.timeSetLabel.setText(timeSet);
+    }//GEN-LAST:event_minuteSpinnerStateChanged
 
     /**
      * @param args the command line arguments
@@ -580,14 +572,8 @@ public class addLessonForm extends javax.swing.JFrame {
             }
         });
     }
-
-    public JComboBox<String> getAddLessonTimeHourComboBox() {
-        return addLessonTimeHourComboBox;
-    }
-
-    public JComboBox<String> getAddLessonTimeMinuteComboBox() {
-        return addLessonTimeMinuteComboBox;
-    }
+    
+    
 
     public JComboBox<String> getAddStudentGradeComboBox() {
         return addStudentGradeComboBox;
@@ -602,10 +588,9 @@ public class addLessonForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner HourSpinner;
     private com.toedter.calendar.JDateChooser addDateComboBox;
     private javax.swing.JButton addLessonButton;
-    private javax.swing.JComboBox<String> addLessonTimeHourComboBox;
-    private javax.swing.JComboBox<String> addLessonTimeMinuteComboBox;
     private javax.swing.JComboBox<String> addStudentGradeComboBox;
     private javax.swing.JComboBox<String> addStudentNameComboBox;
     private javax.swing.JButton addStudentToLessonButton;
@@ -631,9 +616,9 @@ public class addLessonForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner minuteSpinner;
     private javax.swing.JTextField studentBeingAddedTextField;
     private javax.swing.JList<String> studentsAddedList;
-    private javax.swing.JSpinner testSpinner;
     private javax.swing.JLabel timeSetLabel;
     // End of variables declaration//GEN-END:variables
 }

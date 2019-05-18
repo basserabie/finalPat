@@ -109,7 +109,7 @@ public class dailyPlanForm extends javax.swing.JFrame {
             }
         });
 
-        loadingLabel.setText("LOADING DAY.........");
+        loadingLabel.setText("<<----CLICK SHOW DAY!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,6 +150,7 @@ public class dailyPlanForm extends javax.swing.JFrame {
 
     private void showDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showDayActionPerformed
         CalendarHandler ch = new CalendarHandler();
+        this.loadingLabel.setText("NOW LOADING DAY......");
         ch.LessonsOnDay(this.dateLabel.getText());
         if (CalendarHandler.DAY_HAS_LESSON) {
             this.dayTable.setModel(ch.selectedDateModel(this.dateLabel.getText()));

@@ -11,11 +11,15 @@ package patstake1;
  */
 public class paymentsForm extends javax.swing.JFrame {
 
+    private static int TOGGLE_PAID = 1;
+    
     /**
      * Creates new form paymentsForm
      */
     public paymentsForm() {
         initComponents();
+        populateComboBoxes pop = new populateComboBoxes();
+        this.paymetsTable.setModel(pop.payments());
     }
 
     /**
@@ -27,10 +31,16 @@ public class paymentsForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         backToDashBoard = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         paymetsTable = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        dispayAllButton = new javax.swing.JButton();
+        togglePaidButton = new javax.swing.JToggleButton();
+        addPayementButton = new javax.swing.JButton();
+        removePaymentButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +66,57 @@ public class paymentsForm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(paymetsTable);
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        dispayAllButton.setText("Display All");
+        dispayAllButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dispayAllButtonActionPerformed(evt);
+            }
+        });
+
+        togglePaidButton.setText("DisplayPaid");
+        togglePaidButton.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                togglePaidButtonStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dispayAllButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(togglePaidButton))
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dispayAllButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(togglePaidButton)
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
+
+        addPayementButton.setText("Add Payment");
+        addPayementButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPayementButtonActionPerformed(evt);
+            }
+        });
+
+        removePaymentButton.setText("Remove Payment");
+        removePaymentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removePaymentButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -63,12 +124,22 @@ public class paymentsForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1002, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(backToDashBoard)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1002, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(backToDashBoard)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(7, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addPayementButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(removePaymentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,9 +148,15 @@ public class paymentsForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backToDashBoard)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(removePaymentButton, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addPayementButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -89,6 +166,51 @@ public class paymentsForm extends javax.swing.JFrame {
     private void backToDashBoardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashBoardActionPerformed
         this.hide();
     }//GEN-LAST:event_backToDashBoardActionPerformed
+
+    private void togglePaidButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_togglePaidButtonStateChanged
+        populateComboBoxes pop = new populateComboBoxes();
+        TOGGLE_PAID++;
+        if (TOGGLE_PAID%2 == 0) {
+            this.paymetsTable.setModel(pop.paymentsPaid());
+            this.togglePaidButton.setText("Display Not Paid");
+        } else {
+            this.paymetsTable.setModel(pop.paymentsNotPaid());
+            this.togglePaidButton.setText("Display Paid");
+        }
+    }//GEN-LAST:event_togglePaidButtonStateChanged
+
+    private void dispayAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dispayAllButtonActionPerformed
+        populateComboBoxes pop = new populateComboBoxes();
+        this.paymetsTable.setModel(pop.payments());
+    }//GEN-LAST:event_dispayAllButtonActionPerformed
+
+    private void addPayementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPayementButtonActionPerformed
+        paymentsArray pa = new paymentsArray();
+        lessonDataArray la = new lessonDataArray();
+        studentsArray sa = new studentsArray();
+        populateComboBoxes pop = new populateComboBoxes();
+        String studentName = this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 0).toString();
+        int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
+        String date = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 1).toString());
+        String time = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 2).toString()).substring(0, 5);
+        
+        pa.addPayment(la.getLessoIDFromDateTimeAndStudentID(date, time, studentID));
+        this.paymetsTable.setModel(pop.payments());
+    }//GEN-LAST:event_addPayementButtonActionPerformed
+
+    private void removePaymentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePaymentButtonActionPerformed
+        paymentsArray pa = new paymentsArray();
+        lessonDataArray la = new lessonDataArray();
+        studentsArray sa = new studentsArray();
+        populateComboBoxes pop = new populateComboBoxes();
+        String studentName = this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 0).toString();
+        int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
+        String date = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 1).toString());
+        String time = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 2).toString()).substring(0, 5);
+        
+        pa.removePayment(la.getLessoIDFromDateTimeAndStudentID(date, time, studentID));
+        this.paymetsTable.setModel(pop.payments());
+    }//GEN-LAST:event_removePaymentButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,9 +248,15 @@ public class paymentsForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addPayementButton;
     private javax.swing.JButton backToDashBoard;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton dispayAllButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable paymetsTable;
+    private javax.swing.JButton removePaymentButton;
+    private javax.swing.JToggleButton togglePaidButton;
     // End of variables declaration//GEN-END:variables
 }

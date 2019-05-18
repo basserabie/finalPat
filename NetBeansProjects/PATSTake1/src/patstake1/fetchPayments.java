@@ -10,14 +10,16 @@ package patstake1;
  * @author YishaiBasserabie
  */
 public class fetchPayments {
-    private int StudentID, lessonID, cost, amountPaid, amountOwed;
+    private int StudentID, payDuration;
+    private boolean paid;
+    private String PayDate, PayTime;
 
-    public fetchPayments(int StudentID, int lessonID, int cost, int amountPaid, int amountOwed) {
+    public fetchPayments(int StudentID, int payDuration, boolean paid, String PayDate, String PayTime) {
         this.StudentID = StudentID;
-        this.lessonID = lessonID;
-        this.cost = cost;
-        this.amountPaid = amountPaid;
-        this.amountOwed = amountOwed;
+        this.payDuration = payDuration;
+        this.paid = paid;
+        this.PayDate = PayDate;
+        this.PayTime = PayTime;
     }
 
     public int getStudentID() {
@@ -28,37 +30,39 @@ public class fetchPayments {
         this.StudentID = StudentID;
     }
 
-    public int getLessonID() {
-        return lessonID;
+    public int getPayDuration() {
+        return payDuration;
     }
 
-    public void setLessonID(int lessonID) {
-        this.lessonID = lessonID;
+    public void setPayDuration(int payDuration) {
+        this.payDuration = payDuration;
     }
 
-    public int getCost() {
-        return cost;
+    public boolean isPaid() {
+        return paid;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 
-    public int getAmountPaid() {
-        return amountPaid;
+    public String getPayDate() {
+        return PayDate;
     }
 
-    public void setAmountPaid(int amountPaid) {
-        this.amountPaid = amountPaid;
+    public void setPayDate(String PayDate) {
+        this.PayDate = PayDate;
     }
 
-    public int getAmountOwed() {
-        return amountOwed;
+    public String getPayTime() {
+        return PayTime;
     }
 
-    public void setAmountOwed(int amountOwed) {
-        this.amountOwed = amountOwed;
+    public void setPayTime(String PayTime) {
+        this.PayTime = PayTime;
     }
+
     
+
     
 }

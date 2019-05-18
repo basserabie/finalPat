@@ -175,6 +175,11 @@ public class lesson extends javax.swing.JFrame {
         });
 
         deleteLesson.setText("Delete Lesson");
+        deleteLesson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteLessonActionPerformed(evt);
+            }
+        });
 
         moreInfoLesson.setText("More Info");
 
@@ -412,6 +417,10 @@ public class lesson extends javax.swing.JFrame {
         editLessonForm elf = new editLessonForm();
         elf.setVisible(true);
     }//GEN-LAST:event_editLessonActionPerformed
+
+    private void deleteLessonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLessonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteLessonActionPerformed
 
     /**
      * @param args the command line arguments

@@ -458,11 +458,12 @@ public class lessonDataArray {
          return finalDay;
     }
     
-    public void addLesson(String venue, String date, String time, String day, int size, String name, int frequency, int duration, String lessonKeyToAdd) {
+    public void addLesson(String venue, String date, String time, String day, int size, String name, int frequency, int duration, String lessonKeyToAdd, boolean paid) {
         ConnectDB db = new ConnectDB();
         lessonDataArray la = new lessonDataArray();
         studentsArray sa = new studentsArray();
         keysArray ka = new keysArray();
+        paymentsArray pa = new paymentsArray();
         venueArray va = new venueArray();
         int countDisplayMessages = 0;
         int countLessonIDForKeys = 1;
@@ -482,18 +483,18 @@ public class lessonDataArray {
         }
         String insert;
         String insertKey;
+        String insertPaid;
         
         if (frequency == 0) {
             insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES ('" + id + "', '" 
                     + va.venueIDFromVenue(venue) + "', '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', '" + day + "')";
             insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";
+            insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration) VALUES "
+                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "')";
             try {
                 db.UpdateDatabase(insert);
-            } catch (SQLException ex) {
-                Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
                 db.UpdateDatabase(insertKey);
+                db.UpdateDatabase(insertPaid);
             } catch (SQLException ex) {
                 Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -503,13 +504,12 @@ public class lessonDataArray {
                     insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES ('" + id + "', '" 
                     + va.venueIDFromVenue(venue) + "', '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', '" + day + "')";
                     insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";
+                    insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration) VALUES "
+                            + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "')";
                     try {
                         db.UpdateDatabase(insert);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    try {
                         db.UpdateDatabase(insertKey);
+                        db.UpdateDatabase(insertPaid);
                     } catch (SQLException ex) {
                         Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -522,13 +522,12 @@ public class lessonDataArray {
                         insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES ('" + id + "', '" 
                         + va.venueIDFromVenue(venue) + "', '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', '" + day + "')";
                         insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";
+                        insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration) VALUES "
+                                + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "')";
                         try {
                             db.UpdateDatabase(insert);
-                        } catch (SQLException ex) {
-                            Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        try {
                             db.UpdateDatabase(insertKey);
+                            db.UpdateDatabase(insertPaid);
                         } catch (SQLException ex) {
                             Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -550,7 +549,7 @@ public class lessonDataArray {
         }
         
     }
-    
+
     public String [] notInNewStudents(String [] list1, ArrayList<String> list2) {
         ArrayList<String> notIn = new ArrayList(Arrays.asList(list1));
         for (int i = 0; i < list2.size(); i++) {

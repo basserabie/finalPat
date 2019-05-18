@@ -114,6 +114,27 @@ public class mothersArray {
         mi.setVisible(true);
     }
     
+    public int getMotherIDFromMotherName(String name) {
+        int id = 0;
+        for (int i = 0; i < this.mothersArray.size(); i++) {
+            String motherName = this.getMothersArray().get(i).getMotherFName() + " " + this.getMothersArray().get(i).getMotherLName();
+            if (motherName.equals(name)) {
+                id = this.getMothersArray().get(i).getMotherID();
+            }
+        }
+        return id;
+    }
+    
+    public String getMotherEmailFromID(int id) {
+        String email = "";
+        for (int i = 0; i < this.mothersArray.size(); i++) {
+            if (this.mothersArray.get(i).getMotherID() == id) {
+                email = this.mothersArray.get(i).getMotherEmail();
+            }
+        }
+        return email;
+    }
+    
     public void editMother(String name, String email, String cell) {
         ConnectDB db = new ConnectDB();
         int id = this.getMotherIDFromName(name);

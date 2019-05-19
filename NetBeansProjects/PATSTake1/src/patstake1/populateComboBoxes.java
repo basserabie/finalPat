@@ -673,7 +673,7 @@ public class populateComboBoxes {
          lessonDataArray la = new lessonDataArray();
          String colour = "";
          DefaultTableModel model = null;
-         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "Cost", "paid"};
          model = new DefaultTableModel(columnNames, 0);
          for (int i = 0; i < pa.getPaymentArray().size(); i++) {
              boolean paid = pa.getPaymentArray().get(i).isPaid();
@@ -709,7 +709,7 @@ public class populateComboBoxes {
          lessonDataArray la = new lessonDataArray();
          String colour = "";
          DefaultTableModel model = null;
-         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "Cost", "paid"};
          model = new DefaultTableModel(columnNames, 0);
          for (int i = 0; i < pa.getPaymentArray().size(); i++) {
              boolean paid = pa.getPaymentArray().get(i).isPaid();
@@ -743,7 +743,7 @@ public class populateComboBoxes {
          paymentsArray pa = new paymentsArray();
          lessonDataArray la = new lessonDataArray();
          DefaultTableModel model = null;
-         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "Cost", "paid"};
          model = new DefaultTableModel(columnNames, 0);
          for (int i = 0; i < pa.getPaymentArray().size(); i++) {
              int studentID = pa.getPaymentArray().get(i).getStudentID();
@@ -767,7 +767,7 @@ public class populateComboBoxes {
          paymentsArray pa = new paymentsArray();
          lessonDataArray la = new lessonDataArray();
          DefaultTableModel model = null;
-         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "Cost", "paid"};
          model = new DefaultTableModel(columnNames, 0);
          for (int i = 0; i < pa.getPaymentArray().size(); i++) {
              int studentID = pa.getPaymentArray().get(i).getStudentID();
@@ -791,7 +791,7 @@ public class populateComboBoxes {
          paymentsArray pa = new paymentsArray();
          lessonDataArray la = new lessonDataArray();
          DefaultTableModel model = null;
-         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "Cost", "paid"};
          model = new DefaultTableModel(columnNames, 0);
          for (int i = 0; i < pa.getPaymentArray().size(); i++) {
              int studentID = pa.getPaymentArray().get(i).getStudentID();
@@ -816,7 +816,7 @@ public class populateComboBoxes {
          lessonDataArray la = new lessonDataArray();
          String colour  = "red";
          DefaultTableModel model = null;
-         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "Cost", "paid"};
          model = new DefaultTableModel(columnNames, 0);
          for (int i = 0; i < pa.getPaymentArray().size(); i++) {
              int studentID = pa.getPaymentArray().get(i).getStudentID();
@@ -841,7 +841,7 @@ public class populateComboBoxes {
          lessonDataArray la = new lessonDataArray();
          String colour  = "red";
          DefaultTableModel model = null;
-         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "Cost", "paid"};
          model = new DefaultTableModel(columnNames, 0);
          for (int i = 0; i < pa.getPaymentArray().size(); i++) {
              int studentID = pa.getPaymentArray().get(i).getStudentID();
@@ -866,7 +866,7 @@ public class populateComboBoxes {
          lessonDataArray la = new lessonDataArray();
          String colour  = "red";
          DefaultTableModel model = null;
-         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "Cost", "paid"};
          model = new DefaultTableModel(columnNames, 0);
          for (int i = 0; i < pa.getPaymentArray().size(); i++) {
              int studentID = pa.getPaymentArray().get(i).getStudentID();

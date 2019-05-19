@@ -144,7 +144,7 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        paymentsButton.setText("paymens");
+        paymentsButton.setText("payments");
         paymentsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 paymentsButtonActionPerformed(evt);

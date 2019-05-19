@@ -35,11 +35,6 @@ public class populateComboBoxes {
         return types;
     }
     
-    public String [] populateSchoolFilterTypeComboBox() {
-        String types [] = {"school name", "principle name", "student name"};
-        return types;
-    }
-    
     //populates schools combo boxes
     public String [] populateSchools() {
         schoolsArray sa = new schoolsArray();
@@ -229,41 +224,6 @@ public class populateComboBoxes {
              String email = sa.getSchoolsDataArray().get(i).getPEmail();
              
              if (school.toLowerCase().startsWith(name.toLowerCase())) {
-                 model.addRow(new Object[] {school, principal, email});
-             }
-         }
-        return model;
-     }
-    
-    public DefaultTableModel schoolsByPrincipalName(String name) {
-         schoolsArray sa = new schoolsArray();
-         DefaultTableModel model = null;
-         Object columnNames[] = {"school", "principal", "principal emial"};
-         model = new DefaultTableModel(columnNames, 0);
-         for (int i = 0; i < sa.getSchoolsDataArray().size(); i++) {
-             String school = sa.getSchoolsDataArray().get(i).getSchoolName();
-             String principal = sa.getSchoolsDataArray().get(i).getPFName() + " " + sa.getSchoolsDataArray().get(i).getPLName();
-             String email = sa.getSchoolsDataArray().get(i).getPEmail();
-             
-             if (principal.toLowerCase().startsWith(name.toLowerCase())) {
-                 model.addRow(new Object[] {school, principal, email});
-             }
-         }
-        return model;
-     }
-    
-    public DefaultTableModel schoolsByStudentName(String name) {
-         studentsArray sta = new studentsArray();
-         schoolsArray sa = new schoolsArray();
-         DefaultTableModel model = null;
-         Object columnNames[] = {"school", "principal", "principal emial"};
-         model = new DefaultTableModel(columnNames, 0);
-         for (int i = 0; i < sa.getSchoolsDataArray().size(); i++) {
-             String school = sa.getSchoolsDataArray().get(i).getSchoolName();
-             String principal = sa.getSchoolsDataArray().get(i).getPFName() + " " + sa.getSchoolsDataArray().get(i).getPLName();
-             String email = sa.getSchoolsDataArray().get(i).getPEmail();
-             
-             if (sa.getSchoolNameFromID(sta.schoolIDFromStudentName(name)).toLowerCase().equals(name.toLowerCase())) {
                  model.addRow(new Object[] {school, principal, email});
              }
          }
@@ -708,6 +668,75 @@ public class populateComboBoxes {
         return model;
     }
     
+    public DefaultTableModel paymentsByDateAndTime(String dateInputted) {
+         mothersArray ma = new mothersArray();
+         studentsArray sa = new studentsArray();
+         paymentsArray pa = new paymentsArray();
+         lessonDataArray la = new lessonDataArray();
+         String colour = "";
+         DefaultTableModel model = null;
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         model = new DefaultTableModel(columnNames, 0);
+         for (int i = 0; i < pa.getPaymentArray().size(); i++) {
+             boolean paid = pa.getPaymentArray().get(i).isPaid();
+             if (paid) {
+                 colour = "black";
+             } else {
+                 colour = "red";
+             }
+             int studentID = pa.getPaymentArray().get(i).getStudentID();
+             String name = "<html><font size = 3 color=\"" + colour + "\">" + sa.studentNameFromID(studentID) + "</font></html>";
+             String date = "<html><font size = 3 color=\"" + colour + "\">" + pa.getPaymentArray().get(i).getPayDate() + "</font></html>";
+             String time = "<html><font size = 3 color=\"" + colour + "\">" + la.getLessonTimeFromStartTimeAndDuration(pa.getPaymentArray().get(i).getPayTime(), pa.getPaymentArray().get(i).getPayDuration()) + "</font></html>";
+             String paidString = "";
+             if (paid) {
+                 paidString = "<html><font size = 3 color=\"" + colour + "\">" + "paid" + "</font></html>";
+             } else {
+                 paidString = "<html><font size = 3 color=\"" + colour + "\">" + "un-paid" + "</font></html>";
+             }
+             
+             if (pa.formattOutHTMLTags(date).equals(dateInputted)) {
+                 model.addRow(new Object[] {name, date, time, paidString});
+             }
+             
+         }
+        return model;
+    }
+    
+    public DefaultTableModel paymentsByStudentName(String nameInputted) {
+         mothersArray ma = new mothersArray();
+         studentsArray sa = new studentsArray();
+         paymentsArray pa = new paymentsArray();
+         lessonDataArray la = new lessonDataArray();
+         String colour = "";
+         DefaultTableModel model = null;
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         model = new DefaultTableModel(columnNames, 0);
+         for (int i = 0; i < pa.getPaymentArray().size(); i++) {
+             boolean paid = pa.getPaymentArray().get(i).isPaid();
+             if (paid) {
+                 colour = "black";
+             } else {
+                 colour = "red";
+             }
+             int studentID = pa.getPaymentArray().get(i).getStudentID();
+             String name = "<html><font size = 3 color=\"" + colour + "\">" + sa.studentNameFromID(studentID) + "</font></html>";
+             String date = "<html><font size = 3 color=\"" + colour + "\">" + pa.getPaymentArray().get(i).getPayDate() + "</font></html>";
+             String time = "<html><font size = 3 color=\"" + colour + "\">" + la.getLessonTimeFromStartTimeAndDuration(pa.getPaymentArray().get(i).getPayTime(), pa.getPaymentArray().get(i).getPayDuration()) + "</font></html>";
+             String paidString = "";
+             if (paid) {
+                 paidString = "<html><font size = 3 color=\"" + colour + "\">" + "paid" + "</font></html>";
+             } else {
+                 paidString = "<html><font size = 3 color=\"" + colour + "\">" + "un-paid" + "</font></html>";
+             }
+             
+             if (pa.formattOutHTMLTags(name).toLowerCase().startsWith(nameInputted.toLowerCase())) {
+                 model.addRow(new Object[] {name, date, time, paidString});
+             }
+         }
+        return model;
+    }
+    
     public DefaultTableModel paymentsPaid() {
          mothersArray ma = new mothersArray();
          studentsArray sa = new studentsArray();
@@ -725,6 +754,52 @@ public class populateComboBoxes {
              String paidString = "Paid";
              
              if (paid) {
+                 model.addRow(new Object[] {name, date, time, paidString});
+             }
+         }
+        return model;
+    }
+    
+    public DefaultTableModel paymentsPaidByDateAndTime(String dateInputted) {
+         mothersArray ma = new mothersArray();
+         studentsArray sa = new studentsArray();
+         paymentsArray pa = new paymentsArray();
+         lessonDataArray la = new lessonDataArray();
+         DefaultTableModel model = null;
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         model = new DefaultTableModel(columnNames, 0);
+         for (int i = 0; i < pa.getPaymentArray().size(); i++) {
+             int studentID = pa.getPaymentArray().get(i).getStudentID();
+             String name = sa.studentNameFromID(studentID);
+             String date = pa.getPaymentArray().get(i).getPayDate();
+             String time = la.getLessonTimeFromStartTimeAndDuration(pa.getPaymentArray().get(i).getPayTime(), pa.getPaymentArray().get(i).getPayDuration());
+             boolean paid = pa.getPaymentArray().get(i).isPaid();
+             String paidString = "Paid";
+             
+             if (paid && pa.formattOutHTMLTags(date).equals(dateInputted)) {
+                 model.addRow(new Object[] {name, date, time, paidString});
+             }
+         }
+        return model;
+    }
+    
+    public DefaultTableModel paymentsPaidByStudentName(String nameInputted) {
+         mothersArray ma = new mothersArray();
+         studentsArray sa = new studentsArray();
+         paymentsArray pa = new paymentsArray();
+         lessonDataArray la = new lessonDataArray();
+         DefaultTableModel model = null;
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         model = new DefaultTableModel(columnNames, 0);
+         for (int i = 0; i < pa.getPaymentArray().size(); i++) {
+             int studentID = pa.getPaymentArray().get(i).getStudentID();
+             String name = sa.studentNameFromID(studentID);
+             String date = pa.getPaymentArray().get(i).getPayDate();
+             String time = la.getLessonTimeFromStartTimeAndDuration(pa.getPaymentArray().get(i).getPayTime(), pa.getPaymentArray().get(i).getPayDuration());
+             boolean paid = pa.getPaymentArray().get(i).isPaid();
+             String paidString = "Paid";
+             
+             if (paid && pa.formattOutHTMLTags(name).toLowerCase().startsWith(nameInputted.toLowerCase())) {
                  model.addRow(new Object[] {name, date, time, paidString});
              }
          }
@@ -749,6 +824,54 @@ public class populateComboBoxes {
              String paidString = "<html><font size = 3 color=\"" + colour + "\">" + "un-paid" + "</font></html>";
              
              if (!paid) {
+                 model.addRow(new Object[] {name, date, time, paidString});
+             }
+         }
+        return model;
+    }
+    
+    public DefaultTableModel paymentsNotPaidByDateAndTime(String dateInputted) {
+         mothersArray ma = new mothersArray();
+         studentsArray sa = new studentsArray();
+         paymentsArray pa = new paymentsArray();
+         lessonDataArray la = new lessonDataArray();
+         String colour  = "red";
+         DefaultTableModel model = null;
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         model = new DefaultTableModel(columnNames, 0);
+         for (int i = 0; i < pa.getPaymentArray().size(); i++) {
+             int studentID = pa.getPaymentArray().get(i).getStudentID();
+             String name = "<html><font size = 3 color=\"" + colour + "\">" + sa.studentNameFromID(studentID) + "</font></html>";
+             String date = "<html><font size = 3 color=\"" + colour + "\">" + pa.getPaymentArray().get(i).getPayDate() + "</font></html>";
+             String time = "<html><font size = 3 color=\"" + colour + "\">" + la.getLessonTimeFromStartTimeAndDuration(pa.getPaymentArray().get(i).getPayTime(), pa.getPaymentArray().get(i).getPayDuration()) + "</font></html>";
+             boolean paid = pa.getPaymentArray().get(i).isPaid();
+             String paidString = "<html><font size = 3 color=\"" + colour + "\">" + "un-paid" + "</font></html>";
+             
+             if (!paid && pa.formattOutHTMLTags(date).equals(dateInputted)) {
+                 model.addRow(new Object[] {name, date, time, paidString});
+             }
+         }
+        return model;
+    }
+    
+    public DefaultTableModel paymentsNotPaidByStudentName(String nameInputted) {
+         mothersArray ma = new mothersArray();
+         studentsArray sa = new studentsArray();
+         paymentsArray pa = new paymentsArray();
+         lessonDataArray la = new lessonDataArray();
+         String colour  = "red";
+         DefaultTableModel model = null;
+         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "paid"};
+         model = new DefaultTableModel(columnNames, 0);
+         for (int i = 0; i < pa.getPaymentArray().size(); i++) {
+             int studentID = pa.getPaymentArray().get(i).getStudentID();
+             String name = "<html><font size = 3 color=\"" + colour + "\">" + sa.studentNameFromID(studentID) + "</font></html>";
+             String date = "<html><font size = 3 color=\"" + colour + "\">" + pa.getPaymentArray().get(i).getPayDate() + "</font></html>";
+             String time = "<html><font size = 3 color=\"" + colour + "\">" + la.getLessonTimeFromStartTimeAndDuration(pa.getPaymentArray().get(i).getPayTime(), pa.getPaymentArray().get(i).getPayDuration()) + "</font></html>";
+             boolean paid = pa.getPaymentArray().get(i).isPaid();
+             String paidString = "<html><font size = 3 color=\"" + colour + "\">" + "un-paid" + "</font></html>";
+             
+             if (!paid && pa.formattOutHTMLTags(name).toLowerCase().startsWith(nameInputted.toLowerCase())) {
                  model.addRow(new Object[] {name, date, time, paidString});
              }
          }

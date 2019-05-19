@@ -25,7 +25,8 @@ public class paymentsArray {
         ResultSet r = db.getResults("SELECT * FROM sPayTable");
         try {
             while(r.next()) {
-                fetchPayments fp = new fetchPayments(r.getInt("StudID"), r.getInt("PayDuration"), r.getBoolean("Paid"), r.getString("PayDate"), r.getString("PayTime"));
+                fetchPayments fp = new fetchPayments(r.getInt("StudID"), r.getInt("PayDuration"), r.getBoolean("Paid"), r.getString("PayDate"), r.getString("PayTime")
+                , r.getInt("Cost"));
                 paymentArray.add(fp);
             }
         } catch (SQLException ex) {

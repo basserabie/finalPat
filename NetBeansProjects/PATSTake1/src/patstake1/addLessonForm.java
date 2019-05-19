@@ -100,6 +100,10 @@ public class addLessonForm extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         payLabel = new javax.swing.JLabel();
         paidCheckBox = new javax.swing.JCheckBox();
+        jLabel5 = new javax.swing.JLabel();
+        costTextField = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        helpCostButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -359,6 +363,17 @@ public class addLessonForm extends javax.swing.JFrame {
 
         paidCheckBox.setText("All Students paid");
 
+        jLabel5.setText("Cost:");
+
+        jLabel14.setText("R");
+
+        helpCostButton.setText("?");
+        helpCostButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpCostButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -366,17 +381,33 @@ public class addLessonForm extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(payLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paidCheckBox))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(payLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(paidCheckBox)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel14)
+                        .addGap(1, 1, 1)
+                        .addComponent(costTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(helpCostButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(payLabel)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(payLabel)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(paidCheckBox)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(paidCheckBox)
+                    .addComponent(costTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14)
+                    .addComponent(helpCostButton))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
@@ -504,7 +535,8 @@ public class addLessonForm extends javax.swing.JFrame {
                     la.formatDay(this.addDateComboBox.getDate().toString()), 
                     this.StudentsAddedListModel.size(), 
                     this.StudentsAddedListModel.get(i).toString(), this.frequencyComboBox.getSelectedIndex(),
-                    Integer.parseInt(this.durationSpinner.getValue().toString()), this.lessonKey, this.paidCheckBox.isSelected());
+                    Integer.parseInt(this.durationSpinner.getValue().toString()), this.lessonKey, this.paidCheckBox.isSelected(), 
+                    Integer.parseInt(this.costTextField.getText()));
         }
         la.sortArray();
         ADDED_ARRAY.removeAll(ADDED_ARRAY);
@@ -573,6 +605,10 @@ public class addLessonForm extends javax.swing.JFrame {
             this.timeSetLabel.setText(timeSet);
     }//GEN-LAST:event_minuteSpinnerStateChanged
 
+    private void helpCostButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpCostButtonActionPerformed
+        JOptionPane.showMessageDialog(null, "Please enter the cost for each student for the lesson/nFormatt: 100\n\nPlease do not specify cents");
+    }//GEN-LAST:event_helpCostButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -632,17 +668,21 @@ public class addLessonForm extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> addVenueComboBox;
     private javax.swing.JLabel addlessonLabel;
     private javax.swing.JButton backToDashboardButton;
+    private javax.swing.JTextField costTextField;
     private javax.swing.JButton deleteStudentFromLessonButton;
     private javax.swing.JSpinner durationSpinner;
     private javax.swing.JComboBox<String> frequencyComboBox;
+    private javax.swing.JButton helpCostButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

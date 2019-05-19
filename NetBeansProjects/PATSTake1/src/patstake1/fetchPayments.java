@@ -10,16 +10,17 @@ package patstake1;
  * @author YishaiBasserabie
  */
 public class fetchPayments {
-    private int StudentID, payDuration;
+    private int StudentID, payDuration, cost;
     private boolean paid;
     private String PayDate, PayTime;
 
-    public fetchPayments(int StudentID, int payDuration, boolean paid, String PayDate, String PayTime) {
+    public fetchPayments(int StudentID, int payDuration, boolean paid, String PayDate, String PayTime, int cost) {
         this.StudentID = StudentID;
         this.payDuration = payDuration;
         this.paid = paid;
         this.PayDate = PayDate;
         this.PayTime = PayTime;
+        this.cost = cost;
     }
 
     public int getStudentID() {
@@ -62,7 +63,13 @@ public class fetchPayments {
         this.PayTime = PayTime;
     }
 
-    
+    public int getCost() {
+        return cost;
+    }
 
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+    
     
 }

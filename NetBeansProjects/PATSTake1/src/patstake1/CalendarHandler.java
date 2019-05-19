@@ -486,6 +486,8 @@ public class CalendarHandler {
         String colour = colours[COLOUR];
         boolean after = false;
         
+        System.out.println("timeTesteing: " + time);
+        
         if (this.TimeHasLesson(date, time)) {
             
             String endTime = "";
@@ -517,6 +519,7 @@ public class CalendarHandler {
                 }
             }
         }
+        System.out.println("done time: " + time);
         return lessonDataEventFiller;
     }
      public void LessonsOnDay(String date) {

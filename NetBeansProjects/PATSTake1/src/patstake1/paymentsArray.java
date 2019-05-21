@@ -94,6 +94,9 @@ public class paymentsArray {
                 count++;
             }
         }
+        if (months.size() == 0) {
+            months.add("no payments");
+        }
         String monthString [] = months.toArray(new String[months.size()]);
         return monthString;
     }
@@ -104,12 +107,14 @@ public class paymentsArray {
         for (int i = 0;i < this.monthsForRealChart().length; i++) {
             for (int k = 0; k < this.paymentArray.size(); k++) {
                 if ((this.paymentArray.get(k).getPayDate().substring(0, 5) + " " + this.paymentArray.get(k).getPayDate().substring(8, 10)).equals(this.monthsForRealChart()[i]) && this.paymentArray.get(k).isPaid()) {
-                    monthSum += this.paymentArray.get(i).getCost();
-                    System.out.println("test: " + this.monthsForRealChart()[i]);
+                    monthSum += this.paymentArray.get(k).getCost();
                 }
             }
             p.add(monthSum);
             monthSum = 0;
+        }
+        if (p.size() == 0) {
+            p.add(0);
         }
         int[] Parr = p.stream().mapToInt(s -> s).toArray();
         return Parr;
@@ -122,6 +127,9 @@ public class paymentsArray {
                 months.add(this.paymentArray.get(i).getPayDate().substring(0, 5) + " " + this.paymentArray.get(i).getPayDate().substring(8, 10));
             }
         }
+        if (months.size() == 0) {
+            months.add("no payments");
+        }
         String monthString [] = months.toArray(new String[months.size()]);
         return monthString;
     }
@@ -129,14 +137,17 @@ public class paymentsArray {
     public int [] totalPaymentsForAllMonthsArrayForProjectedChart() {
         ArrayList<Integer> p = new ArrayList<>();
         int monthSum = 0;
-        for (int i = 0;i < this.monthsForRealChart().length; i++) {
+        for (int i = 0;i < this.monthsForProjectedChart().length; i++) {
             for (int k = 0; k < this.paymentArray.size(); k++) {
-                if ((this.paymentArray.get(k).getPayDate().substring(0, 5) + " " + this.paymentArray.get(k).getPayDate().substring(8, 10)).equals(this.monthsForRealChart()[i])) {
-                    monthSum += this.paymentArray.get(i).getCost();
+                if ((this.paymentArray.get(k).getPayDate().substring(0, 5) + " " + this.paymentArray.get(k).getPayDate().substring(8, 10)).equals(this.monthsForProjectedChart()[i])) {
+                    monthSum += this.paymentArray.get(k).getCost();
                 }
             }
             p.add(monthSum);
             monthSum = 0;
+        }
+        if (p.size() == 0) {
+            p.add(0);
         }
         int[] Parr = p.stream().mapToInt(s -> s).toArray();
         return Parr;
@@ -159,7 +170,6 @@ public class paymentsArray {
         Calendar today = Calendar.getInstance();
         try {
             today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));
-            System.out.println("today date: " + today.getTime());
         } catch (ParseException ex) {
             Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -184,7 +194,6 @@ public class paymentsArray {
         Calendar today = Calendar.getInstance();
         try {
             today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));
-            System.out.println("today date: " + today.getTime());
         } catch (ParseException ex) {
             Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -209,7 +218,6 @@ public class paymentsArray {
         Calendar today = Calendar.getInstance();
         try {
             today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));
-            System.out.println("today date: " + today.getTime());
         } catch (ParseException ex) {
             Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -27,6 +27,9 @@ public class paymentStatsForm extends javax.swing.JFrame {
      */
     public paymentStatsForm() {
         initComponents();
+        populateComboBoxes pop = new populateComboBoxes();
+        DefaultComboBoxModel namesModel = new DefaultComboBoxModel(pop.correctStudentsAccordingToGrade(this.addStudentGradeComboBox.getSelectedItem().toString()));
+        this.addStudentNameComboBox.setModel(namesModel);
         
         paymentsArray pa = new paymentsArray();
         this.ProjectedThisMonthLabel.setText(""+pa.totalForCurrentMonth());

@@ -338,10 +338,9 @@ public class lessonDataArray {
         }
     }
     
-    //method sorts the array list
     public void sortArray() {
         //sorts by dates and times
-         Collections.sort(lessonDataArray, new Comparator<fetchLessonData>() {
+         Collections.sort(this.lessonDataArray, new Comparator<fetchLessonData>() {
              public int compare(fetchLessonData l1, fetchLessonData l2) {
                  int comp = 0;
                  SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");
@@ -353,6 +352,10 @@ public class lessonDataArray {
                      Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
                  }
                   return comp;
+             }
+
+             public int compareLessons(fetchLessonData p1, fetchLessonData p2) {
+                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
              }
          });
     }
@@ -877,7 +880,6 @@ public class lessonDataArray {
     
     public String getLessonTimeFromStartTimeAndDuration(String startTime, int duration) {
         String time = startTime + " - " + this.getEndTime(startTime, duration);
-        System.out.println("Time: " + time);
         return time;
     }
     

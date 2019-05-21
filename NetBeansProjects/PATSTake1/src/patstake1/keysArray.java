@@ -7,7 +7,13 @@ package patstake1;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -31,12 +37,15 @@ public class keysArray {
             Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Database error, please contact administrator at 0836570642");
         }
+//        this.sortArray();
     }
 
     public ArrayList<fetchKeys> getKeyArray() {
         return keyArray;
     }
 
+    
+    
     public void setKeyArray(ArrayList<fetchKeys> keyArray) {
         this.keyArray = keyArray;
     }
@@ -72,6 +81,17 @@ public class keysArray {
         return startTime;
     }
     
+    public String getDateFromKey(String key) {
+        lessonDataArray la = new lessonDataArray();
+        String date = "";
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
+            if (this.getKeyArray().get(i).getLessonKey().equals(key)) {
+                date = la.getLessonDataArray().get(i).getLessonDate();  //FIX HERE IF DOESNT WORK
+            }
+        }
+        return date;
+    }
+    
     public String getEndTimeFromKey(String key) {
         lessonDataArray la = new lessonDataArray();
         String startTime = "";
@@ -96,6 +116,28 @@ public class keysArray {
             }
         }
         return key;
+    }
+    
+    public void sortArray() {
+        Calendar p1 = Calendar.getInstance();
+        Calendar p2 = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");
+        for (int i = 0; i < this.keyArray.size(); i++) {
+            try {
+                if (i < this.keyArray.size()-1) {
+                    p1.setTime(sdf.parse(this.getDateFromKey(this.keyArray.get(i).getLessonKey()) + " " + this.getStartTimeFromKey(this.keyArray.get(i).getLessonKey())));
+                    p2.setTime(sdf.parse(this.getDateFromKey(this.keyArray.get(i+1).getLessonKey()) + " " + this.getStartTimeFromKey(this.keyArray.get(i+1).getLessonKey())));
+                }
+                fetchKeys temp;
+                if (p1.after(p2)) {
+                    temp = this.keyArray.get(i);
+                    this.keyArray.set(i, this.keyArray.get(i+1));
+                    this.keyArray.set(i+1, temp);
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(keysArray.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
 }

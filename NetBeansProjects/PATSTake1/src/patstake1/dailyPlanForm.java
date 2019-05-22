@@ -27,7 +27,7 @@ public class dailyPlanForm extends javax.swing.JFrame {
     public dailyPlanForm() {
         initComponents();
         CalendarHandler ch = new CalendarHandler();
-
+        
         this.dayTable.setAutoResizeMode(AUTO_RESIZE_OFF);
         this.dayTable.getColumnModel().getColumn(0).setPreferredWidth(5);
         this.dayTable.setRowHeight(120);
@@ -139,13 +139,14 @@ public class dailyPlanForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(backButton)
-                    .addComponent(jLabel1)
-                    .addComponent(dateLabel)
-                    .addComponent(showDay)
-                    .addComponent(loadingLabel)
-                    .addComponent(proggressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(proggressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(backButton)
+                        .addComponent(jLabel1)
+                        .addComponent(dateLabel)
+                        .addComponent(showDay)
+                        .addComponent(loadingLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -156,8 +157,11 @@ public class dailyPlanForm extends javax.swing.JFrame {
 
     private void showDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showDayActionPerformed
         CalendarHandler ch = new CalendarHandler();
+        ch.setDate(this.dateLabel.getText());
+        ch.LessonsOnDay();
+        ch.setArrays();
         this.loadingLabel.setText("NOW LOADING DAY......");
-        ch.LessonsOnDay(this.dateLabel.getText());
+        System.out.println("hasLesson: " + CalendarHandler.DAY_HAS_LESSON);
         if (CalendarHandler.DAY_HAS_LESSON) {
             this.dayTable.setModel(ch.selectedDateModel(this.dateLabel.getText()));
             this.loadingLabel.setText("NOW SHOWING LESSONS:");

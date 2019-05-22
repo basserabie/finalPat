@@ -53,6 +53,8 @@ public class addLessonForm extends javax.swing.JFrame {
         //generates the lesson key for lesson to be added
         lessonDataArray la = new lessonDataArray();
         this.lessonKey = la.generateLessonKey();
+        //sets tool tip text for cost help button
+        this.helpCostButton.setToolTipText("Please enter cost in rands, do not include cents");
     }
     //list model
     DefaultListModel StudentsAddedListModel = new DefaultListModel();
@@ -606,7 +608,7 @@ public class addLessonForm extends javax.swing.JFrame {
     }//GEN-LAST:event_minuteSpinnerStateChanged
 
     private void helpCostButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpCostButtonActionPerformed
-        JOptionPane.showMessageDialog(null, "Please enter the cost for each student for the lesson/nFormatt: 100\n\nPlease do not specify cents");
+        JOptionPane.showMessageDialog(null, "Please enter the cost for each student for the lesson\nFormatt: 100\nPlease do not specify cents");
     }//GEN-LAST:event_helpCostButtonActionPerformed
 
     /**

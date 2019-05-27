@@ -556,25 +556,14 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="dateTimeCheck" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="studentsCheck" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="venueCheck" min="-2" max="-2" attributes="0"/>
+                                      <Component id="editStudentPanel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="editDateTimePanel" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="editStudentPanel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="editDateTimePanel" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="editVenuePanel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="editLessonButton" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="editVenuePanel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="editLessonButton" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -599,13 +588,6 @@
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dateTimeCheck" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="studentsCheck" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="venueCheck" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="studentsAddedLabel" min="-2" max="-2" attributes="0"/>
@@ -1044,35 +1026,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="NOTE: Please leave field blank if no edit is required"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel28">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="What would you like to edit:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="dateTimeCheck">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="date/time"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dateTimeCheckActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="studentsCheck">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="students"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="studentsCheckActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="venueCheck">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="venue"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="venueCheckActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

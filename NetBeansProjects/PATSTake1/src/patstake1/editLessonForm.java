@@ -18,6 +18,7 @@ import static patstake1.addLessonForm.ADDED_ARRAY;
  */
 public class editLessonForm extends javax.swing.JFrame {
 
+    
     //arrayList of students
     public static ArrayList<String> ADDED_ARRAY = new ArrayList<>();
     //list model
@@ -29,12 +30,6 @@ public class editLessonForm extends javax.swing.JFrame {
      */
     public editLessonForm() {
         initComponents();
-        //sets the visibility of all edit entties to false
-        this.editDateTimePanel.setVisible(false);
-        this.editLessonButton.setVisible(false);
-        this.editStudentPanel.setVisible(false);
-        this.editVenuePanel.setVisible(false);
-        this.studentsAddedLabel.setVisible(false);
         
         this.studentsAddedList.removeAll(); //removes generic items from studentsAddedList
         this.addStudentNameComboBox.removeAllItems();//removes all generic tiems from name combo box
@@ -43,8 +38,8 @@ public class editLessonForm extends javax.swing.JFrame {
         DefaultComboBoxModel grades = new DefaultComboBoxModel(pop.populateGrades());
         this.addStudentGradeComboBox.setModel(grades);
         //populates venues combo box
-        DefaultComboBoxModel venues = new DefaultComboBoxModel(pop.populateVenues());
-        this.addVenueComboBox.setModel(venues);
+        DefaultComboBoxModel venuesModel = new DefaultComboBoxModel(pop.populateVenues());
+        this.venuesComboBox.setModel(venuesModel);
         //populates duration spinner with hour options
         SpinnerListModel hours = new SpinnerListModel(pop.populateDurationSpinner());
         this.durationSpinner.setModel(hours);
@@ -133,10 +128,6 @@ public class editLessonForm extends javax.swing.JFrame {
         timeSetLabel = new javax.swing.JLabel();
         editLessonButton = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        dateTimeCheck = new javax.swing.JCheckBox();
-        studentsCheck = new javax.swing.JCheckBox();
-        venueCheck = new javax.swing.JCheckBox();
 
         jFrame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -676,29 +667,6 @@ public class editLessonForm extends javax.swing.JFrame {
 
         jLabel27.setText("NOTE: Please leave field blank if no edit is required");
 
-        jLabel28.setText("What would you like to edit:");
-
-        dateTimeCheck.setText("date/time");
-        dateTimeCheck.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dateTimeCheckActionPerformed(evt);
-            }
-        });
-
-        studentsCheck.setText("students");
-        studentsCheck.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                studentsCheckActionPerformed(evt);
-            }
-        });
-
-        venueCheck.setText("venue");
-        venueCheck.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                venueCheckActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -717,22 +685,13 @@ public class editLessonForm extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel28)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(dateTimeCheck)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(studentsCheck)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(venueCheck))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(editStudentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(editDateTimePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(editVenuePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(editLessonButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                        .addComponent(editStudentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(editDateTimePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(editVenuePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(editLessonButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -749,12 +708,6 @@ public class editLessonForm extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel27))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel28)
-                    .addComponent(dateTimeCheck)
-                    .addComponent(studentsCheck)
-                    .addComponent(venueCheck))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(studentsAddedLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -973,59 +926,14 @@ public class editLessonForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_addVenueComboBoxActionPerformed
 
-    private void dateTimeCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateTimeCheckActionPerformed
-        if (this.dateTimeCheck.isSelected()) {
-            this.editDateTimePanel.setVisible(true);
-            this.editLessonButton.setVisible(true);
-        } else {
-            if (this.editStudentPanel.isVisible() || this.editVenuePanel.isVisible()) {
-                this.editDateTimePanel.setVisible(false);
-            } else {
-                this.editDateTimePanel.setVisible(false);
-                this.editLessonButton.setVisible(false);
-            }
-        }
-    }//GEN-LAST:event_dateTimeCheckActionPerformed
-
-    private void studentsCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentsCheckActionPerformed
-        if (this.studentsCheck.isSelected()) {
-            this.editStudentPanel.setVisible(true);
-            this.editLessonButton.setVisible(true);
-        } else {
-            if (this.editDateTimePanel.isVisible() || this.editVenuePanel.isVisible()) {
-                this.editStudentPanel.setVisible(false);
-            } else {
-                this.editStudentPanel.setVisible(false);
-                this.editLessonButton.setVisible(false);
-            }
-        }
-    }//GEN-LAST:event_studentsCheckActionPerformed
-
-    private void venueCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venueCheckActionPerformed
-        if (this.venueCheck.isSelected()) {
-            this.editVenuePanel.setVisible(true);
-            this.editLessonButton.setVisible(true);
-        } else {
-            if (this.editDateTimePanel.isVisible() || this.editVenuePanel.isVisible()) {
-                this.editVenuePanel.setVisible(false);
-            } else {
-                this.editVenuePanel.setVisible(false);
-                this.editLessonButton.setVisible(false);
-            }
-        }
-    }//GEN-LAST:event_venueCheckActionPerformed
-
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void editLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editLessonButtonActionPerformed
        lessonDataArray la = new lessonDataArray();
-        boolean listEdited = false;
-       if (!this.checkListModel.equals(this.StudentsAddedListModel)) {
-           listEdited = true;
-       }
-       la.editLessonStudents(listEdited, ADDED_ARRAY, lesson.SELECTED_LESSON_ID, lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
+       la.editLessonVenue(this.venuesComboBox.getSelectedItem().toString(), lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
+       la.editLessonStudents(ADDED_ARRAY, lesson.SELECTED_LESSON_ID, lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
        ADDED_ARRAY.removeAll(ADDED_ARRAY);
        checkListModel.removeAllElements();
        this.setVisible(false);
@@ -1084,7 +992,6 @@ public class editLessonForm extends javax.swing.JFrame {
     private javax.swing.JLabel addlessonLabel;
     private javax.swing.JButton backToDashboardButton;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JCheckBox dateTimeCheck;
     private javax.swing.JButton deleteStudentFromLessonButton;
     private javax.swing.JButton deleteStudentFromLessonButton1;
     private javax.swing.JSpinner durationSpinner;
@@ -1114,7 +1021,6 @@ public class editLessonForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1131,10 +1037,8 @@ public class editLessonForm extends javax.swing.JFrame {
     private javax.swing.JLabel studentsAddedLabel;
     private javax.swing.JList<String> studentsAddedList;
     private javax.swing.JList<String> studentsAddedList1;
-    private javax.swing.JCheckBox studentsCheck;
     private javax.swing.JLabel timeSetLabel;
     private javax.swing.JLabel timeSetLabel1;
-    private javax.swing.JCheckBox venueCheck;
     private javax.swing.JComboBox<String> venuesComboBox;
     // End of variables declaration//GEN-END:variables
 }

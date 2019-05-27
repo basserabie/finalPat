@@ -613,7 +613,7 @@ public class lessonDataArray {
        }
     }
     
-   public void editLessonStudents(boolean studentsChanged, ArrayList<String> list, int id, String date, String time) {
+   public void editLessonStudents(ArrayList<String> list, int id, String date, String time) {
        ConnectDB db = new ConnectDB();
        keysArray ka = new keysArray();
        CalendarHandler ch = new CalendarHandler();
@@ -629,13 +629,9 @@ public class lessonDataArray {
        String day = this.getLessonDayFromLessonID(id);
        int duration = this.getDurationFromTimeAndDate(time, date);
        
-       if (studentsChanged) {
            this.deleteStudentsInLesson(date, time);
            for (int i = 0; i < list.size(); i++) {
                int studentID = sa.studentIDFromName(list.get(i));
-               
-               System.out.println("studentID: " + list.get(i));
-               
                int lessonID = this.getLessoIDFromDateTimeAndStudentID(date, time, studentID);
                boolean paid = pa.getIfPaidFromLessonID(lessonID);
                String insertLesson = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) "
@@ -651,10 +647,31 @@ public class lessonDataArray {
                    Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
                }
            }
-       }
    }
     
-    
+   public void editLessonVenue(String  venue, String date, String time) {
+       ConnectDB db = new ConnectDB();
+       venueArray va = new venueArray();
+       keysArray ka = new keysArray();
+       
+       int venueID = va.venueIDFromVenue(venue);
+       String key = ka.getKeyFromDateAndTime(date, time);
+       System.out.println("venue: " + venue + " id: " + venueID + "     key: " + key);
+       for (int i = 0; i < this.lessonDataArray.size(); i++) {
+           System.out.println("testKey: " + ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()));
+           if (ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()).equals(key)) {
+               System.out.println("\nentered with: " + ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()) + "\n");
+               String updateVenue = "UPDATE lessonData SET venueID = " + venueID + " "
+                       + "WHERE LessonID = " + this.lessonDataArray.get(i).getLessonID();
+               try {
+                   db.UpdateDatabase(updateVenue);
+               } catch (SQLException ex) {
+                   Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+               }
+           }
+       }
+   }
+   
     public int getDurationFromTimeAndDate(String time, String date) {
         int duration = 0;
         for (int i = 0; i < this.lessonDataArray.size(); i++) {

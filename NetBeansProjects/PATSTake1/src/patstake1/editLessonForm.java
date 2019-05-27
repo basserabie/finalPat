@@ -22,7 +22,7 @@ public class editLessonForm extends javax.swing.JFrame {
     public static ArrayList<String> ADDED_ARRAY = new ArrayList<>();
     //list model
     DefaultListModel StudentsAddedListModel = new DefaultListModel();
-    DefaultListModel checkListModel = new DefaultListModel();
+    public static DefaultListModel checkListModel = new DefaultListModel();
     
     /**
      * Creates new form editLessonForm
@@ -1026,6 +1026,9 @@ public class editLessonForm extends javax.swing.JFrame {
            listEdited = true;
        }
        la.editLessonStudents(listEdited, ADDED_ARRAY, lesson.SELECTED_LESSON_ID, lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
+       ADDED_ARRAY.removeAll(ADDED_ARRAY);
+       checkListModel.removeAllElements();
+       this.setVisible(false);
     }//GEN-LAST:event_editLessonButtonActionPerformed
 
     /**

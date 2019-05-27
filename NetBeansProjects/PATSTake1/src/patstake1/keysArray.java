@@ -75,10 +75,20 @@ public class keysArray {
         String startTime = "";
         for (int i = 0; i < la.getLessonDataArray().size(); i++) {
             if (this.getKeyArray().get(i).getLessonKey().equals(key)) {
-                startTime = la.getLessonDataArray().get(i).getLessonTime();  //FIX HERE IF DOESNT WORK
+                startTime = la.getLessonDataArray().get(i).getLessonTime();
             }
         }
         return startTime;
+    }
+    
+    public int getLessonIDFromKey(String key) {
+        int id = 0;
+        for (int i = 0; i < this.keyArray.size(); i++) {
+            if (this.keyArray.get(i).getLessonKey().equals(key)) {
+                id = this.keyArray.get(i).getLessonID();
+            }
+        }
+        return id;
     }
     
     public String getDateFromKey(String key) {

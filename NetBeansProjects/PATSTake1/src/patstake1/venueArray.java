@@ -62,6 +62,20 @@ public class venueArray {
         return name;
     }
     
+    public int getVenueIDFromLessonID(int lessonID) {
+        lessonDataArray la = new lessonDataArray();
+        int venueID = 0;
+        
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
+            if (la.getLessonDataArray().get(i).getLessonID() == lessonID) {
+                venueID = la.getLessonDataArray().get(i).getVenueID();
+            }
+        }
+        return venueID;
+    }
+    
+    
+    
     public void deleteVenue(String venue) {
         ConnectDB db = new ConnectDB();
         String delete = "DELETE * FROM venues WHERE venue = '" + venue + "'";

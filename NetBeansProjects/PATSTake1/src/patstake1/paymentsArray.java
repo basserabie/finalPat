@@ -74,6 +74,26 @@ public class paymentsArray {
         String output = input.replaceAll("\\<.*?\\>", "");
         return output;
     }
+    
+    public int getCostFromLessonID(int id) {
+        int cost = 0;
+        for (int i = 0; i < this.paymentArray.size(); i++) {
+            if (this.paymentArray.get(i).getLessonID() == id) {
+                cost = this.paymentArray.get(i).getCost();
+            }
+        }
+        return cost;
+    }
+    
+    public boolean getIfPaidFromLessonID(int id) {
+        boolean paid = false;
+        for (int i = 0; i < this.paymentArray.size(); i++) {
+            if (this.paymentArray.get(i).getLessonID() == id) {
+                paid = this.paymentArray.get(i).isPaid();
+            }
+        }
+        return paid;
+    }
 
     public void addPayment(int lessonID) {
         ConnectDB db = new ConnectDB();
@@ -265,7 +285,7 @@ public class paymentsArray {
         return total;
     }
         
-        public int getStudentOwed(String name) {
+    public int getStudentOwed(String name) {
         lessonDataArray la = new lessonDataArray();
         studentsArray sa = new studentsArray();
         int total = 0;
@@ -279,5 +299,53 @@ public class paymentsArray {
         }
         return total;
     }
+    
+    public String getPaymentsLessonDateFromLessonID(int id) {
+        String date = "";
+        for (int i = 0; i < this.paymentArray.size(); i++) {
+            if (this.paymentArray.get(i).getLessonID() == id) {
+                date = this.paymentArray.get(i).getPayDate();
+            }
+        }
+        return date;
+    }
+    
+    public String getPaymentsLessonTimeFromLessonID(int id) {
+        String time = "";
+        for (int i = 0; i < this.paymentArray.size(); i++) {
+            if (this.paymentArray.get(i).getLessonID() == id) {
+                time = this.paymentArray.get(i).getPayTime();
+            }
+        }
+        return time;
+    }
+        
+    public void deletePastAndunpaidPayments() {
+        lessonDataArray la = new lessonDataArray();
+        ConnectDB db = new ConnectDB();
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
+        Calendar today = Calendar.getInstance();
+        Calendar ref = Calendar.getInstance();
+        today.setTime(Calendar.getInstance().getTime());
+        
+        for (int i = 0; i < this.paymentArray.size(); i++) {
+            int id = this.paymentArray.get(i).getLessonID();
+            try {
+                ref.setTime(sdf.parse(this.getPaymentsLessonDateFromLessonID(id) + " " + this.getPaymentsLessonTimeFromLessonID(id)));
+            } catch (ParseException ex) {
+                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (ref.before(today)) {
+                String delete = "DELETE * FROM sPayTable WHERE lessonID = " + id;
+                try {
+                    db.UpdateDatabase(delete);
+                } catch (SQLException ex) {
+                    Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+    
+    
 
 }

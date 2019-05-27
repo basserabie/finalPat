@@ -158,10 +158,9 @@ public class dailyPlanForm extends javax.swing.JFrame {
     private void showDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showDayActionPerformed
         CalendarHandler ch = new CalendarHandler();
         ch.setDate(this.dateLabel.getText());
-        ch.LessonsOnDay();
         ch.setArrays();
+        ch.LessonsOnDay();
         this.loadingLabel.setText("NOW LOADING DAY......");
-        System.out.println("hasLesson: " + CalendarHandler.DAY_HAS_LESSON);
         if (CalendarHandler.DAY_HAS_LESSON) {
             this.dayTable.setModel(ch.selectedDateModel(this.dateLabel.getText()));
             this.loadingLabel.setText("NOW SHOWING LESSONS:");

@@ -576,33 +576,80 @@ public class lessonDataArray {
          return StringArray;
     }
     
+    public String getLessonDayFromLessonID(int id) {
+        String day = "";
+        
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+            if (this.lessonDataArray.get(i).getLessonID() == id) {
+                day = this.lessonDataArray.get(i).getDay();
+            }
+        }
+        return day;
+    }
+    
+    public void deleteStudentsInLesson(String date, String time) {
+       ConnectDB db = new ConnectDB();
+       keysArray ka = new keysArray();
+       CalendarHandler ch = new CalendarHandler();
+       paymentsArray pa = new paymentsArray();
+       studentsArray sa = new studentsArray();
+       venueArray va = new venueArray();
+       
+       String students [] = ch.studentsFromLessonDateAndTime(date, time);
+       
+       for (int i = 0; i < students.length; i++) {
+           int studentID = sa.studentIDFromName(students[i]);
+           int lessonID = this.getLessoIDFromDateTimeAndStudentID(date, time, studentID);
+           String deleteKey = "DELETE * FROM lessonKeys WHERE lessonID = " + lessonID;
+           String deletePayments = "DELETE * FROM sPayTable WHERE lessonID = " + lessonID;
+           String deleteLesson = "DELETE * FROM lessonData WHERE LessonID = " + lessonID;
+           try {
+               db.UpdateDatabase(deleteKey);
+               db.UpdateDatabase(deletePayments);
+               db.UpdateDatabase(deleteLesson);
+           } catch (SQLException ex) {
+               Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+           }
+       }
+    }
+    
    public void editLessonStudents(boolean studentsChanged, ArrayList<String> list, int id, String date, String time) {
        ConnectDB db = new ConnectDB();
        keysArray ka = new keysArray();
        CalendarHandler ch = new CalendarHandler();
+       paymentsArray pa = new paymentsArray();
        studentsArray sa = new studentsArray();
+       venueArray va = new venueArray();
+       
+       String students [] = ch.studentsFromLessonDateAndTime(date, time);
+       
        String key = ka.getKeyFromLessonID(id);
-       ArrayList<String> originalStudents = new ArrayList<>();
+       int cost = pa.getCostFromLessonID(id);
+       int venueID = va.getVenueIDFromLessonID(id);
+       String day = this.getLessonDayFromLessonID(id);
+       int duration = this.getDurationFromTimeAndDate(time, date);
        
-       System.out.println("lessonID: " + id);
-       
-       String update = "";
        if (studentsChanged) {
-           if (ch.studentsFromLessonDateAndTime(date, time).length == list.size()) {
-                   update = "UPDATE lessonData SET studentID = " + sa.studentIDFromName(this.notInNewStudents(ch.studentsFromLessonDateAndTime(date, time), list)[1]) + " WHERE studentID = "
-                           + sa.studentIDFromName(studentLost) +  " AND (SELECT lessonKey FROM lessonKeys WHERE lessonID = " + id + ") = " + "71c2b689-1854-4837-8e45-48d4715d2fe7";
-                   
-                   System.out.println("student ID to be set = " + sa.studentIDFromName(this.notInNewStudents(ch.studentsFromLessonDateAndTime(date, time), list)[1]));
-                   System.out.println("ID being replaced: " + sa.studentIDFromName(studentLost));
-                   System.out.println("key: " + key);
-                   
-                   try {
-                       db.UpdateDatabase(update);
-                   } catch (SQLException ex) {
-                       Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
-                       System.out.println("couldntUpdate same number");
-                   }
+           this.deleteStudentsInLesson(date, time);
+           for (int i = 0; i < list.size(); i++) {
+               int studentID = sa.studentIDFromName(list.get(i));
                
+               System.out.println("studentID: " + list.get(i));
+               
+               int lessonID = this.getLessoIDFromDateTimeAndStudentID(date, time, studentID);
+               boolean paid = pa.getIfPaidFromLessonID(lessonID);
+               String insertLesson = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) "
+                       + "VALUES ('" + studentID + "', '" + venueID + "', '" + date + "', '" + time + "', '" + duration + "', '" + day + "')";
+               String insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + key + "')";
+               String insertPayment = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) "
+                       + "VALUES ('" + studentID + "', '" + paid + "', '" + date + "', '" + time + "', '" + duration + "', '" + cost + "')";
+               try {
+                   db.UpdateDatabase(insertLesson);
+                   db.UpdateDatabase(insertKey);
+                   db.UpdateDatabase(insertPayment);
+               } catch (SQLException ex) {
+                   Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+               }
            }
        }
    }
@@ -878,6 +925,26 @@ public class lessonDataArray {
         return time;
     }
     
+    public String getLessonDateFromLessonID(int id) {
+        String date = "";
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+            if (this.lessonDataArray.get(i).getLessonID() == id) {
+                date = this.lessonDataArray.get(i).getLessonDate();
+            }
+        }
+          return date;      
+    }
+    
+    public String getLessonEndTimeFromLessonID(int id) {
+        String time = "";
+        for (int i = 0;  i < this.lessonDataArray.size(); i++) {
+            if (this.lessonDataArray.get(i).getLessonID() == id) {
+                time = this.getEndTime(this.lessonDataArray.get(i).getLessonTime(), this.lessonDataArray.get(i).getLessonDuration());
+            }
+        }
+        return time;
+    }
+    
     public String getLessonTimeFromStartTimeAndDuration(String startTime, int duration) {
         String time = startTime + " - " + this.getEndTime(startTime, duration);
         return time;
@@ -923,6 +990,16 @@ public class lessonDataArray {
             if (this.lessonDataArray.get(i).getLessonDate().equals(date) &&
                     this.lessonDataArray.get(i).getLessonTime().equals(startTime) &&
                     this.lessonDataArray.get(i).getStudentID() == studentID) {
+                id = this.lessonDataArray.get(i).getLessonID();
+            }
+        }
+        return id;
+    }
+    
+    public int getLessonIDFromDateAndTime(String date, String time) {
+        int id = 0;
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+            if (this.lessonDataArray.get(i).getLessonDate().equals(date) && this.lessonDataArray.get(i).getLessonTime().equals(time)) {
                 id = this.lessonDataArray.get(i).getLessonID();
             }
         }

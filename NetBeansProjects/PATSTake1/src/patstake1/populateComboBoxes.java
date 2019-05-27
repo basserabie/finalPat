@@ -884,4 +884,52 @@ public class populateComboBoxes {
         return model;
     }
     
+    public DefaultTableModel PaymentsByLesson(String dateInputted, String timeInputted1) {
+        lessonDataArray la = new lessonDataArray();
+        paymentsArray pa = new paymentsArray();
+        studentsArray sa = new studentsArray();
+        keysArray ka = new keysArray();
+        
+        String timeInputted;
+        if (timeInputted1.indexOf(":") < 2) {
+            timeInputted = "0" + timeInputted1;
+        } else {
+            timeInputted = timeInputted1;
+        }
+        
+        System.out.println("date: " + dateInputted + "  time: " + timeInputted);
+        
+        DefaultTableModel model = null;
+        Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "Cost", "paid"};
+        model = new DefaultTableModel(columnNames, 0);
+
+         String colour = "";
+         model = new DefaultTableModel(columnNames, 0);
+         for (int i = 0; i < pa.getPaymentArray().size(); i++) {
+             boolean paid = pa.getPaymentArray().get(i).isPaid();
+             if (paid) {
+                 colour = "black";
+             } else {
+                 colour = "red";
+             }
+             int studentID = pa.getPaymentArray().get(i).getStudentID();
+             String name = "<html><font size = 3 color=\"" + colour + "\">" + sa.studentNameFromID(studentID) + "</font></html>";
+             String date = "<html><font size = 3 color=\"" + colour + "\">" + pa.getPaymentArray().get(i).getPayDate() + "</font></html>";
+             String time = "<html><font size = 3 color=\"" + colour + "\">" + la.getLessonTimeFromStartTimeAndDuration(pa.getPaymentArray().get(i).getPayTime(), pa.getPaymentArray().get(i).getPayDuration()) + "</font></html>";
+             String cost = "<html><font size = 3 color=\"" + colour + "\">" + "R" + pa.getPaymentArray().get(i).getCost() + "</font></html>";
+             String paidString = "";
+             if (paid) {
+                 paidString = "<html><font size = 3 color=\"" + colour + "\">" + "paid" + "</font></html>";
+             } else {
+                 paidString = "<html><font size = 3 color=\"" + colour + "\">" + "un-paid" + "</font></html>";
+             }
+             
+             if (pa.formattOutHTMLTags(date).equals(dateInputted) && pa.formattOutHTMLTags(time).substring(0, 5).equals(timeInputted)) {
+                 model.addRow(new Object[] {name, date, time, cost, paidString});
+             }
+         }
+        return model;
+    }
+    
+    
 }

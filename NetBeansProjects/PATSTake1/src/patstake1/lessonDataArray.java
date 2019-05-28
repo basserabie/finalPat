@@ -41,6 +41,7 @@ public class lessonDataArray {
     private String lessonKey;
     private static String studentLost = "";
     private static int STUDENTS_ADDED_TO_LESSON = 0;
+    public static boolean EDIT_DOUBLE_BOOKED = false;
 
     public lessonDataArray() {
         ResultSet r = db.getResults("SELECT * FROM lessonData");
@@ -314,7 +315,6 @@ public class lessonDataArray {
     public void AddStudentsAdded(String name) {
         this.names.add(name);
             for (int i = 0; i < this.names.size(); i++) {
-                System.out.println("list: " + this.names.get(i));
             }
     }
     public void removeStudentAdded(String name) {
@@ -323,7 +323,6 @@ public class lessonDataArray {
     
     public String getArrayOfStudentsAdded(int index) {
         String namesArray [] = this.names.toArray(new String[this.names.size()]);
-        System.out.println(namesArray[index]);
         return namesArray[index];
     }
     
@@ -557,23 +556,65 @@ public class lessonDataArray {
         
     }
 
-    public String [] notInNewStudents(String [] list1, ArrayList<String> list2) {
-        ArrayList<String> notIn = new ArrayList(Arrays.asList(list1));
-        for (int i = 0; i < list2.size(); i++) {
-            if (notIn.contains(list2.get(i))) {
-                System.out.println("entered contains with: " + list2.get(i));
-                notIn.remove(list2.get(i));
+//    public String [] notInNewStudents(String [] list1, ArrayList<String> list2) {
+//        ArrayList<String> notIn = new ArrayList(Arrays.asList(list1));
+//        for (int i = 0; i < list2.size(); i++) {
+//            if (notIn.contains(list2.get(i))) {
+//                System.out.println("entered contains with: " + list2.get(i));
+//                notIn.remove(list2.get(i));
+//            } else {
+//                System.out.println("not contains with: " + list2.get(i));
+//                notIn.add(list2.get(i));
+//                System.out.println("added to not in: " + notIn.get(1));
+//                studentLost = list1[i];
+//                System.out.println("lost: " + studentLost);
+//            }
+//        }
+//         String StringArray [] = notIn.toArray(new String[notIn.size()]);
+//         System.out.println("student to be set: " + StringArray[1]);
+//         return StringArray;
+//    }
+    
+    public void deleteLesson(int lessonID, String date, String time, String lesson) {
+        keysArray ka = new keysArray();
+        paymentsArray pa = new paymentsArray();
+        CalendarHandler ch = new CalendarHandler();
+        int yes = JOptionPane.YES_OPTION;
+        int no = JOptionPane.CANCEL_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Continuing will delete all information regarding this lesson\n " + lesson + "\nSelect 'Yes' if you wish to delete all payment info as well.", "delete lesson", JOptionPane.YES_NO_CANCEL_OPTION);
+        
+        String key = ka.getKeyFromDateAndTime(date, time);
+        int [] lessonIDs = ka.getLessonIDSFromKey(key);
+        
+        if (dialogResult == yes) {
+            for (int i = 0; i < lessonIDs.length; i++) {
+                String deletePayments = "DELETE * FROM sPayTable WHERE lessonID = " + lessonIDs[i];
+                String deleteKeys = "DELETE * FROM lessonKeys WHERE lessonID = " + lessonIDs[i];
+                String deleteLessons = "DELETE * FROM lessonData WHERE LessonID = " + lessonIDs[i];
+                try {
+                    db.UpdateDatabase(deletePayments);
+                    db.UpdateDatabase(deleteKeys);
+                    db.UpdateDatabase(deleteLessons);
+                } catch (SQLException ex) {
+                    Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } else {
+            if (dialogResult == no) {
+                for (int i = 0; i < lessonIDs.length; i++) {
+                String deleteKeys = "DELETE * FROM lessonKeys WHERE lessonID = " + lessonIDs[i];
+                String deleteLessons = "DELETE * FROM lessonData WHERE LessonID = " + lessonIDs[i];
+                try {
+                    db.UpdateDatabase(deleteKeys);
+                    db.UpdateDatabase(deleteLessons);
+                } catch (SQLException ex) {
+                    Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             } else {
-                System.out.println("not contains with: " + list2.get(i));
-                notIn.add(list2.get(i));
-                System.out.println("added to not in: " + notIn.get(1));
-                studentLost = list1[i];
-                System.out.println("lost: " + studentLost);
+               JOptionPane.showMessageDialog(null, "Lesson Saved");
             }
         }
-         String StringArray [] = notIn.toArray(new String[notIn.size()]);
-         System.out.println("student to be set: " + StringArray[1]);
-         return StringArray;
     }
     
     public String getLessonDayFromLessonID(int id) {
@@ -587,7 +628,9 @@ public class lessonDataArray {
         return day;
     }
     
-    public void deleteStudentsInLesson(String date, String time) {
+    
+    
+    public void deleteStudentsInSpecificLesson(String date, String time) {
        ConnectDB db = new ConnectDB();
        keysArray ka = new keysArray();
        CalendarHandler ch = new CalendarHandler();
@@ -613,7 +656,73 @@ public class lessonDataArray {
        }
     }
     
-   public void editLessonStudents(ArrayList<String> list, int id, String date, String time) {
+    public void deletStudentsInAllLesson(String date, String time) {
+       ConnectDB db = new ConnectDB();
+       keysArray ka = new keysArray();
+       CalendarHandler ch = new CalendarHandler();
+       paymentsArray pa = new paymentsArray();
+       studentsArray sa = new studentsArray();
+       venueArray va = new venueArray();
+       
+       String students [] = ch.studentsFromLessonDateAndTime(date, time);
+       String key = ka.getKeyFromDateAndTime(date, time);
+       
+       for (int i = 0; i < this.lessonDataArray.size(); i++) {
+           int lessonID = this.lessonDataArray.get(i).getLessonID();
+           if (ka.getKeyFromLessonID(lessonID).equals(key)) {
+               int studentID = this.lessonDataArray.get(i).getStudentID();
+               String deleteKey = "DELETE * FROM lessonKeys WHERE lessonID = " + lessonID;
+                String deletePayments = "DELETE * FROM sPayTable WHERE lessonID = " + lessonID;
+                String deleteLesson = "DELETE * FROM lessonData WHERE LessonID = " + lessonID;
+                try {
+                    db.UpdateDatabase(deleteKey);
+                    db.UpdateDatabase(deletePayments);
+                    db.UpdateDatabase(deleteLesson);
+                } catch (SQLException ex) {
+                    Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+       }
+    }
+    
+    public int formatFrequency(String freq) {
+        int freqInt = 0;
+        if (freq.toLowerCase().startsWith("week")) {
+            freqInt = 1;
+        } else {
+            if (freq.toLowerCase().startsWith("month")) {
+                freqInt = 2;
+            }
+        }
+        return freqInt;
+    }
+    
+    public void editAllLessonStudents(ArrayList<String> list, int id, String date, String time) {
+       ConnectDB db = new ConnectDB();
+       keysArray ka = new keysArray();
+       CalendarHandler ch = new CalendarHandler();
+       paymentsArray pa = new paymentsArray();
+       studentsArray sa = new studentsArray();
+       venueArray va = new venueArray();
+       
+       String students [] = ch.studentsFromLessonDateAndTime(date, time);
+       
+       String key = ka.getKeyFromLessonID(id);
+       int frequency = this.formatFrequency(this.getFrequencyFromKey(key));
+       int cost = pa.getCostFromLessonID(id);
+       boolean paid = pa.getIfPaidFromLessonID(id);
+       int venueID = va.getVenueIDFromLessonID(id);
+       String venue = va.venueNameFromID(venueID);
+       String day = this.getLessonDayFromLessonID(id);
+       int duration = this.getDurationFromTimeAndDate(time, date); 
+       
+           this.deleteStudentsInSpecificLesson(date, time);
+           for (int i = 0; i < list.size(); i++) {
+               this.addLesson(venue, date, time, day, list.size(), list.get(i), frequency, duration, key, paid, cost);
+           }
+   }
+    
+   public void editSelectedLessonStudents(ArrayList<String> list, int id, String date, String time) {
        ConnectDB db = new ConnectDB();
        keysArray ka = new keysArray();
        CalendarHandler ch = new CalendarHandler();
@@ -629,7 +738,7 @@ public class lessonDataArray {
        String day = this.getLessonDayFromLessonID(id);
        int duration = this.getDurationFromTimeAndDate(time, date);
        
-           this.deleteStudentsInLesson(date, time);
+           this.deleteStudentsInSpecificLesson(date, time);
            for (int i = 0; i < list.size(); i++) {
                int studentID = sa.studentIDFromName(list.get(i));
                int lessonID = this.getLessoIDFromDateTimeAndStudentID(date, time, studentID);
@@ -648,19 +757,61 @@ public class lessonDataArray {
                }
            }
    }
+   
+   public void updateLessonDateTime(String originalDate, String originalTime, String newDateIn, String newTime, String newDuration) {
+       ConnectDB db = new ConnectDB();
+       keysArray ka = new keysArray();
+       
+       String newDate = this.formatDate(newDateIn);
+       String day = this.formatDay(newDateIn.substring(0, 3));
+       
+       String key = ka.getKeyFromDateAndTime(originalDate, originalTime);
+       for (int i = 0; i < this.lessonDataArray.size(); i++) {
+           if (ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()).equals(key) && this.lessonDataArray.get(i).getLessonDate().equals(originalDate) && this.lessonDataArray.get(i).getLessonTime().equals(originalTime)) {
+               System.out.println("lessonID: " + this.lessonDataArray.get(i).getLessonID());
+               String updateDateTime = "UPDATE lessonData SET lessonDate = '" + newDate + "', lessonTime = '" + newTime + "', lessonDuration = " + newDuration + ", lessonDay = '" + day + "' "
+                       + "WHERE LessonID = " + this.lessonDataArray.get(i).getLessonID();
+               String updatePayTime = "UPDATE sPayTable SET PayDate = '" + newDate + "', PayTime = '" + newTime + "', PayDuration = " + newDuration
+                       + " WHERE lessonID = " + this.lessonDataArray.get(i).getLessonID();
+               try {
+                   db.UpdateDatabase(updateDateTime);
+                   db.UpdateDatabase(updatePayTime);
+               } catch (SQLException ex) {
+                   Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+               }
+           }
+       }
+   }
     
-   public void editLessonVenue(String  venue, String date, String time) {
+   public void editAllLessonVenue(String  venue, String date, String time) {
        ConnectDB db = new ConnectDB();
        venueArray va = new venueArray();
        keysArray ka = new keysArray();
        
        int venueID = va.venueIDFromVenue(venue);
        String key = ka.getKeyFromDateAndTime(date, time);
-       System.out.println("venue: " + venue + " id: " + venueID + "     key: " + key);
        for (int i = 0; i < this.lessonDataArray.size(); i++) {
-           System.out.println("testKey: " + ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()));
            if (ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()).equals(key)) {
-               System.out.println("\nentered with: " + ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()) + "\n");
+               String updateVenue = "UPDATE lessonData SET venueID = " + venueID + " "
+                       + "WHERE LessonID = " + this.lessonDataArray.get(i).getLessonID();
+               try {
+                   db.UpdateDatabase(updateVenue);
+               } catch (SQLException ex) {
+                   Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+               }
+           }
+       }
+   }
+   
+   public void editSelectedLessonVenue(String  venue, String date, String time) {
+       ConnectDB db = new ConnectDB();
+       venueArray va = new venueArray();
+       keysArray ka = new keysArray();
+       
+       int venueID = va.venueIDFromVenue(venue);
+       String key = ka.getKeyFromDateAndTime(date, time);
+       for (int i = 0; i < this.lessonDataArray.size(); i++) {
+           if (ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()).equals(key) && this.lessonDataArray.get(i).getLessonDate().equals(date) && this.lessonDataArray.get(i).getLessonTime().equals(time)) {
                String updateVenue = "UPDATE lessonData SET venueID = " + venueID + " "
                        + "WHERE LessonID = " + this.lessonDataArray.get(i).getLessonID();
                try {
@@ -680,6 +831,14 @@ public class lessonDataArray {
             }
         }
         return duration;
+    }
+    
+    public void checkIfDoubleBookingForEdit(String date, String time, int duration, int size, String lessonKeyToCheck) {
+        if (!this.checkIfDoublebooking(date, time, duration, size, lessonKeyToCheck).contains("Venue")) {
+            EDIT_DOUBLE_BOOKED = false;
+        } else {
+            EDIT_DOUBLE_BOOKED = true;
+        }
     }
     
     //checks if double booked
@@ -1004,6 +1163,7 @@ public class lessonDataArray {
         int id = 0;
         for (int i = 0; i < this.lessonDataArray.size(); i++) {
             String startTime = time.substring(0, 5);
+            System.out.println("startTime: " + startTime);
             if (this.lessonDataArray.get(i).getLessonDate().equals(date) &&
                     this.lessonDataArray.get(i).getLessonTime().equals(startTime) &&
                     this.lessonDataArray.get(i).getStudentID() == studentID) {

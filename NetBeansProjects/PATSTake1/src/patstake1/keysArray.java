@@ -150,4 +150,15 @@ public class keysArray {
         }
     }
     
+    public int [] getLessonIDSFromKey(String key) {
+        ArrayList<Integer> idList = new ArrayList<>();
+        for (int i  = 0; i < this.keyArray.size(); i++) {
+            if (this.keyArray.get(i).getLessonKey().equals(key)) {
+                idList.add(this.keyArray.get(i).getLessonID());
+            }
+        }
+        int idArray [] = idList.stream().mapToInt(i -> i).toArray();
+        return idArray;
+    }
+    
 }

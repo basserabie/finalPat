@@ -118,7 +118,7 @@ public class mothersArray {
         int id = 0;
         for (int i = 0; i < this.mothersArray.size(); i++) {
             String motherName = this.getMothersArray().get(i).getMotherFName() + " " + this.getMothersArray().get(i).getMotherLName();
-            if (motherName.equals(name)) {
+            if (motherName.toLowerCase().equals(name.toLowerCase())) {
                 id = this.getMothersArray().get(i).getMotherID();
             }
         }

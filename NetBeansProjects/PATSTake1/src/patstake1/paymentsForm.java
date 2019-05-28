@@ -363,9 +363,9 @@ public class paymentsForm extends javax.swing.JFrame {
         String studentName = this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 0).toString();
         int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
         String date = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 1).toString());
-        String time = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 2).toString()).substring(0, 5);
-        
+        String time = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 2).toString());
         pa.removePayment(la.getLessoIDFromDateTimeAndStudentID(date, time, studentID));
+        System.out.println("LESSONID: " + la.getLessoIDFromDateTimeAndStudentID(date, time, studentID));
         this.paymetsTable.setModel(pop.payments());
     }//GEN-LAST:event_removePaymentButtonActionPerformed
 

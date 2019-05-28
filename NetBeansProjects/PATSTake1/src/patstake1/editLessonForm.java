@@ -5,6 +5,7 @@
  */
 package patstake1;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -18,18 +19,30 @@ import static patstake1.addLessonForm.ADDED_ARRAY;
  */
 public class editLessonForm extends javax.swing.JFrame {
 
+    //checks if check-boxes are checked
+    private static boolean STUDENTS_CHECKED = false;
+    private static boolean DATETIME_CHECKED = false;
+    private static boolean VENUE_CHECKED = false;
     
+    private static boolean HOUR_CHOSEN = false;
     //arrayList of students
     public static ArrayList<String> ADDED_ARRAY = new ArrayList<>();
     //list model
     DefaultListModel StudentsAddedListModel = new DefaultListModel();
     public static DefaultListModel checkListModel = new DefaultListModel();
+    //checks what has been edited
+    private boolean STUDENTS_CHANGED = false;
+    private boolean VENUE_CHANGED = false;
     
     /**
      * Creates new form editLessonForm
      */
     public editLessonForm() {
         initComponents();
+        
+        this.editStudentPanel.setBackground(Color.red);
+        this.editDateTimePanel.setBackground(Color.red);
+        this.venuePanel.setBackground(Color.red);
         
         this.studentsAddedList.removeAll(); //removes generic items from studentsAddedList
         this.addStudentNameComboBox.removeAllItems();//removes all generic tiems from name combo box
@@ -40,7 +53,9 @@ public class editLessonForm extends javax.swing.JFrame {
         //populates venues combo box
         DefaultComboBoxModel venuesModel = new DefaultComboBoxModel(pop.populateVenues());
         this.venuesComboBox.setModel(venuesModel);
-        //populates duration spinner with hour options
+        //populates hourSpinner
+        SpinnerListModel hourModel = new SpinnerListModel(pop.populateHourSpinner());
+        this.HourSpinner.setModel(hourModel);
         SpinnerListModel hours = new SpinnerListModel(pop.populateDurationSpinner());
         this.durationSpinner.setModel(hours);
         //creates and populates a reference listModel
@@ -49,7 +64,6 @@ public class editLessonForm extends javax.swing.JFrame {
             ADDED_ARRAY.add(ch.studentsFromLessonDateAndTime(lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME)[i]);
             this.StudentsAddedListModel.addElement(ADDED_ARRAY.get(i));
             checkListModel.addElement(ADDED_ARRAY.get(i));
-            System.out.println(checkListModel.getElementAt(i));
         }
         this.studentsAddedList.setModel(checkListModel);
         
@@ -98,8 +112,7 @@ public class editLessonForm extends javax.swing.JFrame {
         addVenueComboBox = new javax.swing.JComboBox<>();
         cancelButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        editVenuePanel = new javax.swing.JPanel();
+        venuePanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         venuesComboBox = new javax.swing.JComboBox<>();
         studentsAddedLabel = new javax.swing.JLabel();
@@ -115,19 +128,26 @@ public class editLessonForm extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         deleteStudentFromLessonButton = new javax.swing.JButton();
         addStudentToLessonButton = new javax.swing.JButton();
+        editSelectedLessonButton = new javax.swing.JButton();
+        jLabel27 = new javax.swing.JLabel();
         editDateTimePanel = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         addDateComboBox = new com.toedter.calendar.JDateChooser();
         jLabel11 = new javax.swing.JLabel();
-        addLessonTimeHourComboBox = new javax.swing.JComboBox<>();
-        addLessonTimeMinuteComboBox = new javax.swing.JComboBox<>();
-        jLabel12 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         durationSpinner = new javax.swing.JSpinner();
-        jLabel13 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         timeSetLabel = new javax.swing.JLabel();
-        editLessonButton = new javax.swing.JButton();
-        jLabel27 = new javax.swing.JLabel();
+        HourSpinner = new javax.swing.JSpinner();
+        minuteSpinner = new javax.swing.JSpinner();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        studentCheckBox = new javax.swing.JCheckBox();
+        dateTimeCheckBox = new javax.swing.JCheckBox();
+        venueCheckbox = new javax.swing.JCheckBox();
+        editAllLessonsButton = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
 
         jFrame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -442,32 +462,30 @@ public class editLessonForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Editing Lesson On:");
+        jLabel1.setText("Editing Lesson:");
 
-        jLabel2.setText("jLabel2");
-
-        editVenuePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        venuePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel3.setText("Venue:");
 
         venuesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        javax.swing.GroupLayout editVenuePanelLayout = new javax.swing.GroupLayout(editVenuePanel);
-        editVenuePanel.setLayout(editVenuePanelLayout);
-        editVenuePanelLayout.setHorizontalGroup(
-            editVenuePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editVenuePanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout venuePanelLayout = new javax.swing.GroupLayout(venuePanel);
+        venuePanel.setLayout(venuePanelLayout);
+        venuePanelLayout.setHorizontalGroup(
+            venuePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(venuePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(editVenuePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(editVenuePanelLayout.createSequentialGroup()
+                .addGroup(venuePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(venuePanelLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(venuesComboBox, 0, 289, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        editVenuePanelLayout.setVerticalGroup(
-            editVenuePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editVenuePanelLayout.createSequentialGroup()
+        venuePanelLayout.setVerticalGroup(
+            venuePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(venuePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -572,28 +590,24 @@ public class editLessonForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        editSelectedLessonButton.setText("Update Only Selected!");
+        editSelectedLessonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editSelectedLessonButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel27.setText("NOTE: Please select field if edit is required");
+
         editDateTimePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel8.setText("Set Lesson Date, Time, And Frequency:");
+        jLabel6.setText("Set Lesson Date, Time, And Frequency:");
 
         jLabel10.setText("Date:");
 
         jLabel11.setText("Time:");
 
-        addLessonTimeHourComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
-        addLessonTimeHourComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addLessonTimeHourComboBoxActionPerformed(evt);
-            }
-        });
-
-        addLessonTimeMinuteComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addLessonTimeMinuteComboBoxActionPerformed(evt);
-            }
-        });
-
-        jLabel12.setText("Duration(hours):");
+        jLabel8.setText("Duration(hours):");
 
         durationSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -601,71 +615,136 @@ public class editLessonForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setText("Time Set:");
+        jLabel12.setText("Time Set:");
 
         timeSetLabel.setText("------------------");
+
+        HourSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                HourSpinnerStateChanged(evt);
+            }
+        });
+
+        minuteSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                minuteSpinnerStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout editDateTimePanelLayout = new javax.swing.GroupLayout(editDateTimePanel);
         editDateTimePanel.setLayout(editDateTimePanelLayout);
         editDateTimePanelLayout.setHorizontalGroup(
             editDateTimePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editDateTimePanelLayout.createSequentialGroup()
-                .addComponent(addDateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(editDateTimePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(editDateTimePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
+                    .addComponent(jLabel6)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(editDateTimePanelLayout.createSequentialGroup()
-                        .addComponent(addLessonTimeHourComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addLessonTimeMinuteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(editDateTimePanelLayout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(durationSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(editDateTimePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(timeSetLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(timeSetLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(editDateTimePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, editDateTimePanelLayout.createSequentialGroup()
+                            .addComponent(HourSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(minuteSpinner))
+                        .addGroup(editDateTimePanelLayout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(durationSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(editDateTimePanelLayout.createSequentialGroup()
+                .addComponent(addDateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         editDateTimePanelLayout.setVerticalGroup(
             editDateTimePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editDateTimePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8)
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addDateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
+                .addGap(7, 7, 7)
+                .addGroup(editDateTimePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(HourSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minuteSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(editDateTimePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addLessonTimeHourComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addLessonTimeMinuteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editDateTimePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
+                    .addComponent(jLabel8)
                     .addComponent(durationSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(editDateTimePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(timeSetLabel)
-                    .addComponent(jLabel13))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(jLabel12))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        editLessonButton.setText("Update Lesson!");
-        editLessonButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editLessonButtonActionPerformed(evt);
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel13.setText("Please select what you would like to edit:");
+
+        studentCheckBox.setText("Students");
+        studentCheckBox.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                studentCheckBoxStateChanged(evt);
             }
         });
 
-        jLabel27.setText("NOTE: Please leave field blank if no edit is required");
+        dateTimeCheckBox.setText("Date/Time");
+        dateTimeCheckBox.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                dateTimeCheckBoxStateChanged(evt);
+            }
+        });
+
+        venueCheckbox.setText("Venue");
+        venueCheckbox.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                venueCheckboxStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(studentCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateTimeCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(venueCheckbox)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(studentCheckBox)
+                    .addComponent(dateTimeCheckBox)
+                    .addComponent(venueCheckbox))
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
+
+        editAllLessonsButton.setText("Update All!");
+        editAllLessonsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editAllLessonsButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setText("*Please note if the selected lesson is not once-off, all of the dates and times cannot be changed");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -673,32 +752,43 @@ public class editLessonForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel27)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(studentsAddedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(23, 23, 23))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(studentsAddedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(23, 23, 23)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(editSelectedLessonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(editAllLessonsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(editStudentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(editDateTimePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(editVenuePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(editLessonButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGroup(layout.createSequentialGroup()
+                                    .addComponent(venuePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 13, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(cancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel27))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel14)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -706,22 +796,27 @@ public class editLessonForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel27))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(studentsAddedLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(editDateTimePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editStudentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(editVenuePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(editStudentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(editDateTimePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(editLessonButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addComponent(venuePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(editSelectedLessonButton)
+                            .addComponent(editAllLessonsButton)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -790,39 +885,6 @@ public class editLessonForm extends javax.swing.JFrame {
         this.studentsAddedList.setModel(StudentsAddedListModel);
     }//GEN-LAST:event_addStudentToLessonButtonActionPerformed
 
-    private void addLessonTimeHourComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonTimeHourComboBoxActionPerformed
-        populateComboBoxes pop = new populateComboBoxes();
-        lessonDataArray la = new lessonDataArray();
-        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.addLessonTimeHourComboBox.getSelectedItem().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-        this.timeSetLabel.setText(timeSet);
-        //populates minute combo box according to hour selected
-        this.addLessonTimeMinuteComboBox.removeAllItems();//removes previously generated items in minute combo box
-        DefaultComboBoxModel minutes = new DefaultComboBoxModel(pop.populateMinuteComboBoxAccordingToHour(this.addLessonTimeHourComboBox.getSelectedItem().toString()));
-        this.addLessonTimeMinuteComboBox.setModel(minutes);
-    }//GEN-LAST:event_addLessonTimeHourComboBoxActionPerformed
-
-    private void addLessonTimeMinuteComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonTimeMinuteComboBoxActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.addLessonTimeMinuteComboBox.getSelectedItem().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-        this.timeSetLabel.setText(timeSet);
-    }//GEN-LAST:event_addLessonTimeMinuteComboBoxActionPerformed
-
-    private void durationSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_durationSpinnerStateChanged
-        if (!this.addLessonTimeHourComboBox.getSelectedItem().toString().equals("")) {
-            if (this.addLessonTimeMinuteComboBox.getSelectedItem().toString().equals("")) {
-                lessonDataArray la = new lessonDataArray();
-                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.addLessonTimeHourComboBox.getSelectedItem().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-                this.timeSetLabel.setText(timeSet);
-            } else {
-                lessonDataArray la = new lessonDataArray();
-                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.addLessonTimeMinuteComboBox.getSelectedItem().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-                this.timeSetLabel.setText(timeSet);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "before choosing a duration please select a time");
-        }
-    }//GEN-LAST:event_durationSpinnerStateChanged
-
     private void backToDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardButtonActionPerformed
         dashboard d = new dashboard();
         lessonDataArray la = new lessonDataArray();
@@ -866,7 +928,6 @@ public class editLessonForm extends javax.swing.JFrame {
     private void deleteStudentFromLessonButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStudentFromLessonButton1ActionPerformed
         lessonDataArray la = new lessonDataArray();
         la.removeStudentAdded(this.studentsAddedList.getSelectedValue());
-        System.out.println("selected: " + this.studentsAddedList.getSelectedValue());
         this.StudentsAddedListModel.removeAllElements();
         for (int i = 0; i < la.getNames().size(); i++) {
             StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));
@@ -886,36 +947,15 @@ public class editLessonForm extends javax.swing.JFrame {
     }//GEN-LAST:event_addStudentToLessonButton1ActionPerformed
 
     private void addLessonTimeHourComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonTimeHourComboBox1ActionPerformed
-        populateComboBoxes pop = new populateComboBoxes();
-        lessonDataArray la = new lessonDataArray();
-        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.addLessonTimeHourComboBox.getSelectedItem().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-        this.timeSetLabel.setText(timeSet);
-        //populates minute combo box according to hour selected
-        this.addLessonTimeMinuteComboBox.removeAllItems();//removes previously generated items in minute combo box
-        DefaultComboBoxModel minutes = new DefaultComboBoxModel(pop.populateMinuteComboBoxAccordingToHour(this.addLessonTimeHourComboBox.getSelectedItem().toString()));
-        this.addLessonTimeMinuteComboBox.setModel(minutes);
+//        
     }//GEN-LAST:event_addLessonTimeHourComboBox1ActionPerformed
 
     private void addLessonTimeMinuteComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonTimeMinuteComboBox1ActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.addLessonTimeMinuteComboBox.getSelectedItem().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-        this.timeSetLabel.setText(timeSet);
+      
     }//GEN-LAST:event_addLessonTimeMinuteComboBox1ActionPerformed
 
     private void durationSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_durationSpinner1StateChanged
-        if (!this.addLessonTimeHourComboBox.getSelectedItem().toString().equals("")) {
-            if (this.addLessonTimeMinuteComboBox.getSelectedItem().toString().equals("")) {
-                lessonDataArray la = new lessonDataArray();
-                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.addLessonTimeHourComboBox.getSelectedItem().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-                this.timeSetLabel.setText(timeSet);
-            } else {
-                lessonDataArray la = new lessonDataArray();
-                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.addLessonTimeMinuteComboBox.getSelectedItem().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-                this.timeSetLabel.setText(timeSet);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "before choosing a duration please select a time");
-        }
+      
     }//GEN-LAST:event_durationSpinner1StateChanged
 
     private void frequencyComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frequencyComboBox1ActionPerformed
@@ -927,17 +967,125 @@ public class editLessonForm extends javax.swing.JFrame {
     }//GEN-LAST:event_addVenueComboBoxActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        STUDENTS_CHECKED = false;
+        DATETIME_CHECKED = false;
+        VENUE_CHECKED = false;
+        ADDED_ARRAY.removeAll(ADDED_ARRAY);
+        checkListModel.removeAllElements();
         this.setVisible(false);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    private void editLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editLessonButtonActionPerformed
+    private void editSelectedLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSelectedLessonButtonActionPerformed
        lessonDataArray la = new lessonDataArray();
-       la.editLessonVenue(this.venuesComboBox.getSelectedItem().toString(), lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
-       la.editLessonStudents(ADDED_ARRAY, lesson.SELECTED_LESSON_ID, lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
-       ADDED_ARRAY.removeAll(ADDED_ARRAY);
-       checkListModel.removeAllElements();
-       this.setVisible(false);
-    }//GEN-LAST:event_editLessonButtonActionPerformed
+       boolean lessonDoubleBooked = false;
+       if (DATETIME_CHECKED) {
+           la.checkIfDoubleBookingForEdit(la.formatDate(this.addDateComboBox.getDate().toString()), this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()), ADDED_ARRAY.size(), lesson.SELECTED_KEY);
+           if (lessonDataArray.EDIT_DOUBLE_BOOKED) {
+               lessonDoubleBooked = true;
+               JOptionPane.showMessageDialog(null, la.checkIfDoublebooking(la.formatDate(this.addDateComboBox.getDate().toString()), this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()), ADDED_ARRAY.size(), lesson.SELECTED_KEY) + "\nPlease try again!");
+           }
+       }
+        if (!lessonDoubleBooked) {
+            if (STUDENTS_CHECKED) {
+                la.editSelectedLessonStudents(ADDED_ARRAY, lesson.SELECTED_LESSON_ID, lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
+            }
+            if (VENUE_CHECKED) {
+                la.editSelectedLessonVenue(this.venuesComboBox.getSelectedItem().toString(), lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
+            }
+            if (DATETIME_CHECKED) {
+                la.updateLessonDateTime(lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME, this.addDateComboBox.getDate().toString(), this.minuteSpinner.getModel().getValue().toString(), this.durationSpinner.getModel().getValue().toString());
+            }
+            STUDENTS_CHECKED = false;
+            DATETIME_CHECKED = false;
+            VENUE_CHECKED = false;
+            ADDED_ARRAY.removeAll(ADDED_ARRAY);
+            checkListModel.removeAllElements();
+            this.setVisible(false);
+        }
+        STUDENTS_CHECKED = false;
+        DATETIME_CHECKED = false;
+        VENUE_CHECKED = false;
+        ADDED_ARRAY.removeAll(ADDED_ARRAY);
+        checkListModel.removeAllElements();
+    }//GEN-LAST:event_editSelectedLessonButtonActionPerformed
+
+    private void durationSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_durationSpinnerStateChanged
+        lessonDataArray la = new lessonDataArray();
+        if (HOUR_CHOSEN) {
+            if (this.minuteSpinner.getModel().getValue().toString().equals("")) {
+                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.HourSpinner.getModel().getValue().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
+                this.timeSetLabel.setText(timeSet);
+            } else {
+                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
+                this.timeSetLabel.setText(timeSet);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "before choosing a duration please select a time");
+        }
+    }//GEN-LAST:event_durationSpinnerStateChanged
+
+    private void HourSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_HourSpinnerStateChanged
+        HOUR_CHOSEN = true;
+        populateComboBoxes pop = new populateComboBoxes();
+        lessonDataArray la = new lessonDataArray();
+        SpinnerListModel minuteModel;
+        minuteModel = new SpinnerListModel(pop.populateMinuteComboBoxAccordingToHour(this.HourSpinner.getModel().getValue().toString()));
+        this.minuteSpinner.setModel(minuteModel);
+        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.HourSpinner.getModel().getValue().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
+        this.timeSetLabel.setText(timeSet);
+    }//GEN-LAST:event_HourSpinnerStateChanged
+
+    private void minuteSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_minuteSpinnerStateChanged
+        lessonDataArray la = new lessonDataArray();
+        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
+        this.timeSetLabel.setText(timeSet);
+    }//GEN-LAST:event_minuteSpinnerStateChanged
+
+    private void studentCheckBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_studentCheckBoxStateChanged
+        STUDENTS_CHECKED = !STUDENTS_CHECKED;
+        if (STUDENTS_CHECKED) {
+            this.editStudentPanel.setBackground(Color.green);
+        } else {
+            this.editStudentPanel.setBackground(Color.red);
+        }
+    }//GEN-LAST:event_studentCheckBoxStateChanged
+
+    private void dateTimeCheckBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_dateTimeCheckBoxStateChanged
+        DATETIME_CHECKED = !DATETIME_CHECKED;
+        if (DATETIME_CHECKED) {
+            this.editDateTimePanel.setBackground(Color.green);
+        } else {
+            this.editDateTimePanel.setBackground(Color.red);
+        }
+    }//GEN-LAST:event_dateTimeCheckBoxStateChanged
+
+    private void venueCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_venueCheckboxStateChanged
+        VENUE_CHECKED = !VENUE_CHECKED;
+        if (VENUE_CHECKED) {
+            this.venuePanel.setBackground(Color.green);
+        } else {
+            this.venuePanel.setBackground(Color.red);
+        }
+    }//GEN-LAST:event_venueCheckboxStateChanged
+
+    private void editAllLessonsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAllLessonsButtonActionPerformed
+       lessonDataArray la = new lessonDataArray();
+        if (!DATETIME_CHECKED) {
+            if (STUDENTS_CHECKED) {
+                la.editAllLessonStudents(ADDED_ARRAY, lesson.SELECTED_LESSON_ID, lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
+            }
+            if (VENUE_CHECKED) {
+                la.editAllLessonVenue(this.venuesComboBox.getSelectedItem().toString(), lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
+            }
+            STUDENTS_CHECKED = false;
+            VENUE_CHECKED = false;
+            ADDED_ARRAY.removeAll(ADDED_ARRAY);
+            checkListModel.removeAllElements();
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "You may not edit the lesson date or time of all the lessons in this group.\nOnly the one selected");
+        }
+    }//GEN-LAST:event_editAllLessonsButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -975,12 +1123,11 @@ public class editLessonForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner HourSpinner;
     private com.toedter.calendar.JDateChooser addDateComboBox;
     private com.toedter.calendar.JDateChooser addDateComboBox1;
     private javax.swing.JButton addLessonButton;
-    private javax.swing.JComboBox<String> addLessonTimeHourComboBox;
     private javax.swing.JComboBox<String> addLessonTimeHourComboBox1;
-    private javax.swing.JComboBox<String> addLessonTimeMinuteComboBox;
     private javax.swing.JComboBox<String> addLessonTimeMinuteComboBox1;
     private javax.swing.JComboBox<String> addStudentGradeComboBox;
     private javax.swing.JComboBox<String> addStudentGradeComboBox1;
@@ -992,14 +1139,15 @@ public class editLessonForm extends javax.swing.JFrame {
     private javax.swing.JLabel addlessonLabel;
     private javax.swing.JButton backToDashboardButton;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JCheckBox dateTimeCheckBox;
     private javax.swing.JButton deleteStudentFromLessonButton;
     private javax.swing.JButton deleteStudentFromLessonButton1;
     private javax.swing.JSpinner durationSpinner;
     private javax.swing.JSpinner durationSpinner1;
+    private javax.swing.JButton editAllLessonsButton;
     private javax.swing.JPanel editDateTimePanel;
-    private javax.swing.JButton editLessonButton;
+    private javax.swing.JButton editSelectedLessonButton;
     private javax.swing.JPanel editStudentPanel;
-    private javax.swing.JPanel editVenuePanel;
     private javax.swing.JComboBox<String> frequencyComboBox1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
@@ -1007,12 +1155,12 @@ public class editLessonForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1024,21 +1172,27 @@ public class editLessonForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSpinner minuteSpinner;
     private javax.swing.JTextField studentBeingAddedTextField;
     private javax.swing.JTextField studentBeingAddedTextField1;
+    private javax.swing.JCheckBox studentCheckBox;
     private javax.swing.JLabel studentsAddedLabel;
     private javax.swing.JList<String> studentsAddedList;
     private javax.swing.JList<String> studentsAddedList1;
     private javax.swing.JLabel timeSetLabel;
     private javax.swing.JLabel timeSetLabel1;
+    private javax.swing.JCheckBox venueCheckbox;
+    private javax.swing.JPanel venuePanel;
     private javax.swing.JComboBox<String> venuesComboBox;
     // End of variables declaration//GEN-END:variables
 }

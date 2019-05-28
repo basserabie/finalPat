@@ -225,10 +225,8 @@ public class addStudentForm extends javax.swing.JFrame {
 
     private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentButtonActionPerformed
         dashboard d = new dashboard();
-        
         studentsArray sa = new studentsArray();
         sa.addStudent(this.studentfNameT.getText(), this.studentlNameT.getText(), this.studentGradeComboBox.getSelectedItem().toString(), this.studentSchoolComboBox.getSelectedItem().toString(), this.motherFNameT.getText(), this.motherLNameT.getText(), this.motherEmailT.getText(), this.motherCellT.getText());
-
         this.hide();
         d.setVisible(true);
     }//GEN-LAST:event_addStudentButtonActionPerformed

@@ -23,6 +23,7 @@ public class lesson extends javax.swing.JFrame {
     public static int SELECTED_LESSON_ID;
     public static String SELECTED_LESSON_DATE;
     public static String SELECTED_LESSON_TIME;
+    public static String SELECTED_KEY;
     
     /**
      * Creates new form lesson
@@ -426,6 +427,7 @@ public class lesson extends javax.swing.JFrame {
         populateComboBoxes pop = new populateComboBoxes();
         lessonDataArray la = new lessonDataArray();
         studentsArray sa = new studentsArray();
+        keysArray ka = new keysArray();
         this.seeStudentsButton.setText("See Students!");
         String date = this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 2).toString();
         int studentID = sa.studentIDFromName(this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 0).toString());
@@ -433,6 +435,7 @@ public class lesson extends javax.swing.JFrame {
         SELECTED_LESSON_ID = la.getLessoIDFromDateTimeAndStudentID(date, time, studentID);
         SELECTED_LESSON_DATE = date;
         SELECTED_LESSON_TIME = time;
+        SELECTED_KEY = ka.getKeyFromLessonID(SELECTED_LESSON_ID);
         this.selectedLessonLabel.setText(pop.populateSelectedLessonLabel(SELECTED_LESSON_ID));
     }//GEN-LAST:event_lessonsTableMouseClicked
 
@@ -452,7 +455,10 @@ public class lesson extends javax.swing.JFrame {
     }//GEN-LAST:event_editLessonActionPerformed
 
     private void deleteLessonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLessonActionPerformed
-        // TODO add your handling code here:
+        lessonDataArray la = new lessonDataArray();
+        populateComboBoxes pop = new populateComboBoxes();
+        la.deleteLesson(SELECTED_LESSON_ID, SELECTED_LESSON_DATE, SELECTED_LESSON_TIME, pop.populateSelectedLessonLabel(SELECTED_LESSON_ID));
+        this.lessonsTable.setModel(pop.Lessons());
     }//GEN-LAST:event_deleteLessonActionPerformed
 
     /**

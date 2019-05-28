@@ -177,7 +177,7 @@ public class populateComboBoxes {
     }
     
     public String [] populateMinuteComboBoxAccordingToHour(String hourSelected) {
-        String minutes [] = new String [4];
+        String minutes [] = new String[4];
         int min = 15;
         minutes[0] = hourSelected + ":" + "00";
         for (int i = 0; i < 3; i++) {
@@ -570,12 +570,10 @@ public class populateComboBoxes {
              String email = ma.getMothersArray().get(i).getMotherEmail();
              String cell = ma.getMothersArray().get(i).getMotherCell();
              String students = "";
-             for (int k = 0; k < ma.getStudentsFromMotherName(name).length; k++) {
-                 if (k < ma.getStudentsFromMotherName(name).length-1) {
-                     students += ma.getStudentsFromMotherName(name)[k] + ", ";
-                 } else {
-                     students += ma.getStudentsFromMotherName(name)[k];
-                 }
+             if (ma.getStudentsFromMotherName(name).length > 1) {
+                 students = "click more info for students";
+             } else {
+                 students = ma.getStudentsFromMotherName(name)[0];
              }
              
              model.addRow(new Object[] {name, email, cell, students});
@@ -593,12 +591,10 @@ public class populateComboBoxes {
              String email = ma.getMothersArray().get(i).getMotherEmail();
              String cell = ma.getMothersArray().get(i).getMotherCell();
              String students = "";
-             for (int k = 0; k < ma.getStudentsFromMotherName(name).length; k++) {
-                 if (k < ma.getStudentsFromMotherName(name).length-1) {
-                     students += ma.getStudentsFromMotherName(name)[k] + ", ";
-                 } else {
-                     students += ma.getStudentsFromMotherName(name)[k];
-                 }
+             if (ma.getStudentsFromMotherName(name).length > 1) {
+                 students = "click more info for students";
+             } else {
+                 students = ma.getStudentsFromMotherName(name)[0];
              }
              if (name.toLowerCase().startsWith(nameInputted.toLowerCase())) {
                  model.addRow(new Object[] {name, email, cell, students});
@@ -617,12 +613,10 @@ public class populateComboBoxes {
              String email = ma.getMothersArray().get(i).getMotherEmail();
              String cell = ma.getMothersArray().get(i).getMotherCell();
              String students = "";
-             for (int k = 0; k < ma.getStudentsFromMotherName(name).length; k++) {
-                 if (k < ma.getStudentsFromMotherName(name).length-1) {
-                     students += ma.getStudentsFromMotherName(name)[k] + ", ";
-                 } else {
-                     students += ma.getStudentsFromMotherName(name)[k];
-                 }
+             if (ma.getStudentsFromMotherName(name).length > 1) {
+                 students = "click more info for students";
+             } else {
+                 students = ma.getStudentsFromMotherName(name)[0];
              }
              for (int s = 0; s < ma.getStudentsFromMotherName(name).length; s++) {
                  if (ma.getStudentsFromMotherName(name)[s].toLowerCase().startsWith(nameInputted.toLowerCase())) {

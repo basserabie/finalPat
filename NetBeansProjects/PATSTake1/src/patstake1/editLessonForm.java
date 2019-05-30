@@ -898,13 +898,13 @@ public class editLessonForm extends javax.swing.JFrame {
     }//GEN-LAST:event_addLessonButtonActionPerformed
 
     private void addStudentGradeComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentGradeComboBox1ActionPerformed
-        ConnectDB db = new ConnectDB();
-        studentsArray sa = new studentsArray();
-        populateComboBoxes pop = new populateComboBoxes();
-        //populates students combo box according to grade selected
-        this.addStudentNameComboBox.removeAllItems();
-        DefaultComboBoxModel correctedStudents = new DefaultComboBoxModel(pop.correctStudentsAccordingToGrade(this.addStudentGradeComboBox.getSelectedItem().toString()));
-        this.addStudentNameComboBox.setModel(correctedStudents);
+//        ConnectDB db = new ConnectDB();
+//        studentsArray sa = new studentsArray();
+//        populateComboBoxes pop = new populateComboBoxes();
+//        //populates students combo box according to grade selected
+//        this.addStudentNameComboBox.removeAllItems();
+//        DefaultComboBoxModel correctedStudents = new DefaultComboBoxModel(pop.correctStudentsAccordingToGrade(this.addStudentGradeComboBox.getSelectedItem().toString()));
+//        this.addStudentNameComboBox.setModel(correctedStudents);
     }//GEN-LAST:event_addStudentGradeComboBox1ActionPerformed
 
     private void studentBeingAddedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentBeingAddedTextField1ActionPerformed
@@ -916,34 +916,34 @@ public class editLessonForm extends javax.swing.JFrame {
     }//GEN-LAST:event_studentBeingAddedTextField1KeyTyped
 
     private void studentBeingAddedTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_studentBeingAddedTextField1KeyPressed
-        populateComboBoxes pop = new populateComboBoxes();
-        if (!this.addStudentGradeComboBox.getSelectedItem().toString().equals("")) {
-            DefaultComboBoxModel nameModel = new DefaultComboBoxModel(pop.correctStudentsAccordingToSearchTextField(this.addStudentGradeComboBox.getSelectedItem().toString(), this.studentBeingAddedTextField.getText()));
-            this.addStudentNameComboBox.setModel(nameModel);
-        } else {
-            JOptionPane.showMessageDialog(null, "Before you start typing please select the grade :)");
-        }
+//        populateComboBoxes pop = new populateComboBoxes();
+//        if (!this.addStudentGradeComboBox.getSelectedItem().toString().equals("")) {
+//            DefaultComboBoxModel nameModel = new DefaultComboBoxModel(pop.correctStudentsAccordingToSearchTextField(this.addStudentGradeComboBox.getSelectedItem().toString(), this.studentBeingAddedTextField.getText()));
+//            this.addStudentNameComboBox.setModel(nameModel);
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Before you start typing please select the grade :)");
+//        }
     }//GEN-LAST:event_studentBeingAddedTextField1KeyPressed
 
     private void deleteStudentFromLessonButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStudentFromLessonButton1ActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        la.removeStudentAdded(this.studentsAddedList.getSelectedValue());
-        this.StudentsAddedListModel.removeAllElements();
-        for (int i = 0; i < la.getNames().size(); i++) {
-            StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));
-        }
-        this.studentsAddedList.setModel(StudentsAddedListModel);
+//        lessonDataArray la = new lessonDataArray();
+//        la.removeStudentAdded(this.studentsAddedList.getSelectedValue());
+//        this.StudentsAddedListModel.removeAllElements();
+//        for (int i = 0; i < la.getNames().size(); i++) {
+//            StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));
+//        }
+//        this.studentsAddedList.setModel(StudentsAddedListModel);
     }//GEN-LAST:event_deleteStudentFromLessonButton1ActionPerformed
 
     private void addStudentToLessonButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentToLessonButton1ActionPerformed
-        ConnectDB db = new ConnectDB();
-        String name = this.addStudentNameComboBox.getSelectedItem().toString();
-        lessonDataArray la = new lessonDataArray();
-        la.addToNamesList(this.addStudentNameComboBox.getSelectedItem().toString());
-        for (int i = 0; i < la.getNames().size(); i++) {
-            StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));
-        }
-        this.studentsAddedList.setModel(StudentsAddedListModel);
+//        ConnectDB db = new ConnectDB();
+//        String name = this.addStudentNameComboBox.getSelectedItem().toString();
+//        lessonDataArray la = new lessonDataArray();
+//        la.addToNamesList(this.addStudentNameComboBox.getSelectedItem().toString());
+//        for (int i = 0; i < la.getNames().size(); i++) {
+//            StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));
+//        }
+//        this.studentsAddedList.setModel(StudentsAddedListModel);
     }//GEN-LAST:event_addStudentToLessonButton1ActionPerformed
 
     private void addLessonTimeHourComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonTimeHourComboBox1ActionPerformed
@@ -967,11 +967,13 @@ public class editLessonForm extends javax.swing.JFrame {
     }//GEN-LAST:event_addVenueComboBoxActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        lessonDataArray la = new lessonDataArray();
         STUDENTS_CHECKED = false;
         DATETIME_CHECKED = false;
         VENUE_CHECKED = false;
         ADDED_ARRAY.removeAll(ADDED_ARRAY);
         checkListModel.removeAllElements();
+        la.sortArray();
         this.setVisible(false);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
@@ -1007,6 +1009,7 @@ public class editLessonForm extends javax.swing.JFrame {
         VENUE_CHECKED = false;
         ADDED_ARRAY.removeAll(ADDED_ARRAY);
         checkListModel.removeAllElements();
+        la.sortArray();
     }//GEN-LAST:event_editSelectedLessonButtonActionPerformed
 
     private void durationSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_durationSpinnerStateChanged
@@ -1085,6 +1088,7 @@ public class editLessonForm extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "You may not edit the lesson date or time of all the lessons in this group.\nOnly the one selected");
         }
+        la.sortArray();
     }//GEN-LAST:event_editAllLessonsButtonActionPerformed
 
     /**

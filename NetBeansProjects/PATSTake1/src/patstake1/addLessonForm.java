@@ -529,16 +529,29 @@ public class addLessonForm extends javax.swing.JFrame {
         String time = this.minuteSpinner.getModel().getValue().toString();
         String date = la.formatDate(this.addDateComboBox.getDate().toString());
         String day = la.formatDay(this.addDateComboBox.getDate().toString());
+        
+        String venue = this.addVenueComboBox.getSelectedItem().toString();
+        int size = this.StudentsAddedListModel.size();
+        int frequency = this.frequencyComboBox.getSelectedIndex();
+        int duration = Integer.parseInt(this.durationSpinner.getValue().toString());
+        String key = this.lessonKey;
+        boolean isPaid = this.paidCheckBox.isSelected();
+        int cost = Integer.parseInt(this.costTextField.getText());
+        
+        
         //pushes lesson
         for (int i = 0; i < this.StudentsAddedListModel.size(); i++) {
-            la.addLesson(this.addVenueComboBox.getSelectedItem().toString(), 
-                    la.formatDate(this.addDateComboBox.getDate().toString()), 
-                    this.minuteSpinner.getModel().getValue().toString(), 
-                    la.formatDay(this.addDateComboBox.getDate().toString()), 
-                    this.StudentsAddedListModel.size(), 
-                    this.StudentsAddedListModel.get(i).toString(), this.frequencyComboBox.getSelectedIndex(),
-                    Integer.parseInt(this.durationSpinner.getValue().toString()), this.lessonKey, this.paidCheckBox.isSelected(), 
-                    Integer.parseInt(this.costTextField.getText()));
+            la.addLesson(venue, 
+                    date, 
+                    time, 
+                    day, 
+                    size, 
+                    this.StudentsAddedListModel.get(i).toString(),
+                    frequency,
+                    duration,
+                    key,
+                    isPaid, 
+                    cost);
         }
         la.sortArray();
         ADDED_ARRAY.removeAll(ADDED_ARRAY);

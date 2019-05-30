@@ -30,6 +30,8 @@ public class lesson extends javax.swing.JFrame {
      */
     public lesson() {
         initComponents();
+        lessonDataArray la = new lessonDataArray();
+        la.sortArray();
         this.selectedLessonLabel.setText("----------------");
         this.seeStudentsButton.setText("---------");
         populateComboBoxes pop = new populateComboBoxes();

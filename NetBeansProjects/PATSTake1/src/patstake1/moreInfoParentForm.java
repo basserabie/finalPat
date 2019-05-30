@@ -38,8 +38,14 @@ public class moreInfoParentForm extends javax.swing.JFrame {
         this.lessonList.setModel(lessonListModel);
         //populates email label text
         this.emailLabel.setText(mothers.MOTHER_EMAIL);
+        
         //populates cell label text
         this.cellLabel.setText(mothers.MOTHER_CELL);
+        
+        mothersArray ma = new mothersArray();
+        String motherName = mothers.MOTHER_SELECTED;
+        contactForm.parentName = motherName;
+        contactForm.parentEmail = mothers.MOTHER_EMAIL;
     }
     
     public void setParentNameText(String name) {
@@ -110,6 +116,11 @@ public class moreInfoParentForm extends javax.swing.JFrame {
         jScrollPane2.setViewportView(lessonList);
 
         contactButton.setText("contact!");
+        contactButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contactButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,6 +195,11 @@ public class moreInfoParentForm extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void contactButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactButtonActionPerformed
+        contactForm c = new contactForm();
+        c.setVisible(true);
+    }//GEN-LAST:event_contactButtonActionPerformed
 
     /**
      * @param args the command line arguments

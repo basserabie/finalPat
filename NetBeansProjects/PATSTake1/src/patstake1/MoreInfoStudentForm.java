@@ -13,12 +13,13 @@ import javax.swing.DefaultListModel;
  */
 public class MoreInfoStudentForm extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form MoreInfoStudentForm
      */
     public MoreInfoStudentForm() {
         initComponents();
-        System.out.println(student.STUDENT_NAME);
+        
         populateComboBoxes pop = new populateComboBoxes();
         studentsArray sa = new studentsArray();
         //populate the lessonList
@@ -29,6 +30,11 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {
         this.studentLessonList.setModel(lessonListModel);
         //populates the student details table
         this.studentMoreInfoTable.setModel(pop.StudentInfo(sa.studentIDFromName(student.STUDENT_NAME)));
+        
+        mothersArray ma = new mothersArray();
+        String motherName = this.studentMoreInfoTable.getModel().getValueAt(0, 3).toString();
+        contactForm.parentName = motherName;
+        contactForm.parentEmail = ma.getMotherEmailFromID(ma.getMotherIDFromName(motherName));
     }
 
     /**
@@ -86,6 +92,11 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {
         jLabel3.setText("Student Lessons:");
 
         contact.setText("Contact Parent");
+        contact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contactActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,6 +152,11 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_backActionPerformed
+
+    private void contactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactActionPerformed
+        contactForm c = new contactForm();
+        c.setVisible(true);
+    }//GEN-LAST:event_contactActionPerformed
 
     /**
      * @param args the command line arguments

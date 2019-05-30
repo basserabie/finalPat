@@ -48,6 +48,7 @@ public class CalendarHandler {
     private static String [] END_TIMES;
     private static String [] KEYS_ON_DAY;
     private static int COUNT_SET = 0;
+    private static String LAST_END_TIME = "";
     
     
 
@@ -130,6 +131,11 @@ public class CalendarHandler {
         String startTime = this.getStartTimesOnDate()[0];
         FIRST_START_TIME = startTime;
     }
+     
+     public void getLastEndTime() {
+         String endTime = this.getEndTimesOnDate()[this.getEndTimesOnDate().length-1];
+         LAST_END_TIME = endTime;
+     }
     
     public int getStartTimeIndexfromStartTime(String date, String startTime) {
         int index = 0;
@@ -349,22 +355,39 @@ public class CalendarHandler {
         Calendar p1 = Calendar.getInstance();
         Calendar p2 = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");
-        for (int i = 0; i < keys.size(); i++) {
-            try {
-                if (i < keys.size()-1) {
+        
+        for (int i = 0; i < keys.size()-1; i++) {
+            for (int k =i+1; k < keys.size(); k++) {
+                try {
                     p1.setTime(sdf.parse(ka.getDateFromKey(keys.get(i)) + " " + ka.getStartTimeFromKey(keys.get(i))));
-                    p2.setTime(sdf.parse(ka.getDateFromKey(keys.get(i+1)) + " " + ka.getStartTimeFromKey(keys.get(i+1))));
+                    p2.setTime(sdf.parse(ka.getDateFromKey(keys.get(k)) + " " + ka.getStartTimeFromKey(keys.get(k))));
+                } catch (ParseException ex) {
+                    Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 String temp;
                 if (p2.after(p1)) {
-                    temp = keys.get(i+1);
-                    keys.set(i+1, keys.get(i));
+                    temp = keys.get(k);
+                    keys.set(k, keys.get(i));
                     keys.set(i, temp);
                 }
-            } catch (ParseException ex) {
-                Logger.getLogger(keysArray.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+//        for (int i = 0; i < keys.size(); i++) {
+//            try {
+//                if (i < keys.size()-1) {
+//                    p1.setTime(sdf.parse(ka.getDateFromKey(keys.get(i)) + " " + ka.getStartTimeFromKey(keys.get(i))));
+//                    p2.setTime(sdf.parse(ka.getDateFromKey(keys.get(i+1)) + " " + ka.getStartTimeFromKey(keys.get(i+1))));
+//                }
+//                String temp;
+//                if (p2.after(p1)) {
+//                    temp = keys.get(i+1);
+//                    keys.set(i+1, keys.get(i));
+//                    keys.set(i, temp);
+//                }
+//            } catch (ParseException ex) {
+//                Logger.getLogger(keysArray.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
         String keysArray [] = keys.toArray(new String[keys.size()]);
         KEYS_ON_DAY = keysArray;
         return keysArray;
@@ -514,7 +537,8 @@ public class CalendarHandler {
         String colours [] = {"red", "blue", "green", "pink", "purple", "yellow", "orange"};
         String colour = colours[COLOUR];
         boolean after = false;
-        System.out.println("\nstart: " + time);
+        System.out.println("start: " + time);
+        
         if (this.TimeHasLesson(date, time)) {
             System.out.println("done check if time has lesson");
             String endTime = "";
@@ -643,7 +667,7 @@ public class CalendarHandler {
                 String elevenPM = this.formatEventAtHour(date, "23:00", this.floorStartTime("23:00", date));
                 String eleven15PM = this.formatEventAtHour(date, "23:15", this.floorStartTime("23:15", date));
                 String eleven30PM = this.formatEventAtHour(date, "23:30", this.floorStartTime("23:30", date));
-                String eleven45PM = this.formatEventAtHour(date, "23:45", this.floorStartTime("32:45", date));
+                String eleven45PM = this.formatEventAtHour(date, "23:45", this.floorStartTime("23:45", date));
 
                 model.addRow(new Object[] {sixAM, six15AM, six30AM, six45AM, sevenAM, seven15AM, seven30AM,
                     seven45AM,eightAM, eight15AM, eight30AM, eight45AM, nineAM, nine15AM, nine30AM, nine45AM

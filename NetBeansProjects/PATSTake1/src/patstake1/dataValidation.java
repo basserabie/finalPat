@@ -10,7 +10,7 @@ package patstake1;
  * @author YishaiBasserabie
  */
 public class dataValidation {// contains validating methods
-    private String problems;
+    private String problems = "";
 
     public String getProblems() {
         return problems;
@@ -107,6 +107,52 @@ public class dataValidation {// contains validating methods
         boolean ok = true;
         if (input.equals("")) {
             ok = !ok;
+        }
+        return ok;
+    }
+    
+    public boolean checkCost(String cost) {
+        boolean ok = true;
+        if (!this.checkBlank(cost)) {
+            ok = false;
+            problems += "()please enter a cost.\n";
+        }
+        if (cost.contains(".") || cost.contains(",")) {
+            ok = false;
+            problems += "()please enter the cost as an integer.\n";
+        } else {
+            for (int i = 0; i < cost.length(); i++) {
+                if (Character.isAlphabetic(cost.charAt(i))) {
+                    ok = false;
+                    problems += "()please do not enter any alphabetical symbols in the cost.\n";
+                } else {
+                    if (Integer.parseInt(cost) < 0) {
+                        ok = false;
+                        problems += "()please cost must be positive.\n";
+                    }
+                }
+            }
+        }
+        return ok;
+    }
+    
+    public boolean checkAddLesson(String date, String time, int students, String cost) {
+        String message = "";
+        boolean ok = true;
+        if (!this.checkBlank(date)) {
+            ok = false;
+            problems += "()please select a date.\n";
+        }
+        if (time.equals("0")) {
+            ok = false;
+            problems += "()please select a time.\n";
+        }
+        if (students == 0) {
+            ok = false;
+            problems += "()please add at least one student to the lesson.\n";
+        }
+        if (!this.checkCost(cost)) {
+            ok = false;
         }
         return ok;
     }

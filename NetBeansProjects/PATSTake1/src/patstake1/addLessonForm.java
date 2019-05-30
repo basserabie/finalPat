@@ -525,7 +525,14 @@ public class addLessonForm extends javax.swing.JFrame {
 
     private void addLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonButtonActionPerformed
         lessonDataArray la = new lessonDataArray();
+        dataValidation dv = new dataValidation();
+        System.out.println("minute: " + this.minuteSpinner.getModel().getValue().toString());
+        if (this.addDateComboBox.getDate() != null && this.minuteSpinner.getModel().getValue().toString() != null && this.costTextField.getText() != null) {
         //gets and formats date
+        if (dv.checkAddLesson(la.formatDate(this.addDateComboBox.getDate().toString()),
+                this.minuteSpinner.getModel().getValue().toString(), this.StudentsAddedListModel.size(),
+                this.costTextField.getText())) {
+            
         String time = this.minuteSpinner.getModel().getValue().toString();
         String date = la.formatDate(this.addDateComboBox.getDate().toString());
         String day = la.formatDay(this.addDateComboBox.getDate().toString());
@@ -538,24 +545,31 @@ public class addLessonForm extends javax.swing.JFrame {
         boolean isPaid = this.paidCheckBox.isSelected();
         int cost = Integer.parseInt(this.costTextField.getText());
         
-        
-        //pushes lesson
-        for (int i = 0; i < this.StudentsAddedListModel.size(); i++) {
-            la.addLesson(venue, 
-                    date, 
-                    time, 
-                    day, 
-                    size, 
-                    this.StudentsAddedListModel.get(i).toString(),
-                    frequency,
-                    duration,
-                    key,
-                    isPaid, 
-                    cost);
+            //pushes lesson
+            for (int i = 0; i < this.StudentsAddedListModel.size(); i++) {
+                la.addLesson(venue, 
+                        date, 
+                        time, 
+                        day, 
+                        size, 
+                        this.StudentsAddedListModel.get(i).toString(),
+                        frequency,
+                        duration,
+                        key,
+                        isPaid, 
+                        cost);
+                
+            }
+            la.sortArray();
+            ADDED_ARRAY.removeAll(ADDED_ARRAY);
+            this.hide();
+        } else {
+            JOptionPane.showMessageDialog(null, dv.getProblems());
         }
-        la.sortArray();
-        ADDED_ARRAY.removeAll(ADDED_ARRAY);
-        this.hide();
+    } else {
+            JOptionPane.showMessageDialog(null, "Please do not leave anything blank");
+        }
+        
     }//GEN-LAST:event_addLessonButtonActionPerformed
 
     private void backToDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardButtonActionPerformed

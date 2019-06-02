@@ -823,7 +823,7 @@ public class lessonDataArray {
         }
         return freqInt;
     }
-    
+    //TODO:FIX INSERTING
     public void editAllLessonStudents(ArrayList<String> list, int id, String date, String time) {
        ConnectDB db = new ConnectDB();
        keysArray ka = new keysArray();

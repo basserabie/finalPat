@@ -57,7 +57,7 @@ public class dashboard extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         signOutButton = new javax.swing.JButton();
         Calendar = new com.toedter.calendar.JCalendar();
-        dohSound = new javax.swing.JButton();
+        accountButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         parentsButton = new javax.swing.JButton();
         lessonButton = new javax.swing.JButton();
@@ -110,10 +110,10 @@ public class dashboard extends javax.swing.JFrame {
 
         Calendar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        dohSound.setText("click if stressed");
-        dohSound.addActionListener(new java.awt.event.ActionListener() {
+        accountButton.setText("Account");
+        accountButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dohSoundActionPerformed(evt);
+                accountButtonActionPerformed(evt);
             }
         });
 
@@ -276,7 +276,7 @@ public class dashboard extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(signOutButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dohSound)
+                                .addComponent(accountButton)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(Calendar, javax.swing.GroupLayout.DEFAULT_SIZE, 1073, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -295,7 +295,7 @@ public class dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(signOutButton)
-                    .addComponent(dohSound))
+                    .addComponent(accountButton))
                 .addContainerGap())
         );
 
@@ -356,10 +356,10 @@ public class dashboard extends javax.swing.JFrame {
         m.setVisible(true);
     }//GEN-LAST:event_parentsButtonActionPerformed
 
-    private void dohSoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dohSoundActionPerformed
-        dohSound ds = new dohSound();
-        ds.playSound();
-    }//GEN-LAST:event_dohSoundActionPerformed
+    private void accountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountButtonActionPerformed
+        accountForm af = new accountForm();
+        af.setVisible(true);
+    }//GEN-LAST:event_accountButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,12 +397,12 @@ public class dashboard extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JCalendar Calendar;
+    private javax.swing.JButton accountButton;
     private javax.swing.JButton addStudentButton;
     private javax.swing.JButton addVenueButton;
     private javax.swing.JButton addlessonButton;
     private javax.swing.JButton addschoolButton;
     private java.awt.Canvas canvas1;
-    private javax.swing.JButton dohSound;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;

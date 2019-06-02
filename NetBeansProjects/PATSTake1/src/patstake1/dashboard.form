@@ -95,7 +95,7 @@
                           <Group type="102" attributes="0">
                               <Component id="signOutButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="dohSound" min="-2" max="-2" attributes="0"/>
+                              <Component id="accountButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="Calendar" alignment="0" pref="1073" max="32767" attributes="0"/>
@@ -121,7 +121,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="signOutButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dohSound" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="accountButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -146,12 +146,12 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="dohSound">
+    <Component class="javax.swing.JButton" name="accountButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="click if stressed"/>
+        <Property name="text" type="java.lang.String" value="Account"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dohSoundActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="accountButtonActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">

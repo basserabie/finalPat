@@ -8,6 +8,7 @@ package patstake1;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -139,26 +140,18 @@ public class addSchoolForm extends javax.swing.JFrame {
     }//GEN-LAST:event_PLNameTActionPerformed
 
     private void addSchoolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSchoolButtonActionPerformed
-        //objects
-        ConnectDB db = new ConnectDB();
-        dashboard d = new dashboard();
-        
-        String insert = "INSERT INTO schools (schoolName, PFName, PLName, PEmail) VALUES ('" + this.schoolNameT.getText() + "', '" + this.PFNameT.getText() 
-                + "', '" + this.PLNameT.getText() + "', '" + this.PEmailT.getText()+ "')";
-        try {
-            db.UpdateDatabase(insert);
-        } catch (SQLException ex) {
-            Logger.getLogger(addSchoolForm.class.getName()).log(Level.SEVERE, null, ex);
+        schoolsArray ta = new schoolsArray();
+        dataValidation dv = new dataValidation();
+        if (dv.checkAddSchool(this.schoolNameT.getText(), this.PFNameT.getText(), this.PLNameT.getText(), this.PEmailT.getText())) {
+            ta.addSchool(this.schoolNameT.getText(), this.PFNameT.getText(), this.PLNameT.getText(), this.PEmailT.getText());
+        } else {
+            JOptionPane.showMessageDialog(null, dv.getProblems());
         }
-        this.hide();
-        d.setVisible(true);
     }//GEN-LAST:event_addSchoolButtonActionPerformed
 
     private void backToDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardButtonActionPerformed
-        dashboard d = new dashboard();
         lessonDataArray la = new lessonDataArray();
         la.sortArray();
-        d.setVisible(true);
         this.hide();
     }//GEN-LAST:event_backToDashboardButtonActionPerformed
 

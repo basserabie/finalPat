@@ -38,7 +38,7 @@
                               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="secondarySearchPanel" min="-2" max="-2" attributes="0"/>
@@ -59,8 +59,6 @@
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="selectedLessonLabel" min="-2" pref="451" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -92,7 +90,6 @@
                               <EmptySpace pref="137" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="selectedLessonLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="selectedLessonLabelReal" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -229,8 +226,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Selected Lesson:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="selectedLessonLabel">
     </Component>
     <Component class="javax.swing.JButton" name="seeStudentsButton">
       <Properties>

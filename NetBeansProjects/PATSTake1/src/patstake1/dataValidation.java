@@ -110,7 +110,36 @@ public class dataValidation {// contains validating methods
         }
         if (!password.equals(confirmPassword)) {
             ok = false;
-            problems += "()password do not match\n";
+            problems += "()passwords do not match\n";
+        }
+        return ok;
+    }
+    
+    public boolean checkSchool(String school) {
+        boolean ok = true;
+        if (!school.equals("")) {
+            for (int i = 0; i < school.length(); i++) {
+                String c = ""+school.charAt(i);
+                if (!Character.isAlphabetic(school.charAt(i)) && !c.equals(" ")) {
+                    ok = false;
+                }
+            }
+            if (!ok) {
+                problems += "()oy vey! you have an invalid character in the school name\n";
+            }
+        } else {
+            ok = false;
+            problems += "()oy vey! you have left the password field blank\n";
+        }
+        return ok;
+    }
+    
+    public boolean checkOldPassword(String password) {
+        fetchTeacher ft = new fetchTeacher();
+        boolean ok = true;
+        if (!password.equals(ft.getPassword())) {
+            ok = false;
+            problems += "()The password you entered is incorrect\n";
         }
         return ok;
     }
@@ -240,6 +269,39 @@ public class dataValidation {// contains validating methods
             problems += "()please do not leave the venue blank!\n";
         }
         
+        return ok;
+    }
+    
+    public boolean checkIfSchoolAlreadyAdded(String school) {
+        schoolsArray sa = new schoolsArray();
+        boolean ok = true;
+        for (int i = 0; i < sa.getSchoolsDataArray().size(); i++) {
+            if (sa.getSchoolsDataArray().get(i).getSchoolName().toLowerCase().equals(school.toLowerCase())) {
+                ok = false;
+            }
+        }
+        return ok;
+    }
+    
+    public boolean checkAddSchool(String school, String pfname, String plname, String email) {
+        boolean ok = true;
+        if (this.checkIfSchoolAlreadyAdded(school)) {
+            if (!this.checkSchool(school)) {
+                ok = false;
+            }
+            if (!this.checkName(pfname, "f")) {
+                ok = false;
+            }
+            if (!this.checkName(plname, "l")) {
+                ok = false;
+            }
+            if (!this.checkEmail(email)) {
+                ok = false;
+            }
+        } else {
+            ok = false;
+            problems += "()This school already exists in the database.\n";
+        }
         return ok;
     }
     

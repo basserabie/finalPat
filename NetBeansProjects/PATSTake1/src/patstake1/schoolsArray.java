@@ -64,6 +64,16 @@ public class schoolsArray {
         return school;
     }
     
+    public void addSchool(String school, String pfname, String plname, String email) {
+        ConnectDB db = new ConnectDB();
+        String insert = "INSERT INTO schools (schoolName, PFName, PLName, PEmail) VALUES ('" + school + "', '" + pfname + "', '" + plname + "', '" + email + "')";
+        try {
+            db.UpdateDatabase(insert);
+        } catch (SQLException ex) {
+            Logger.getLogger(schoolsArray.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void deleteSchool(String school) {
         int yes = JOptionPane.YES_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(null, "are you sure you want to delete this school?", "delete school confirmation", JOptionPane.YES_NO_OPTION);

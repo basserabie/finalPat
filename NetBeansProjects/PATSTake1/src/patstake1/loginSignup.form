@@ -76,6 +76,7 @@
                                   <EmptySpace min="-2" pref="358" max="-2" attributes="0"/>
                                   <Component id="loginButtonLogin" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="fpass" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="267" max="32767" attributes="0"/>
                       </Group>
@@ -91,7 +92,8 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="loginButtonLogin" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="95" max="32767" attributes="0"/>
+                          <EmptySpace pref="66" max="32767" attributes="0"/>
+                          <Component id="fpass" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -114,6 +116,14 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginButtonLoginActionPerformed"/>
                     <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="loginButtonLoginKeyPressed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="fpass">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Forgot Password"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fpassActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

@@ -39,6 +39,7 @@ public class loginSignup extends javax.swing.JFrame {
         passwordLableLogin = new javax.swing.JLabel();
         TPasswordTLogin = new javax.swing.JTextField();
         loginButtonLogin = new javax.swing.JButton();
+        fpass = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         fnameLabelSignUp = new javax.swing.JLabel();
         lnameLabelSignUp = new javax.swing.JLabel();
@@ -76,6 +77,13 @@ public class loginSignup extends javax.swing.JFrame {
             }
         });
 
+        fpass.setText("Forgot Password");
+        fpass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fpassActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -89,7 +97,8 @@ public class loginSignup extends javax.swing.JFrame {
                         .addComponent(TPasswordTLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(358, 358, 358)
-                        .addComponent(loginButtonLogin)))
+                        .addComponent(loginButtonLogin))
+                    .addComponent(fpass))
                 .addContainerGap(267, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -101,7 +110,8 @@ public class loginSignup extends javax.swing.JFrame {
                     .addComponent(TPasswordTLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(loginButtonLogin)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addComponent(fpass))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -220,11 +230,11 @@ public class loginSignup extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 839, Short.MAX_VALUE)
+            .addComponent(jTabbedPane3)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+            .addComponent(jTabbedPane3)
         );
 
         pack();
@@ -268,6 +278,12 @@ public class loginSignup extends javax.swing.JFrame {
             this.setVisible(false);
         }
     }//GEN-LAST:event_TPasswordTLoginKeyPressed
+
+    private void fpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fpassActionPerformed
+       fetchTeacher ft = new fetchTeacher();
+       sendEmail send = new sendEmail();
+       send.send(ft.getEmail(), "Forgotten Password:", "Password: " + ft.getPassword());
+    }//GEN-LAST:event_fpassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -315,6 +331,7 @@ public class loginSignup extends javax.swing.JFrame {
     private javax.swing.JLabel cellLabelSignUp;
     private javax.swing.JLabel emailLabelSignUp;
     private javax.swing.JLabel fnameLabelSignUp;
+    private javax.swing.JButton fpass;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

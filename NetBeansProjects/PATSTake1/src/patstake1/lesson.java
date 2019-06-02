@@ -74,7 +74,6 @@ public class lesson extends javax.swing.JFrame {
         filterTypeStudent = new javax.swing.JComboBox<>();
         reset = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        selectedLessonLabel = new javax.swing.JLabel();
         seeStudentsButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         editLesson = new javax.swing.JButton();
@@ -296,7 +295,7 @@ public class lesson extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(secondarySearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -310,8 +309,6 @@ public class lesson extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(selectedLessonLabelReal, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(selectedLessonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -338,7 +335,6 @@ public class lesson extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4)
-                                    .addComponent(selectedLessonLabel)
                                     .addComponent(selectedLessonLabelReal)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(19, 19, 19)
@@ -533,7 +529,6 @@ public class lesson extends javax.swing.JFrame {
     private javax.swing.JTextField searchTextField;
     private javax.swing.JLayeredPane secondarySearchPanel;
     private javax.swing.JButton seeStudentsButton;
-    private javax.swing.JLabel selectedLessonLabel;
     private javax.swing.JLabel selectedLessonLabelReal;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,7 @@ package patstake1;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import static patstake1.mothers.MOTHER_EMAIL;
 
 /**
  *
@@ -42,6 +43,7 @@ public class school extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         searchTextField = new javax.swing.JTextField();
+        contactSchoolButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,6 +65,16 @@ public class school extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        schoolsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                schoolsTableMouseClicked(evt);
+            }
+        });
+        schoolsTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                schoolsTableKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(schoolsTable);
 
         jLabel1.setText("schools");
@@ -99,6 +111,13 @@ public class school extends javax.swing.JFrame {
                 .addGap(7, 7, 7))
         );
 
+        contactSchoolButton.setText("Contact School");
+        contactSchoolButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contactSchoolButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,6 +135,8 @@ public class school extends javax.swing.JFrame {
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(contactSchoolButton, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
@@ -126,10 +147,15 @@ public class school extends javax.swing.JFrame {
                     .addComponent(backToDashboard)
                     .addComponent(jLabel1))
                 .addGap(8, 8, 8)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
-                .addGap(14, 14, 14))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                        .addGap(14, 14, 14))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(contactSchoolButton)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -146,6 +172,25 @@ public class school extends javax.swing.JFrame {
         populateComboBoxes pop = new populateComboBoxes();
         this.schoolsTable.setModel(pop.schoolsByName(this.searchTextField.getText()));
     }//GEN-LAST:event_searchTextFieldKeyTyped
+
+    private void contactSchoolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactSchoolButtonActionPerformed
+        contactSchoolForm c = new contactSchoolForm();
+        if (!this.schoolsTable.getSelectionModel().isSelectionEmpty()) {
+            c.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a school first");
+        }
+    }//GEN-LAST:event_contactSchoolButtonActionPerformed
+
+    private void schoolsTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_schoolsTableKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_schoolsTableKeyPressed
+
+    private void schoolsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_schoolsTableMouseClicked
+        contactSchoolForm.P_EMAIL = this.schoolsTable.getModel().getValueAt(this.schoolsTable.getSelectedRow(), 2).toString();
+        contactSchoolForm.P_NAME = this.schoolsTable.getModel().getValueAt(this.schoolsTable.getSelectedRow(), 1).toString();
+        contactSchoolForm.SCHOOL = this.schoolsTable.getModel().getValueAt(this.schoolsTable.getSelectedRow(), 0).toString();
+    }//GEN-LAST:event_schoolsTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -184,6 +229,7 @@ public class school extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToDashboard;
+    private javax.swing.JButton contactSchoolButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

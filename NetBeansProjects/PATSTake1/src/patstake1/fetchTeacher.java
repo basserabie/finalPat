@@ -131,6 +131,40 @@ public class fetchTeacher {
         }
         return ok;
     }
+    
+    public void changePassword(String oldP, String newP, String CnewP) {
+        ConnectDB cb = new ConnectDB();
+        dataValidation dv = new dataValidation();
+        String updatePassword = "UPDATE teacherTable SET password = '" + newP + "'";
+        try {
+            db.UpdateDatabase(updatePassword);
+            JOptionPane.showMessageDialog(null, "password changed!");
+        } catch (SQLException ex) {
+            Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void changeCell(String cell) {
+        ConnectDB db = new ConnectDB();
+        dataValidation dv = new dataValidation();
+            String updateCell = "UPDATE teacherTable SET cell = '" + cell + "'";
+            try {
+                db.UpdateDatabase(updateCell);
+            } catch (SQLException ex) {
+                Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+    
+    public void changeEmail(String email) {
+        ConnectDB db = new ConnectDB();
+        dataValidation dv = new dataValidation();
+            String updateEmail = "UPDATE teacherTable SET email = '" + email + "'";
+            try {
+                db.UpdateDatabase(updateEmail);
+            } catch (SQLException ex) {
+                Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
 
     @Override
     public String toString() {

@@ -101,7 +101,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="deleteAVenueButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="delete a venue?"/>
+        <Property name="text" type="java.lang.String" value="view/delete a venue?"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteAVenueButtonActionPerformed"/>

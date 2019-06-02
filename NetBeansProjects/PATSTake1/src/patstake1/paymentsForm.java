@@ -342,7 +342,8 @@ public class paymentsForm extends javax.swing.JFrame {
     }//GEN-LAST:event_dispayAllButtonActionPerformed
 
     private void addPayementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPayementButtonActionPerformed
-        paymentsArray pa = new paymentsArray();
+        if (!this.paymetsTable.getSelectionModel().isSelectionEmpty()) {
+            paymentsArray pa = new paymentsArray();
         lessonDataArray la = new lessonDataArray();
         studentsArray sa = new studentsArray();
         populateComboBoxes pop = new populateComboBoxes();
@@ -353,20 +354,26 @@ public class paymentsForm extends javax.swing.JFrame {
         
         pa.addPayment(la.getLessoIDFromDateTimeAndStudentID(date, time, studentID));
         this.paymetsTable.setModel(pop.payments());
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a row first.");
+        }
     }//GEN-LAST:event_addPayementButtonActionPerformed
 
     private void removePaymentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePaymentButtonActionPerformed
-        paymentsArray pa = new paymentsArray();
-        lessonDataArray la = new lessonDataArray();
-        studentsArray sa = new studentsArray();
-        populateComboBoxes pop = new populateComboBoxes();
-        String studentName = this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 0).toString();
-        int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
-        String date = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 1).toString());
-        String time = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 2).toString());
-        pa.removePayment(la.getLessoIDFromDateTimeAndStudentID(date, time, studentID));
-        System.out.println("LESSONID: " + la.getLessoIDFromDateTimeAndStudentID(date, time, studentID));
-        this.paymetsTable.setModel(pop.payments());
+        if (!this.paymetsTable.getSelectionModel().isSelectionEmpty()) {
+            paymentsArray pa = new paymentsArray();
+            lessonDataArray la = new lessonDataArray();
+            studentsArray sa = new studentsArray();
+            populateComboBoxes pop = new populateComboBoxes();
+            String studentName = this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 0).toString();
+            int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
+            String date = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 1).toString());
+            String time = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 2).toString());
+            pa.removePayment(la.getLessoIDFromDateTimeAndStudentID(date, time, studentID));
+            this.paymetsTable.setModel(pop.payments());
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a row first.");
+        }
     }//GEN-LAST:event_removePaymentButtonActionPerformed
 
     private void studentBeingAddedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentBeingAddedTextFieldActionPerformed

@@ -162,7 +162,7 @@ public class dailyPlanForm extends javax.swing.JFrame {
         ch.LessonsOnDay();
         this.loadingLabel.setText("NOW LOADING DAY......");
         if (CalendarHandler.DAY_HAS_LESSON) {
-            this.dayTable.setModel(ch.selectedDateModel(this.dateLabel.getText()));
+            this.dayTable.setModel(ch.schedModel(this.dateLabel.getText()));
             this.loadingLabel.setText("NOW SHOWING LESSONS:");
             this.proggressBar.setValue(100);
         } else {

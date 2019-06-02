@@ -76,14 +76,36 @@ public class venueArray {
     
     
     
-    public void deleteVenue(String venue) {
+    public void deleteVenue(String Delvenue, String repVenue) {
         ConnectDB db = new ConnectDB();
-        String delete = "DELETE * FROM venues WHERE venue = '" + venue + "'";
-        try {
-            db.UpdateDatabase(delete);
-        } catch (SQLException ex) {
-            Logger.getLogger(venueArray.class.getName()).log(Level.SEVERE, null, ex);
+        lessonDataArray la = new lessonDataArray();
+        
+        int delVid = this.venueIDFromVenue(Delvenue);
+        int refVid = this.venueIDFromVenue(repVenue);
+        
+        if (delVid != refVid) {
+            for (int i = 0; i < la.getLessonDataArray().size(); i++) {
+                int Vid = la.getLessonDataArray().get(i).getVenueID();
+                if (delVid == Vid) {
+                    String editVenue = "UPDATE lessonData SET VenueID = " + refVid + " WHERE VenueID = " + delVid;
+                    try {
+                        db.UpdateDatabase(editVenue);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(venueArray.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            String delete = "DELETE * FROM venues WHERE venue = '" + Delvenue + "'";
+            try {
+                db.UpdateDatabase(delete);
+            } catch (SQLException ex) {
+                Logger.getLogger(venueArray.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "you cannot select the replacement venue as the same as the venue to delete!\n");
         }
+        
+        
     }
     
     public void addVenue(String venue) {

@@ -191,7 +191,7 @@ public class studentsArray {
         
         int dialogType1 = JOptionPane.YES_NO_OPTION;
         int firstConfirmationResult = JOptionPane.showConfirmDialog(null, "Are you sure you would like to continue the deletetionProcess of the student: " + name, "delete student", dialogType1);
-        if (firstConfirmationResult == JOptionPane.YES_OPTION) {
+        if (firstConfirmationResult == dialogType1) {
             ConnectDB db = new ConnectDB();
             lessonDataArray la = new lessonDataArray();
             String deleteStudents = "";

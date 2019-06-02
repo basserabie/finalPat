@@ -13,6 +13,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
 
@@ -21,7 +22,7 @@ import javax.swing.JTextField;
  * @author YishaiBasserabie
  */
 public class addStudentForm extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form addStudentForm
      */
@@ -107,6 +108,11 @@ public class addStudentForm extends javax.swing.JFrame {
         });
 
         studentSchoolComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        studentSchoolComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentSchoolComboBoxActionPerformed(evt);
+            }
+        });
 
         addStudentButton.setText("add student!");
         addStudentButton.addActionListener(new java.awt.event.ActionListener() {
@@ -225,10 +231,15 @@ public class addStudentForm extends javax.swing.JFrame {
 
     private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentButtonActionPerformed
         dashboard d = new dashboard();
+        dataValidation dv = new dataValidation();
         studentsArray sa = new studentsArray();
-        sa.addStudent(this.studentfNameT.getText(), this.studentlNameT.getText(), this.studentGradeComboBox.getSelectedItem().toString(), this.studentSchoolComboBox.getSelectedItem().toString(), this.motherFNameT.getText(), this.motherLNameT.getText(), this.motherEmailT.getText(), this.motherCellT.getText());
-        this.hide();
-        d.setVisible(true);
+        if (dv.checkAddStudent(this.studentfNameT.getText(), this.studentlNameT.getText(), this.motherFNameT.getText(), this.motherLNameT.getText(), this.motherEmailT.getText(), this.motherCellT.getText())) {
+            sa.addStudent(this.studentfNameT.getText(), this.studentlNameT.getText(), this.studentGradeComboBox.getSelectedItem().toString(), this.studentSchoolComboBox.getSelectedItem().toString(), this.motherFNameT.getText(), this.motherLNameT.getText(), this.motherEmailT.getText(), this.motherCellT.getText());
+            this.hide();
+            d.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, dv.getProblems());
+        }
     }//GEN-LAST:event_addStudentButtonActionPerformed
 
     private void studentGradeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentGradeComboBoxActionPerformed
@@ -242,6 +253,10 @@ public class addStudentForm extends javax.swing.JFrame {
         d.setVisible(true);
         this.hide();
     }//GEN-LAST:event_backToDashboardButtonActionPerformed
+
+    private void studentSchoolComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentSchoolComboBoxActionPerformed
+
+    }//GEN-LAST:event_studentSchoolComboBoxActionPerformed
 
     /**
      * @param args the command line arguments

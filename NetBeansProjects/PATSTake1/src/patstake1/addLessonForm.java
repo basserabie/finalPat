@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
+import static patstake1.editLessonForm.ADDED_ARRAY;
 
 /**
  *
@@ -477,15 +478,8 @@ public class addLessonForm extends javax.swing.JFrame {
     private void addStudentToLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentToLessonButtonActionPerformed
         ConnectDB db = new ConnectDB();
         lessonDataArray la = new lessonDataArray();
-        
-        boolean alreadyIn  = false;
         String name = this.addStudentNameComboBox.getSelectedItem().toString();
-        for (int i = 0; i < ADDED_ARRAY.size(); i++) {
-            if (ADDED_ARRAY.get(i).equals(name)) {
-                alreadyIn = true;
-            }
-        }
-        if (alreadyIn == false) {
+        if (!ADDED_ARRAY.contains(name)) {
             ADDED_ARRAY.add(name);
         }
         la.setNamesList(ADDED_ARRAY);
@@ -495,7 +489,7 @@ public class addLessonForm extends javax.swing.JFrame {
         }
         this.studentsAddedList.setModel(StudentsAddedListModel);
     }//GEN-LAST:event_addStudentToLessonButtonActionPerformed
-    //TODO: make seperate class for this
+
     private void addStudentGradeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentGradeComboBoxActionPerformed
         ConnectDB db = new ConnectDB();
         studentsArray sa = new studentsArray();
@@ -505,7 +499,7 @@ public class addLessonForm extends javax.swing.JFrame {
         DefaultComboBoxModel correctedStudents = new DefaultComboBoxModel(pop.correctStudentsAccordingToGrade(this.addStudentGradeComboBox.getSelectedItem().toString()));
         this.addStudentNameComboBox.setModel(correctedStudents);
     }//GEN-LAST:event_addStudentGradeComboBoxActionPerformed
-//TODO: fix the deletion and validation
+
     private void deleteStudentFromLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStudentFromLessonButtonActionPerformed
         lessonDataArray la = new lessonDataArray();
         
@@ -527,7 +521,7 @@ public class addLessonForm extends javax.swing.JFrame {
         lessonDataArray la = new lessonDataArray();
         dataValidation dv = new dataValidation();
         System.out.println("minute: " + this.minuteSpinner.getModel().getValue().toString());
-        if (this.addDateComboBox.getDate() != null && this.minuteSpinner.getModel().getValue().toString() != null && this.costTextField.getText() != null) {
+        if (this.addDateComboBox.getDate() != null) {
         //gets and formats date
         if (dv.checkAddLesson(la.formatDate(this.addDateComboBox.getDate().toString()),
                 this.minuteSpinner.getModel().getValue().toString(), this.StudentsAddedListModel.size(),
@@ -544,7 +538,6 @@ public class addLessonForm extends javax.swing.JFrame {
         String key = this.lessonKey;
         boolean isPaid = this.paidCheckBox.isSelected();
         int cost = Integer.parseInt(this.costTextField.getText());
-        
             //pushes lesson
             for (int i = 0; i < this.StudentsAddedListModel.size(); i++) {
                 la.addLesson(venue, 
@@ -558,7 +551,6 @@ public class addLessonForm extends javax.swing.JFrame {
                         key,
                         isPaid, 
                         cost);
-                
             }
             la.sortArray();
             ADDED_ARRAY.removeAll(ADDED_ARRAY);
@@ -567,17 +559,15 @@ public class addLessonForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, dv.getProblems());
         }
     } else {
-            JOptionPane.showMessageDialog(null, "Please do not leave anything blank");
+            JOptionPane.showMessageDialog(null, "Please do not leave the date blank");
         }
         
     }//GEN-LAST:event_addLessonButtonActionPerformed
 
     private void backToDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardButtonActionPerformed
-        dashboard d = new dashboard();
         lessonDataArray la = new lessonDataArray();
         ADDED_ARRAY.removeAll(ADDED_ARRAY);
         la.sortArray();
-        d.setVisible(true);
         this.hide();
     }//GEN-LAST:event_backToDashboardButtonActionPerformed
 

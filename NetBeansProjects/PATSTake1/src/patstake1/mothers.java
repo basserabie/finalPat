@@ -127,6 +127,11 @@ public class mothers extends javax.swing.JFrame {
         });
 
         contactButton.setText("contact Selected parent");
+        contactButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contactButtonActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("selected parent:");
 
@@ -201,9 +206,7 @@ public class mothers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backToDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardActionPerformed
-        dashboard d = new dashboard();
         this.setVisible(false);
-        d.setVisible(true);
     }//GEN-LAST:event_backToDashboardActionPerformed
 
     private void filterTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterTypeComboBoxActionPerformed
@@ -239,6 +242,8 @@ public class mothers extends javax.swing.JFrame {
             MOTHER_EMAIL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 1).toString();
             MOTHER_CELL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 2).toString();
             MOTHER_SELECTED = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 0).toString();
+            contactForm.parentEmail = MOTHER_EMAIL;
+            contactForm.parentName = MOTHER_SELECTED;
             this.selectedParentLabel.setText(MOTHER_SELECTED);
     }//GEN-LAST:event_parentsTableMouseClicked
 
@@ -256,6 +261,15 @@ public class mothers extends javax.swing.JFrame {
                 this.parentsTable.setModel(pop.parentsByParentName(this.searchTextField.getText()));
         }
     }//GEN-LAST:event_searchTextFieldKeyPressed
+
+    private void contactButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactButtonActionPerformed
+        if (!this.parentsTable.getSelectionModel().isSelectionEmpty()) {
+            contactForm c = new contactForm();
+            c.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a parent first");
+        }
+    }//GEN-LAST:event_contactButtonActionPerformed
 
     /**
      * 

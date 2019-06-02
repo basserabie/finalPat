@@ -6,6 +6,7 @@
 package patstake1;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,6 +14,8 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class deleteVenueForm extends javax.swing.JFrame {
 
+        private String [] tempRepArr = new String[1];
+        
     /**
      * Creates new form deleteVenueForm
      */
@@ -22,6 +25,10 @@ public class deleteVenueForm extends javax.swing.JFrame {
         populateComboBoxes pop = new populateComboBoxes();
         DefaultComboBoxModel venues = new DefaultComboBoxModel(pop.populateVenues());
         this.venuesComboBox.setModel(venues);
+        
+        tempRepArr[0] = "";
+        DefaultComboBoxModel tempRep = new DefaultComboBoxModel(tempRepArr);
+        this.repvenueComboBox.setModel(tempRep);
     }
 
     /**
@@ -34,9 +41,13 @@ public class deleteVenueForm extends javax.swing.JFrame {
     private void initComponents() {
 
         backToAddVenueForm = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        venuesComboBox = new javax.swing.JComboBox<>();
         deleteVenuesButton = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        repvenueComboBox = new javax.swing.JComboBox<>();
+        venuesComboBox = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,16 +58,60 @@ public class deleteVenueForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("venue");
-
-        venuesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         deleteVenuesButton.setText("delete venue");
         deleteVenuesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteVenuesButtonActionPerformed(evt);
             }
         });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel1.setText("venue to delete:");
+
+        jLabel2.setText("replacement venue:");
+
+        repvenueComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        venuesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        venuesComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                venuesComboBoxActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(repvenueComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addComponent(venuesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(venuesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(repvenueComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
+        );
+
+        jLabel3.setText("*All lessons at the venue you will delete, will be updated to the replacement.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,26 +123,30 @@ public class deleteVenueForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(venuesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(132, 132, 132)
+                                .addComponent(deleteVenuesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 49, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(deleteVenuesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(67, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(backToAddVenueForm)
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(venuesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(deleteVenuesButton)
-                .addGap(0, 34, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap())
         );
 
         pack();
@@ -101,11 +160,26 @@ public class deleteVenueForm extends javax.swing.JFrame {
 
     private void deleteVenuesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteVenuesButtonActionPerformed
         venueArray va = new venueArray(); //venue array object
-        populateComboBoxes pop = new populateComboBoxes();//object for populating combo boxes
-        va.deleteVenue(this.venuesComboBox.getSelectedItem().toString());//calls smethod to delete venue from database
-        DefaultComboBoxModel venues = new DefaultComboBoxModel(pop.populateVenues()); // calls a method to access venues from database to populate combo box
-        this.venuesComboBox.setModel(venues);
+        if (!this.repvenueComboBox.getItemAt(0).equals("")) {
+            populateComboBoxes pop = new populateComboBoxes();//object for populating combo boxes
+            va.deleteVenue(this.venuesComboBox.getSelectedItem().toString(), this.repvenueComboBox.getSelectedItem().toString());//calls smethod to delete venue from database
+            DefaultComboBoxModel venues = new DefaultComboBoxModel(pop.populateVenues()); // calls a method to access venues from database to populate combo box
+            this.venuesComboBox.setModel(venues);
+            tempRepArr[0] = "";
+            DefaultComboBoxModel tempRep = new DefaultComboBoxModel(tempRepArr);
+            this.repvenueComboBox.setModel(tempRep);
+            JOptionPane.showMessageDialog(null, "Venue deleted!");
+        } else {
+            JOptionPane.showMessageDialog(null, "please select a replacement venue first!");
+        }
+        
     }//GEN-LAST:event_deleteVenuesButtonActionPerformed
+
+    private void venuesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venuesComboBoxActionPerformed
+        populateComboBoxes pop = new populateComboBoxes();
+        DefaultComboBoxModel rep = new DefaultComboBoxModel(pop.populateVenues());
+        this.repvenueComboBox.setModel(rep);
+    }//GEN-LAST:event_venuesComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,6 +220,10 @@ public class deleteVenueForm extends javax.swing.JFrame {
     private javax.swing.JButton backToAddVenueForm;
     private javax.swing.JButton deleteVenuesButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox<String> repvenueComboBox;
     private javax.swing.JComboBox<String> venuesComboBox;
     // End of variables declaration//GEN-END:variables
 }

@@ -53,13 +53,15 @@ public class populateComboBoxes {
     public String populateSelectedLessonLabel(int id) {
         lessonDataArray la = new lessonDataArray();
         venueArray va = new venueArray();
+        keysArray ka = new keysArray();
         String lessonData = "";
         for (int i = 0; i < la.getLessonDataArray().size(); i++) {
             if (la.getLessonDataArray().get(i).getLessonID() == id) {
                 String date = la.getLessonDataArray().get(i).getLessonDate();
                 String time = la.getTimeFromLessonID(la.getLessonDataArray().get(i).getLessonID());
                 String venue = va.venueNameFromID(la.getLessonDataArray().get(i).getVenueID());
-                lessonData = "Date: " + date + " / Time: " + time + " / venue: " + venue;
+                String frequency = la.getFrequencyFromKey(ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()));
+                lessonData = "Date: " + date + " / Time: " + time + " / venue: " + venue + " / Freq: " + frequency;
             }
         }
         return lessonData;

@@ -59,7 +59,7 @@ public class addVenueForm extends javax.swing.JFrame {
             }
         });
 
-        deleteAVenueButton.setText("delete a venue?");
+        deleteAVenueButton.setText("view/delete a venue?");
         deleteAVenueButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteAVenueButtonActionPerformed(evt);
@@ -111,16 +111,20 @@ public class addVenueForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backToDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardButtonActionPerformed
-        dashboard d = new dashboard();
         lessonDataArray la = new lessonDataArray();
         la.sortArray();
-        d.setVisible(true);
         this.hide();
     }//GEN-LAST:event_backToDashboardButtonActionPerformed
 
     private void addVenueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVenueButtonActionPerformed
         venueArray va = new venueArray();
-        va.addVenue(this.addVenueT.getText());
+        dataValidation dv = new dataValidation();
+        if (dv.checkAddVenue(this.addVenueT.getText())) {
+            va.addVenue(this.addVenueT.getText());
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, dv.getProblems());
+        }
     }//GEN-LAST:event_addVenueButtonActionPerformed
 
     private void deleteAVenueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAVenueButtonActionPerformed

@@ -852,7 +852,6 @@ public class editLessonForm extends javax.swing.JFrame {
 
     private void deleteStudentFromLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStudentFromLessonButtonActionPerformed
         lessonDataArray la = new lessonDataArray();
-        
         String name = this.studentsAddedList.getSelectedValue();
         ADDED_ARRAY.remove(name);
         la.setNamesList(ADDED_ARRAY);
@@ -866,15 +865,8 @@ public class editLessonForm extends javax.swing.JFrame {
     private void addStudentToLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentToLessonButtonActionPerformed
         ConnectDB db = new ConnectDB();
         lessonDataArray la = new lessonDataArray();
-        
-        boolean alreadyIn  = false;
         String name = this.addStudentNameComboBox.getSelectedItem().toString();
-        for (int i = 0; i < ADDED_ARRAY.size(); i++) {
-            if (ADDED_ARRAY.get(i).equals(name)) {
-                alreadyIn = true;
-            }
-        }
-        if (alreadyIn == false) {
+        if (!ADDED_ARRAY.contains(name)) {
             ADDED_ARRAY.add(name);
         }
         la.setNamesList(ADDED_ARRAY);

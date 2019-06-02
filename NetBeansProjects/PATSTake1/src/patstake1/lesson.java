@@ -32,7 +32,7 @@ public class lesson extends javax.swing.JFrame {
         initComponents();
         lessonDataArray la = new lessonDataArray();
         la.sortArray();
-        this.selectedLessonLabel.setText("----------------");
+        this.selectedLessonLabelReal.setText("----------------");
         this.seeStudentsButton.setText("---------");
         populateComboBoxes pop = new populateComboBoxes();
         this.searchComboBox.removeAllItems();
@@ -85,6 +85,7 @@ public class lesson extends javax.swing.JFrame {
         dateChooser = new com.toedter.calendar.JDateChooser();
         searchByDate = new javax.swing.JButton();
         searchComboBox = new javax.swing.JComboBox<>();
+        selectedLessonLabelReal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -277,13 +278,15 @@ public class lesson extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        selectedLessonLabelReal.setText("jLabel5");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -293,7 +296,7 @@ public class lesson extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(secondarySearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -306,7 +309,9 @@ public class lesson extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(selectedLessonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(selectedLessonLabelReal, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(selectedLessonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -318,26 +323,27 @@ public class lesson extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(secondarySearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
+                                .addGap(32, 32, 32)
                                 .addComponent(reset)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(seeStudentsButton))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18))
+                        .addGap(34, 34, 34))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(backToDashboardButton)
                             .addComponent(jLabel1))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4)
-                                    .addComponent(selectedLessonLabel)))
+                                    .addComponent(selectedLessonLabel)
+                                    .addComponent(selectedLessonLabelReal)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(41, 41, 41)
+                                .addGap(19, 19, 19)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
@@ -438,7 +444,7 @@ public class lesson extends javax.swing.JFrame {
         SELECTED_LESSON_DATE = date;
         SELECTED_LESSON_TIME = time;
         SELECTED_KEY = ka.getKeyFromLessonID(SELECTED_LESSON_ID);
-        this.selectedLessonLabel.setText(pop.populateSelectedLessonLabel(SELECTED_LESSON_ID));
+        this.selectedLessonLabelReal.setText(pop.populateSelectedLessonLabel(SELECTED_LESSON_ID));
     }//GEN-LAST:event_lessonsTableMouseClicked
 
     private void seeStudentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeStudentsButtonActionPerformed
@@ -452,15 +458,23 @@ public class lesson extends javax.swing.JFrame {
     }//GEN-LAST:event_seeStudentsButtonActionPerformed
 
     private void editLessonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editLessonActionPerformed
-        editLessonForm elf = new editLessonForm();
-        elf.setVisible(true);
+        if (!this.lessonsTable.getSelectionModel().isSelectionEmpty()) {
+            editLessonForm elf = new editLessonForm();
+            elf.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a lesson first");
+        }
     }//GEN-LAST:event_editLessonActionPerformed
 
     private void deleteLessonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLessonActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        populateComboBoxes pop = new populateComboBoxes();
-        la.deleteLesson(SELECTED_LESSON_ID, SELECTED_LESSON_DATE, SELECTED_LESSON_TIME, pop.populateSelectedLessonLabel(SELECTED_LESSON_ID));
-        this.lessonsTable.setModel(pop.Lessons());
+        if (!this.lessonsTable.getSelectionModel().isSelectionEmpty()) {
+            lessonDataArray la = new lessonDataArray();
+            populateComboBoxes pop = new populateComboBoxes();
+            la.deleteLesson(SELECTED_LESSON_ID, SELECTED_LESSON_DATE, SELECTED_LESSON_TIME, pop.populateSelectedLessonLabel(SELECTED_LESSON_ID));
+            this.lessonsTable.setModel(pop.Lessons());
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a lesson first");
+        }
     }//GEN-LAST:event_deleteLessonActionPerformed
 
     /**
@@ -520,5 +534,6 @@ public class lesson extends javax.swing.JFrame {
     private javax.swing.JLayeredPane secondarySearchPanel;
     private javax.swing.JButton seeStudentsButton;
     private javax.swing.JLabel selectedLessonLabel;
+    private javax.swing.JLabel selectedLessonLabelReal;
     // End of variables declaration//GEN-END:variables
 }

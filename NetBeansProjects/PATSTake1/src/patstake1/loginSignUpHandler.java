@@ -6,6 +6,10 @@
 package patstake1;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -41,17 +45,23 @@ public class loginSignUpHandler {
         dashboard d = new dashboard();
         fetchTeacher ft = new fetchTeacher();
         boolean issignedUp = ft.getSignedUp();
-        System.out.println(ft.getSignedUp());
+        
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
+        Calendar currentYear = Calendar.getInstance();
+        currentYear.setTime(new Date());
+        String yearString = sdf.format(currentYear.getTime());
+        System.out.println("cy: " + yearString);
+        
         if (issignedUp == false) {
-            System.out.println("working");
 //            TODO: fix validation
             if (ft.validateSignUp(fName, lName, 
                     email, cell, password1, password2)) {
                 try {
-                    String insertUserString = "INSERT INTO teacherTable(fname, lname, email, cell, password, signedUp)"
+                    String insertUserString = "INSERT INTO teacherTable(fname, lname, email, cell, password, signedUp, currentYear)"
                             + " VALUES('" + fName + "', '" + lName + "', '" + email
-                            + "', '" + cell + "', '" + password1 + "', " + true + ")";
+                            + "', '" + cell + "', '" + password1 + "', " + true + ", '" + yearString + "')";
                     db.UpdateDatabase(insertUserString);
+                    System.out.println("\n" + insertUserString);
                     d.setVisible(true);
                     ls.setVisible(false);
                 } catch (SQLException ex) {

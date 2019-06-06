@@ -20,7 +20,7 @@ public class fetchTeacher {
     ConnectDB db = new ConnectDB();
     loginSignup ls = new loginSignup();
     dataValidation vd = new dataValidation();
-    private String fname, lname, cell, email, password;
+    private String fname, lname, cell, email, password, currentYear;
     private String signUpProblems = "";
     boolean signedUp = false;
 
@@ -49,6 +49,9 @@ public class fetchTeacher {
                 //fetches first name from teacerTable
                 boolean signedUptest = rs.getBoolean("signedUp");
                 this.signedUp = signedUptest;
+                String currentYear = rs.getString("currentYear");
+                this.currentYear = currentYear;
+                System.out.println(this.fname + "       " + this.lname);
             }
         } catch (SQLException ex) {
 //            Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,6 +106,14 @@ public class fetchTeacher {
 
     public void SetSignedUp() {
         this.signedUp = signedUp;
+    }
+
+    public String getCurrentYear() {
+        return currentYear;
+    }
+
+    public void setCurrentYear(String currentYear) {
+        this.currentYear = currentYear;
     }
     
     //todo: fix this

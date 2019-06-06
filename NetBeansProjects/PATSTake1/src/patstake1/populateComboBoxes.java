@@ -7,7 +7,11 @@ package patstake1;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -17,6 +21,15 @@ import javax.swing.table.DefaultTableModel;
  * @author YishaiBasserabie
  */
 public class populateComboBoxes {
+    
+    //method populates the 'today's date' label
+    public String populateTodayDateLabel() {
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
+        Calendar today = Calendar.getInstance();
+        today.setTime(new Date());
+        String todayString = sdf.format(today.getTime());
+        return todayString;
+    }
     
     //methid to populate grade combo boxes
     public String [] populateGrades() {

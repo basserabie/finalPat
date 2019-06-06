@@ -7,8 +7,13 @@ package patstake1;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -364,6 +369,40 @@ public class studentsArray {
             }
             JOptionPane.showMessageDialog(null, "student information updated");
         } 
+    }
+    
+    public void updateStudentsAnnually() {
+        fetchTeacher ft = new fetchTeacher();
+        ConnectDB db = new ConnectDB();
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
+        Calendar current = Calendar.getInstance();
+        Calendar now = Calendar.getInstance();
+        try {
+            current.setTime(sdf.parse(ft.getCurrentYear()));
+            now.setTime(new Date());
+        } catch (ParseException ex) {
+            Logger.getLogger(studentsArray.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (current.get(Calendar.YEAR) != now.get(Calendar.YEAR)) {
+            for (int i = 0; i < this.studentArray.size(); i++) {
+                int currentGrade = Integer.parseInt(this.studentArray.get(i).getGrade());
+                if (currentGrade != 12) {
+                    String updateYear = "UPDATE sDetTable SET grade = " + (currentGrade+1);
+                    try {
+                        db.UpdateDatabase(updateYear);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(studentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    try {
+                        this.deleteStudent(this.studentNameFromID(this.studentArray.get(i).getStudentID()));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(studentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            JOptionPane.showMessageDialog(null, "HAPPY NEW YEAR!");
+        }
     }
     
     

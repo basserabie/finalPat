@@ -12,7 +12,6 @@ import javax.swing.DefaultListModel;
  * @author YishaiBasserabie
  */
 public class MoreInfoStudentForm extends javax.swing.JFrame {
-
     
     /**
      * Creates new form MoreInfoStudentForm
@@ -27,6 +26,7 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {
         for (int i = 0; i < pop.getLessonsFromStudentName(student.STUDENT_NAME).length; i++) {
             lessonListModel.addElement(pop.getLessonsFromStudentName(student.STUDENT_NAME)[i]);
         }
+        
         this.studentLessonList.setModel(lessonListModel);
         //populates the student details table
         this.studentMoreInfoTable.setModel(pop.StudentInfo(sa.studentIDFromName(student.STUDENT_NAME)));
@@ -35,6 +35,8 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {
         String motherName = this.studentMoreInfoTable.getModel().getValueAt(0, 3).toString();
         contactForm.parentName = motherName;
         contactForm.parentEmail = ma.getMotherEmailFromID(ma.getMotherIDFromName(motherName));
+        
+        
     }
 
     /**
@@ -55,6 +57,7 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {
         studentLessonList = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         contact = new javax.swing.JButton();
+        addNote = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,6 +101,13 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {
             }
         });
 
+        addNote.setText("Add Note");
+        addNote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNoteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,6 +135,8 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {
                             .addComponent(jScrollPane2)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(addNote, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
@@ -134,7 +146,8 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back)
                     .addComponent(jLabel1)
-                    .addComponent(contact))
+                    .addComponent(contact)
+                    .addComponent(addNote))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -157,6 +170,11 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {
         contactForm c = new contactForm();
         c.setVisible(true);
     }//GEN-LAST:event_contactActionPerformed
+
+    private void addNoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNoteActionPerformed
+        notesForm add = new notesForm();
+        add.setVisible(true);
+    }//GEN-LAST:event_addNoteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,6 +212,7 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addNote;
     private javax.swing.JButton back;
     private javax.swing.JButton contact;
     private javax.swing.JLabel jLabel1;

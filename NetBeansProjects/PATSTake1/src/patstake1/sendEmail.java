@@ -6,7 +6,7 @@
  */
 package patstake1;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
+//import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import java.net.PasswordAuthentication;
 import java.util.Date;
 import java.util.Properties;

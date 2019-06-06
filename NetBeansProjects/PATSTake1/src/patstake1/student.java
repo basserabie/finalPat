@@ -260,6 +260,7 @@ public class student extends javax.swing.JFrame {
 
     private void studentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentTableMouseClicked
         STUDENT_NAME = this.studentTable.getModel().getValueAt(this.studentTable.getSelectedRow(), 0).toString();
+        notesForm.name = STUDENT_NAME;
     }//GEN-LAST:event_studentTableMouseClicked
 
     private void searchTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyTyped

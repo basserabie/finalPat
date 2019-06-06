@@ -488,11 +488,11 @@ public class lessonDataArray {
         String insertPaid;
         
         if (frequency == 0) {
-            insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES ('" + id + "', '" 
-                    + va.venueIDFromVenue(venue) + "', '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', '" + day + "')";
+            insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES (" + id + ", " 
+                    + va.venueIDFromVenue(venue) + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", '" + day + "')";
             insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";
             insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) VALUES "
-                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', " + cost + ")";
+                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", " + cost + ")";
             try {
                 db.UpdateDatabase(insert);
                 db.UpdateDatabase(insertKey);
@@ -503,11 +503,11 @@ public class lessonDataArray {
         } else {
             if (frequency == 1) {
                 for (int i = 0; i < 52; i++) {
-                    insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES ('" + id + "', '" 
-                    + va.venueIDFromVenue(venue) + "', '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', '" + day + "')";
+                    insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES (" + id + ", " 
+                    + va.venueIDFromVenue(venue) + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", '" + day + "')";
                     insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";
                     insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) VALUES "
-                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', " + cost + ")";
+                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", " + cost + ")";
                     try {
                         db.UpdateDatabase(insert);
                         db.UpdateDatabase(insertKey);
@@ -521,11 +521,11 @@ public class lessonDataArray {
             } else {
                 if (frequency == 2) {
                     for (int i = 0; i < 12; i++) {
-                        insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES ('" + id + "', '" 
-                        + va.venueIDFromVenue(venue) + "', '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', '" + day + "')";
+                        insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES (" + id + ", " 
+                        + va.venueIDFromVenue(venue) + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", '" + day + "')";
                         insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";
                         insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) VALUES "
-                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', " + cost + ")";
+                        + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", " + cost + ")";
                         try {
                             db.UpdateDatabase(insert);
                             db.UpdateDatabase(insertKey);
@@ -559,6 +559,8 @@ public class lessonDataArray {
         int countDisplayMessages = 0;
         int countLessonIDForKeys = 1;
         
+        System.out.println(date + "  " + venue + "  " + time + "  " + day + "  " + size + "  " + name + "  " + frequency + "  " + duration + "  " + lessonKeyToAdd + "  " + paid + "  " + cost);
+        
         if (this.checkIfInPast(date, time) == false) {
             if(!this.checkIfDoublebooking(date, time, duration, size, lessonKeyToAdd).contains("Venue")) {
                 
@@ -577,11 +579,11 @@ public class lessonDataArray {
         String insertPaid;
         
         if (frequency == 0) {
-            insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES ('" + id + "', '" 
-                    + va.venueIDFromVenue(venue) + "', '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', '" + day + "')";
+            insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES (" + id + ", " 
+                    + va.venueIDFromVenue(venue) + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", '" + day + "')";
             insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";
             insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) VALUES "
-                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', " + cost + ")";
+                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", " + cost + ")";
             try {
                 db.UpdateDatabase(insert);
                 db.UpdateDatabase(insertKey);
@@ -589,32 +591,36 @@ public class lessonDataArray {
             } catch (SQLException ex) {
                 Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
             }
+            System.out.println(id + "  " + sdf.format(cal.getTime()) + "  " + va.venueIDFromVenue(venue) + "  " + time + "  " + day + "  " + size + "  " + name + "  " + frequency + "  " + duration + "  " + lessonKeyToAdd + "  " + paid + "  " + cost);
         } else {
             if (frequency == 1) {
                 for (int i = 0; i < 52; i++) {
-                    insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES ('" + id + "', '" 
-                    + va.venueIDFromVenue(venue) + "', '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', '" + day + "')";
-                    insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";
-                    insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) VALUES "
-                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', " + cost + ")";
+                    insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES (" + id + ", " 
+                    + va.venueIDFromVenue(venue) + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", '" + day + "')";
+//                    insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";
+//                    insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) VALUES "
+//                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", " + cost + ")";
+                      String insert2 = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES (24, 9, '2019/06/07', '13:00', 1, 'saturday')";
                     try {
                         db.UpdateDatabase(insert);
-                        db.UpdateDatabase(insertKey);
-                        db.UpdateDatabase(insertPaid);
+//                        db.UpdateDatabase(insertKey);
+//                        db.UpdateDatabase(insertPaid);
                     } catch (SQLException ex) {
                         Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("EEERRRRORRRRR!!!!!");
                     }
+                    System.out.println(id + "  " + sdf.format(cal.getTime()) + "  " + va.venueIDFromVenue(venue) + "  " + time + "  " + day + "  " + size + "  " + name + "  " + frequency + "  " + duration + "  " + lessonKeyToAdd + "  " + paid + "  " + cost);
                     //adds a week to the date
                     cal.add(cal.DATE, 7);
                 }
             } else {
                 if (frequency == 2) {
                     for (int i = 0; i < 12; i++) {
-                        insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES ('" + id + "', '" 
-                        + va.venueIDFromVenue(venue) + "', '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', '" + day + "')";
+                        insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES (" + id + ", " 
+                        + va.venueIDFromVenue(venue) + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", '" + day + "')";
                         insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";
                         insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) VALUES "
-                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', '" + duration + "', " + cost + ")";
+                        + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", " + cost + ")";
                         try {
                             db.UpdateDatabase(insert);
                             db.UpdateDatabase(insertKey);
@@ -622,12 +628,14 @@ public class lessonDataArray {
                         } catch (SQLException ex) {
                             Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                        System.out.println(id + "  " + sdf.format(cal.getTime()) + "  " + va.venueIDFromVenue(venue) + "  " + time + "  " + day + "  " + size + "  " + name + "  " + frequency + "  " + duration + "  " + lessonKeyToAdd + "  " + paid + "  " + cost);
                         //adds a week to the date
                         cal.add(cal.MONTH, 1);
                     }
                 }
             }
         }
+        System.out.println("\n" + this.lessonDataArray.size() + "\n");
         STUDENTS_ADDED_TO_LESSON++;
         if (STUDENTS_ADDED_TO_LESSON == size) {
             JOptionPane.showMessageDialog(null, "the lesson(s) have been added!");
@@ -644,24 +652,24 @@ public class lessonDataArray {
         
     }
 
-//    public String [] notInNewStudents(String [] list1, ArrayList<String> list2) {
-//        ArrayList<String> notIn = new ArrayList(Arrays.asList(list1));
-//        for (int i = 0; i < list2.size(); i++) {
-//            if (notIn.contains(list2.get(i))) {
-//                System.out.println("entered contains with: " + list2.get(i));
-//                notIn.remove(list2.get(i));
-//            } else {
-//                System.out.println("not contains with: " + list2.get(i));
-//                notIn.add(list2.get(i));
-//                System.out.println("added to not in: " + notIn.get(1));
-//                studentLost = list1[i];
-//                System.out.println("lost: " + studentLost);
-//            }
-//        }
-//         String StringArray [] = notIn.toArray(new String[notIn.size()]);
-//         System.out.println("student to be set: " + StringArray[1]);
-//         return StringArray;
-//    }
+    public String [] notInNewStudents(String [] list1, ArrayList<String> list2) {
+        ArrayList<String> notIn = new ArrayList(Arrays.asList(list1));
+        for (int i = 0; i < list2.size(); i++) {
+            if (notIn.contains(list2.get(i))) {
+                System.out.println("entered contains with: " + list2.get(i));
+                notIn.remove(list2.get(i));
+            } else {
+                System.out.println("not contains with: " + list2.get(i));
+                notIn.add(list2.get(i));
+                System.out.println("added to not in: " + notIn.get(1));
+                studentLost = list1[i];
+                System.out.println("lost: " + studentLost);
+            }
+        }
+         String StringArray [] = notIn.toArray(new String[notIn.size()]);
+         System.out.println("student to be set: " + StringArray[1]);
+         return StringArray;
+    }
     
     public void deleteLesson(int lessonID, String date, String time, String lesson) {
         keysArray ka = new keysArray();
@@ -855,6 +863,7 @@ public class lessonDataArray {
                     newKey,
                     paid, 
                     cost);
+            System.out.println(date + "  " + time + "  " + day + "  " + list.size() + "  " + list.get(i) + "  " + frequency + "  " + duration + "  " + newKey + "  " + paid + "  " + cost);
         }
         
        editLessonForm.ADDED_ARRAY.removeAll(editLessonForm.ADDED_ARRAY);

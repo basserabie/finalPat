@@ -241,7 +241,7 @@ public class student extends javax.swing.JFrame {
             studentsArray sa = new studentsArray();
             int row = this.studentTable.getSelectedRow();
             int column = 1;
-            String name = this.studentTable.getModel().getValueAt(row, column).toString();
+            String name = this.studentTable.getModel().getValueAt(row, 0).toString();
             sa.deleteStudent(name);
         } catch (SQLException ex) {
             System.out.println("error deleting student");

@@ -26,10 +26,14 @@ public class ConnectDB {
     private Statement stmt;//statement to store different queries
     private ResultSet rs;//a set of results stored of the stmt
 
+    public Connection getConn() {
+        return conn;
+    }
+
     public ConnectDB() {
         try {
             
-            String url = "jdbc:ucanaccess://PATS.accdb";//url at which the database is stored on the computer aswell as the driver to connect to the database
+            String url = "jdbc:ucanaccess://TestPAT.accdb";//url at which the database is stored on the computer aswell as the driver to connect to the database
             conn = DriverManager.getConnection(url);//establishes the connection to the database
             stmt = conn.createStatement();
         } catch (Exception e) {

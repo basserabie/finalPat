@@ -1066,11 +1066,11 @@ public class editLessonForm extends javax.swing.JFrame {
     private void editAllLessonsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAllLessonsButtonActionPerformed
        lessonDataArray la = new lessonDataArray();
         if (!DATETIME_CHECKED) {
-            if (STUDENTS_CHECKED) {
-                la.editAllLessonStudents(ADDED_ARRAY, lesson.SELECTED_LESSON_ID, lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
-            }
             if (VENUE_CHECKED) {
                 la.editAllLessonVenue(this.venuesComboBox.getSelectedItem().toString(), lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
+            }
+            if (STUDENTS_CHECKED) {
+                la.editAllLessonStudents(ADDED_ARRAY, lesson.SELECTED_LESSON_ID, lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
             }
             STUDENTS_CHECKED = false;
             VENUE_CHECKED = false;

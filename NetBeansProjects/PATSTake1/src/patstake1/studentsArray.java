@@ -96,17 +96,25 @@ public class studentsArray {
         //push
         try {
             if (ma.getMotherIDFromMotherName(mfname + " " + mlname) == 0) {
-                int motherID = ma.getMothersArray().get(ma.getMothersArray().size()-1).getMotherID()+1;
-                //get motherID
-                String pushMother = "INSERT INTO mothers (motherfName, motherLName, motherEmail, motherCell) VALUES('" + mfname + "', '" 
-                    + mlname + "', '" + memail + "', '" + mcell + "')";
-                //pushes mother
-                db.UpdateDatabase(pushMother);
-                System.out.println(pushMother);
+                int motherID = 0;
+                if (ma.getMothersArray().size() != 0) {
+                     motherID = ma.getMothersArray().get(ma.getMothersArray().size()-1).getMotherID()+1;
+                    //get motherID
+                    String pushMother = "INSERT INTO mothers (motherfName, motherLName, motherEmail, motherCell) VALUES('" + mfname + "', '" 
+                        + mlname + "', '" + memail + "', '" + mcell + "')";
+                    //pushes mother
+                    db.UpdateDatabase(pushMother);
+                    System.out.println(pushMother);
+                } else {
+                    //get motherID
+                    String pushMother = "INSERT INTO mothers (motherfName, motherLName, motherEmail, motherCell) VALUES('" + mfname + "', '" 
+                        + mlname + "', '" + memail + "', '" + mcell + "')";
+                    //pushes mother
+                    db.UpdateDatabase(pushMother);
+                    System.out.println(pushMother);
+                }
                 //get SchoolID
                 String schoolID = ""+sa.getSchoolID(school);
-                //gets mother ID
-                System.out.println("motherID: " + motherID);
                 //push student
                 String pushStudent = "INSERT INTO sDetTable (fname, lName, grade, schoolID, motherID) VALUES ('" + fname 
                      + "', '" + lname + "', '" + grade + "', '" + schoolID + "', '" + motherID+ "')";
@@ -193,6 +201,7 @@ public class studentsArray {
     
     public void deleteStudent(String name) throws SQLException {
         System.out.println(name);
+        AddStudentNote add = new AddStudentNote();
         
         int dialogType1 = JOptionPane.YES_NO_OPTION;
         int firstConfirmationResult = JOptionPane.showConfirmDialog(null, "Are you sure you would like to continue the deletetionProcess of the student: " + name, "delete student", dialogType1);
@@ -203,6 +212,7 @@ public class studentsArray {
             String deleteParent = "";
             String deleteLessons = "";
             String deleteKeys = "";
+            String deletePayments = "";
             int dialogResult = 0;
             int motherID = this.getMotherIDFromStudentName(name);
             int countMothers = 0;
@@ -222,6 +232,7 @@ public class studentsArray {
             }
                 //checks the dialog result and deletes accordingly
                 if (dialogResult == JOptionPane.YES_OPTION) {
+                    add.deleteNote(name);
                     System.out.println("enetered yes option");
                     deleteParent = "DELETE * FROM mothers WHERE MotherID = " + motherID;                
                     //deletes parent
@@ -234,9 +245,11 @@ public class studentsArray {
                         deleteLessons = "DELETE * FROM lessonData WHERE studentID = " + this.findSiblingIDs(name)[i];
                         deleteStudents = "DELETE * FROM sDetTable WHERE StudID = " + this.findSiblingIDs(name)[i];
                         deleteKeys = "DELETE * FROM lessonKeys WHERE lessonID NOT IN (SELECT LessonID FROM lessonData)";
+                        deletePayments= "DELETE * FROM sPaytable WHERE StudID = " + this.findSiblingIDs(name)[i];
                         //deletes lessons
                         try {
                             db.UpdateDatabase(deleteLessons);
+                            db.UpdateDatabase(deletePayments);
                         } catch (SQLException ex) {
                             Logger.getLogger(studentsArray.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -253,11 +266,15 @@ public class studentsArray {
                     int confirmDelete = JOptionPane.showConfirmDialog(null, "are you sure you want to delete student: " + name + " and all of their data?", "confirm delete", JOptionPane.YES_NO_OPTION);
                     if (confirmDelete == JOptionPane.YES_OPTION) {
                         if (dialogResult == JOptionPane.NO_OPTION) {
+                            add.deleteNote(name);
                             deleteLessons = "DELETE * FROM lessonData WHERE studentID = " + this.studentIDFromName(name);
                             deleteStudents = "DELETE * FROM sDetTable WHERE StudID = " + this.studentIDFromName(name);
                             deleteKeys = "DELETE * FROM lessonKeys WHERE lessonID NOT IN (SELECT LessonID FROM lessonData)";
+                            deletePayments= "DELETE * FROM sPaytable WHERE StudID = " + this.studentIDFromName(name);
                             //deletes lessons
                             db.UpdateDatabase(deleteLessons);
+                            //deletes the payment information
+                            db.UpdateDatabase(deletePayments);
                             //deletes keys
                             db.UpdateDatabase(deleteKeys);
                             //deletes student

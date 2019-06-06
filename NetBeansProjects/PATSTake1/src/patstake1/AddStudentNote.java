@@ -55,6 +55,14 @@ public class AddStudentNote { // main method
         }
     }
     
+    public void deleteNote(String name) {
+        //file name only
+        File file = new File(name + ".txt");
+        if(file.delete()){
+            System.out.println("file.txt File deleted from Project root directory");
+        }else System.out.println("File file.txt doesn't exist in the project root directory");
+    }
+    
     public void writing(String name, String text) {
         
          EncryptDecrypt encDec = new EncryptDecrypt();//creates a EncryptDecrypt object called encDec

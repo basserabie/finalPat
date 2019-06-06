@@ -597,14 +597,14 @@ public class lessonDataArray {
                 for (int i = 0; i < 52; i++) {
                     insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES (" + id + ", " 
                     + va.venueIDFromVenue(venue) + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", '" + day + "')";
-//                    insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";
-//                    insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) VALUES "
-//                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", " + cost + ")";
+                    insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";
+                    insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) VALUES "
+                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", " + cost + ")";
                       String insert2 = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES (24, 9, '2019/06/07', '13:00', 1, 'saturday')";
                     try {
                         db.UpdateDatabase(insert);
-//                        db.UpdateDatabase(insertKey);
-//                        db.UpdateDatabase(insertPaid);
+                        db.UpdateDatabase(insertKey);
+                        db.UpdateDatabase(insertPaid);
                     } catch (SQLException ex) {
                         Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
                         System.out.println("EEERRRRORRRRR!!!!!");
@@ -764,8 +764,6 @@ public class lessonDataArray {
         return day;
     }
     
-    
-    
     public void deleteStudentsInSpecificLesson(String date, String time) {
        ConnectDB db = new ConnectDB();
        keysArray ka = new keysArray();
@@ -831,7 +829,7 @@ public class lessonDataArray {
         }
         return freqInt;
     }
-    //TODO:FIX INSERTING
+    
     public void editAllLessonStudents(ArrayList<String> list, int id, String date, String time) {
        ConnectDB db = new ConnectDB();
        keysArray ka = new keysArray();
@@ -852,22 +850,14 @@ public class lessonDataArray {
        int duration = this.getDurationFromTimeAndDate(time, date); 
         //pushes lesson
         for (int i = 0; i < list.size(); i++) {
-            this.addLessonForEdit(venue, 
-                    date, 
-                    time, 
-                    day, 
-                    list.size(), 
-                    list.get(i),
-                    frequency,
-                    duration,
-                    newKey,
-                    paid, 
-                    cost);
+            this.addLessonForEdit(venue, date, time, day, list.size(), list.get(i),frequency,duration,newKey,paid, cost);
             System.out.println(date + "  " + time + "  " + day + "  " + list.size() + "  " + list.get(i) + "  " + frequency + "  " + duration + "  " + newKey + "  " + paid + "  " + cost);
         }
-        
        editLessonForm.ADDED_ARRAY.removeAll(editLessonForm.ADDED_ARRAY);
+       
+       pa.deletePaymentsFromDateAndTime(date, time);
        this.deletStudentsInAllLesson(date, time, deleteKey);
+       ka.deleteKeyFromDateAndTime(date, time);
    }
     
    public void editSelectedLessonStudents(ArrayList<String> list, int id, String date, String time) {
@@ -935,12 +925,15 @@ public class lessonDataArray {
        venueArray va = new venueArray();
        keysArray ka = new keysArray();
        
+       System.out.println("venue: " + venue + "     date: " + date + "      time:" + time);
+
        int venueID = va.venueIDFromVenue(venue);
        String key = ka.getKeyFromDateAndTime(date, time);
        for (int i = 0; i < this.lessonDataArray.size(); i++) {
            if (ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()).equals(key)) {
                String updateVenue = "UPDATE lessonData SET venueID = " + venueID + " "
                        + "WHERE LessonID = " + this.lessonDataArray.get(i).getLessonID();
+               System.out.println(updateVenue);
                try {
                    db.UpdateDatabase(updateVenue);
                } catch (SQLException ex) {

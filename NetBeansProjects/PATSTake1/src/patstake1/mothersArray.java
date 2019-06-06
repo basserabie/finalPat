@@ -102,6 +102,17 @@ public class mothersArray {
         return id;
     }
     
+    public String getMotherEmailFromMotherName(String name) {
+        int mid = this.getMotherIDFromMotherName(name);
+        String email = "";
+        for (int i = 0; i < this.mothersArray.size(); i++) {
+            if (this.mothersArray.get(i).getMotherID() == mid) {
+                email = this.mothersArray.get(i).getMotherEmail();
+            }
+        }
+        return email;
+    }
+    
     public void passSelectedMotherNameToEdit(String name) {
         editMotherForm emf = new editMotherForm();
         emf.setParentNameText(name);

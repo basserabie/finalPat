@@ -46,6 +46,7 @@ public class paymentsByLessonForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         removePaymentButton = new javax.swing.JButton();
         addPayementButton = new javax.swing.JButton();
+        invoiceButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,11 +103,11 @@ public class paymentsByLessonForm extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(HourSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(minuteSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(minuteSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -165,6 +166,13 @@ public class paymentsByLessonForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        invoiceButton.setText("Send Invoice To Selected Parent");
+        invoiceButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                invoiceButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -183,6 +191,8 @@ public class paymentsByLessonForm extends javax.swing.JFrame {
                 .addContainerGap(460, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(showtable)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(invoiceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1)
@@ -199,7 +209,9 @@ public class paymentsByLessonForm extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(showtable)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(showtable)
+                    .addComponent(invoiceButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -263,6 +275,27 @@ public class paymentsByLessonForm extends javax.swing.JFrame {
         this.paymentsForLessonTable.setModel(pop.PaymentsByLesson(date, time));
     }//GEN-LAST:event_addPayementButtonActionPerformed
 
+    private void invoiceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invoiceButtonActionPerformed
+        if (!this.paymentsForLessonTable.getSelectionModel().isSelectionEmpty()) {
+            mothersArray ma = new mothersArray();
+            lessonDataArray la = new lessonDataArray();
+            paymentsArray pa = new paymentsArray();
+            studentsArray sa = new studentsArray();
+            String studentName = this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 0).toString();
+            String cost = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 3).toString());
+            int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
+            invoiceForm.date = la.formatDate(this.dateChooser.getDate().toString());
+            invoiceForm.time = this.minuteSpinner.getModel().getValue().toString();
+            invoiceForm.parent = ma.getMotherNameFromStudentID(studentID);
+            invoiceForm.parentEmail = ma.getMotherEmailFromMotherName(invoiceForm.parent);
+            invoiceForm.cost = cost;
+            invoiceForm ih = new invoiceForm();
+            ih.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a student first.");
+        }
+    }//GEN-LAST:event_invoiceButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -302,6 +335,7 @@ public class paymentsByLessonForm extends javax.swing.JFrame {
     private javax.swing.JSpinner HourSpinner;
     private javax.swing.JButton addPayementButton;
     private com.toedter.calendar.JDateChooser dateChooser;
+    private javax.swing.JButton invoiceButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

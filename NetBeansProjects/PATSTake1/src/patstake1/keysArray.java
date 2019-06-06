@@ -160,5 +160,19 @@ public class keysArray {
         int idArray [] = idList.stream().mapToInt(i -> i).toArray();
         return idArray;
     }
+    public void deleteKeyFromDateAndTime(String date, String time) {
+        ConnectDB db = new ConnectDB();
+        String keyToDelete = this.getKeyFromDateAndTime(date, time);
+        for (int i = 0; i < this.keyArray.size(); i++) {
+            if (this.keyArray.get(i).getLessonKey().equals(keyToDelete)) {
+                String deleteKey = "DELETE * FROM lessonKeys WHERE lessonKey = '" + keyToDelete + "'";
+                try {
+                    db.UpdateDatabase(deleteKey);
+                } catch (SQLException ex) {
+                    Logger.getLogger(keysArray.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
     
 }

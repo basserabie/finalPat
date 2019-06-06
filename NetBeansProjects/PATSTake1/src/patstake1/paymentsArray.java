@@ -346,6 +346,18 @@ public class paymentsArray {
         }
     }
     
-    
+    public void deletePaymentsFromDateAndTime(String date, String time) {
+        ConnectDB db = new ConnectDB();
+        for (int i = 0; i < this.paymentArray.size(); i++) {
+            if (this.paymentArray.get(i).getPayDate().equals(date) && this.paymentArray.get(i).getPayTime().equals(time)) {
+                String deletePayments = "DELETE * FROM sPayTable WHERE lessonID = " + this.paymentArray.get(i).getLessonID();
+                try {
+                    db.UpdateDatabase(deletePayments);
+                } catch (SQLException ex) {
+                    Logger.getLogger(keysArray.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
 
 }

@@ -230,13 +230,11 @@ public class addStudentForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentButtonActionPerformed
-        dashboard d = new dashboard();
         dataValidation dv = new dataValidation();
         studentsArray sa = new studentsArray();
         if (dv.checkAddStudent(this.studentfNameT.getText(), this.studentlNameT.getText(), this.motherFNameT.getText(), this.motherLNameT.getText(), this.motherEmailT.getText(), this.motherCellT.getText())) {
             sa.addStudent(this.studentfNameT.getText(), this.studentlNameT.getText(), this.studentGradeComboBox.getSelectedItem().toString(), this.studentSchoolComboBox.getSelectedItem().toString(), this.motherFNameT.getText(), this.motherLNameT.getText(), this.motherEmailT.getText(), this.motherCellT.getText());
             this.hide();
-            d.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, dv.getProblems());
         }

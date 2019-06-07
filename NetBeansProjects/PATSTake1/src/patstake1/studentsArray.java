@@ -391,7 +391,7 @@ public class studentsArray {
     public void updateStudentsAnnually() {
         fetchTeacher ft = new fetchTeacher();
         ConnectDB db = new ConnectDB();
-        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
         Calendar current = Calendar.getInstance();
         Calendar now = Calendar.getInstance();
         try {

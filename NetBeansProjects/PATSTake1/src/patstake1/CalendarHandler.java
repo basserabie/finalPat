@@ -148,6 +148,7 @@ public class CalendarHandler {
     }
     
     public String floorStartTime(String attemptedTime, String date) {
+        
         lessonDataArray la = new lessonDataArray();
         TreeSet<Date> times = new TreeSet<> ();
         String time = "";
@@ -338,23 +339,41 @@ public class CalendarHandler {
     }
     
     public String [] keysOnDay() {
+        System.out.println("getting keys");
         lessonDataArray la = new lessonDataArray();
         keysArray ka = new keysArray();
         ka.sortArray();
         la.sortArray();
         ArrayList<String> keys = new ArrayList<>();
         
-        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
-            if (la.getLessonDataArray().get(i).getLessonDate().equals(DATE)) {
-                if (!keys.contains(ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()))) {
-                    keys.add(ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/dd/MM");
+        Calendar time = Calendar.getInstance();
+        Calendar refTime = Calendar.getInstance();
+        int s = 0;
+        try {
+            time.setTime(sdf2.parse(la.getLessonDataArray().get(s).getLessonDate()));
+            refTime.setTime(sdf2.parse(DATE));
+            System.out.println("firstTime: " + sdf2.format(time.getTime()) + "      date: " + sdf2.format(refTime.getTime()));
+        } catch (ParseException ex) {
+            Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        while(!(time.after(refTime))) {
+            try {
+                time.setTime(sdf2.parse(la.getLessonDataArray().get(s).getLessonDate()));
+            } catch (ParseException ex) {
+                Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (la.getLessonDataArray().get(s).getLessonDate().equals(DATE)) {
+                if (!keys.contains(ka.getKeyFromLessonID(la.getLessonDataArray().get(s).getLessonID()))) {
+                    keys.add(ka.getKeyFromLessonID(la.getLessonDataArray().get(s).getLessonID()));
                 }
             }
+            s++;
         }
         
         Calendar p1 = Calendar.getInstance();
         Calendar p2 = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");
         
         for (int i = 0; i < keys.size()-1; i++) {
             for (int k =i+1; k < keys.size(); k++) {
@@ -372,28 +391,13 @@ public class CalendarHandler {
                 }
             }
         }
-//        for (int i = 0; i < keys.size(); i++) {
-//            try {
-//                if (i < keys.size()-1) {
-//                    p1.setTime(sdf.parse(ka.getDateFromKey(keys.get(i)) + " " + ka.getStartTimeFromKey(keys.get(i))));
-//                    p2.setTime(sdf.parse(ka.getDateFromKey(keys.get(i+1)) + " " + ka.getStartTimeFromKey(keys.get(i+1))));
-//                }
-//                String temp;
-//                if (p2.after(p1)) {
-//                    temp = keys.get(i+1);
-//                    keys.set(i+1, keys.get(i));
-//                    keys.set(i, temp);
-//                }
-//            } catch (ParseException ex) {
-//                Logger.getLogger(keysArray.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
         String keysArray [] = keys.toArray(new String[keys.size()]);
         KEYS_ON_DAY = keysArray;
         return keysArray;
     }
     
     public String StartTimeFromLessonKey(String key) {
+        System.out.println("getting startTimes");
         lessonDataArray la = new lessonDataArray();
         keysArray ka = new keysArray();
         String time = "";
@@ -422,6 +426,7 @@ public class CalendarHandler {
     }
     
     public String venueFromLessonKey(String key) {
+        System.out.println("getting venue");
         keysArray ka = new keysArray();
         venueArray va = new venueArray();
         lessonDataArray la = new lessonDataArray();
@@ -438,6 +443,7 @@ public class CalendarHandler {
     }
     
     public int NumberOfLessonsOnDay(String date) {
+        System.out.println("getting lessons number of them");
         lessonDataArray la = new lessonDataArray();
         keysArray ka = new keysArray();
         ArrayList<String> keys = new ArrayList<>();
@@ -461,6 +467,7 @@ public class CalendarHandler {
     }
     
     public String [] studentsFromLessonDateAndTime(String date, String time) {
+        System.out.println("getting students");
         lessonDataArray la = new lessonDataArray();
         keysArray ka = new keysArray();
         studentsArray sa = new studentsArray();
@@ -515,7 +522,6 @@ public class CalendarHandler {
                 } catch (ParseException ex) {
                     Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
                 if (attemptedStartTime.equals(refStartTime) ||
                         attemptedEndTime.equals(refEndTime) ||
                         attemptedStartTime.after(refStartTime) && attemptedEndTime.before(refEndTime)) {
@@ -532,18 +538,17 @@ public class CalendarHandler {
     
     public String formatEventAtHour(String date, String time, String startTime) {
         lessonDataArray la = new lessonDataArray();
+        
         String lessonDataEventFiller = "";
-        keysArray ka = new keysArray();
-        ka.sortArray();
-        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
-        DateFormat sdf2 = new SimpleDateFormat("HH:mm");
-        String colours [] = {"red", "blue", "green", "pink", "purple", "yellow", "orange"};
-        String colour = colours[COLOUR];
         boolean after = false;
         System.out.println("start: " + time);
         
         if (this.TimeHasLesson(date, time)) {
-            System.out.println("done check if time has lesson");
+            DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
+            DateFormat sdf2 = new SimpleDateFormat("HH:mm");
+            String colours [] = {"red", "blue", "green", "pink", "purple", "yellow", "orange"};
+            String colour = colours[COLOUR];
+            
             String endTime = "";
             for (int i = 0; i < la.getLessonDataArray().size(); i++) {
                 if (la.getLessonDataArray().get(i).getLessonDate().equals(date) && la.getLessonDataArray().get(i).getLessonTime().equals(startTime)) {
@@ -551,7 +556,6 @@ public class CalendarHandler {
                     break;
                 }
             }
-            System.out.println("gotten endTime string");
             Calendar timeDate = Calendar.getInstance();
             Calendar endTimeDate = Calendar.getInstance();
             Calendar endTimeDateRef = Calendar.getInstance();
@@ -574,6 +578,8 @@ public class CalendarHandler {
                     COLOUR = 0;
                 }
             }
+        } else {
+            return "";
         }
         
         return lessonDataEventFiller;
@@ -605,6 +611,8 @@ public class CalendarHandler {
      public DefaultTableModel schedModel(String date) {
          DefaultTableModel model = null;
         lessonDataArray la = new lessonDataArray();
+        keysArray ka = new keysArray();
+        ka.sortArray();
         
             Object columnNames[] = {"06:00", "06:15", "06:30", "06:45", "07:00", "07:15", "07:30", "07:45", "08:00",
                 "08:15", "08:30", "08:45", "09:00", "09:15", "09:30", "09:45", "10:00", "10:15", "10:30", "10:45",
@@ -639,6 +647,7 @@ public class CalendarHandler {
                  segEvent[i] = "";
              }
         }
+         
         model.addRow(segEvent);
             
             

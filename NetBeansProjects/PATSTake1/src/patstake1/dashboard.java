@@ -36,8 +36,8 @@ public class dashboard extends javax.swing.JFrame {
         studentsArray sa = new studentsArray();
         populateComboBoxes pop = new populateComboBoxes();
         la.DeletePastLessonsAndLessonKeys();
-//        sa.updateStudentsAnnually();
-//        this.dateLabel.setText(pop.populateTodayDateLabel());
+        sa.updateStudentsAnnually();
+        this.dateLabel.setText(pop.populateTodayDateLabel());
         
         CalendarHandler ch = new CalendarHandler();
         ch.JCalendarActionPerformed(Calendar);

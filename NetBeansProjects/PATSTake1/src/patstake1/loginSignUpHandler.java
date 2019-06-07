@@ -28,6 +28,7 @@ public class loginSignUpHandler {
         String password = ft.getPassword();
         if (issignedUp == true) {
             if (passwordPassed.equals(password)) {
+                this.addLogInTime();
                 d.setVisible(true);
                 ls.setVisible(false);
             } else {
@@ -53,7 +54,6 @@ public class loginSignUpHandler {
         System.out.println("cy: " + yearString);
         
         if (issignedUp == false) {
-//            TODO: fix validation
             if (ft.validateSignUp(fName, lName, 
                     email, cell, password1, password2)) {
                 try {
@@ -71,6 +71,20 @@ public class loginSignUpHandler {
             } 
         } else {
             JOptionPane.showMessageDialog(null, "you are already signed up\nplease login instead");
+        }
+    }
+    
+    public void addLogInTime() {
+        ConnectDB db = new ConnectDB();
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
+        Calendar currentYear = Calendar.getInstance();
+        currentYear.setTime(new Date());
+        String yearString = sdf.format(currentYear.getTime());
+        String updateLogInTime = "UPDATE teacherTable SET currentYear = '" + yearString + "'";
+        try {
+            db.UpdateDatabase(updateLogInTime);
+        } catch (SQLException ex) {
+            Logger.getLogger(loginSignUpHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

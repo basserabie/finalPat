@@ -47,11 +47,16 @@ public class fetchTeacher {
                 String passwordtest = rs.getString("password");
                 this.password = passwordtest;
                 //fetches first name from teacerTable
-                boolean signedUptest = rs.getBoolean("signedUp");
-                this.signedUp = signedUptest;
+                if (fname != null) {
+                    boolean signedUptest = rs.getBoolean("signedUp");
+                    this.signedUp = signedUptest;
+                } else {
+                    this.signedUp = false;
+                }
+                System.out.println("signedUp: " + this.signedUp);
+                //fetches this current date of signUp/LogIn
                 String currentYear = rs.getString("currentYear");
                 this.currentYear = currentYear;
-                System.out.println(this.fname + "       " + this.lname);
             }
         } catch (SQLException ex) {
 //            Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);

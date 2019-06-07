@@ -58,7 +58,6 @@ public class CalendarHandler {
         public void propertyChange(PropertyChangeEvent e) {
             CalendarHandler ch = new CalendarHandler();
             String date = ch.getFormattedDateFromJCalendar(cal.getDate().toString());
-            
             ch.passToDailyPlan(date);
         }  
         });
@@ -585,7 +584,8 @@ public class CalendarHandler {
         return lessonDataEventFiller;
     }
      public void LessonsOnDay() {
-         if (START_TIMES.length == 0) {
+         System.out.println(KEYS_ON_DAY.length);
+         if (KEYS_ON_DAY.length == 0) {
              DAY_HAS_LESSON = false;
          }
      }

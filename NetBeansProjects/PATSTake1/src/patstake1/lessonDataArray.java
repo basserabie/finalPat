@@ -82,6 +82,7 @@ public class lessonDataArray {
     public void setLessonKey(String lessonKey) {
         this.lessonKey = lessonKey;
     }
+
     
     public void setNamesList(ArrayList<String> list) {
         boolean alreadyIn = false;

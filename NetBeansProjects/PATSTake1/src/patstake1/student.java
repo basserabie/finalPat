@@ -237,21 +237,24 @@ public class student extends javax.swing.JFrame {
     }//GEN-LAST:event_editStudentButtonActionPerformed
 
     private void deleteSelectedLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSelectedLessonButtonActionPerformed
-        try {
-            studentsArray sa = new studentsArray();
-            int row = this.studentTable.getSelectedRow();
-            int column = 1;
-            String name = this.studentTable.getModel().getValueAt(row, 0).toString();
-            sa.deleteStudent(name);
-        } catch (SQLException ex) {
-            System.out.println("error deleting student");
-            Logger.getLogger(student.class.getName()).log(Level.SEVERE, null, ex);
+        if (!this.studentTable.getSelectionModel().isSelectionEmpty()) {
+            try {
+                studentsArray sa = new studentsArray();
+                int row = this.studentTable.getSelectedRow();
+                int column = 1;
+                String name = this.studentTable.getModel().getValueAt(row, 0).toString();
+                sa.deleteStudent(name);
+            } catch (SQLException ex) {
+                Logger.getLogger(student.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a student (row) first :)");
         }
     }//GEN-LAST:event_deleteSelectedLessonButtonActionPerformed
 
     private void infoOnSelectedLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoOnSelectedLessonButtonActionPerformed
-        MoreInfoStudentForm misf = new MoreInfoStudentForm();
         if (!this.studentTable.getSelectionModel().isSelectionEmpty()) {
+            MoreInfoStudentForm misf = new MoreInfoStudentForm();
             misf.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Please select a student (row) first :)");

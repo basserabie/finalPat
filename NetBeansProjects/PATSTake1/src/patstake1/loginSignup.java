@@ -259,12 +259,17 @@ public class loginSignup extends javax.swing.JFrame {
           lsh.signUp(this.TfnameT.getText().toString(), this.TlnameT.getText().toString(), 
                   this.TemailT.getText().toString(), this.TcellT.getText().toString(), 
                   this.TpasswordT.getText().toString(), this.TpasswordConfirmT.getText().toString());
+          if (loginSignUpHandler.allGood) {
+                this.setVisible(false);
+            }
     }//GEN-LAST:event_signUpButtonActionPerformed
 
     private void loginButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonLoginActionPerformed
           loginSignUpHandler lsh = new loginSignUpHandler();
           lsh.login(this.TPasswordTLogin.getText().toString());
-          this.setVisible(false);
+          if (loginSignUpHandler.allGood) {
+                this.setVisible(false);
+            }
     }//GEN-LAST:event_loginButtonLoginActionPerformed
 
     private void loginButtonLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_loginButtonLoginKeyPressed
@@ -275,7 +280,9 @@ public class loginSignup extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             loginSignUpHandler lsh = new loginSignUpHandler();
             lsh.login(this.TPasswordTLogin.getText().toString());
-            this.setVisible(false);
+            if (loginSignUpHandler.allGood) {
+                this.setVisible(false);
+            }
         }
     }//GEN-LAST:event_TPasswordTLoginKeyPressed
 

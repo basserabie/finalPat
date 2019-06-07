@@ -19,16 +19,22 @@ import javax.swing.JOptionPane;
  * @author YishaiBasserabie
  */
 public class loginSignUpHandler {
+    
+    public static boolean allGood = false;
+    
     //TODO: make login screen invisible when works
     public void login(String passwordPassed) {
         dashboard d = new dashboard();
         loginSignup ls = new loginSignup();
         fetchTeacher ft = new fetchTeacher();
         boolean issignedUp = ft.getSignedUp();
+        System.out.println(issignedUp);
         String password = ft.getPassword();
         if (issignedUp == true) {
+            
             if (passwordPassed.equals(password)) {
                 this.addLogInTime();
+                allGood = true;
                 d.setVisible(true);
                 ls.setVisible(false);
             } else {
@@ -56,6 +62,7 @@ public class loginSignUpHandler {
         if (issignedUp == false) {
             if (ft.validateSignUp(fName, lName, 
                     email, cell, password1, password2)) {
+                allGood = true;
                 try {
                     String insertUserString = "INSERT INTO teacherTable(fname, lname, email, cell, password, signedUp, currentYear)"
                             + " VALUES('" + fName + "', '" + lName + "', '" + email

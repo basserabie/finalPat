@@ -245,10 +245,8 @@ public class addStudentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_studentGradeComboBoxActionPerformed
 
     private void backToDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardButtonActionPerformed
-        dashboard d = new dashboard();
         lessonDataArray la = new lessonDataArray();
         la.sortArray();
-        d.setVisible(true);
         this.hide();
     }//GEN-LAST:event_backToDashboardButtonActionPerformed
 

@@ -160,6 +160,7 @@ public class dailyPlanForm extends javax.swing.JFrame {
         ch.setDate(this.dateLabel.getText());
         ch.setArrays();
         ch.LessonsOnDay();
+        System.out.println(CalendarHandler.DAY_HAS_LESSON);
         this.loadingLabel.setText("NOW LOADING DAY......");
         if (CalendarHandler.DAY_HAS_LESSON) {
             this.dayTable.setModel(ch.schedModel(this.dateLabel.getText()));

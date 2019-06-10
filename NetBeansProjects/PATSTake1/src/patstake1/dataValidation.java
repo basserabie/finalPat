@@ -21,20 +21,22 @@ public class dataValidation {// contains validating methods
         if (!input.equals("")) {//checks if something is entered
             for (int i = 0; i < input.length(); i++) {//loops through inputted string
             if (!Character.isAlphabetic(input.charAt(i))) {//checks if character at i is alphabetic
-                if (ForL.equals("f")) {
-                    problems += "()it seems you have an invalid character in your first Name\n";
-                } else {
-                    if (ForL.equals("l")) {
-                        problems += "()it seems you have an invalid character in your last name\n";
+                if (!problems.contains("it seems you have an invalid character in your last name")) {
+                    if (ForL.equals("f")) {
+                        problems += "()it seems you have an invalid character in your first Name\n";
                     } else {
-                        if (ForL.equals("mf")) {
-                            problems += "()it seems you have an invalid character in the parent's first name\n";
+                        if (ForL.equals("l")) {
+                            problems += "()it seems you have an invalid character in your last name\n";
                         } else {
-                            problems += "()it seems you have an invalid character in the parent's last name\n";
-                        }
-                    } 
-                }
-                ok = !ok;//flips value of ok to false
+                            if (ForL.equals("mf")) {
+                               problems += "()it seems you have an invalid character in the parent's first name\n";
+                            } else {
+                                problems += "()it seems you have an invalid character in the parent's last name\n";
+                            }
+                        } 
+                    }
+                    ok = !ok;//flips value of ok to false
+                    }  
             }
         }
       } else {
@@ -88,7 +90,7 @@ public class dataValidation {// contains validating methods
         if (!input.equals("")) {//checks if something was entered
             if (!input.contains("@") || !input.contains(".")) {
                 ok = false;//flips ok to false
-                problems += "()email invalid please try again dude!\n";
+                problems += "()email invalid syntax please try again dude!\n";
             }
         } else {
             ok = false;//flips ok to false

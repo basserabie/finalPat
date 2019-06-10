@@ -51,7 +51,7 @@ public class paymentStatsForm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        graphButton = new javax.swing.JButton();
+        realIncomeGraph = new javax.swing.JButton();
         projectedMonthlyIncomes = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -98,10 +98,10 @@ public class paymentStatsForm extends javax.swing.JFrame {
 
         jLabel1.setText("Payment Stats:");
 
-        graphButton.setText("graph of monthly incomes");
-        graphButton.addActionListener(new java.awt.event.ActionListener() {
+        realIncomeGraph.setText("graph of monthly incomes");
+        realIncomeGraph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                graphButtonActionPerformed(evt);
+                realIncomeGraphActionPerformed(evt);
             }
         });
 
@@ -401,7 +401,7 @@ public class paymentStatsForm extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(projectedMonthlyIncomes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(graphButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(realIncomeGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -415,7 +415,7 @@ public class paymentStatsForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(graphButton)
+                        .addComponent(realIncomeGraph)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(projectedMonthlyIncomes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -433,7 +433,7 @@ public class paymentStatsForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void graphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphButtonActionPerformed
+    private void realIncomeGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realIncomeGraphActionPerformed
         paymentsArray pa = new paymentsArray();
         pa.sortArray();
         //creates payment chart
@@ -441,13 +441,13 @@ public class paymentStatsForm extends javax.swing.JFrame {
         for (int i = 0; i < pa.monthsForRealChart().length; i++) {
             dataset.setValue(pa.totalPaymentsForAllMonthsArrayForRealChart()[i], "Total Monthly Income", pa.monthsForRealChart()[i].substring(0, 5) + pa.monthsForRealChart()[i].substring(6, 8));
         }
-        JFreeChart chart = ChartFactory.createBarChart3D("Monthly Incomes", "Year/Month", "Total Income", dataset, PlotOrientation.VERTICAL, false, true, false);
+        JFreeChart chart = ChartFactory.createBarChart3D("Paid Monthly Incomes", "Year/Month", "Total Income", dataset, PlotOrientation.VERTICAL, false, true, false);
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.BLACK);
-        ChartFrame frame = new ChartFrame("Total Monthly Income", chart);
+        ChartFrame frame = new ChartFrame("Paid Monthly Income", chart);
         frame.setVisible(true);
         frame.setSize(1280, 500);
-    }//GEN-LAST:event_graphButtonActionPerformed
+    }//GEN-LAST:event_realIncomeGraphActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
@@ -461,10 +461,10 @@ public class paymentStatsForm extends javax.swing.JFrame {
         for (int i = 0; i < pa.monthsForProjectedChart().length; i++) {
             dataset.setValue(pa.totalPaymentsForAllMonthsArrayForProjectedChart()[i], "Total Monthly Income", pa.monthsForProjectedChart()[i].substring(0, 5) + pa.monthsForProjectedChart()[i].substring(6, 8));
         }
-        JFreeChart chart = ChartFactory.createBarChart3D("Monthly Incomes", "Year/Month", "Total Income", dataset, PlotOrientation.VERTICAL, false, true, false);
+        JFreeChart chart = ChartFactory.createBarChart3D("Projected Monthly Incomes", "Year/Month", "Total Income", dataset, PlotOrientation.VERTICAL, false, true, false);
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.BLACK);
-        ChartFrame frame = new ChartFrame("Total Monthly Income", chart);
+        ChartFrame frame = new ChartFrame("Projected Monthly Income", chart);
         frame.setVisible(true);
         frame.setSize(1280, 500);
     }//GEN-LAST:event_projectedMonthlyIncomesActionPerformed
@@ -529,7 +529,6 @@ public class paymentStatsForm extends javax.swing.JFrame {
     private javax.swing.JLabel StudentAmountTotalLabel;
     private javax.swing.JComboBox<String> addStudentGradeComboBox;
     private javax.swing.JComboBox<String> addStudentNameComboBox;
-    private javax.swing.JButton graphButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -556,6 +555,7 @@ public class paymentStatsForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel outstandingThisMonthLabel;
     private javax.swing.JButton projectedMonthlyIncomes;
+    private javax.swing.JButton realIncomeGraph;
     private javax.swing.JTextField studentBeingAddedTextField;
     private javax.swing.JButton studentPaidResultButton;
     private javax.swing.JLabel totalPayedThisMonthLabel;

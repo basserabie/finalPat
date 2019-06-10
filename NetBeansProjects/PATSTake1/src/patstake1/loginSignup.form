@@ -157,7 +157,11 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="TfnameT" min="-2" pref="316" max="-2" attributes="0"/>
-                                  <Component id="TpasswordConfirmT" min="-2" pref="316" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="TpasswordConfirmT" min="-2" pref="316" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="squestion" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Component id="TpasswordT" min="-2" pref="316" max="-2" attributes="0"/>
                                   <Component id="TcellT" min="-2" pref="316" max="-2" attributes="0"/>
                                   <Component id="TemailT" min="-2" pref="316" max="-2" attributes="0"/>
@@ -169,7 +173,7 @@
                               <Component id="signUpButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="221" max="32767" attributes="0"/>
+                      <EmptySpace pref="35" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -204,7 +208,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="passwordConfirmLabelSignUp" min="-2" max="-2" attributes="0"/>
-                          <Component id="TpasswordConfirmT" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="TpasswordConfirmT" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="squestion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="signUpButton" min="-2" max="-2" attributes="0"/>
@@ -271,6 +278,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signUpButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="squestion">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="add security question"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="squestionActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

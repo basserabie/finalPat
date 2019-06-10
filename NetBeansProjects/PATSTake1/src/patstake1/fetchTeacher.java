@@ -20,7 +20,7 @@ public class fetchTeacher {
     ConnectDB db = new ConnectDB();
     loginSignup ls = new loginSignup();
     dataValidation vd = new dataValidation();
-    private String fname, lname, cell, email, password, currentYear;
+    private String fname, lname, cell, email, password, currentYear, question, answer;
     private String signUpProblems = "";
     boolean signedUp = false;
 
@@ -57,6 +57,8 @@ public class fetchTeacher {
                 //fetches this current date of signUp/LogIn
                 String currentYear = rs.getString("currentYear");
                 this.currentYear = currentYear;
+                this.question = rs.getString("question");
+                this.answer = rs.getString("answer");
             }
         } catch (SQLException ex) {
 //            Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
@@ -120,6 +122,46 @@ public class fetchTeacher {
     public void setCurrentYear(String currentYear) {
         this.currentYear = currentYear;
     }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+    
+    public void editSecurityAnswer() {
+        ConnectDB db = new ConnectDB();
+        int type = Integer.parseInt(JOptionPane.showInputDialog("Choose security question:\n\n1: What is your favourite holiday location?\n2: what is your favourite ice cream flaovour?"));
+        String ans = "";
+        String question = "";
+        if (type == 1) {
+            question = "What is your favourite holiday location?";
+            ans = JOptionPane.showInputDialog("Enter your location.");
+        } else {
+            if (type == 2) {
+                question = "What is your favourite ice cream flavour?";
+                ans = JOptionPane.showInputDialog("Enter your flavour.");
+            } else {
+                JOptionPane.showMessageDialog(null, "please select a valid question type!");
+            }
+        }
+        String update = "UPDATE teacherTable SET question = '" + question + "', answer = '" + ans + "'";
+        try {
+            db.UpdateDatabase(update);
+        } catch (SQLException ex) {
+            Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     //todo: fix this
     public boolean validateSignUp(String fname, String lname, String email, 
@@ -181,12 +223,6 @@ public class fetchTeacher {
                 Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
-
-    @Override
-    public String toString() {
-        return "fetchTeacher{" + "db=" + db + ", fname=" + fname + ", lname=" + lname + ", cell=" + cell + ", email=" + email + ", password=" + password + ", signedUp=" + signedUp + '}';
-    }
-
-   
+    
     
 }

@@ -145,9 +145,8 @@ public class CalendarHandler {
         }
         return index;
     }
-    
+    //TODO: fix to include first seg of lesson!
     public String floorStartTime(String attemptedTime, String date) {
-        
         lessonDataArray la = new lessonDataArray();
         TreeSet<Date> times = new TreeSet<> ();
         String time = "";
@@ -282,7 +281,7 @@ public class CalendarHandler {
         if (this.TimeHasLesson(date, timeInputted)) {
             timeRef = this.floorStartTime(timeInputted, date);
         }
-        
+        System.out.println("timeRef: " + timeRef);
         if (!timeRef.equals("")) {
             String time = "";
             String venue = "";

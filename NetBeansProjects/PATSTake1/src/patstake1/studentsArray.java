@@ -96,7 +96,7 @@ public class studentsArray {
         //push
         try {
             if (ma.getMotherIDFromMotherName(mfname + " " + mlname) == 0) {
-                int motherID = 0;
+                int motherID = 1;
                 if (ma.getMothersArray().size() != 0) {
                      motherID = ma.getMothersArray().get(ma.getMothersArray().size()-1).getMotherID()+1;
                     //get motherID

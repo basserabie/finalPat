@@ -51,7 +51,7 @@
                   <Component id="jPanel2" max="32767" attributes="0"/>
                   <Component id="jPanel1" max="32767" attributes="0"/>
                   <Component id="projectedMonthlyIncomes" max="32767" attributes="0"/>
-                  <Component id="graphButton" max="32767" attributes="0"/>
+                  <Component id="realIncomeGraph" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -70,7 +70,7 @@
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="graphButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="realIncomeGraph" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="projectedMonthlyIncomes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -102,12 +102,12 @@
         <Property name="text" type="java.lang.String" value="Payment Stats:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="graphButton">
+    <Component class="javax.swing.JButton" name="realIncomeGraph">
       <Properties>
         <Property name="text" type="java.lang.String" value="graph of monthly incomes"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="graphButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="realIncomeGraphActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="projectedMonthlyIncomes">

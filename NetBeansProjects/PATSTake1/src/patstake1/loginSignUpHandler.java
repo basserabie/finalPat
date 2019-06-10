@@ -45,7 +45,16 @@ public class loginSignUpHandler {
         }
     }
     
-    public void signUp(String fName, String lName, String email, String cell, String password1, String password2) {
+    public boolean validateSecurityQuestion(String ans) {
+        fetchTeacher ft = new fetchTeacher();
+        boolean ok = false;
+        if (ans.toLowerCase().equals(ft.getAnswer().toLowerCase())) {
+            ok = true;
+        }
+        return ok;
+    }
+    
+    public void signUp(String fName, String lName, String email, String cell, String password1, String password2, String question, String answer) {
         //objects
         loginSignup ls = new loginSignup();
         ConnectDB db = new ConnectDB();
@@ -64,9 +73,9 @@ public class loginSignUpHandler {
                     email, cell, password1, password2)) {
                 allGood = true;
                 try {
-                    String insertUserString = "INSERT INTO teacherTable(fname, lname, email, cell, password, signedUp, currentYear)"
+                    String insertUserString = "INSERT INTO teacherTable(fname, lname, email, cell, password, signedUp, currentYear, question, answer)"
                             + " VALUES('" + fName + "', '" + lName + "', '" + email
-                            + "', '" + cell + "', '" + password1 + "', " + true + ", '" + yearString + "')";
+                            + "', '" + cell + "', '" + password1 + "', " + true + ", '" + yearString + "', '" + question + "', '" + answer + "')";
                     db.UpdateDatabase(insertUserString);
                     System.out.println("\n" + insertUserString);
                     d.setVisible(true);
@@ -79,6 +88,40 @@ public class loginSignUpHandler {
         } else {
             JOptionPane.showMessageDialog(null, "you are already signed up\nplease login instead");
         }
+    }
+    
+    public void getSecurityAnswer() {
+        int type = Integer.parseInt(JOptionPane.showInputDialog("Choose security question:\n\n1: What is your favourite holiday location?\n2: what is your favourite ice cream flaovour?"));
+        String ans = "";
+        if (type == 1) {
+            loginSignup.question = "What is your favourite holiday location?";
+            ans = JOptionPane.showInputDialog("Enter your location.");
+        } else {
+            if (type == 2) {
+                loginSignup.question = "What is your favourite ice cream flavour?";
+                ans = JOptionPane.showInputDialog("Enter your flavour.");
+            } else {
+                JOptionPane.showMessageDialog(null, "please select a valid question type!");
+            }
+        }
+        loginSignup.answer = ans;
+        loginSignup.enteredQuestion = true;
+    }
+    
+    public void forgotPassword() {
+       fetchTeacher ft = new fetchTeacher();
+       loginSignUpHandler lsh = new loginSignUpHandler();
+       if (ft.signedUp) {
+           String ans = JOptionPane.showInputDialog(ft.getQuestion());
+           if (lsh.validateSecurityQuestion(ans)) {
+                sendEmail send = new sendEmail();
+                send.send(ft.getEmail(), "Forgotten Password:", "Password: " + ft.getPassword());
+           } else {
+               JOptionPane.showMessageDialog(null, "answer wrong! please try again");
+           }
+       } else {
+           JOptionPane.showMessageDialog(null, "Please sign up first");
+       }
     }
     
     public void addLogInTime() {

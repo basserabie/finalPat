@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
@@ -61,9 +62,11 @@ public class sendEmail {
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
             JOptionPane.showMessageDialog(null, "Email successfully sent!");
+            sent = true;
             System.out.println("email sent!");
         } catch (Exception e) {
             System.out.println("email not send ERROR!!!");
+            sent = false;
             JOptionPane.showMessageDialog(null, "Email not sent: please insure you are connect to the internet");
         }
         

@@ -76,13 +76,13 @@ public class mothersArray {
     
     public String [] getStudentsFromMotherName(String name) {
         ArrayList<String> students = new ArrayList<>();
-        int count = 0;
         studentsArray sa = new studentsArray();
         for (int i = 0; i < this.mothersArray.size(); i++) {
+            System.out.println(this.getMotherNameFromIndex(i) + "       " + name);
             if (this.getMotherNameFromIndex(i).equals(name)) {
                 for (int k = 0; k < sa.getStudentArray().size(); k++) {
+                    System.out.println("id: " + sa.getStudentArray().get(k).getMotherID());
                     if (this.getMotherNameForLessonArray(sa.getStudentArray().get(k).getMotherID()).equals(name)) {
-                        count ++;
                         students.add(sa.studentNameFromID(sa.getStudentArray().get(k).getStudentID()));
                     }
                 }

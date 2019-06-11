@@ -28,7 +28,6 @@ public class sendEmail {
     public static boolean sent = false;
     
     public void send(String to, String subject, String text) {
-        
         try {
             fetchTeacher t  = new fetchTeacher();
             String host = "smtp.gmail.com";
@@ -62,14 +61,11 @@ public class sendEmail {
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
             JOptionPane.showMessageDialog(null, "Email successfully sent!");
-            sent = true;
             System.out.println("email sent!");
         } catch (Exception e) {
             System.out.println("email not send ERROR!!!");
-            sent = false;
             JOptionPane.showMessageDialog(null, "Email not sent: please insure you are connect to the internet");
         }
-        
     }
     
 }

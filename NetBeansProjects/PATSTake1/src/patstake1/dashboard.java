@@ -6,8 +6,13 @@
 package patstake1;
 
 import com.mindfusion.scheduling.awt.AwtCalendar;
+import com.sun.prism.paint.Color;
+import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Component;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.accessibility.AccessibleContext;
@@ -36,11 +41,36 @@ public class dashboard extends javax.swing.JFrame {
         studentsArray sa = new studentsArray();
         populateComboBoxes pop = new populateComboBoxes();
         la.DeletePastLessonsAndLessonKeys();
-//        sa.updateStudentsAnnually();
+        sa.updateStudentsAnnually();
         this.dateLabel.setText(pop.populateTodayDateLabel());
         
         CalendarHandler ch = new CalendarHandler();
-        ch.JCalendarActionPerformed(Calendar);
+        ch.JCalendarActionPerformed(CalendarDisplay);
+        
+//        Calendar cal = Calendar.getInstance();
+//        int offset = cal.get(Calendar.DAY_OF_WEEK);
+//        int mon = CalendarDisplay.getMonthChooser().getMonth();
+//        int yr = CalendarDisplay.getYearChooser().getYear();
+//        JPanel jPanel = CalendarDisplay.getDayChooser().getDayPanel();
+//        Component component[] = jPanel.getComponents();
+//        
+//        String sql = "SELECT DAYOFMONTH(lessonDate) as day, MONTH(lessonDate) as month, YEAR(lessonDate) as year  FROM lessonData";
+//        try {
+//            ConnectDB db = new ConnectDB();
+//            ResultSet rs = db.getResults(sql);
+//            while(rs.next()){
+//            int dayOfMonth = rs.getInt("day");
+//            int month = rs.getInt("month");
+//            int year = rs.getInt("year");
+//
+//            if(mon == month && yr == year){
+//                component[dayOfMonth + offset].setBackground(java.awt.Color.red);
+//            }
+//
+//            }
+//        } catch(Exception e) {
+//            System.out.println(e);
+//            }
     }
     
     /**
@@ -59,23 +89,27 @@ public class dashboard extends javax.swing.JFrame {
         canvas1 = new java.awt.Canvas();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        signOutButton = new javax.swing.JButton();
-        Calendar = new com.toedter.calendar.JCalendar();
-        accountButton = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        CalendarDisplay = new com.toedter.calendar.JCalendar();
         jPanel1 = new javax.swing.JPanel();
-        parentsButton = new javax.swing.JButton();
-        lessonButton = new javax.swing.JButton();
-        schoolButton = new javax.swing.JButton();
-        studentsButton = new javax.swing.JButton();
-        paymentsButton = new javax.swing.JButton();
         addVenueButton = new javax.swing.JButton();
         addschoolButton = new javax.swing.JButton();
         addStudentButton = new javax.swing.JButton();
         addlessonButton = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        lessonButton = new javax.swing.JButton();
+        paymentsButton = new javax.swing.JButton();
+        studentsButton = new javax.swing.JButton();
+        parentsButton = new javax.swing.JButton();
+        schoolButton = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         dateLabel = new javax.swing.JLabel();
+        accountButton = new javax.swing.JButton();
+        signOutButton = new javax.swing.JButton();
+        chuckNoris = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,58 +141,36 @@ public class dashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        signOutButton.setText("sign out");
-        signOutButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                signOutButtonActionPerformed(evt);
-            }
-        });
+        jPanel9.setBackground(new java.awt.Color(153, 204, 255));
 
-        Calendar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel8.setBackground(new java.awt.Color(255, 204, 255));
+        jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        accountButton.setText("Account");
-        accountButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                accountButtonActionPerformed(evt);
-            }
-        });
+        jLabel5.setFont(new java.awt.Font("Muna", 1, 36)); // NOI18N
+        jLabel5.setText("DASHBOARD");
 
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(368, 368, 368))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel5)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        CalendarDisplay.setBackground(new java.awt.Color(255, 204, 255));
+        CalendarDisplay.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jPanel1.setBackground(new java.awt.Color(255, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        parentsButton.setText("parents");
-        parentsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                parentsButtonActionPerformed(evt);
-            }
-        });
-
-        lessonButton.setText("select lesson");
-        lessonButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lessonButtonActionPerformed(evt);
-            }
-        });
-
-        schoolButton.setText("select school");
-        schoolButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                schoolButtonActionPerformed(evt);
-            }
-        });
-
-        studentsButton.setText("select student");
-        studentsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                studentsButtonActionPerformed(evt);
-            }
-        });
-
-        paymentsButton.setText("payments");
-        paymentsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentsButtonActionPerformed(evt);
-            }
-        });
 
         addVenueButton.setText("add venue");
         addVenueButton.addActionListener(new java.awt.event.ActionListener() {
@@ -194,21 +206,6 @@ public class dashboard extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(parentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lessonButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(schoolButton, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(studentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(paymentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(addVenueButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -218,7 +215,7 @@ public class dashboard extends javax.swing.JFrame {
                     .addComponent(addlessonButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(addStudentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(addStudentButton, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -232,102 +229,236 @@ public class dashboard extends javax.swing.JFrame {
                 .addComponent(addschoolButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addVenueButton)
+                .addGap(8, 8, 8))
+        );
+
+        jPanel7.setBackground(new java.awt.Color(255, 204, 255));
+        jPanel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lessonButton.setText("lessons");
+        lessonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lessonButtonActionPerformed(evt);
+            }
+        });
+
+        paymentsButton.setText("payments");
+        paymentsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentsButtonActionPerformed(evt);
+            }
+        });
+
+        studentsButton.setText("students");
+        studentsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentsButtonActionPerformed(evt);
+            }
+        });
+
+        parentsButton.setText("parents");
+        parentsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                parentsButtonActionPerformed(evt);
+            }
+        });
+
+        schoolButton.setText("schools");
+        schoolButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                schoolButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lessonButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(paymentsButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(studentsButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(parentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(schoolButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lessonButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(paymentsButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(studentsButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(schoolButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lessonButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(parentsButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(schoolButton)
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
+
+        jPanel6.setBackground(new java.awt.Color(255, 204, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel4.setText("Today's Date:");
+
+        dateLabel.setText("jLabel3");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(dateLabel))
                 .addContainerGap())
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        accountButton.setText("Account");
+        accountButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accountButtonActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Muna", 1, 36)); // NOI18N
-        jLabel1.setText("DASHBOARD");
+        signOutButton.setText("sign out");
+        signOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signOutButtonActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(368, 368, 368))
+        chuckNoris.setText("Chukkie N");
+        chuckNoris.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chuckNorisActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(signOutButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(accountButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(chuckNoris)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(CalendarDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 1023, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel1)
-                .addContainerGap(23, Short.MAX_VALUE))
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CalendarDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(accountButton)
+                        .addComponent(signOutButton)
+                        .addComponent(chuckNoris))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
-
-        jLabel2.setText("Today's Date:");
-
-        dateLabel.setText("jLabel3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Calendar, javax.swing.GroupLayout.DEFAULT_SIZE, 1073, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(signOutButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(accountButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(signOutButton)
-                        .addComponent(accountButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(dateLabel)))
-                .addContainerGap())
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void signOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutButtonActionPerformed
+        loginSignup l = new loginSignup();
+        Sound.playbyebye();
+        l.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_signOutButtonActionPerformed
+
+    private void accountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountButtonActionPerformed
+        accountForm af = new accountForm();
+        af.setVisible(true);
+    }//GEN-LAST:event_accountButtonActionPerformed
+
+    private void schoolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_schoolButtonActionPerformed
+        school s = new school();
+        s.setVisible(true);
+    }//GEN-LAST:event_schoolButtonActionPerformed
+
+    private void parentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parentsButtonActionPerformed
+        mothers m = new mothers();
+        m.setVisible(true);
+    }//GEN-LAST:event_parentsButtonActionPerformed
+
+    private void studentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentsButtonActionPerformed
+        student s = new student();
+        s.setVisible(true);
+    }//GEN-LAST:event_studentsButtonActionPerformed
+
+    private void paymentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentsButtonActionPerformed
+        paymentsForm pf = new paymentsForm();
+        pf.setVisible(true);
+    }//GEN-LAST:event_paymentsButtonActionPerformed
+
+    private void lessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonButtonActionPerformed
+        lesson l = new lesson();
+        lessonDataArray la = new lessonDataArray();
+        la.sortArray();
+        l.setVisible(true);
+    }//GEN-LAST:event_lessonButtonActionPerformed
+
     private void addlessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addlessonButtonActionPerformed
-       addLessonForm add = new addLessonForm();
-       add.setVisible(true);
+        addLessonForm add = new addLessonForm();
+        add.setVisible(true);
     }//GEN-LAST:event_addlessonButtonActionPerformed
 
     private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentButtonActionPerformed
-       addStudentForm add = new addStudentForm();
-       add.setVisible(true);
+        addStudentForm add = new addStudentForm();
+        add.setVisible(true);
     }//GEN-LAST:event_addStudentButtonActionPerformed
 
     private void addschoolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addschoolButtonActionPerformed
@@ -340,43 +471,10 @@ public class dashboard extends javax.swing.JFrame {
         va.setVisible(true);
     }//GEN-LAST:event_addVenueButtonActionPerformed
 
-    private void signOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutButtonActionPerformed
-        loginSignup l = new loginSignup();
-        l.setVisible(true);
-        this.hide();
-    }//GEN-LAST:event_signOutButtonActionPerformed
-
-    private void paymentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentsButtonActionPerformed
-        paymentsForm pf = new paymentsForm();
-        pf.setVisible(true);
-    }//GEN-LAST:event_paymentsButtonActionPerformed
-
-    private void schoolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_schoolButtonActionPerformed
-        school s = new school();
-        s.setVisible(true);
-    }//GEN-LAST:event_schoolButtonActionPerformed
-
-    private void lessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonButtonActionPerformed
-        lesson l = new lesson();
-        lessonDataArray la = new lessonDataArray();
-        la.sortArray();
-        l.setVisible(true);
-    }//GEN-LAST:event_lessonButtonActionPerformed
-
-    private void studentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentsButtonActionPerformed
-        student s = new student();
-        s.setVisible(true);
-    }//GEN-LAST:event_studentsButtonActionPerformed
-
-    private void parentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parentsButtonActionPerformed
-        mothers m = new mothers();
-        m.setVisible(true);
-    }//GEN-LAST:event_parentsButtonActionPerformed
-
-    private void accountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountButtonActionPerformed
-        accountForm af = new accountForm();
-        af.setVisible(true);
-    }//GEN-LAST:event_accountButtonActionPerformed
+    private void chuckNorisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chuckNorisActionPerformed
+       chuckNoris cn = new chuckNoris();
+       cn.getFact();
+    }//GEN-LAST:event_chuckNorisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -413,21 +511,31 @@ public class dashboard extends javax.swing.JFrame {
         });   
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JCalendar Calendar;
+    private com.toedter.calendar.JCalendar CalendarDisplay;
     private javax.swing.JButton accountButton;
     private javax.swing.JButton addStudentButton;
     private javax.swing.JButton addVenueButton;
     private javax.swing.JButton addlessonButton;
     private javax.swing.JButton addschoolButton;
     private java.awt.Canvas canvas1;
+    private javax.swing.JButton chuckNoris;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

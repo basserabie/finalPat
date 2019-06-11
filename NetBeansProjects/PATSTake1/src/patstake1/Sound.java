@@ -19,10 +19,32 @@ import javax.swing.JOptionPane;
  *
  * @author YishaiBasserabie
  */
-public class dohSound {
+public class Sound {
     
-   public void playSound() {
-       File doh = new File("doh.WAV");
+   public static void playbyebye() {
+       File doh = new File("b.WAV");
+       try {
+           Clip clip = AudioSystem.getClip();
+           clip.open(AudioSystem.getAudioInputStream(doh));
+           clip.start();
+           Thread.sleep(clip.getMicrosecondLength()/1000);
+       } catch (Exception e) {
+       }
+    }
+   
+    public static void playgoahead() {
+       File doh = new File("g.WAV");
+       try {
+           Clip clip = AudioSystem.getClip();
+           clip.open(AudioSystem.getAudioInputStream(doh));
+           clip.start();
+           Thread.sleep(clip.getMicrosecondLength()/1000);
+       } catch (Exception e) {
+       }
+    }
+    
+     public static void playdamnit() {
+       File doh = new File("d.WAV");
        try {
            Clip clip = AudioSystem.getClip();
            clip.open(AudioSystem.getAudioInputStream(doh));

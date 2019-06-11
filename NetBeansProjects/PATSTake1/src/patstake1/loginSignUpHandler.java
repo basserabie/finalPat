@@ -91,7 +91,7 @@ public class loginSignUpHandler {
     }
     
     public void getSecurityAnswer() {
-        int type = Integer.parseInt(JOptionPane.showInputDialog("Choose security question:\n\n1: What is your favourite holiday location?\n2: what is your favourite ice cream flaovour?"));
+        int type = Integer.parseInt(JOptionPane.showInputDialog("Choose security question, enter your type of question/neither '1' or '2':\n\nOption 1: What is your favourite holiday location?\nOption 2: what is your favourite ice cream flaovour?"));
         String ans = "";
         if (type == 1) {
             loginSignup.question = "What is your favourite holiday location?";

@@ -277,6 +277,7 @@ public class loginSignup extends javax.swing.JFrame {
                   this.TemailT.getText().toString(), this.TcellT.getText().toString(), 
                   this.TpasswordT.getText().toString(), this.TpasswordConfirmT.getText().toString(), question, answer);
           if (loginSignUpHandler.allGood) {
+                Sound.playgoahead();
                 this.setVisible(false);
             }
         } else {
@@ -288,6 +289,7 @@ public class loginSignup extends javax.swing.JFrame {
           loginSignUpHandler lsh = new loginSignUpHandler();
           lsh.login(this.TPasswordTLogin.getText().toString());
           if (loginSignUpHandler.allGood) {
+              Sound.playgoahead();
                 this.setVisible(false);
             }
     }//GEN-LAST:event_loginButtonLoginActionPerformed
@@ -301,6 +303,7 @@ public class loginSignup extends javax.swing.JFrame {
             loginSignUpHandler lsh = new loginSignUpHandler();
             lsh.login(this.TPasswordTLogin.getText().toString());
             if (loginSignUpHandler.allGood) {
+                Sound.playgoahead();
                 this.setVisible(false);
             }
         }

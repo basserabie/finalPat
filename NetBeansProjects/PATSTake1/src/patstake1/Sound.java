@@ -53,4 +53,15 @@ public class Sound {
        } catch (Exception e) {
        }
     }
+     
+     public static void playtoy() {
+       File doh = new File("s.WAV");
+       try {
+           Clip clip = AudioSystem.getClip();
+           clip.open(AudioSystem.getAudioInputStream(doh));
+           clip.start();
+           Thread.sleep(clip.getMicrosecondLength()/1000);
+       } catch (Exception e) {
+       }
+    }
 }

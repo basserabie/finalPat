@@ -35,6 +35,7 @@ public class chuckNoris {
             JSONObject myresponse = new JSONObject(response.toString());
             System.out.println(myresponse);
             String endfact = this.formatFact(myresponse.toString());
+            Sound.playtoy();
             JOptionPane.showMessageDialog(null, "CHUCK NORIS FACT:\n" + endfact);
             } catch(Exception e) {
                 System.out.println(e + "   problem");
@@ -42,7 +43,17 @@ public class chuckNoris {
         }
     
     public String formatFact(String raw) {
-        String fact = raw.substring(raw.indexOf("value")+8, raw.indexOf(",\"url\":\"https://")-1);
+        String factLong = raw.substring(raw.indexOf("value")+8, raw.indexOf(",\"url\":\"https://")-1);
+        String fact = "";
+        boolean lineBroken = false;
+        for (int i = 0; i < factLong.length(); i++) {
+            String c = ""+factLong.charAt(i);
+            if (i >= 80 & c.equals(" ") && !lineBroken) {
+                fact += "\n";
+                lineBroken = true;
+            }
+            fact += c;
+        }
         return fact;
     }
     }

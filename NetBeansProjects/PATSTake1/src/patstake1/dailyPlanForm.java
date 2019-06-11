@@ -67,7 +67,6 @@ public class dailyPlanForm extends javax.swing.JFrame {
         dayTable = new javax.swing.JTable();
         showDay = new javax.swing.JButton();
         loadingLabel = new javax.swing.JLabel();
-        proggressBar = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,9 +127,8 @@ public class dailyPlanForm extends javax.swing.JFrame {
                         .addGap(52, 52, 52)
                         .addComponent(showDay)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(loadingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(proggressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(loadingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 995, Short.MAX_VALUE)))
@@ -139,17 +137,15 @@ public class dailyPlanForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(proggressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(backButton)
-                        .addComponent(jLabel1)
-                        .addComponent(dateLabel)
-                        .addComponent(showDay)
-                        .addComponent(loadingLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(backButton)
+                    .addComponent(jLabel1)
+                    .addComponent(dateLabel)
+                    .addComponent(showDay)
+                    .addComponent(loadingLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,17 +156,12 @@ public class dailyPlanForm extends javax.swing.JFrame {
         ch.setDate(this.dateLabel.getText());
         ch.setArrays();
         ch.LessonsOnDay();
-        System.out.println(CalendarHandler.DAY_HAS_LESSON);
-        this.loadingLabel.setText("NOW LOADING DAY......");
         if (CalendarHandler.DAY_HAS_LESSON) {
             this.dayTable.setModel(ch.schedModel(this.dateLabel.getText()));
             this.loadingLabel.setText("NOW SHOWING LESSONS:");
-            this.proggressBar.setValue(100);
         } else {
             this.dayTable.setModel(ch.noLessonModel());
-            this.dayTable.setVisible(false);
             this.loadingLabel.setText("NO LESSONS ON THIS DAY :), WATCH A MOVIE!");
-            this.proggressBar.setValue(100);
         }
     }//GEN-LAST:event_showDayActionPerformed
 
@@ -226,7 +217,6 @@ public class dailyPlanForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel loadingLabel;
-    private javax.swing.JProgressBar proggressBar;
     private javax.swing.JButton showDay;
     // End of variables declaration//GEN-END:variables
 }

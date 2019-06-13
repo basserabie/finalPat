@@ -161,8 +161,9 @@ public class dataValidation {// contains validating methods
     
     public boolean checkOldPassword(String password) {
         fetchTeacher ft = new fetchTeacher();
+        loginSignUpHandler h = new loginSignUpHandler();
         boolean ok = true;
-        if (!password.equals(ft.getPassword())) {
+        if (!h.encryptPassword(password, ft.getAnswer()).equals(ft.getPassword())) {
             ok = false;
             problems += "()The password you entered is incorrect\n";
         }

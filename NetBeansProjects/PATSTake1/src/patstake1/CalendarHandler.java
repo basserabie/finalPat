@@ -72,6 +72,10 @@ public class CalendarHandler {
     
     public void setArrays() {
         this.keysOnDayTest();
+        System.out.println("count on day: " + countOnDay);
+        for (int i = 0; i < KEYS_ON_DAY.length; i++) {
+            System.out.println(KEYS_ON_DAY[i]);
+        }
         if (countOnDay > 0) {
             this.getStartTimesOnDate();
             this.getEndTimesOnDate();

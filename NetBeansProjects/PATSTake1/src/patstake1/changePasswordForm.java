@@ -175,6 +175,7 @@ public class changePasswordForm extends javax.swing.JFrame {
     private void changePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordButtonActionPerformed
         fetchTeacher ft = new fetchTeacher();
         accountForm af = new accountForm();
+        loginSignUpHandler h = new loginSignUpHandler();
         dataValidation dv = new dataValidation();
         if (dv.checkOldPassword(this.oldPasswordTextField.getText()) && dv.checkPassword(this.newPasswordTextField.getText(), this.conrimPasswordTextField.getText())) {
             ft.changePassword(this.oldPasswordTextField.getText(), this.newPasswordTextField.getText(), this.conrimPasswordTextField.getText());

@@ -141,29 +141,43 @@ public class fetchTeacher {
     
     public void editSecurityAnswer() {
         ConnectDB db = new ConnectDB();
-        int type = Integer.parseInt(JOptionPane.showInputDialog("Choose security question type, type either 1 or 2:\n\n1: What is your favourite holiday location?\n2: what is your favourite ice cream flaovour?"));
-        String ans = "";
-        String question = "";
-        if (type == 1) {
-            question = "What is your favourite holiday location?";
-            ans = JOptionPane.showInputDialog("Enter your location.");
-        } else {
-            if (type == 2) {
-                question = "What is your favourite ice cream flavour?";
-                ans = JOptionPane.showInputDialog("Enter your flavour.");
+        loginSignUpHandler h = new loginSignUpHandler();
+        
+        String password = JOptionPane.showInputDialog("Enter your password");
+        if (this.password.equals(h.encryptPassword(password, this.answer.toLowerCase()))) {
+            int type = Integer.parseInt(JOptionPane.showInputDialog("Choose security question type, type either 1 or 2:\n\n1: What is your favourite holiday location?\n2: what is your favourite ice cream flaovour?"));
+            String ans = "";
+            String question = "";
+            if (type == 1) {
+                question = "What is your favourite holiday location?";
+                ans = JOptionPane.showInputDialog("Enter your location.");
             } else {
-                JOptionPane.showMessageDialog(null, "please select a valid question type!");
+                if (type == 2) {
+                    question = "What is your favourite ice cream flavour?";
+                    ans = JOptionPane.showInputDialog("Enter your flavour.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "please select a valid question type!");
+                }
             }
+            String update = "UPDATE teacherTable SET question = '" + question + "', answer = '" + ans + "'";
+            try {
+                db.UpdateDatabase(update);
+            } catch (SQLException ex) {
+                Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String upPass = "UPDATE teacherTable SET password = '" + h.encryptPassword(password, ans.toLowerCase()) + "'";
+            System.out.println("UUUPPPPP:    " + upPass);
+            try {
+                db.UpdateDatabase(upPass);
+            } catch (SQLException ex) {
+                Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect Password");
         }
-        String update = "UPDATE teacherTable SET question = '" + question + "', answer = '" + ans + "'";
-        try {
-            db.UpdateDatabase(update);
-        } catch (SQLException ex) {
-            Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
     
-    //todo: fix this
     public boolean validateSignUp(String fname, String lname, String email, 
             String cell, String password, String confirmPassword) {
         boolean ok = true;
@@ -193,7 +207,9 @@ public class fetchTeacher {
     public void changePassword(String oldP, String newP, String CnewP) {
         ConnectDB cb = new ConnectDB();
         dataValidation dv = new dataValidation();
-        String updatePassword = "UPDATE teacherTable SET password = '" + newP + "'";
+        loginSignUpHandler h = new loginSignUpHandler();
+        String enPass = h.encryptPassword(newP, this.getAnswer().toLowerCase());
+        String updatePassword = "UPDATE teacherTable SET password = '" + enPass + "'";
         try {
             db.UpdateDatabase(updatePassword);
             JOptionPane.showMessageDialog(null, "password changed!");

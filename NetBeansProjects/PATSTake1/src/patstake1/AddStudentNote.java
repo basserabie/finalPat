@@ -97,7 +97,6 @@ public class AddStudentNote { // main method
         }
         Password = encryptpas;//sets the password to the decrypted password
         
-        EncryptDecrypt ed = new EncryptDecrypt();
         String etext = Password;
         
         try{
@@ -125,7 +124,6 @@ public class AddStudentNote { // main method
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AddStudentNote.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(entireFileText + "\n");
         
          String decrypin = entireFileText;//creates a string varable to store the cyper text
             String decryptk;//creates a string variable to store the key for the cyper 

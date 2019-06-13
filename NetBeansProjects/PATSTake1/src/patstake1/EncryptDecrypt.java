@@ -76,7 +76,7 @@ public class EncryptDecrypt {
             }
         }
         String key = key(e.length());//creates a varable called key that stores the lenght of the pases in String
-        String pass = "";//creates a String varable called s
+        String pass = "";//creates a String varable called pass
         for (int loop = 0; loop < e.length(); loop++) {//loops though the parsed in string one char at a time
             int indchar = (int) e.charAt(loop);//converts the char at the possition in the loop into its ascii value
             int indkey = (int) key.charAt(loop);//converts the char at the possition in the loop into its ascii value
@@ -89,9 +89,5 @@ public class EncryptDecrypt {
         return pass;//returns the decryped password
 
     }//must say static bc part of class. If in another class you have to say public however you can leave out static.
-
-    /**
-     * Creates new form encryption
-     */
   
 }

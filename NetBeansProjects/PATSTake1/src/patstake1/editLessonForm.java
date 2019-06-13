@@ -459,6 +459,13 @@ public class editLessonForm extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+                formWindowLostFocus(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(153, 204, 255));
 
@@ -1174,6 +1181,10 @@ public class editLessonForm extends javax.swing.JFrame {
         }
         la.sortArray();
     }//GEN-LAST:event_editAllLessonsButtonActionPerformed
+
+    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+         this.setVisible(false);
+    }//GEN-LAST:event_formWindowLostFocus
 
     /**
      * @param args the command line arguments

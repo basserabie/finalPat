@@ -89,6 +89,13 @@ public class addStudentForm extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+                formWindowLostFocus(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
@@ -323,6 +330,10 @@ public class addStudentForm extends javax.swing.JFrame {
     private void studentSchoolComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentSchoolComboBoxActionPerformed
 
     }//GEN-LAST:event_studentSchoolComboBoxActionPerformed
+
+    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+         this.setVisible(false);
+    }//GEN-LAST:event_formWindowLostFocus
 
     /**
      * @param args the command line arguments

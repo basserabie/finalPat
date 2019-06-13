@@ -5,6 +5,9 @@
  */
 package patstake1;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -231,5 +234,14 @@ public class loginSignUpHandler {
         }
             decryptpass = EncryptDecrypt.decrypt(decryptpass);//Parsing the String to the method decrypt
         return decryptpass;
+    }
+    
+    public void getHelp() {
+        File htmlFile = new File("help.html");
+        try {
+            Desktop.getDesktop().browse(htmlFile.toURI());
+        } catch (IOException ex) {
+            Logger.getLogger(PATSTake1.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

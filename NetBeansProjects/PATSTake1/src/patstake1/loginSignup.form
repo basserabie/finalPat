@@ -104,18 +104,21 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace min="-2" pref="259" max="-2" attributes="0"/>
-                                              <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="TPasswordTLogin" min="-2" pref="240" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="283" max="-2" attributes="0"/>
-                                              <Component id="loginButtonLogin" min="-2" max="-2" attributes="0"/>
-                                          </Group>
                                           <Component id="jPanel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <EmptySpace min="-2" pref="259" max="-2" attributes="0"/>
+                                                  <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="TPasswordTLogin" min="-2" pref="240" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="283" max="-2" attributes="0"/>
+                                                  <Component id="loginButtonLogin" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="311" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
                                       </Group>
                                   </Group>
                               </Group>
@@ -127,11 +130,13 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="TPasswordTLogin" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel5" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="TPasswordTLogin" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="loginButtonLogin" min="-2" max="-2" attributes="0"/>
@@ -142,11 +147,6 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JTextField" name="TPasswordTLogin">
-                      <Events>
-                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TPasswordTLoginKeyPressed"/>
-                      </Events>
-                    </Component>
                     <Component class="javax.swing.JButton" name="loginButtonLogin">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="login!"/>
@@ -242,6 +242,8 @@
                         </Component>
                       </SubComponents>
                     </Container>
+                    <Component class="javax.swing.JPasswordField" name="TPasswordTLogin">
+                    </Component>
                   </SubComponents>
                 </Container>
               </SubComponents>
@@ -270,24 +272,25 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="TfnameT" min="-2" pref="316" max="-2" attributes="0"/>
-                                      <Component id="TpasswordConfirmT" alignment="0" min="-2" pref="316" max="-2" attributes="0"/>
-                                      <Component id="TpasswordT" min="-2" pref="316" max="-2" attributes="0"/>
                                       <Component id="TcellT" min="-2" pref="316" max="-2" attributes="0"/>
-                                      <Component id="TemailT" min="-2" pref="316" max="-2" attributes="0"/>
+                                      <Component id="TfnameT" min="-2" pref="316" max="-2" attributes="0"/>
                                       <Component id="TlnameT" min="-2" pref="316" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                                           <Component id="signUpButton" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="TemailT" alignment="0" min="-2" pref="316" max="-2" attributes="0"/>
+                                      <Component id="TpasswordT" alignment="0" pref="321" max="32767" attributes="0"/>
+                                      <Component id="TpasswordConfirmT" alignment="0" pref="321" max="32767" attributes="0"/>
                                   </Group>
+                                  <EmptySpace min="0" pref="306" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                                   <Component id="squestion" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="312" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -334,13 +337,6 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="TemailT">
-                </Component>
-                <Component class="javax.swing.JTextField" name="TpasswordT">
-                </Component>
-                <Component class="javax.swing.JTextField" name="TpasswordConfirmT">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TpasswordConfirmTActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="signUpButton">
                   <Properties>
@@ -435,6 +431,10 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JPasswordField" name="TpasswordT">
+                </Component>
+                <Component class="javax.swing.JPasswordField" name="TpasswordConfirmT">
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>

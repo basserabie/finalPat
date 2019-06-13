@@ -5,6 +5,7 @@
  */
 package patstake1;
 
+import static com.mindfusion.scheduling.ViewSettings.e;
 import com.mindfusion.scheduling.awt.AwtCalendar;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
@@ -40,20 +41,18 @@ public class loginSignup extends javax.swing.JFrame {
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        TPasswordTLogin = new javax.swing.JTextField();
         loginButtonLogin = new javax.swing.JButton();
         fpass = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         passwordLableLogin = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         welcomeLabel = new javax.swing.JLabel();
+        TPasswordTLogin = new javax.swing.JPasswordField();
         jPanel4 = new javax.swing.JPanel();
         TfnameT = new javax.swing.JTextField();
         TlnameT = new javax.swing.JTextField();
         TcellT = new javax.swing.JTextField();
         TemailT = new javax.swing.JTextField();
-        TpasswordT = new javax.swing.JTextField();
-        TpasswordConfirmT = new javax.swing.JTextField();
         signUpButton = new javax.swing.JButton();
         squestion = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
@@ -63,6 +62,8 @@ public class loginSignup extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        TpasswordT = new javax.swing.JPasswordField();
+        TpasswordConfirmT = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,12 +72,6 @@ public class loginSignup extends javax.swing.JFrame {
         jTabbedPane3.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(153, 204, 255));
-
-        TPasswordTLogin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TPasswordTLoginKeyPressed(evt);
-            }
-        });
 
         loginButtonLogin.setText("login!");
         loginButtonLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -151,27 +146,30 @@ public class loginSignup extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGap(259, 259, 259)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TPasswordTLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(283, 283, 283)
-                                .addComponent(loginButtonLogin))
-                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                    .addGap(259, 259, 259)
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(TPasswordTLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(23, 23, 23))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGap(283, 283, 283)
+                                    .addComponent(loginButtonLogin)
+                                    .addGap(311, 311, 311))))))
                 .addContainerGap(171, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TPasswordTLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TPasswordTLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(loginButtonLogin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
@@ -202,12 +200,6 @@ public class loginSignup extends javax.swing.JFrame {
         TcellT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TcellTActionPerformed(evt);
-            }
-        });
-
-        TpasswordConfirmT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TpasswordConfirmTActionPerformed(evt);
             }
         });
 
@@ -283,19 +275,20 @@ public class loginSignup extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TfnameT, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TpasswordConfirmT, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TpasswordT, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TcellT, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TemailT, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TfnameT, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TlnameT, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(87, 87, 87)
-                                .addComponent(signUpButton))))
+                                .addComponent(signUpButton))
+                            .addComponent(TemailT, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TpasswordT, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                            .addComponent(TpasswordConfirmT, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
+                        .addGap(0, 306, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(squestion)))
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,12 +354,7 @@ public class loginSignup extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TcellTActionPerformed
 
-    private void TpasswordConfirmTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TpasswordConfirmTActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TpasswordConfirmTActionPerformed
-
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
-        //TODO: test this and fix validation  
         loginSignUpHandler lsh = new loginSignUpHandler();
         dataValidation dv = new dataValidation();
         if (enteredQuestion) {
@@ -384,27 +372,23 @@ public class loginSignup extends javax.swing.JFrame {
 
     private void loginButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonLoginActionPerformed
           loginSignUpHandler lsh = new loginSignUpHandler();
-          lsh.login(this.TPasswordTLogin.getText().toString());
+          lsh.login(this.TPasswordTLogin.getText());
           if (loginSignUpHandler.allGood) {
               Sound.playgoahead();
                 this.setVisible(false);
             }
     }//GEN-LAST:event_loginButtonLoginActionPerformed
-
+    //TODO: fix the enter key
     private void loginButtonLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_loginButtonLoginKeyPressed
-
-    }//GEN-LAST:event_loginButtonLoginKeyPressed
-
-    private void TPasswordTLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TPasswordTLoginKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            loginSignUpHandler lsh = new loginSignUpHandler();
-            lsh.login(this.TPasswordTLogin.getText().toString());
-            if (loginSignUpHandler.allGood) {
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+             loginSignUpHandler lsh = new loginSignUpHandler();
+             lsh.login(this.TPasswordTLogin.getText());
+             if (loginSignUpHandler.allGood) {
                 Sound.playgoahead();
                 this.setVisible(false);
-            }
-        }
-    }//GEN-LAST:event_TPasswordTLoginKeyPressed
+             }
+         }
+    }//GEN-LAST:event_loginButtonLoginKeyPressed
 
     private void fpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fpassActionPerformed
         loginSignUpHandler lsh = new loginSignUpHandler();
@@ -452,13 +436,13 @@ public class loginSignup extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField TPasswordTLogin;
+    private javax.swing.JPasswordField TPasswordTLogin;
     private javax.swing.JTextField TcellT;
     private javax.swing.JTextField TemailT;
     private javax.swing.JTextField TfnameT;
     private javax.swing.JTextField TlnameT;
-    private javax.swing.JTextField TpasswordConfirmT;
-    private javax.swing.JTextField TpasswordT;
+    private javax.swing.JPasswordField TpasswordConfirmT;
+    private javax.swing.JPasswordField TpasswordT;
     private javax.swing.JButton fpass;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

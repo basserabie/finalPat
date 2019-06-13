@@ -141,7 +141,7 @@ public class fetchTeacher {
     
     public void editSecurityAnswer() {
         ConnectDB db = new ConnectDB();
-        int type = Integer.parseInt(JOptionPane.showInputDialog("Choose security question:\n\n1: What is your favourite holiday location?\n2: what is your favourite ice cream flaovour?"));
+        int type = Integer.parseInt(JOptionPane.showInputDialog("Choose security question type, type either 1 or 2:\n\n1: What is your favourite holiday location?\n2: what is your favourite ice cream flaovour?"));
         String ans = "";
         String question = "";
         if (type == 1) {
@@ -224,11 +224,4 @@ public class fetchTeacher {
             }
     }
     
-    public String welcomeText() {
-        String text = "Please Sign Up!";
-        if (this.signedUp) {
-            text = "Welcome " + this.fname;
-        }
-        return text;
-    }
 }

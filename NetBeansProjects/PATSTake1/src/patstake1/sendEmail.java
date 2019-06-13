@@ -7,7 +7,12 @@
 package patstake1;
 
 //import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -29,10 +34,9 @@ public class sendEmail {
     
     public void send(String to, String subject, String text) {
         try {
-            fetchTeacher t  = new fetchTeacher();
             String host = "smtp.gmail.com";
-            String user = t.getEmail();
-            String pass = t.getPassword();
+            String user = "ITExtraLessons@gmail.com";
+            String pass = "Macbookpro1";
             String from = user;
             boolean sessionDebug = false;
             

@@ -342,7 +342,7 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        chuckNoris.setText("Chukkie N");
+        chuckNoris.setText("I'm feeling stressed");
         chuckNoris.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chuckNorisActionPerformed(evt);

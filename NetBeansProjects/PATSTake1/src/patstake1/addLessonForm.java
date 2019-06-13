@@ -556,6 +556,7 @@ public class addLessonForm extends javax.swing.JFrame {
     }//GEN-LAST:event_addVenueComboBoxActionPerformed
 
     private void addLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonButtonActionPerformed
+        Sound.playflagpole();
         lessonDataArray la = new lessonDataArray();
         dataValidation dv = new dataValidation();
         System.out.println("minute: " + this.minuteSpinner.getModel().getValue().toString());

@@ -64,4 +64,26 @@ public class Sound {
        } catch (Exception e) {
        }
     }
+     
+     public static void playcoin() {
+       File doh = new File("c.WAV");
+       try {
+           Clip clip = AudioSystem.getClip();
+           clip.open(AudioSystem.getAudioInputStream(doh));
+           clip.start();
+           Thread.sleep(clip.getMicrosecondLength()/1000);
+       } catch (Exception e) {
+       }
+    }
+     
+     public static void playflagpole() {
+       File doh = new File("f.WAV");
+       try {
+           Clip clip = AudioSystem.getClip();
+           clip.open(AudioSystem.getAudioInputStream(doh));
+           clip.start();
+           Thread.sleep(clip.getMicrosecondLength()/1000);
+       } catch (Exception e) {
+       }
+    }
 }

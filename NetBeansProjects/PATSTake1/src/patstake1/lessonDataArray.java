@@ -1335,11 +1335,6 @@ public class lessonDataArray {
         return id;
     }
     
-//    public int [] getDayInMonth(String date) {
-//        ArrayList<Integer> days = new ArrayList<>();
-//        
-//    }
-    
 }
 
 

@@ -390,7 +390,8 @@ public class studentsArray {
     
     public void updateStudentsAnnually() {
         fetchTeacher ft = new fetchTeacher();
-        ConnectDB db = new ConnectDB();
+        if (ft.signedUp) {
+            ConnectDB db = new ConnectDB();
         DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
         Calendar current = Calendar.getInstance();
         Calendar now = Calendar.getInstance();
@@ -420,6 +421,8 @@ public class studentsArray {
             }
             JOptionPane.showMessageDialog(null, "HAPPY NEW YEAR!");
         }
+        }
+        
     }
     
     

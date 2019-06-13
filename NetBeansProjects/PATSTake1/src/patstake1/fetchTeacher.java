@@ -26,6 +26,7 @@ public class fetchTeacher {
 
     //constructor fecthes teacherData from teacherTable
     public fetchTeacher() {
+        ConnectDB db = new ConnectDB();
         //creates resultSet fetching all data from teacherTable
         String sql = "SELECT * FROM teacherTable";
         ResultSet rs = db.getResults(sql);
@@ -53,7 +54,6 @@ public class fetchTeacher {
                 } else {
                     this.signedUp = false;
                 }
-                System.out.println("signedUp: " + this.signedUp);
                 //fetches this current date of signUp/LogIn
                 String currentYear = rs.getString("currentYear");
                 this.currentYear = currentYear;
@@ -224,5 +224,11 @@ public class fetchTeacher {
             }
     }
     
-    
+    public String welcomeText() {
+        String text = "Please Sign Up!";
+        if (this.signedUp) {
+            text = "Welcome " + this.fname;
+        }
+        return text;
+    }
 }

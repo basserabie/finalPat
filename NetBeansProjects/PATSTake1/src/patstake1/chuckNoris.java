@@ -35,7 +35,7 @@ public class chuckNoris {
             JSONObject myresponse = new JSONObject(response.toString());
             System.out.println(myresponse);
             String endfact = this.formatFact(myresponse.toString());
-            Sound.playtoy();
+            Sound.playcoin();
             JOptionPane.showMessageDialog(null, "CHUCK NORIS FACT:\n" + endfact);
             } catch(Exception e) {
                 System.out.println(e + "   problem");
@@ -51,8 +51,9 @@ public class chuckNoris {
             if (i >= 80 & c.equals(" ") && !lineBroken) {
                 fact += "\n";
                 lineBroken = true;
+            } else {
+                fact += c;
             }
-            fact += c;
         }
         return fact;
     }

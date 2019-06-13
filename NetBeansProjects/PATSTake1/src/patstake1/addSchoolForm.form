@@ -218,6 +218,11 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="schoolNameT">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="schoolNameTKeyTyped"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="schoolNameTKeyPressed"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="schoolNameTKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="PFNameT">
         </Component>

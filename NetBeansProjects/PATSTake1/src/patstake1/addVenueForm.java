@@ -176,7 +176,7 @@ public class addVenueForm extends javax.swing.JFrame {
         venueArray va = new venueArray();
         dataValidation dv = new dataValidation();
         if (dv.checkAddVenue(this.addVenueT.getText())) {
-            va.addVenue(this.addVenueT.getText());
+            va.addVenue(dv.fixEntries(this.addVenueT.getText()));
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, dv.getProblems());

@@ -368,8 +368,9 @@ public class loginSignup extends javax.swing.JFrame {
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
         //TODO: test this and fix validation  
         loginSignUpHandler lsh = new loginSignUpHandler();
+        dataValidation dv = new dataValidation();
         if (enteredQuestion) {
-            lsh.signUp(this.TfnameT.getText().toString(), this.TlnameT.getText().toString(), 
+            lsh.signUp(dv.fixEntries(this.TfnameT.getText().toString()), dv.fixEntries(this.TlnameT.getText().toString()), 
                   this.TemailT.getText().toString(), this.TcellT.getText().toString(), 
                   this.TpasswordT.getText().toString(), this.TpasswordConfirmT.getText().toString(), question, answer);
           if (loginSignUpHandler.allGood) {

@@ -301,7 +301,9 @@ public class addStudentForm extends javax.swing.JFrame {
         dataValidation dv = new dataValidation();
         studentsArray sa = new studentsArray();
         if (dv.checkAddStudent(this.studentfNameT.getText(), this.studentlNameT.getText(), this.motherFNameT.getText(), this.motherLNameT.getText(), this.motherEmailT.getText(), this.motherCellT.getText())) {
-            sa.addStudent(this.studentfNameT.getText(), this.studentlNameT.getText(), this.studentGradeComboBox.getSelectedItem().toString(), this.studentSchoolComboBox.getSelectedItem().toString(), this.motherFNameT.getText(), this.motherLNameT.getText(), this.motherEmailT.getText(), this.motherCellT.getText());
+            sa.addStudent(dv.fixEntries(this.studentfNameT.getText()), dv.fixEntries(this.studentlNameT.getText()), dv.fixEntries(this.studentGradeComboBox.getSelectedItem().toString()), 
+                    dv.fixEntries(this.studentSchoolComboBox.getSelectedItem().toString()), dv.fixEntries(this.motherFNameT.getText()), dv.fixEntries(this.motherLNameT.getText()), dv.fixEntries(this.motherEmailT.getText())
+                    , dv.fixEntries(this.motherCellT.getText()));
             this.hide();
         } else {
             JOptionPane.showMessageDialog(null, dv.getProblems());

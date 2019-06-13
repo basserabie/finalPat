@@ -5,6 +5,8 @@
  */
 package patstake1;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author YishaiBasserabie
@@ -14,6 +16,27 @@ public class dataValidation {// contains validating methods
 
     public String getProblems() {
         return problems;
+    }
+    
+    public String fixEntries(String entry) {
+        String fix = "";
+        String temp = entry;
+        if (entry.endsWith(" ")) {
+            temp = entry.substring(0, temp.length()-1);
+        }
+        String c = ""+temp.charAt(0);
+        String temp2 = c.toUpperCase() + temp.substring(1);
+        for (int i = 1; i < temp.length(); i++) {
+            ArrayList<String> chars = new ArrayList<>();
+            String charTemp = ""+temp2.charAt(i-1);
+            String nextChar = ""+temp2.charAt(i);
+            if (!charTemp.equals(" ")) { 
+                fix += nextChar;
+            } else {
+                fix += nextChar.toUpperCase();
+            }
+        }
+        return temp2.charAt(0) + fix;
     }
     
     public boolean checkName(String input, String ForL) {//checks if a name string is valid

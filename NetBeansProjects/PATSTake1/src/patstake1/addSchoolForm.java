@@ -6,9 +6,11 @@
 package patstake1;
 
 import java.sql.SQLException;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import rx.observables.SwingObservable;
 
 /**
  *
@@ -124,6 +126,18 @@ public class addSchoolForm extends javax.swing.JFrame {
             }
         });
 
+        schoolNameT.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                schoolNameTKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                schoolNameTKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                schoolNameTKeyReleased(evt);
+            }
+        });
+
         PLNameT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PLNameTActionPerformed(evt);
@@ -208,7 +222,7 @@ public class addSchoolForm extends javax.swing.JFrame {
         schoolsArray ta = new schoolsArray();
         dataValidation dv = new dataValidation();
         if (dv.checkAddSchool(this.schoolNameT.getText(), this.PFNameT.getText(), this.PLNameT.getText(), this.PEmailT.getText())) {
-            ta.addSchool(this.schoolNameT.getText(), this.PFNameT.getText(), this.PLNameT.getText(), this.PEmailT.getText());
+            ta.addSchool(dv.fixEntries(this.schoolNameT.getText()), dv.fixEntries(this.PFNameT.getText()), dv.fixEntries(this.PLNameT.getText()), dv.fixEntries(this.PEmailT.getText()));
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, dv.getProblems());
@@ -221,6 +235,20 @@ public class addSchoolForm extends javax.swing.JFrame {
         this.hide();
     }//GEN-LAST:event_backToDashboardButtonActionPerformed
 
+    private void schoolNameTKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_schoolNameTKeyPressed
+  
+    }//GEN-LAST:event_schoolNameTKeyPressed
+
+    private void schoolNameTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_schoolNameTKeyReleased
+       
+    }//GEN-LAST:event_schoolNameTKeyReleased
+
+    private void schoolNameTKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_schoolNameTKeyTyped
+
+    }//GEN-LAST:event_schoolNameTKeyTyped
+
+    
+    
     /**
      * @param args the command line arguments
      */

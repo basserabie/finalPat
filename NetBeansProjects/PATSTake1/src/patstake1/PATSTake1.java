@@ -25,6 +25,5 @@ public class PATSTake1 {
     public static void main(String[] args) {
         ConnectDB db = new ConnectDB();
         new loginSignup().setVisible(true);
-        }       
     }
-
+}

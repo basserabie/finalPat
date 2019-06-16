@@ -72,7 +72,7 @@ public class sendEmail {
         }
     }
     
-    public void sendForLogIn(String to, String subject, String text) {
+    public void configure(String to, String subject, String text) {
         try {
             String host = "smtp.gmail.com";
             String user = "itextralessons@gmail.com";
@@ -105,9 +105,9 @@ public class sendEmail {
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
             
-            System.out.println("email sent!");
+            System.out.println("configured!");
         } catch (Exception e) {
-            System.out.println("email not send ERROR!!!");
+            System.out.println("configuration ERROR!!!");
             
         }
     }

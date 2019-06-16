@@ -32,7 +32,7 @@ public class PATSTake1 {
         Runnable backGroundRunnable = new Runnable() {
         public void run(){
             sendEmail send = new sendEmail();
-            send.sendForLogIn("null", "null", "null");
+            send.configure("null", "null", "null");
         }};
         Thread sampleThread = new Thread(backGroundRunnable);
         sampleThread.start();

@@ -337,7 +337,7 @@ public class fetchingEmail {
         String nolessons = "You have no requests at this time\n(Please ensure you are connected to the internet and try again)";
         String temp = "INCOMING LESSON REQUESTS:\n\n";
         System.out.println("SIZEEEE: " + emailsArray.size());
-        if (emailsArray.size() == 0) {
+        if (emailsArray.size() == 0 || emailsArray.get(0).contains(nolessons)) {
             emailsArray.add(nolessons);
             temp += emailsArray.get(0);
         } else {

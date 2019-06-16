@@ -563,7 +563,6 @@ public class addLessonForm extends javax.swing.JFrame {
     }//GEN-LAST:event_addVenueComboBoxActionPerformed
 
     private void addLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonButtonActionPerformed
-        Sound.playflagpole();
         lessonDataArray la = new lessonDataArray();
         dataValidation dv = new dataValidation();
         System.out.println("minute: " + this.minuteSpinner.getModel().getValue().toString());
@@ -572,7 +571,7 @@ public class addLessonForm extends javax.swing.JFrame {
         if (dv.checkAddLesson(la.formatDate(this.addDateComboBox.getDate().toString()),
                 this.minuteSpinner.getModel().getValue().toString(), this.StudentsAddedListModel.size(),
                 this.costTextField.getText())) {
-            
+            Sound.playflagpole();
         String time = this.minuteSpinner.getModel().getValue().toString();
         String date = la.formatDate(this.addDateComboBox.getDate().toString());
         String day = la.formatDay(this.addDateComboBox.getDate().toString());

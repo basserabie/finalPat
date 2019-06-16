@@ -10,6 +10,8 @@ import com.sun.prism.paint.Color;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Component;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -46,14 +48,6 @@ public class dashboard extends javax.swing.JFrame {
         
         CalendarHandler ch = new CalendarHandler();
         ch.JCalendarActionPerformed(CalendarDisplay);
-        
-//        Runnable backGroundRunnable = new Runnable() {
-//        public void run(){
-//            fetchingEmail.doEmail();
-//            gotRequests = true;
-//        }};
-//        Thread sampleThread = new Thread(backGroundRunnable);
-//        sampleThread.start();
     }
     
     /**
@@ -95,6 +89,7 @@ public class dashboard extends javax.swing.JFrame {
         chuckNoris = new javax.swing.JButton();
         requests = new javax.swing.JButton();
         requestsLable = new javax.swing.JLabel();
+        help = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -341,6 +336,13 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
+        help.setText("Get Help");
+        help.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -365,6 +367,8 @@ public class dashboard extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(chuckNoris)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(help)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(requests)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(requestsLable, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -383,20 +387,20 @@ public class dashboard extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(requests)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(requestsLable)))
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(accountButton)
                             .addComponent(signOutButton)
                             .addComponent(chuckNoris)
-                            .addComponent(requests)))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(requestsLable)))
+                            .addComponent(help))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -483,24 +487,28 @@ public class dashboard extends javax.swing.JFrame {
 
     private void requestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestsActionPerformed
         requests r = new requests();
+        this.requestsLable.setText("Getting requests...");
         
         Runnable backGroundRunnable = new Runnable() {
         public void run(){
-            dashboard d = new dashboard();
-            d.setRequestsLabel("Getting Requests...");
             fetchingEmail.doEmail();
-            d.setRequestsLabel("");
             gotRequests = true;
         }};
         Thread sampleThread = new Thread(backGroundRunnable);
         sampleThread.start();
         
         if (this.gotRequests) {
+            this.requestsLable.setText("");
             r.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Please wait while we proccess your requests.");
         }
     }//GEN-LAST:event_requestsActionPerformed
+
+    private void helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpActionPerformed
+        loginSignUpHandler h = new loginSignUpHandler();
+        h.getHelp();
+    }//GEN-LAST:event_helpActionPerformed
 
     public void setRequestsLabel(String set) {
         this.requestsLable.setText(set);
@@ -550,6 +558,7 @@ public class dashboard extends javax.swing.JFrame {
     private java.awt.Canvas canvas1;
     private javax.swing.JButton chuckNoris;
     private javax.swing.JLabel dateLabel;
+    private javax.swing.JButton help;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

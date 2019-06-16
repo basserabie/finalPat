@@ -222,9 +222,11 @@ public class dailyPlanForm extends javax.swing.JFrame {
         ch.setDate(this.dateLabel.getText());
         ch.setArrays();
         ch.LessonsOnDay();
+        System.out.println("lessons?: " + CalendarHandler.DAY_HAS_LESSON);
         if (CalendarHandler.DAY_HAS_LESSON) {
             this.dayTable.setModel(ch.schedModel(this.dateLabel.getText()));
             this.loadingLabel.setText("NOW SHOWING LESSONS:");
+            CalendarHandler.countOnDay = 0;
         } else {
             this.dayTable.setModel(ch.noLessonModel());
             this.loadingLabel.setText("NO LESSONS ON THIS DAY :), WATCH A MOVIE!");

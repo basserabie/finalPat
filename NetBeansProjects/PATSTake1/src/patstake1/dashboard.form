@@ -128,6 +128,8 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="chuckNoris" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="help" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="requests" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="requestsLable" min="-2" pref="178" max="-2" attributes="0"/>
@@ -154,23 +156,23 @@
                           <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                      <Component id="jPanel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="requests" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace pref="9" max="-2" attributes="0"/>
+                                  <Component id="requestsLable" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="accountButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="signOutButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="chuckNoris" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="requests" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="help" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="requestsLable" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -492,6 +494,14 @@
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="requestsLable">
+        </Component>
+        <Component class="javax.swing.JButton" name="help">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Get Help"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="helpActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -6,6 +6,8 @@
 package patstake1;
 
 import java.awt.Desktop;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -22,6 +24,7 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.commons.codec.binary.Base64;
 

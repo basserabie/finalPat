@@ -51,7 +51,7 @@ public class CalendarHandler {
     private static String [] KEYS_ON_DAY;
     private static int COUNT_SET = 0;
     private static String LAST_END_TIME = "";
-    private static int countOnDay = 0;
+    public static int countOnDay = 0;
     
     
 

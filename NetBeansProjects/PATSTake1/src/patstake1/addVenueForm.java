@@ -135,7 +135,7 @@ public class addVenueForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addComponent(addVenueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(deleteAVenueButton))
@@ -193,11 +193,11 @@ public class addVenueForm extends javax.swing.JFrame {
     private void deleteAVenueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAVenueButtonActionPerformed
         deleteVenueForm dv = new deleteVenueForm();
         dv.setVisible(true);
-        this.hide();
+        this.setVisible(false);
     }//GEN-LAST:event_deleteAVenueButtonActionPerformed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-         this.setVisible(false);
+
     }//GEN-LAST:event_formWindowLostFocus
 
     /**

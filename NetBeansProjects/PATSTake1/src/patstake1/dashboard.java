@@ -46,31 +46,7 @@ public class dashboard extends javax.swing.JFrame {
         
         CalendarHandler ch = new CalendarHandler();
         ch.JCalendarActionPerformed(CalendarDisplay);
-        
-//        Calendar cal = Calendar.getInstance();
-//        int offset = cal.get(Calendar.DAY_OF_WEEK);
-//        int mon = CalendarDisplay.getMonthChooser().getMonth();
-//        int yr = CalendarDisplay.getYearChooser().getYear();
-//        JPanel jPanel = CalendarDisplay.getDayChooser().getDayPanel();
-//        Component component[] = jPanel.getComponents();
-//        
-//        String sql = "SELECT DAYOFMONTH(lessonDate) as day, MONTH(lessonDate) as month, YEAR(lessonDate) as year  FROM lessonData";
-//        try {
-//            ConnectDB db = new ConnectDB();
-//            ResultSet rs = db.getResults(sql);
-//            while(rs.next()){
-//            int dayOfMonth = rs.getInt("day");
-//            int month = rs.getInt("month");
-//            int year = rs.getInt("year");
-//
-//            if(mon == month && yr == year){
-//                component[dayOfMonth + offset].setBackground(java.awt.Color.red);
-//            }
-//
-//            }
-//        } catch(Exception e) {
-//            System.out.println(e);
-//            }
+        fetchingEmail.doEmail();
     }
     
     /**
@@ -110,6 +86,7 @@ public class dashboard extends javax.swing.JFrame {
         accountButton = new javax.swing.JButton();
         signOutButton = new javax.swing.JButton();
         chuckNoris = new javax.swing.JButton();
+        requests = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -349,14 +326,23 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
+        requests.setText("requests");
+        requests.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                requestsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createSequentialGroup()
@@ -369,10 +355,11 @@ public class dashboard extends javax.swing.JFrame {
                                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(CalendarDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 1023, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(requests, javax.swing.GroupLayout.Alignment.TRAILING)))))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -385,14 +372,18 @@ public class dashboard extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(accountButton)
-                        .addComponent(signOutButton)
-                        .addComponent(chuckNoris))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(accountButton)
+                                .addComponent(signOutButton)
+                                .addComponent(chuckNoris))
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(requests))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -476,6 +467,11 @@ public class dashboard extends javax.swing.JFrame {
        cn.getFact();
     }//GEN-LAST:event_chuckNorisActionPerformed
 
+    private void requestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestsActionPerformed
+        requests r = new requests();
+        r.setVisible(true);
+    }//GEN-LAST:event_requestsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -521,17 +517,11 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JButton chuckNoris;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JDialog jDialog1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -542,6 +532,7 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JButton lessonButton;
     private javax.swing.JButton parentsButton;
     private javax.swing.JButton paymentsButton;
+    private javax.swing.JButton requests;
     private javax.swing.JButton schoolButton;
     private javax.swing.JButton signOutButton;
     private javax.swing.JButton studentsButton;

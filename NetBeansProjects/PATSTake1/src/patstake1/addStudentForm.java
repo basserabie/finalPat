@@ -311,7 +311,7 @@ public class addStudentForm extends javax.swing.JFrame {
             sa.addStudent(dv.fixEntries(this.studentfNameT.getText()), dv.fixEntries(this.studentlNameT.getText()), dv.fixEntries(this.studentGradeComboBox.getSelectedItem().toString()), 
                     dv.fixEntries(this.studentSchoolComboBox.getSelectedItem().toString()), dv.fixEntries(this.motherFNameT.getText()), dv.fixEntries(this.motherLNameT.getText()), dv.fixEntries(this.motherEmailT.getText())
                     , dv.fixEntries(this.motherCellT.getText()));
-            this.hide();
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, dv.getProblems());
         }
@@ -332,7 +332,7 @@ public class addStudentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_studentSchoolComboBoxActionPerformed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-         this.setVisible(false);
+
     }//GEN-LAST:event_formWindowLostFocus
 
     /**

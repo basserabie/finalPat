@@ -74,6 +74,16 @@ public class mothersArray {
         return name;
     }
     
+    public String getMotherNameFromEmail(String email) {
+        String name = "";
+        for (int i = 0; i < this.mothersArray.size(); i++) {
+            if (this.mothersArray.get(i).getMotherEmail().equals(email)) {
+                name = this.mothersArray.get(i).getMotherFName() + " " + this.mothersArray.get(i).getMotherLName();
+            }
+        }
+        return name;
+    }
+    
     public String [] getStudentsFromMotherName(String name) {
         ArrayList<String> students = new ArrayList<>();
         studentsArray sa = new studentsArray();

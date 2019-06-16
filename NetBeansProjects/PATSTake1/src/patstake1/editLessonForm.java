@@ -1183,7 +1183,7 @@ public class editLessonForm extends javax.swing.JFrame {
     }//GEN-LAST:event_editAllLessonsButtonActionPerformed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-         this.setVisible(false);
+
     }//GEN-LAST:event_formWindowLostFocus
 
     /**

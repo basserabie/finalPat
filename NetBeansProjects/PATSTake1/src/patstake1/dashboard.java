@@ -31,7 +31,7 @@ import javax.swing.JTable;
  * @author YishaiBasserabie
  */
 public class dashboard extends javax.swing.JFrame {
-
+    private boolean gotRequests = false;
     /**
      * Creates new form dashboard
      */
@@ -46,7 +46,14 @@ public class dashboard extends javax.swing.JFrame {
         
         CalendarHandler ch = new CalendarHandler();
         ch.JCalendarActionPerformed(CalendarDisplay);
-        fetchingEmail.doEmail();
+        
+        Runnable backGroundRunnable = new Runnable() {
+        public void run(){
+            fetchingEmail.doEmail();
+            gotRequests = true;
+        }};
+        Thread sampleThread = new Thread(backGroundRunnable);
+        sampleThread.start();
     }
     
     /**
@@ -469,7 +476,11 @@ public class dashboard extends javax.swing.JFrame {
 
     private void requestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestsActionPerformed
         requests r = new requests();
-        r.setVisible(true);
+        if (this.gotRequests) {
+            r.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please wait while we proccess your requests.");
+        }
     }//GEN-LAST:event_requestsActionPerformed
 
     /**

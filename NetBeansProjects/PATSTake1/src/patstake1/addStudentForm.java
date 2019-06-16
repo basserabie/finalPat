@@ -332,7 +332,7 @@ public class addStudentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_studentSchoolComboBoxActionPerformed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-
+        
     }//GEN-LAST:event_formWindowLostFocus
 
     /**

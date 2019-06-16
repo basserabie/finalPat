@@ -28,5 +28,14 @@ public class PATSTake1 {
     public static void main(String[] args) {
         ConnectDB db = new ConnectDB();
         new loginSignup().setVisible(true);
+        
+        Runnable backGroundRunnable = new Runnable() {
+        public void run(){
+            sendEmail send = new sendEmail();
+            send.sendForLogIn("null", "null", "null");
+        }};
+        Thread sampleThread = new Thread(backGroundRunnable);
+        sampleThread.start();
+        
     }
 }

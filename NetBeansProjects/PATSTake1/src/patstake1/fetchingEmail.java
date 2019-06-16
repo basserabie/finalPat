@@ -12,9 +12,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.mail.Address;
 import javax.mail.Flags;
@@ -29,6 +32,14 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.search.FlagTerm;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.jsoup.Jsoup;
+import static org.jsoup.nodes.Document.OutputSettings.Syntax.html;
 
 public class fetchingEmail {
     
@@ -54,7 +65,7 @@ public class fetchingEmail {
 
       //create the folder object and open it
       Folder emailFolder = store.getFolder("INBOX");
-      emailFolder.open(Folder.READ_ONLY);
+      emailFolder.open(Folder.READ_WRITE);
 
       // retrieve the messages from the folder in an array and print it
 //      Message[] messages = emailFolder.getMessages();
@@ -84,12 +95,13 @@ public class fetchingEmail {
             messageContent = content.toString();
         }
     }
-     paymentsArray pa = new paymentsArray();
-     System.out.println(" Message: " + messageContent);
-     String pName = message.getFrom()[0].toString().substring(0, message.getFrom()[0].toString().indexOf("<"));
-     String pEmail = message.getFrom()[0].toString().substring(message.getFrom()[0].toString().indexOf("<")+1, message.getFrom()[0].toString().length()-1);
-     System.out.println("REEEAAAALLL email: " + pEmail + " " + pa.formattOutHTMLTags(messageContent));
-     emailsArray.add(pName + "(" + pEmail + ")" + ": " + pa.formattOutHTMLTags(messageContent));
+        if (!message.getFrom()[0].toString().contains("itextralessons@gmail.com")) {
+            paymentsArray pa = new paymentsArray();
+            String pName = message.getFrom()[0].toString().substring(0, message.getFrom()[0].toString().indexOf("<"));
+            String pEmail = message.getFrom()[0].toString().substring(message.getFrom()[0].toString().indexOf("<")+1, message.getFrom()[0].toString().length()-1);
+            System.out.println("REEEAAAALLL email: " + pEmail + " " + messageContent);
+            emailsArray.add(pName + "(" + pEmail + "):\n    " + messageContent);
+    }
      
       }
 
@@ -107,10 +119,11 @@ public class fetchingEmail {
    }
 
    public static void doEmail() {
-     String host = "pop.gmail.com";// change accordingly
+       String host = "smtp.gmail.com";
+//     String host = "pop.gmail.com";// change accordingly
       String mailStoreType = "pop3";
-      String username = "ITExtraLessons@gmail.com";// change accordingly
-      String password = "Macbookpro1";// change accordingly
+      String username = "itextralessons@gmail.com";
+      String password = "Macbookpro1";
 
       check(host, mailStoreType, username, password);
 }
@@ -134,7 +147,7 @@ public class fetchingEmail {
 
          // create the folder object and open it
          Folder emailFolder = store.getFolder("INBOX");
-         emailFolder.open(Folder.READ_ONLY);
+         emailFolder.open(Folder.READ_WRITE);
 
          BufferedReader reader = new BufferedReader(new InputStreamReader(
 	      System.in));
@@ -168,17 +181,6 @@ public class fetchingEmail {
       } catch (Exception e) {
          e.printStackTrace();
       }
-   }
-   public static void doEmail(String[] args) {
-
-      String host = "pop.gmail.com";// change accordingly
-      String mailStoreType = "pop3";
-      String username = "yishibass@gmail.com";// change accordingly
-      String password = "Macbookpro1";// change accordingly
-
-      //Call method fetch
-      fetch(host, mailStoreType, username, password);
-
    }
 
    public static void writePart(Part p) throws Exception {
@@ -293,31 +295,58 @@ public class fetchingEmail {
 
    }
    
-   public String formatRequest(String raw) {
+   public String formatRequest(String raw1) {
+       paymentsArray pa = new paymentsArray();
+       String rawT = pa.formattOutHTMLTags(raw1);
+       String from = rawT.substring(0, rawT.indexOf(":"));
+       String raw = rawT.substring(rawT.indexOf(":"));
+       System.out.println(from);
         String req = "";
         int count = 0;
         for (int i = 0; i < raw.length(); i++) {
             String c = ""+raw.charAt(i);
             if (count >= 50 & c.equals(" ")) {
-                req += "\n";
+                req += "\n    ";
                 count = 0;
             } else {
                 req += c;
+                count++;
             }
-            count++;
         }
-        System.out.println("REQQQQQQ: " + req);
-        return req;
+        
+        return from + "\n" + req;
     }
+   
+   public String toPrettyString(String raw) {
+       paymentsArray pa = new paymentsArray();
+       String temp1 = raw.replaceAll("<br>", "mustbreaklinehere");
+       String temp2 = pa.formattOutHTMLTags(temp1);
+       String finalReq = temp2.replaceAll("mustbreaklinehere", "\n");
+//       String temp2 = temp1.replaceAll("<div>", "");
+//       String temp3 = temp2.replace("<div dir=\"ltr\">", "");
+//       String finalReq = temp3.replaceAll("<\\div>", "");
+       return finalReq;
+   }
+  
 
     @Override
     public String toString() {
         chuckNoris cn = new chuckNoris();
         mothersArray pa = new mothersArray();
         studentsArray sa = new studentsArray();
+        String nolessons = "You have no requests at this time\n(Please ensure you are connected to the internet and try again)";
         String temp = "INCOMING LESSON REQUESTS:\n\n";
-        for (int i = 0; i < this.emailsArray.size(); i++) {
-            temp += "REQUEST " + (i+1) + "\n" + this.formatRequest(this.emailsArray.get(i)) + "\n\n";
+        System.out.println("SIZEEEE: " + emailsArray.size());
+        if (emailsArray.size() == 0) {
+            emailsArray.add(nolessons);
+            temp += emailsArray.get(0);
+        } else {
+            if (!emailsArray.get(0).contains(nolessons)) {
+                for (int i = 0; i < this.emailsArray.size(); i++) {
+                    temp += "REQUEST " + (i+1) + "\n" + this.formatRequest(this.emailsArray.get(i)) + "\n\n";
+                    System.out.println("PPPPPPP: " + temp);
+                }
+            }
         }
         return temp;
     }

@@ -29,7 +29,6 @@ public class invoiceHandler {
           + "Please inform me of any issues regarding the payment, or if there is any confusion regarding\n the aforementioned lesson.\n\n"
           + "Kind Regards\n"
           + ft.getFname() + " " + ft.getLname() + ".";
-        System.out.println("\n\n" + invoiceTemplate);
         return invoiceTemplate;
     }
     

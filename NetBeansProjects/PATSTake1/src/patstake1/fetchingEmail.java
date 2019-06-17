@@ -99,7 +99,6 @@ public class fetchingEmail {
             paymentsArray pa = new paymentsArray();
             String pName = message.getFrom()[0].toString().substring(0, message.getFrom()[0].toString().indexOf("<"));
             String pEmail = message.getFrom()[0].toString().substring(message.getFrom()[0].toString().indexOf("<")+1, message.getFrom()[0].toString().length()-1);
-            System.out.println("REEEAAAALLL email: " + pEmail + " " + messageContent);
             emailsArray.add(pName + "(" + pEmail + "):\n    " + messageContent);
     }
      
@@ -336,8 +335,6 @@ public class fetchingEmail {
         studentsArray sa = new studentsArray();
         String nolessons = "You have no requests at this time\n(Please ensure you are connected to the internet and try again)";
         String temp = "INCOMING LESSON REQUESTS:\n\n";
-        System.out.println("SIZEEEE: " + emailsArray.size());
-        System.out.println("EEEMMMMMMMMM: " + emailsArray.get(0));
         if (emailsArray.size() == 0 || emailsArray.get(0).contains(nolessons)) {
             emailsArray.add(nolessons);
             temp += emailsArray.get(0);
@@ -345,7 +342,6 @@ public class fetchingEmail {
             if (!emailsArray.get(0).contains(nolessons)) {
                 for (int i = 0; i < this.emailsArray.size(); i++) {
                     temp += "REQUEST " + (i+1) + "\n" + this.formatRequest(this.emailsArray.get(i)) + "\n\n";
-                    System.out.println("PPPPPPP: " + temp);
                 }
             }
         }

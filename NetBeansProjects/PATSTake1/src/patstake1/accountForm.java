@@ -254,7 +254,7 @@ public class accountForm extends javax.swing.JFrame {
 
     private void changeQuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeQuestionActionPerformed
         fetchTeacher ft = new fetchTeacher();
-        ft.editSecurityAnswer();
+        ft.getSecurityAnswerForm();
     }//GEN-LAST:event_changeQuestionActionPerformed
 
     /**

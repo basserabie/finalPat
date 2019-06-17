@@ -59,6 +59,7 @@ public class fetchTeacher {
                 this.currentYear = currentYear;
                 this.question = rs.getString("question");
                 this.answer = rs.getString("answer");
+                System.out.println("answer: " + answer);
             }
         } catch (SQLException ex) {
 //            Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
@@ -139,39 +140,33 @@ public class fetchTeacher {
         this.answer = answer;
     }
     
-    public void editSecurityAnswer() {
-        ConnectDB db = new ConnectDB();
+    public void changeSecurity(String question, String ans) {
         loginSignUpHandler h = new loginSignUpHandler();
-        
-        String password = JOptionPane.showInputDialog("Enter your password");
-        if (this.password.equals(h.encryptPassword(password, this.answer.toLowerCase()))) {
-            int type = Integer.parseInt(JOptionPane.showInputDialog("Choose security question type, type either 1 or 2:\n\n1: What is your favourite holiday location?\n2: what is your favourite ice cream flaovour?"));
-            String ans = "";
-            String question = "";
-            if (type == 1) {
-                question = "What is your favourite holiday location?";
-                ans = JOptionPane.showInputDialog("Enter your location.");
-            } else {
-                if (type == 2) {
-                    question = "What is your favourite ice cream flavour?";
-                    ans = JOptionPane.showInputDialog("Enter your flavour.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "please select a valid question type!");
-                }
-            }
+        String decryptedPass = h.decryptPassword(password);
             String update = "UPDATE teacherTable SET question = '" + question + "', answer = '" + ans + "'";
             try {
                 db.UpdateDatabase(update);
             } catch (SQLException ex) {
                 Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
             }
-            String upPass = "UPDATE teacherTable SET password = '" + h.encryptPassword(password, ans.toLowerCase()) + "'";
-            System.out.println("UUUPPPPP:    " + upPass);
+            String upPass = "UPDATE teacherTable SET password = '" + h.encryptPassword(decryptedPass, ans.toLowerCase()) + "'";
             try {
                 db.UpdateDatabase(upPass);
             } catch (SQLException ex) {
                 Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
             }
+            h.decryptPassword(h.encryptPassword(this.password, ans.toLowerCase()));
+    }
+    
+    public void getSecurityAnswerForm() {
+        SecurityQuestionForm.changing = true;
+        ConnectDB db = new ConnectDB();
+        loginSignUpHandler h = new loginSignUpHandler();
+        
+        String password = JOptionPane.showInputDialog("Enter your password");
+        if (this.password.equals(h.encryptPassword(password, this.answer.toLowerCase()))) {
+            SecurityQuestionForm s = new SecurityQuestionForm();
+            s.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Incorrect Password");
         }

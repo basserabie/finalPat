@@ -397,7 +397,8 @@ public class loginSignup extends javax.swing.JFrame {
 
     private void squestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_squestionActionPerformed
         loginSignUpHandler lsh = new loginSignUpHandler();
-        lsh.getSecurityAnswer();
+        SecurityQuestionForm s = new SecurityQuestionForm();
+        s.setVisible(true);
     }//GEN-LAST:event_squestionActionPerformed
 
     /**

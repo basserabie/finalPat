@@ -104,24 +104,6 @@ public class loginSignUpHandler {
         }
     }
     
-    public void getSecurityAnswer() {
-        int type = Integer.parseInt(JOptionPane.showInputDialog("Choose security question, enter your type of question/neither '1' or '2':\n\nOption 1: What is your favourite holiday location?\nOption 2: what is your favourite ice cream flaovour?"));
-        String ans = "";
-        if (type == 1) {
-            loginSignup.question = "What is your favourite holiday location?";
-            ans = JOptionPane.showInputDialog("Enter your location.");
-        } else {
-            if (type == 2) {
-                loginSignup.question = "What is your favourite ice cream flavour?";
-                ans = JOptionPane.showInputDialog("Enter your flavour.");
-            } else {
-                JOptionPane.showMessageDialog(null, "please select a valid question type!");
-            }
-        }
-        loginSignup.answer = ans;
-        loginSignup.enteredQuestion = true;
-    }
-    
     public void forgotPassword() {
        fetchTeacher ft = new fetchTeacher();
        loginSignUpHandler lsh = new loginSignUpHandler();
@@ -130,6 +112,7 @@ public class loginSignUpHandler {
            if (lsh.validateSecurityQuestion(ans)) {
                 sendEmail send = new sendEmail();
                 send.send(ft.getEmail(), "Forgotten Password:", "Password: " + this.decryptPassword(ft.getPassword()));
+                System.out.println("GOOTEN PASSWORD: " + ft.getPassword() + "    DECRYPTED: " + this.decryptPassword("1ZuJ8o8PO2impyKdPmAMQKQBoQbFJNwjJLyghxyaJHk=") + "   key: " + ans);
            } else {
                JOptionPane.showMessageDialog(null, "answer wrong! please try again");
            }
@@ -166,6 +149,7 @@ public class loginSignUpHandler {
                 key = ans;
             }
         }
+        System.out.println("new key: " + key);
         return key;
     }
     
@@ -178,6 +162,7 @@ public class loginSignUpHandler {
             passimp = EncryptDecrypt.encrypt(passimp);//settting variable passimp with my encryption method returned String.
 
             String encryptk = this.prepareKeyFromAnswer(answer.toLowerCase());//sets the encryption key
+            System.out.println("decryptK: " + encryptk);
             SecretKeySpec key = new SecretKeySpec(encryptk.getBytes(), "AES");// Creates a new SecretKeySpec called key inorder to encrypt the message
             Cipher encryptCipher;
             String encryptpas = "";
@@ -204,6 +189,7 @@ public class loginSignUpHandler {
         Password = encryptpas;//sets the password to the decrypted password
         
         String etext = Password;
+         System.out.println("password: " + etext);
         return Password;
      }
     
@@ -212,6 +198,7 @@ public class loginSignUpHandler {
         String decrypin = password;//creates a string varable to store the cyper text
             String decryptk;//creates a string variable to store the key for the cyper 
             decryptk = this.prepareKeyFromAnswer(ft.getAnswer().toLowerCase());//sets the key for the cyper
+            System.out.println("decryptK: " + decryptk);
             SecretKeySpec key = new SecretKeySpec(decryptk.getBytes(), "AES");// Creates a new SecretKeySpec called key inorder to encrypt the message 
             Cipher decryptCipher = null;//Cretaes a Cipher object to store the array
         try {
@@ -236,6 +223,7 @@ public class loginSignUpHandler {
             Logger.getLogger(AddStudentNote.class.getName()).log(Level.SEVERE, null, ex);
         }
             decryptpass = EncryptDecrypt.decrypt(decryptpass);//Parsing the String to the method decrypt
+            System.out.println("password: " + decryptpass);
         return decryptpass;
     }
     

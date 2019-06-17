@@ -36,11 +36,6 @@ public class PATSTake1 {
             send.configure("null", "null", "null");
         }};
         Thread sampleThread = new Thread(backGroundRunnable);
-        sampleThread.start();
-        
-        loginSignUpHandler h = new loginSignUpHandler();
-//        h.encryptPassword("Macbookpro1", "adler");
-        h.decryptPassword("80y7jHSTYcvMM4S5zwertw==");
-        
+        sampleThread.start();  
     }
 }

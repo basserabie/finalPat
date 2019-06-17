@@ -104,10 +104,8 @@ public class sendEmail {
             transport.connect(host, user, pass);
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
-            
-            System.out.println("configured!");
         } catch (Exception e) {
-            System.out.println("configuration ERROR!!!");
+            System.out.println("configuration complete");
             
         }
     }

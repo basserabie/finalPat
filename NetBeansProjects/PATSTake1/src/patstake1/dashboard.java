@@ -483,13 +483,23 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_lessonButtonActionPerformed
 
     private void addlessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addlessonButtonActionPerformed
-        addLessonForm add = new addLessonForm();
-        add.setVisible(true);
+        lessonDataArray la = new lessonDataArray();
+        if (la.lessonComponentsExist().equals("")) {
+            addLessonForm add = new addLessonForm();
+            add.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "PLEASE ADD THE NESSACARY COMPONENTS OF A LESSON TO THE DATABASE:\n\n" + la.lessonComponentsExist());
+        }
     }//GEN-LAST:event_addlessonButtonActionPerformed
 
     private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentButtonActionPerformed
-        addStudentForm add = new addStudentForm();
-        add.setVisible(true);
+        studentsArray sa = new studentsArray();
+        if (sa.schoolExists().equals("")) {
+            addStudentForm add = new addStudentForm();
+            add.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "PLEASE ADD THE NESSACARY COMPONENTS OF A STUDENT TO THE DATABASE:\n\n" + sa.schoolExists());
+        }
     }//GEN-LAST:event_addStudentButtonActionPerformed
 
     private void addschoolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addschoolButtonActionPerformed
@@ -509,22 +519,7 @@ public class dashboard extends javax.swing.JFrame {
 
     private void requestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestsActionPerformed
         requests r = new requests();
-        this.requestsLable.setText("Getting requests...");
-        
-        Runnable backGroundRunnable = new Runnable() {
-        public void run(){
-            fetchingEmail.doEmail();
-            gotRequests = true;
-        }};
-        Thread sampleThread = new Thread(backGroundRunnable);
-        sampleThread.start();
-        
-        if (this.gotRequests) {
-            this.requestsLable.setText("");
-            r.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Please wait while we proccess your requests.");
-        }
+        r.setVisible(true);
     }//GEN-LAST:event_requestsActionPerformed
 
     private void helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpActionPerformed

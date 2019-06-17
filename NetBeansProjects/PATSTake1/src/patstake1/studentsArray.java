@@ -136,7 +136,6 @@ public class studentsArray {
                 //push student
                 String pushStudent = "INSERT INTO sDetTable (fname, lName, grade, schoolID, motherID) VALUES ('" + fname 
                      + "', '" + lname + "', '" + grade + "', '" + schoolID + "', '" + ma.getMotherIDFromMotherName(mfname + " " + mlname) + "')";
-                System.out.println(pushStudent);
                 db.UpdateDatabase(pushStudent);//pushes student
             } 
         } catch (SQLException ex) {
@@ -210,7 +209,6 @@ public class studentsArray {
     }
     
     public void deleteStudent(String name) throws SQLException {
-        System.out.println(name);
         AddStudentNote add = new AddStudentNote();
         
         int dialogType1 = JOptionPane.YES_NO_OPTION;
@@ -228,7 +226,6 @@ public class studentsArray {
             int countMothers = 0;
             for (int i = 0; i < this.studentArray.size(); i++) {
                 if (this.studentArray.get(i).getMotherID() == this.getMotherIDFromStudentName(name)) {
-                    System.out.println("into count mothers if statement");
                     countMothers++;
                 }
             }
@@ -238,12 +235,10 @@ public class studentsArray {
                 dialogResult = JOptionPane.showConfirmDialog(null, "there is more than one student registered with the same parent:\nWould you like "
                         + "to either\n\nYES: delete the other family member student(s) along with their lessons and parent?\nNO: Just delete this student "
                         + "and their lessons while keeping the other siblings and the parent", "delete student", dialogType);
-                System.out.println("dialog result: " + dialogResult);
             }
                 //checks the dialog result and deletes accordingly
                 if (dialogResult == JOptionPane.YES_OPTION) {
                     add.deleteNote(name);
-                    System.out.println("enetered yes option");
                     deleteParent = "DELETE * FROM mothers WHERE MotherID = " + motherID;                
                     //deletes parent
                     try {
@@ -390,7 +385,6 @@ public class studentsArray {
                 try {
                     db.UpdateDatabase(updateSchool);
                 } catch (SQLException ex) {
-                    System.out.println("error updating email");
                     Logger.getLogger(mothersArray.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -433,6 +427,15 @@ public class studentsArray {
         }
         }
         
+    }
+    
+    public String schoolExists() {
+        String temp = "";
+        schoolsArray sa = new schoolsArray();
+        if (sa.getSchoolsDataArray().size() == 0) {
+            temp = "() Please add a school to the database before adding a student.";
+        }
+        return temp;
     }
     
     

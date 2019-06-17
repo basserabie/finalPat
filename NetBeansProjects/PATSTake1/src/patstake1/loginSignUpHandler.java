@@ -42,7 +42,6 @@ public class loginSignUpHandler {
         loginSignup ls = new loginSignup();
         fetchTeacher ft = new fetchTeacher();
         boolean issignedUp = ft.getSignedUp();
-        System.out.println(issignedUp);
         String password = ft.getPassword();
         if (issignedUp == true) {
             
@@ -80,7 +79,6 @@ public class loginSignUpHandler {
         Calendar currentYear = Calendar.getInstance();
         currentYear.setTime(new Date());
         String yearString = sdf.format(currentYear.getTime());
-        System.out.println("cy: " + yearString);
         
         if (issignedUp == false) {
             if (ft.validateSignUp(fName, lName, 
@@ -91,12 +89,10 @@ public class loginSignUpHandler {
                             + " VALUES('" + fName + "', '" + lName + "', '" + email
                             + "', '" + cell + "', '" + this.encryptPassword(password1, answer) + "', " + true + ", '" + yearString + "', '" + question + "', '" + answer + "')";
                     db.UpdateDatabase(insertUserString);
-                    System.out.println("\n" + insertUserString);
                     d.setVisible(true);
                     ls.setVisible(false);
                 } catch (SQLException ex) {
                     Logger.getLogger(loginSignup.class.getName()).log(Level.SEVERE, null, ex);
-                    System.out.println("problem in sign up");
                 }
             } 
         } else {
@@ -112,7 +108,6 @@ public class loginSignUpHandler {
            if (lsh.validateSecurityQuestion(ans)) {
                 sendEmail send = new sendEmail();
                 send.send(ft.getEmail(), "Forgotten Password:", "Password: " + this.decryptPassword(ft.getPassword()));
-                System.out.println("GOOTEN PASSWORD: " + ft.getPassword() + "    DECRYPTED: " + this.decryptPassword("1ZuJ8o8PO2impyKdPmAMQKQBoQbFJNwjJLyghxyaJHk=") + "   key: " + ans);
            } else {
                JOptionPane.showMessageDialog(null, "answer wrong! please try again");
            }
@@ -149,7 +144,6 @@ public class loginSignUpHandler {
                 key = ans;
             }
         }
-        System.out.println("new key: " + key);
         return key;
     }
     
@@ -162,7 +156,6 @@ public class loginSignUpHandler {
             passimp = EncryptDecrypt.encrypt(passimp);//settting variable passimp with my encryption method returned String.
 
             String encryptk = this.prepareKeyFromAnswer(answer.toLowerCase());//sets the encryption key
-            System.out.println("decryptK: " + encryptk);
             SecretKeySpec key = new SecretKeySpec(encryptk.getBytes(), "AES");// Creates a new SecretKeySpec called key inorder to encrypt the message
             Cipher encryptCipher;
             String encryptpas = "";
@@ -189,7 +182,6 @@ public class loginSignUpHandler {
         Password = encryptpas;//sets the password to the decrypted password
         
         String etext = Password;
-         System.out.println("password: " + etext);
         return Password;
      }
     
@@ -198,7 +190,6 @@ public class loginSignUpHandler {
         String decrypin = password;//creates a string varable to store the cyper text
             String decryptk;//creates a string variable to store the key for the cyper 
             decryptk = this.prepareKeyFromAnswer(ft.getAnswer().toLowerCase());//sets the key for the cyper
-            System.out.println("decryptK: " + decryptk);
             SecretKeySpec key = new SecretKeySpec(decryptk.getBytes(), "AES");// Creates a new SecretKeySpec called key inorder to encrypt the message 
             Cipher decryptCipher = null;//Cretaes a Cipher object to store the array
         try {
@@ -223,7 +214,6 @@ public class loginSignUpHandler {
             Logger.getLogger(AddStudentNote.class.getName()).log(Level.SEVERE, null, ex);
         }
             decryptpass = EncryptDecrypt.decrypt(decryptpass);//Parsing the String to the method decrypt
-            System.out.println("password: " + decryptpass);
         return decryptpass;
     }
     

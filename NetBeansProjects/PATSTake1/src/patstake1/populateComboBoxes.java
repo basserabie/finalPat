@@ -914,8 +914,6 @@ public class populateComboBoxes {
             timeInputted = timeInputted1;
         }
         
-        System.out.println("date: " + dateInputted + "  time: " + timeInputted);
-        
         DefaultTableModel model = null;
         Object columnNames[] = {"Student Name", "Lesson Date", "LessonTime", "Cost", "paid"};
         model = new DefaultTableModel(columnNames, 0);

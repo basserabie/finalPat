@@ -560,8 +560,6 @@ public class lessonDataArray {
         int countDisplayMessages = 0;
         int countLessonIDForKeys = 1;
         
-        System.out.println(date + "  " + venue + "  " + time + "  " + day + "  " + size + "  " + name + "  " + frequency + "  " + duration + "  " + lessonKeyToAdd + "  " + paid + "  " + cost);
-        
         if (this.checkIfInPast(date, time) == false) {
             if(!this.checkIfDoublebooking(date, time, duration, size, lessonKeyToAdd).contains("Venue")) {
                 
@@ -592,7 +590,6 @@ public class lessonDataArray {
             } catch (SQLException ex) {
                 Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println(id + "  " + sdf.format(cal.getTime()) + "  " + va.venueIDFromVenue(venue) + "  " + time + "  " + day + "  " + size + "  " + name + "  " + frequency + "  " + duration + "  " + lessonKeyToAdd + "  " + paid + "  " + cost);
         } else {
             if (frequency == 1) {
                 for (int i = 0; i < 52; i++) {
@@ -608,9 +605,7 @@ public class lessonDataArray {
                         db.UpdateDatabase(insertPaid);
                     } catch (SQLException ex) {
                         Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
-                        System.out.println("EEERRRRORRRRR!!!!!");
                     }
-                    System.out.println(id + "  " + sdf.format(cal.getTime()) + "  " + va.venueIDFromVenue(venue) + "  " + time + "  " + day + "  " + size + "  " + name + "  " + frequency + "  " + duration + "  " + lessonKeyToAdd + "  " + paid + "  " + cost);
                     //adds a week to the date
                     cal.add(cal.DATE, 7);
                 }
@@ -629,14 +624,12 @@ public class lessonDataArray {
                         } catch (SQLException ex) {
                             Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        System.out.println(id + "  " + sdf.format(cal.getTime()) + "  " + va.venueIDFromVenue(venue) + "  " + time + "  " + day + "  " + size + "  " + name + "  " + frequency + "  " + duration + "  " + lessonKeyToAdd + "  " + paid + "  " + cost);
                         //adds a week to the date
                         cal.add(cal.MONTH, 1);
                     }
                 }
             }
         }
-        System.out.println("\n" + this.lessonDataArray.size() + "\n");
         STUDENTS_ADDED_TO_LESSON++;
         if (STUDENTS_ADDED_TO_LESSON == size) {
             JOptionPane.showMessageDialog(null, "the lesson(s) have been added!");
@@ -657,18 +650,13 @@ public class lessonDataArray {
         ArrayList<String> notIn = new ArrayList(Arrays.asList(list1));
         for (int i = 0; i < list2.size(); i++) {
             if (notIn.contains(list2.get(i))) {
-                System.out.println("entered contains with: " + list2.get(i));
                 notIn.remove(list2.get(i));
             } else {
-                System.out.println("not contains with: " + list2.get(i));
                 notIn.add(list2.get(i));
-                System.out.println("added to not in: " + notIn.get(1));
                 studentLost = list1[i];
-                System.out.println("lost: " + studentLost);
             }
         }
          String StringArray [] = notIn.toArray(new String[notIn.size()]);
-         System.out.println("student to be set: " + StringArray[1]);
          return StringArray;
     }
     
@@ -852,7 +840,6 @@ public class lessonDataArray {
         //pushes lesson
         for (int i = 0; i < list.size(); i++) {
             this.addLessonForEdit(venue, date, time, day, list.size(), list.get(i),frequency,duration,newKey,paid, cost);
-            System.out.println(date + "  " + time + "  " + day + "  " + list.size() + "  " + list.get(i) + "  " + frequency + "  " + duration + "  " + newKey + "  " + paid + "  " + cost);
         }
        editLessonForm.ADDED_ARRAY.removeAll(editLessonForm.ADDED_ARRAY);
        
@@ -925,8 +912,6 @@ public class lessonDataArray {
        ConnectDB db = new ConnectDB();
        venueArray va = new venueArray();
        keysArray ka = new keysArray();
-       
-       System.out.println("venue: " + venue + "     date: " + date + "      time:" + time);
 
        int venueID = va.venueIDFromVenue(venue);
        String key = ka.getKeyFromDateAndTime(date, time);
@@ -934,7 +919,6 @@ public class lessonDataArray {
            if (ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()).equals(key)) {
                String updateVenue = "UPDATE lessonData SET venueID = " + venueID + " "
                        + "WHERE LessonID = " + this.lessonDataArray.get(i).getLessonID();
-               System.out.println(updateVenue);
                try {
                    db.UpdateDatabase(updateVenue);
                } catch (SQLException ex) {
@@ -1333,6 +1317,26 @@ public class lessonDataArray {
             }
         }
         return id;
+    }
+    
+    public String lessonComponentsExist() {
+        String temp = "";
+        venueArray va = new venueArray();
+        studentsArray sa = new studentsArray();
+        schoolsArray sca = new schoolsArray();
+        int v = va.getVenuesArray().size();
+        int s = sa.getStudentArray().size();
+        int sc = sca.getSchoolsDataArray().size();
+        if (v == 0) {
+            temp += "() Please add a venue to the database before you add a lesson\n";
+        }
+        if (s == 0) {
+            temp += "() Please add a student to the database before you add a lesson\n";
+        }
+        if (sc == 0) {
+            temp += "() Please add a school to the database before you add a lesson\n";
+        }
+        return temp;
     }
     
 }

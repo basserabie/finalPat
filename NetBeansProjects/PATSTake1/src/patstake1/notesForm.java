@@ -21,14 +21,10 @@ public class notesForm extends javax.swing.JFrame {
         AddStudentNote add = new AddStudentNote();
         this.studentLabel.setText("notes for " + name + ":");
         if (add.fileExists(name)) {
-            System.out.println("exists");
             this.Note.setText(add.reading(name));
         } else {
-            System.out.println("not exists");
             add.createNote(name);
-            this.Note.setText("begin writting a note...");
         }
-        System.out.println("name: " + name);
     }
 
     /**

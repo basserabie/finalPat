@@ -17,6 +17,7 @@ public class requests extends javax.swing.JFrame {
     public requests() {
         initComponents();
         fetchingEmail fe = new fetchingEmail();
+        fetchingEmail.doEmail();
         this.requests.setText(fe.toString());
     }
 

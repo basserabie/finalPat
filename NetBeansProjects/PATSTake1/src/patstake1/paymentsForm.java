@@ -437,7 +437,6 @@ public class paymentsForm extends javax.swing.JFrame {
         lessonDataArray la = new lessonDataArray();
         
         String date = la.formatDate(this.dateChooser.getDate().toString());
-        System.out.println("dateFormatted: " + date);
         
         if (TOGGLE_DISPLAY_ALL) {
             this.paymetsTable.setModel(pop.paymentsByDateAndTime(date));

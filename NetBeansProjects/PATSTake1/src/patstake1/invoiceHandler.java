@@ -12,7 +12,7 @@ package patstake1;
 public class invoiceHandler {
     
     public String getInvoiceSubjectTemplate(String date, String time) {
-        String subjectTemplate = "Incoice Regarding The Lesson On " + date + " at " + time;
+        String subjectTemplate = "Invoice Regarding The Lesson On " + date + " at " + time;
         return subjectTemplate;
     }
     

@@ -90,6 +90,13 @@ public class lesson extends javax.swing.JFrame {
         lessonsTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(153, 204, 255));
 
@@ -522,6 +529,11 @@ public class lesson extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please select a lesson first");
         }
     }//GEN-LAST:event_deleteLessonActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        populateComboBoxes pop = new populateComboBoxes();
+        this.lessonsTable.setModel(pop.Lessons());
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

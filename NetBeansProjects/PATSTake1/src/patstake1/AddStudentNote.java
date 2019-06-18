@@ -168,6 +168,18 @@ public class AddStudentNote { // main method
         }
         return exists;
     }
+    
+    public boolean fileExists(String name, boolean image) {
+        boolean exists = true;
+        // Create new file
+        String path = name + ".png";
+        File file = new File(path);
+        // If file doesn't exists, then create it
+        if (!file.exists()) {
+            exists = false;
+        }
+        return exists;
+    }
 
 }
 

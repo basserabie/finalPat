@@ -5,6 +5,7 @@
  */
 package patstake1;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerListModel;
 
@@ -21,6 +22,9 @@ public class paymentsByLessonForm extends javax.swing.JFrame {
      */
     public paymentsByLessonForm() {
         initComponents();
+        populateComboBoxes pop = new populateComboBoxes();
+        SpinnerListModel hour = new SpinnerListModel(pop.populateHourSpinner());
+        this.HourSpinner.setModel(hour);
     }
 
     /**
@@ -283,37 +287,45 @@ public class paymentsByLessonForm extends javax.swing.JFrame {
     }//GEN-LAST:event_showtableActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JOptionPane.showMessageDialog(null, "Please select the 'Display All' button when this screen dissapears");
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void removePaymentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePaymentButtonActionPerformed
-        paymentsArray pa = new paymentsArray();
-        lessonDataArray la = new lessonDataArray();
-        studentsArray sa = new studentsArray();
-        populateComboBoxes pop = new populateComboBoxes();
-        String studentName = this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 0).toString();
-        int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
-        String date = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 1).toString());
-        String time = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 2).toString()).substring(0, 5);
+        if (!this.paymentsForLessonTable.getSelectionModel().isSelectionEmpty()) {
+            Sound.playbumb();
+            paymentsArray pa = new paymentsArray();
+            lessonDataArray la = new lessonDataArray();
+            studentsArray sa = new studentsArray();
+            populateComboBoxes pop = new populateComboBoxes();
+            String studentName = this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 0).toString();
+            int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
+            String date = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 1).toString());
+            String time = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 2).toString()).substring(0, 5);
 
-        pa.removePayment(la.getLessoIDFromDateTimeAndStudentID(date, time, studentID));
-        this.paymentsForLessonTable.setModel(pop.PaymentsByLesson(date, time));
+            pa.removePayment(pa.getLessonPayIDFromDateTimeStudentID(date, time, studentID));
+            this.paymentsForLessonTable.setModel(pop.PaymentsByLesson(date, time));
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a student first.");
+        }
     }//GEN-LAST:event_removePaymentButtonActionPerformed
 
     private void addPayementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPayementButtonActionPerformed
-        paymentsArray pa = new paymentsArray();
-        lessonDataArray la = new lessonDataArray();
-        studentsArray sa = new studentsArray();
+        if (!this.paymentsForLessonTable.getSelectionModel().isSelectionEmpty()) {
+            Sound.playcoin();
+            paymentsArray pa = new paymentsArray();
+            lessonDataArray la = new lessonDataArray();
+            studentsArray sa = new studentsArray();
         
-        String studentName = this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 0).toString();
-        int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
-        String date = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 1).toString());
-        String time = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 2).toString()).substring(0, 5);
-
-        pa.addPayment(la.getLessoIDFromDateTimeAndStudentID(date, time, studentID));
-        populateComboBoxes pop = new populateComboBoxes();
-        this.paymentsForLessonTable.setModel(pop.PaymentsByLesson(date, time));
+            String studentName = this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 0).toString();
+            int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
+            String date = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 1).toString());
+            String time = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 2).toString()).substring(0, 5);
+            pa.addPayment(pa.getLessonPayIDFromDateTimeStudentID(date, time, studentID));
+            populateComboBoxes pop = new populateComboBoxes();
+            this.paymentsForLessonTable.setModel(pop.PaymentsByLesson(date, time));
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a student first.");
+        }
     }//GEN-LAST:event_addPayementButtonActionPerformed
 
     private void invoiceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invoiceButtonActionPerformed

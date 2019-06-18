@@ -6,7 +6,6 @@
 package patstake1;
 
 import java.awt.Color;
-import static java.awt.PageAttributes.ColorType.COLOR;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
@@ -22,6 +21,9 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class paymentStatsForm extends javax.swing.JFrame {
 
+    private boolean resultsGotten = false;
+    private int toggle = 1;
+    
     /**
      * Creates new form paymentStatsForm
      */
@@ -86,6 +88,7 @@ public class paymentStatsForm extends javax.swing.JFrame {
         totalPayedThisMonthLabel = new javax.swing.JLabel();
         realIncomeGraph = new javax.swing.JButton();
         projectedMonthlyIncomes = new javax.swing.JButton();
+        byMonth = new javax.swing.JButton();
 
         jLabel4.setText("jLabel4");
 
@@ -408,6 +411,13 @@ public class paymentStatsForm extends javax.swing.JFrame {
             }
         });
 
+        byMonth.setText("Get Student Info By Month");
+        byMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                byMonthActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -429,7 +439,10 @@ public class paymentStatsForm extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(projectedMonthlyIncomes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(realIncomeGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(byMonth)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -455,7 +468,9 @@ public class paymentStatsForm extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(byMonth))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -480,9 +495,9 @@ public class paymentStatsForm extends javax.swing.JFrame {
         //creates payment chart
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (int i = 0; i < pa.monthsForRealChart().length; i++) {
-            dataset.setValue(pa.totalPaymentsForAllMonthsArrayForRealChart()[i], "Total Monthly Income", pa.monthsForRealChart()[i].substring(0, 5) + pa.monthsForRealChart()[i].substring(6, 8));
+            dataset.setValue(pa.totalPaymentsForAllMonthsArrayForRealChart()[i], "paid Monthly Income", pa.monthsForRealChart()[i].substring(0, 5) + pa.monthsForRealChart()[i].substring(6, 8));
         }
-        JFreeChart chart = ChartFactory.createBarChart3D("Paid Monthly Incomes", "Year/Month", "Total Income", dataset, PlotOrientation.VERTICAL, false, true, false);
+        JFreeChart chart = ChartFactory.createBarChart3D("Paid Monthly Incomes", "Year/Month", "paid Income", dataset, PlotOrientation.VERTICAL, false, true, false);
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.BLACK);
         ChartFrame frame = new ChartFrame("Paid Monthly Income", chart);
@@ -540,10 +555,32 @@ public class paymentStatsForm extends javax.swing.JFrame {
 
     private void studentPaidResultButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentPaidResultButtonActionPerformed
         paymentsArray pa = new paymentsArray();
+        this.resultsGotten = true;
         this.StudentAmountTotalLabel.setText(""+pa.getStudentTotal(this.addStudentNameComboBox.getSelectedItem().toString()));
         this.StudentAmountPaidLabel.setText(""+pa.getStudentPaid(this.addStudentNameComboBox.getSelectedItem().toString()));
         this.StudentAmountOwedLabel.setText(""+pa.getStudentOwed(this.addStudentNameComboBox.getSelectedItem().toString()));
     }//GEN-LAST:event_studentPaidResultButtonActionPerformed
+
+    private void byMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_byMonthActionPerformed
+        if (this.resultsGotten) {
+            paymentsArray pa = new paymentsArray();
+            if (this.toggle%2 == 0) {
+                this.StudentAmountTotalLabel.setText(""+pa.getStudentTotal(this.addStudentNameComboBox.getSelectedItem().toString()));
+                this.StudentAmountPaidLabel.setText(""+pa.getStudentPaid(this.addStudentNameComboBox.getSelectedItem().toString()));
+                this.StudentAmountOwedLabel.setText(""+pa.getStudentOwed(this.addStudentNameComboBox.getSelectedItem().toString()));
+                this.toggle++;
+                this.byMonth.setText("Get all Student Info");
+            } else {
+                this.StudentAmountTotalLabel.setText(""+pa.getStudentTotalForMonth(this.addStudentNameComboBox.getSelectedItem().toString()));
+                this.StudentAmountPaidLabel.setText(""+pa.getStudentPaidForMonth(this.addStudentNameComboBox.getSelectedItem().toString()));
+                this.StudentAmountOwedLabel.setText(""+pa.getStudentOwedForMonth(this.addStudentNameComboBox.getSelectedItem().toString()));
+                this.toggle++;
+                this.byMonth.setText("Get Student Info By Month");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please get the results for a student first.");
+        }
+    }//GEN-LAST:event_byMonthActionPerformed
 
     /**
      * @param args the command line arguments
@@ -570,6 +607,7 @@ public class paymentStatsForm extends javax.swing.JFrame {
     private javax.swing.JLabel StudentAmountTotalLabel;
     private javax.swing.JComboBox<String> addStudentGradeComboBox;
     private javax.swing.JComboBox<String> addStudentNameComboBox;
+    private javax.swing.JButton byMonth;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;

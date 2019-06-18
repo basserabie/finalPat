@@ -21,6 +21,7 @@ public class loginSignup extends javax.swing.JFrame {
 
     public static String question, answer;
     public static boolean enteredQuestion = false;
+    private boolean sigAdded = false;
     
     /**
      * Creates new form loginSignup
@@ -64,6 +65,7 @@ public class loginSignup extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         TpasswordT = new javax.swing.JPasswordField();
         TpasswordConfirmT = new javax.swing.JPasswordField();
+        signiture = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -210,7 +212,7 @@ public class loginSignup extends javax.swing.JFrame {
             }
         });
 
-        squestion.setText("add security question");
+        squestion.setText("Security Question");
         squestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 squestionActionPerformed(evt);
@@ -264,6 +266,13 @@ public class loginSignup extends javax.swing.JFrame {
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
+        signiture.setText("Signiture");
+        signiture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signitureActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -271,9 +280,15 @@ public class loginSignup extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(223, 223, 223)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(squestion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(signiture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(TpasswordT, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                    .addComponent(TpasswordConfirmT, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TcellT, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TfnameT, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -281,14 +296,9 @@ public class loginSignup extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(87, 87, 87)
                                 .addComponent(signUpButton))
-                            .addComponent(TemailT, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TpasswordT, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
-                            .addComponent(TpasswordConfirmT, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
-                        .addGap(0, 306, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(squestion)))
-                .addContainerGap())
+                            .addComponent(TemailT, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(307, 307, 307))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,7 +318,9 @@ public class loginSignup extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TpasswordConfirmT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(squestion))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(squestion)
+                            .addComponent(signiture)))
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(signUpButton)
@@ -358,7 +370,9 @@ public class loginSignup extends javax.swing.JFrame {
         loginSignUpHandler lsh = new loginSignUpHandler();
         dataValidation dv = new dataValidation();
         if (enteredQuestion) {
-            lsh.signUp(dv.fixEntries(this.TfnameT.getText().toString()), dv.fixEntries(this.TlnameT.getText().toString()), 
+            AddStudentNote add = new AddStudentNote();
+            if (!add.fileExists("signiture", true)) {
+                lsh.signUp(dv.fixEntries(this.TfnameT.getText().toString()), dv.fixEntries(this.TlnameT.getText().toString()), 
                   this.TemailT.getText().toString(), this.TcellT.getText().toString(), 
                   this.TpasswordT.getText().toString(), this.TpasswordConfirmT.getText().toString(), question, answer);
           if (loginSignUpHandler.allGood) {
@@ -366,8 +380,12 @@ public class loginSignup extends javax.swing.JFrame {
                 this.setVisible(false);
             }
         } else {
+            JOptionPane.showMessageDialog(null, "Please enter a signiture.");
+        }
+            } else {
             JOptionPane.showMessageDialog(null, "Please enter a security\nquestion and answer.");
         }
+            
     }//GEN-LAST:event_signUpButtonActionPerformed
 
     private void loginButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonLoginActionPerformed
@@ -376,7 +394,9 @@ public class loginSignup extends javax.swing.JFrame {
           if (loginSignUpHandler.allGood) {
               Sound.playgoahead();
                 this.setVisible(false);
-            }
+            } else {
+              System.out.println("not entreded");
+          }
     }//GEN-LAST:event_loginButtonLoginActionPerformed
     //TODO: fix the enter key
     private void loginButtonLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_loginButtonLoginKeyPressed
@@ -396,10 +416,29 @@ public class loginSignup extends javax.swing.JFrame {
     }//GEN-LAST:event_fpassActionPerformed
 
     private void squestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_squestionActionPerformed
-        loginSignUpHandler lsh = new loginSignUpHandler();
-        SecurityQuestionForm s = new SecurityQuestionForm();
-        s.setVisible(true);
+        AddStudentNote add = new AddStudentNote();
+        if (!add.fileExists("signiture", true)) {
+               loginSignUpHandler lsh = new loginSignUpHandler();
+                SecurityQuestionForm s = new SecurityQuestionForm();
+                s.setVisible(true);
+           } else {
+            JOptionPane.showMessageDialog(null, "You have already signed up, you may change\nyour security question and answer once\nlogged in.");
+        }
+        
     }//GEN-LAST:event_squestionActionPerformed
+
+    private void signitureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signitureActionPerformed
+       AddStudentNote n = new AddStudentNote();
+       if (!n.fileExists("signiture", true)) {
+           SwingPaint p = new SwingPaint();
+           p.show();
+           if (n.fileExists("signiture", true)) {
+               this.sigAdded = true;
+           }
+       } else {
+           JOptionPane.showMessageDialog(null, "Signiture already added, you may change it later on.");
+       }
+    }//GEN-LAST:event_signitureActionPerformed
 
     /**
      * @param args the command line arguments
@@ -462,6 +501,7 @@ public class loginSignup extends javax.swing.JFrame {
     private javax.swing.JButton loginButtonLogin;
     private javax.swing.JLabel passwordLableLogin;
     private javax.swing.JButton signUpButton;
+    private javax.swing.JButton signiture;
     private javax.swing.JButton squestion;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables

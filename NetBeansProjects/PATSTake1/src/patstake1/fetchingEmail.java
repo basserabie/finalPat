@@ -121,7 +121,7 @@ public class fetchingEmail {
        String host = "smtp.gmail.com";
 //     String host = "pop.gmail.com";// change accordingly
       String mailStoreType = "pop3";
-      String username = "itextralessons@gmail.com";
+      String username = "yourextralessons@gmail.com";
       String password = "Macbookpro1";
 
       check(host, mailStoreType, username, password);

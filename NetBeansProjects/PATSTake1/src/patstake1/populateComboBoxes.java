@@ -40,7 +40,7 @@ public class populateComboBoxes {
     public String [] populateQuestions() {
         String [] q = {"What is your favourite holiday location?",
             "What is your favourite ice-cream flavour?",
-            "WHat was you favourite school teachers last name",
+            "What was you favourite school teachers last name",
             "What is your mothers maiden name?"};
         return q;
     }

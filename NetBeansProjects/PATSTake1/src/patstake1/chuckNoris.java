@@ -36,7 +36,7 @@ public class chuckNoris {
             System.out.println(myresponse);
             String endfact = this.formatFact(myresponse.toString());
             Sound.playcoin();
-            JOptionPane.showMessageDialog(null, "CHUCK NORIS FACT:\n" + endfact);
+            JOptionPane.showMessageDialog(null, "CHUCK NORRIS FACT:\n" + endfact);
             } catch(Exception e) {
                 System.out.println(e + "   problem");
             }

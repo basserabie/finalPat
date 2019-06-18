@@ -261,7 +261,7 @@ public class dataValidation {// contains validating methods
             ok = false;
         }
         if (!ok) {
-            problems += "**Please ensure you have enetered the correct grade and school";
+            problems += "**Please ensure you have entered the correct grade and school";
         }
         return ok;
     }
@@ -278,21 +278,28 @@ public class dataValidation {// contains validating methods
                 }
             }
             if (!ok) {
-                problems += "**You have already enetered this vanue to the database!\n";
+                problems += "**You have already enetered this vanue to the database\n";
             } else {
-                String newV = venue.replaceAll(" ", "");
+                String newVT = venue.replaceAll(" ", "");
+                String newV = "";
+                for (int i = 0; i < newVT.length(); i++) {
+                    String c = ""+newVT.charAt(i);
+                    if (!Character.isDigit(newVT.charAt(i))) {
+                        newV += c;
+                    }
+                }
                 for (int i = 0; i < newV.length(); i++) {
                     if (!Character.isAlphabetic(newV.charAt(i))) {
                         ok = false;
                     }
                 }
                 if (!ok) {
-                    problems += "()oy vey! There is an invalid character in the venue!\n";
+                    problems += "()oy vey, There is an invalid character in the venue\n";
                 }
             }
         } else {
             ok = false;
-            problems += "()please do not leave the venue blank!\n";
+            problems += "()please do not leave the venue blank\n";
         }
         
         return ok;

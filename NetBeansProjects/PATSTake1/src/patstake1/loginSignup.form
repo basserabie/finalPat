@@ -268,9 +268,16 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
                           <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <Component id="squestion" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="signiture" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="TpasswordT" alignment="0" pref="321" max="32767" attributes="0"/>
+                              <Component id="TpasswordConfirmT" alignment="0" pref="321" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="TcellT" min="-2" pref="316" max="-2" attributes="0"/>
                                       <Component id="TfnameT" min="-2" pref="316" max="-2" attributes="0"/>
@@ -280,17 +287,11 @@
                                           <Component id="signUpButton" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="TemailT" alignment="0" min="-2" pref="316" max="-2" attributes="0"/>
-                                      <Component id="TpasswordT" alignment="0" pref="321" max="32767" attributes="0"/>
-                                      <Component id="TpasswordConfirmT" alignment="0" pref="321" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="306" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                                  <Component id="squestion" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="307" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -312,7 +313,10 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="TpasswordConfirmT" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="squestion" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="squestion" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="signiture" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -348,7 +352,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="squestion">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="add security question"/>
+                    <Property name="text" type="java.lang.String" value="Security Question"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="squestionActionPerformed"/>
@@ -434,6 +438,14 @@
                 <Component class="javax.swing.JPasswordField" name="TpasswordT">
                 </Component>
                 <Component class="javax.swing.JPasswordField" name="TpasswordConfirmT">
+                </Component>
+                <Component class="javax.swing.JButton" name="signiture">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Signiture"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signitureActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

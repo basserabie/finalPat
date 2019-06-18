@@ -59,11 +59,9 @@ public class fetchTeacher {
                 this.currentYear = currentYear;
                 this.question = rs.getString("question");
                 this.answer = rs.getString("answer");
-                System.out.println("answer: " + answer);
             }
         } catch (SQLException ex) {
 //            Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("problem at fetching teacherTable data");
         }
         
     }

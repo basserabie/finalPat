@@ -1103,6 +1103,7 @@ public class editLessonForm extends javax.swing.JFrame {
             VENUE_CHECKED = false;
             ADDED_ARRAY.removeAll(ADDED_ARRAY);
             checkListModel.removeAllElements();
+            JOptionPane.showMessageDialog(null, "Lesson Edited");
             this.setVisible(false);
         }
         STUDENTS_CHECKED = false;
@@ -1135,7 +1136,7 @@ public class editLessonForm extends javax.swing.JFrame {
         SpinnerListModel minuteModel;
         minuteModel = new SpinnerListModel(pop.populateMinuteComboBoxAccordingToHour(this.HourSpinner.getModel().getValue().toString()));
         this.minuteSpinner.setModel(minuteModel);
-        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.HourSpinner.getModel().getValue().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
+        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
         this.timeSetLabel.setText(timeSet);
     }//GEN-LAST:event_HourSpinnerStateChanged
 

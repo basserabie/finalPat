@@ -151,7 +151,7 @@ public class addSchoolForm extends javax.swing.JFrame {
             }
         });
 
-        addSchoolButton.setText("add shcool!");
+        addSchoolButton.setText("Add School");
         addSchoolButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addSchoolButtonActionPerformed(evt);

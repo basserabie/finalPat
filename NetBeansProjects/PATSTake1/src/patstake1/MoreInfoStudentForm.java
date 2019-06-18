@@ -72,7 +72,7 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {
             }
         });
 
-        addNote.setText("Add Note");
+        addNote.setText("See Student Notes");
         addNote.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addNoteActionPerformed(evt);

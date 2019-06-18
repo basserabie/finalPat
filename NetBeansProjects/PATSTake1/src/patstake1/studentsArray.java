@@ -89,9 +89,9 @@ public class studentsArray {
     
     public String addParentEmail(String name) {
         fetchTeacher ft = new fetchTeacher();
-        String email = "Congratulations Mr/Mrs " + name + ", you have successfully been added to the IT extra lessons register\n"
-                + "run by Mr/Mrs" + ft.getLname() + ". If you have any questions please contact me at: " + ft.getEmail() + " or: itextralessons@gmail.com"
-                + "\nIf you would like to book a lesson for you child, please request one by specifying date, time, and student to: itextralessons@gmail.com\n\n"
+        String email = "Congratulations Mr/Mrs " + name + ", you have successfully been added to the extra lessons register\n"
+                + "run by Mr/Mrs " + ft.getLname() + ". If you have any questions please contact me at: " + ft.getEmail() + " or: yourextralessons@gmail.com"
+                + "\nIf you would like to book a lesson for you child, please request one by specifying date, time, and student to: yourextralessons@gmail.com\n\n"
                 + "I look forward to hearing from you.\nKind regards\n" + ft.getFname() + " " + ft.getLname() + ".";
         return email;
     }
@@ -114,7 +114,7 @@ public class studentsArray {
                     //pushes mother
                     db.UpdateDatabase(pushMother);
                     sendEmail send = new sendEmail();
-                    send.send(memail, "You Have Been Added To The IT Lesson Register!", this.addParentEmail(mlname));
+                    send.send(memail, "You Have Been Added To The Extra Lesson Register!", this.addParentEmail(mlname));
                 } else {
                     //get motherID
                     String pushMother = "INSERT INTO mothers (motherfName, motherLName, motherEmail, motherCell) VALUES('" + mfname + "', '" 
@@ -122,7 +122,7 @@ public class studentsArray {
                     //pushes mother
                     db.UpdateDatabase(pushMother);
                     sendEmail send = new sendEmail();
-                    send.send(memail, "You Have Been Added To The IT Lesson Register!", this.addParentEmail(mlname));
+                    send.send(memail, "You Have Been Added To The Extra Lesson Register!", this.addParentEmail(mlname));
                 }
                 //get SchoolID
                 String schoolID = ""+sa.getSchoolID(school);

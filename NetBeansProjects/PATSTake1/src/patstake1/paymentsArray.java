@@ -94,10 +94,25 @@ public class paymentsArray {
         }
         return paid;
     }
+    
+    public int getLessonPayIDFromDateTimeStudentID(String date, String time, int studentID) {
+        int id = 0;
+        for (int i = 0; i < this.paymentArray.size(); i++) {
+            String startTime = time.substring(0, 5);
+            if (this.paymentArray.get(i).getPayDate().equals(date) &&
+                    this.paymentArray.get(i).getPayTime().equals(startTime) &&
+                    this.paymentArray.get(i).getStudentID() == studentID) {
+                id = this.paymentArray.get(i).getLessonID();
+            }
+        }
+        return id;
+    }
 
     public void addPayment(int lessonID) {
+        System.out.println("lessonID: " + lessonID);
         ConnectDB db = new ConnectDB();
         String addPaymentString = "UPDATE sPaytable SET Paid = true WHERE lessonID = " + lessonID;
+        System.out.println(addPaymentString);
         try {
             db.UpdateDatabase(addPaymentString);
         } catch (SQLException ex) {
@@ -270,6 +285,35 @@ public class paymentsArray {
         return total;
     }
     
+    public int getStudentTotalForMonth(String name) {
+        lessonDataArray la = new lessonDataArray();
+        studentsArray sa = new studentsArray();
+        int total = 0;
+        
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
+        Calendar today = Calendar.getInstance();
+        Calendar ref = Calendar.getInstance();
+        try {
+            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));
+        } catch (ParseException ex) {
+            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for (int i = 0; i < this.paymentArray.size(); i++) {
+            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));
+            String studentName = sa.studentNameFromID(studentID);
+            try {
+                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));
+            } catch (ParseException ex) {
+                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (studentName.toLowerCase().equals(name.toLowerCase()) && ref.get(Calendar.MONTH) == today.get(Calendar.MONTH)) {
+                total += this.paymentArray.get(i).getCost();
+            }
+        }
+        return total;
+    }
+    
     public int getStudentPaid(String name) {
         lessonDataArray la = new lessonDataArray();
         studentsArray sa = new studentsArray();
@@ -279,6 +323,37 @@ public class paymentsArray {
             int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));
             String studentName = sa.studentNameFromID(studentID);
             if (studentName.toLowerCase().equals(name.toLowerCase()) && this.paymentArray.get(i).isPaid()) {
+                total += this.paymentArray.get(i).getCost();
+            }
+        }
+        return total;
+    }
+    
+    public int getStudentPaidForMonth(String name) {
+        lessonDataArray la = new lessonDataArray();
+        studentsArray sa = new studentsArray();
+        int total = 0;
+        
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
+        Calendar today = Calendar.getInstance();
+        Calendar ref = Calendar.getInstance();
+        try {
+            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));
+        } catch (ParseException ex) {
+            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for (int i = 0; i < this.paymentArray.size(); i++) {
+            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));
+            String studentName = sa.studentNameFromID(studentID);
+            
+             try {
+                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));
+            } catch (ParseException ex) {
+                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if (studentName.toLowerCase().equals(name.toLowerCase()) && this.paymentArray.get(i).isPaid() && ref.get(Calendar.MONTH) == today.get(Calendar.MONTH)) {
                 total += this.paymentArray.get(i).getCost();
             }
         }
@@ -294,6 +369,37 @@ public class paymentsArray {
             int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));
             String studentName = sa.studentNameFromID(studentID);
             if (studentName.toLowerCase().equals(name.toLowerCase()) && !this.paymentArray.get(i).isPaid()) {
+                total += this.paymentArray.get(i).getCost();
+            }
+        }
+        return total;
+    }
+    
+    public int getStudentOwedForMonth(String name) {
+        lessonDataArray la = new lessonDataArray();
+        studentsArray sa = new studentsArray();
+        int total = 0;
+        
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
+        Calendar today = Calendar.getInstance();
+        Calendar ref = Calendar.getInstance();
+        try {
+            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));
+        } catch (ParseException ex) {
+            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for (int i = 0; i < this.paymentArray.size(); i++) {
+            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));
+            String studentName = sa.studentNameFromID(studentID);
+            
+            try {
+                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));
+            } catch (ParseException ex) {
+                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if (studentName.toLowerCase().equals(name.toLowerCase()) && !this.paymentArray.get(i).isPaid() && ref.get(Calendar.MONTH) == today.get(Calendar.MONTH)) {
                 total += this.paymentArray.get(i).getCost();
             }
         }
@@ -319,6 +425,16 @@ public class paymentsArray {
         }
         return time;
     }
+    
+    public boolean getPaidFromID(int id) {
+        boolean paid = false;
+        for (int i = 0; i < this.paymentArray.size(); i++) {
+            if (this.paymentArray.get(i).getLessonID() == id) {
+                paid = this.paymentArray.get(i).isPaid();
+            }
+        }
+        return paid;
+    }
         
     public void deletePastAndunpaidPayments() {
         lessonDataArray la = new lessonDataArray();
@@ -326,7 +442,7 @@ public class paymentsArray {
         DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
         Calendar today = Calendar.getInstance();
         Calendar ref = Calendar.getInstance();
-        today.setTime(Calendar.getInstance().getTime());
+        today.setTime(new Date());
         
         for (int i = 0; i < this.paymentArray.size(); i++) {
             int id = this.paymentArray.get(i).getLessonID();
@@ -335,7 +451,37 @@ public class paymentsArray {
             } catch (ParseException ex) {
                 Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
             }
+            System.out.println("ref: " + sdf.format(ref.getTime()) + "   today: " + sdf.format(today.getTime()) + "  id: " + id + "paid: " + this.getIfPaidFromLessonID(id));
+            if (ref.before(today) && !this.getIfPaidFromLessonID(id)) {
+                System.out.println("entered");
+                String delete = "DELETE * FROM sPayTable WHERE lessonID = " + id;
+                try {
+                    db.UpdateDatabase(delete);
+                } catch (SQLException ex) {
+                    Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+    
+    public void deletePast() {
+        lessonDataArray la = new lessonDataArray();
+        ConnectDB db = new ConnectDB();
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
+        Calendar today = Calendar.getInstance();
+        Calendar ref = Calendar.getInstance();
+        today.setTime(new Date());
+        
+        for (int i = 0; i < this.paymentArray.size(); i++) {
+            int id = this.paymentArray.get(i).getLessonID();
+            try {
+                ref.setTime(sdf.parse(this.getPaymentsLessonDateFromLessonID(id) + " " + this.getPaymentsLessonTimeFromLessonID(id)));
+            } catch (ParseException ex) {
+                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("ref: " + sdf.format(ref.getTime()) + "   today: " + sdf.format(today.getTime()) + "  id: " + id);
             if (ref.before(today)) {
+                System.out.println("enytered");
                 String delete = "DELETE * FROM sPayTable WHERE lessonID = " + id;
                 try {
                     db.UpdateDatabase(delete);

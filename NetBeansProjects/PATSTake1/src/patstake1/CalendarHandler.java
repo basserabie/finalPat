@@ -633,6 +633,8 @@ public class CalendarHandler {
          if (countOnDay == 0) {
              System.out.println("entered lessonHas no day: " + KEYS_ON_DAY.length);
              DAY_HAS_LESSON = false;
+         } else {
+             DAY_HAS_LESSON = true;
          }
      }
      

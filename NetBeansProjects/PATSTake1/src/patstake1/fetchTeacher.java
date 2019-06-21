@@ -20,7 +20,7 @@ public class fetchTeacher {
     ConnectDB db = new ConnectDB();
     loginSignup ls = new loginSignup();
     dataValidation vd = new dataValidation();
-    private String fname, lname, cell, email, password, currentYear, question, answer;
+    private String fname, lname, cell, email, password, currentYear, question, answer, path;
     private String signUpProblems = "";
     boolean signedUp = false;
 
@@ -59,6 +59,7 @@ public class fetchTeacher {
                 this.currentYear = currentYear;
                 this.question = rs.getString("question");
                 this.answer = rs.getString("answer");
+                this.path = rs.getString("imagepath");
             }
         } catch (SQLException ex) {
 //            Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
@@ -136,6 +137,14 @@ public class fetchTeacher {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
     
     public void changeSecurity(String question, String ans) {

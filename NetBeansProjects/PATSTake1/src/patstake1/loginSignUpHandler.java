@@ -38,7 +38,6 @@ public class loginSignUpHandler {
     
     //TODO: make login screen invisible when works
     public void login(String passwordPassed) {
-        dashboard d = new dashboard();
         loginSignup ls = new loginSignup();
         fetchTeacher ft = new fetchTeacher();
         boolean issignedUp = ft.getSignedUp();
@@ -48,6 +47,7 @@ public class loginSignUpHandler {
             if (this.encryptPassword(passwordPassed, ft.getAnswer()).equals(password)) {
                 this.addLogInTime();
                 allGood = true;
+                dashboard d = new dashboard();
                 d.setVisible(true);
                 ls.setVisible(false);
             } else {
@@ -73,21 +73,20 @@ public class loginSignUpHandler {
         ConnectDB db = new ConnectDB();
         dashboard d = new dashboard();
         fetchTeacher ft = new fetchTeacher();
-        boolean issignedUp = ft.getSignedUp();
         
         DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
         Calendar currentYear = Calendar.getInstance();
         currentYear.setTime(new Date());
         String yearString = sdf.format(currentYear.getTime());
-        
-        if (issignedUp == false) {
+     
             if (ft.validateSignUp(fName, lName, 
                     email, cell, password1, password2)) {
                 allGood = true;
+                takeIcon.changing = false;
                 try {
-                    String insertUserString = "INSERT INTO teacherTable(fname, lname, email, cell, password, signedUp, currentYear, question, answer)"
+                    String insertUserString = "INSERT INTO teacherTable(fname, lname, email, cell, password, signedUp, currentYear, question, answer, imagepath)"
                             + " VALUES('" + fName + "', '" + lName + "', '" + email
-                            + "', '" + cell + "', '" + this.encryptPassword(password1, answer) + "', " + true + ", '" + yearString + "', '" + question + "', '" + answer + "')";
+                            + "', '" + cell + "', '" + this.encryptPassword(password1, answer) + "', " + true + ", '" + yearString + "', '" + question + "', '" + answer + "', '" + takeIcon.path + "')";
                     db.UpdateDatabase(insertUserString);
                     d.setVisible(true);
                     ls.setVisible(false);
@@ -95,9 +94,6 @@ public class loginSignUpHandler {
                     Logger.getLogger(loginSignup.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } 
-        } else {
-            JOptionPane.showMessageDialog(null, "you are already signed up\nplease login instead");
-        }
     }
     
     public void forgotPassword() {
@@ -224,5 +220,11 @@ public class loginSignUpHandler {
         } catch (IOException ex) {
             Logger.getLogger(PATSTake1.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void changeIcon() {
+        takeIcon.changing = true;
+        boolean iconAdded = false;
+        new takeIcon();
     }
 }

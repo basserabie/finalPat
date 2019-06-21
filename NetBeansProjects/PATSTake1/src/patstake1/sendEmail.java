@@ -44,13 +44,6 @@ public class sendEmail {
     
     
     public void send(String to, String subject, String text) {
-//            JFrame frame = new JFrame();
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//            JOptionPane.showMessageDialog(frame, "Please wait...");
-        
-//            Thread t1 = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
                 try {
                  String host = "smtp.gmail.com";
             String user = "yourextralessons@gmail.com";

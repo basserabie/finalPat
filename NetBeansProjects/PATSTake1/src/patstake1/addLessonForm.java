@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
@@ -34,6 +35,7 @@ public class addLessonForm extends javax.swing.JFrame {
      */
     public addLessonForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         populateComboBoxes pop = new populateComboBoxes();
         
         this.studentsAddedList.removeAll(); //removes generic items from studentsAddedList

@@ -5,6 +5,8 @@
  */
 package patstake1;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author YishaiBasserabie
@@ -20,6 +22,7 @@ public class contactSchoolForm extends javax.swing.JFrame {
      */
     public contactSchoolForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.SchoolLabel.setText(SCHOOL);
     }
 

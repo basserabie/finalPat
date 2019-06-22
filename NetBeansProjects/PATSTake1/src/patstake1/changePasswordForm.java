@@ -5,6 +5,7 @@
  */
 package patstake1;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +19,7 @@ public class changePasswordForm extends javax.swing.JFrame {
      */
     public changePasswordForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

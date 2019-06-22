@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import rx.observables.SwingObservable;
 
@@ -23,6 +24,7 @@ public class addSchoolForm extends javax.swing.JFrame {
      */
     public addSchoolForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

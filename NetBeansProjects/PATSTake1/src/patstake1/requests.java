@@ -5,6 +5,8 @@
  */
 package patstake1;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author YishaiBasserabie
@@ -16,6 +18,7 @@ public class requests extends javax.swing.JFrame {
      */
     public requests() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fetchingEmail fe = new fetchingEmail();
         fetchingEmail.doEmail();
         this.requests.setText(fe.toString());

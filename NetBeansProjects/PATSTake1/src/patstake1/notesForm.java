@@ -5,6 +5,8 @@
  */
 package patstake1;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author YishaiBasserabie
@@ -18,6 +20,7 @@ public class notesForm extends javax.swing.JFrame {
      */
     public notesForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         AddStudentNote add = new AddStudentNote();
         this.studentLabel.setText("notes for " + name + ":");
         if (add.fileExists(name)) {

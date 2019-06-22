@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerListModel;
 import static patstake1.addLessonForm.ADDED_ARRAY;
@@ -39,6 +40,7 @@ public class editLessonForm extends javax.swing.JFrame {
      */
     public editLessonForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         this.editStudentPanel.setBackground(Color.red);
         this.editDateTimePanel.setBackground(Color.red);

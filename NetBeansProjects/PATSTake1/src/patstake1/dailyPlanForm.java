@@ -7,6 +7,7 @@ package patstake1;
 
 import java.awt.Color;
 import java.awt.Component;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,6 +27,7 @@ public class dailyPlanForm extends javax.swing.JFrame {
      */
     public dailyPlanForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         CalendarHandler ch = new CalendarHandler();
         
         this.dayTable.setAutoResizeMode(AUTO_RESIZE_OFF);

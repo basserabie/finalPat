@@ -7,6 +7,7 @@ package patstake1;
 
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -29,6 +30,7 @@ public class paymentStatsForm extends javax.swing.JFrame {
      */
     public paymentStatsForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         populateComboBoxes pop = new populateComboBoxes();
         DefaultComboBoxModel namesModel = new DefaultComboBoxModel(pop.correctStudentsAccordingToGrade(this.addStudentGradeComboBox.getSelectedItem().toString()));
         this.addStudentNameComboBox.setModel(namesModel);

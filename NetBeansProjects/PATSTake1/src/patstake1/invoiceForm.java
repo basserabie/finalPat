@@ -5,6 +5,8 @@
  */
 package patstake1;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author YishaiBasserabie
@@ -22,6 +24,7 @@ public class invoiceForm extends javax.swing.JFrame {
      */
     public invoiceForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         invoiceHandler ih = new invoiceHandler();
         this.subjectTextField.setText(ih.getInvoiceSubjectTemplate(date, time));
         this.emailTextBox.setText(ih.getInvoiceTemplate(date, time, parent, cost));

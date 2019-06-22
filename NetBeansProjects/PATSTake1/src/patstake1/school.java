@@ -6,6 +6,7 @@
 package patstake1;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static patstake1.mothers.MOTHER_EMAIL;
 
@@ -22,6 +23,7 @@ public class school extends javax.swing.JFrame {
      */
     public school() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //populates school table
         populateComboBoxes pop = new populateComboBoxes();
         this.schoolsTable.setModel(pop.schools());

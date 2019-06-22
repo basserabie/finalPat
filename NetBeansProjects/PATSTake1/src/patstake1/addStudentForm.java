@@ -12,6 +12,7 @@ import javax.accessibility.AccessibleContext;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
@@ -28,6 +29,7 @@ public class addStudentForm extends javax.swing.JFrame {
      */
     public addStudentForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         schoolsArray sa = new schoolsArray();
         populateComboBoxes pop = new populateComboBoxes();
         

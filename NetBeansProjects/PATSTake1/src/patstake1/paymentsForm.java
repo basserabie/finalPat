@@ -6,6 +6,7 @@
 package patstake1;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerListModel;
 
@@ -24,6 +25,7 @@ public class paymentsForm extends javax.swing.JFrame {
      */
     public paymentsForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         populateComboBoxes pop = new populateComboBoxes();
         this.paymetsTable.setModel(pop.payments());
     }

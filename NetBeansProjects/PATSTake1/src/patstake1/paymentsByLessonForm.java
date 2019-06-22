@@ -6,6 +6,7 @@
 package patstake1;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerListModel;
 
@@ -22,6 +23,7 @@ public class paymentsByLessonForm extends javax.swing.JFrame {
      */
     public paymentsByLessonForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         populateComboBoxes pop = new populateComboBoxes();
         SpinnerListModel hour = new SpinnerListModel(pop.populateHourSpinner());
         this.HourSpinner.setModel(hour);

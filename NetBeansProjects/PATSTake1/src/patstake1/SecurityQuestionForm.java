@@ -6,6 +6,7 @@
 package patstake1;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +22,7 @@ public class SecurityQuestionForm extends javax.swing.JFrame {
      */
     public SecurityQuestionForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         populateComboBoxes pop = new populateComboBoxes();
         DefaultComboBoxModel qs = new DefaultComboBoxModel(pop.populateQuestions());

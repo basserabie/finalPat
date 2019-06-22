@@ -6,6 +6,7 @@
 package patstake1;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +25,7 @@ public class mothers extends javax.swing.JFrame {
     
     public mothers() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         populateComboBoxes pop = new populateComboBoxes();
         this.parentsTable.setModel(pop.parents());
         DefaultComboBoxModel filterType = new DefaultComboBoxModel(pop.populateParentFilterTypeComboBox());

@@ -5,6 +5,7 @@
  */
 package patstake1;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +19,7 @@ public class accountForm extends javax.swing.JFrame {
      */
     public accountForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fetchTeacher ft = new fetchTeacher();
         this.cellTextField.setText(ft.getCell());
         this.emailTextField.setText(ft.getEmail());

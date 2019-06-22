@@ -20,6 +20,7 @@ public class editStudentForm extends javax.swing.JFrame {
      */
     public editStudentForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         populateComboBoxes pop = new populateComboBoxes();
         this.studentNameLabel.setText(student.STUDENT_NAME);
         DefaultComboBoxModel schoolsModel = new DefaultComboBoxModel(pop.populateSchools());

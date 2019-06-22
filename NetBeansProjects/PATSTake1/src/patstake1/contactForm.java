@@ -5,6 +5,7 @@
  */
 package patstake1;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +22,7 @@ public class contactForm extends javax.swing.JFrame {
      */
     public contactForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.parentNameLabel.setText(parentName);
         this.emailTextBox.setText("Dear " + parentName + "...");
     }

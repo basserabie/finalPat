@@ -6,6 +6,7 @@
 package patstake1;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 
 /**
  *
@@ -18,6 +19,7 @@ public class seeStudentsForm extends javax.swing.JFrame {
      */
     public seeStudentsForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //populates student list
         populateComboBoxes pop = new populateComboBoxes();
         DefaultListModel studentsListModel = new DefaultListModel();

@@ -23,6 +23,7 @@ public class moreInfoParentForm extends javax.swing.JFrame {
      */
     public moreInfoParentForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //populates the students list
         populateComboBoxes pop = new populateComboBoxes();
         DefaultListModel studentsListModel = new DefaultListModel();

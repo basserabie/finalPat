@@ -10,6 +10,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -30,6 +31,7 @@ public class lesson extends javax.swing.JFrame {
      */
     public lesson() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         lessonDataArray la = new lessonDataArray();
         la.sortArray();
         this.selectedLessonLabelReal.setText("----------------");

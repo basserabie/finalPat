@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static patstake1.mothers.MOTHER_SELECTED;
@@ -26,6 +27,7 @@ public class student extends javax.swing.JFrame {
      */
     public student() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         populateComboBoxes pop = new populateComboBoxes();
         this.studentTable.setModel(pop.Students());
         this.studentTable.setAutoCreateRowSorter(true);

@@ -5,6 +5,7 @@
  */
 package patstake1;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +19,7 @@ public class editMotherForm extends javax.swing.JFrame {
      */
     public editMotherForm() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
     public void setParentNameText(String name) {

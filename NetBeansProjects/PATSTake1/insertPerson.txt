@@ -1,0 +1,13 @@
+# Create Person Python Code
+import requests
+
+import json
+
+url = 'https://api.chooch.ai/predict/face?person_name=Tom Bill&model_id=5&apikey=cx065e5d-51wc87-9df6-163e-8b65a78k51e3&command=create_person'
+
+response = requests.post(url)
+
+json_data = json.loads(response.content)
+
+print(json_data)
+

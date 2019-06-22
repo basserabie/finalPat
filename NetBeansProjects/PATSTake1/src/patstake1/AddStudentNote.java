@@ -43,28 +43,25 @@ import java.nio.file.Paths;
  */
 public class AddStudentNote { // main method 
 
-    public void createNote(String name) {
-        try{
-            // Create new file
-            String path = name + ".txt";
-            File file = new File(path);
-            file.createNewFile();
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
-    }
+    public void createNote(String name) {//creates method that creates a new txt file according to the student name
+        try{ //opens try-catch
+            String path = name + ".txt";//instantiates a string holding the new path for the txt file
+            File file = new File(path);//instantiates the file of path path
+            file.createNewFile();//creates the file
+        }//closes the try bracket
+        catch(Exception e){//opens the catch bracket
+            System.out.println(e);//outputs the error
+        }//coses the catch bracket
+    }//ends the createNote method
     
-    public void deleteNote(String name) {
-        //file name only
-        File file = new File(name + ".txt");
-        if(file.delete()){
-            System.out.println("file.txt File deleted from Project root directory");
-        }else System.out.println("File file.txt doesn't exist in the project root directory");
-    }
+    public void deleteNote(String name) {//creates the method to delete a txt file according to the inputted student name
+        File file = new File(name + ".txt");//insttiates a file object according to path determied by the name
+        if(file.delete()){//deletes the text file and checks if it was deleted
+            System.out.println("file.txt File deleted from Project root directory");//outputs the message saying that the file was deleted
+        }else System.out.println("File file.txt doesn't exist in the project root directory");//outputs the message saying that no such file exists
+    }//closes the deleteNote method
     
-    public void writing(String name, String text) {
-        
+    public void writing(String name, String text) {//creates a method that writes to a text file according to the student name inputted
          EncryptDecrypt encDec = new EncryptDecrypt();//creates a EncryptDecrypt object called encDec
             String Password = "";//creates a string variale called Password
         
@@ -73,9 +70,9 @@ public class AddStudentNote { // main method
 
             String encryptk = "thisisasecurekey";//sets the encryption key
             SecretKeySpec key = new SecretKeySpec(encryptk.getBytes(), "AES");// Creates a new SecretKeySpec called key inorder to encrypt the message
-            Cipher encryptCipher;
-            String encryptpas = "";
-        try {
+            Cipher encryptCipher; //creates a Cipher object
+            String encryptpas = "";//instantiates a string
+        try {//opens the try-catch
             encryptCipher = Cipher.getInstance("AES/ECB/PKCS5Padding"); //calls the methood getInstance from the Cipher class
              try {
                  encryptCipher.init(Cipher.ENCRYPT_MODE, key);//calls the init methood to initiate the decryptCipher
@@ -96,35 +93,31 @@ public class AddStudentNote { // main method
             Logger.getLogger(AddStudentNote.class.getName()).log(Level.SEVERE, null, ex);
         }
         Password = encryptpas;//sets the password to the decrypted password
-        
-        String etext = Password;
-        
-        try{
-                    PrintWriter pw = new PrintWriter(name + ".txt");
-                    pw.close();
-                    try(FileWriter fw = new FileWriter(name + ".txt", true);
-                        BufferedWriter bw = new BufferedWriter(fw);
-                        PrintWriter out = new PrintWriter(bw))
-                    {
-                        out.println(etext);
-                        //more code
+        try{//opens the trycatch
+                    PrintWriter pw = new PrintWriter(name + ".txt");//creates a printWriter object to erite to the text file according to the student name
+                    pw.close();//closes the printWtier object
+                    try(FileWriter fw = new FileWriter(name + ".txt", true);//attempts to open a fileWriter to the text file according to the name
+                        BufferedWriter bw = new BufferedWriter(fw);//creates a bufferedWriter oobject to write to the text file
+                        PrintWriter out = new PrintWriter(bw))//creates another printWriter object to erite to the text file according to the student name
+                    {//opens the trycatch
+                        out.println(Password);//writes the added 'note' to the text file
+ 
                     } catch (IOException e) {
-                        //exception handling left as an exercise for the reader
+                        System.out.println("problem writting");//alerts the class user that there was an error writting to the text file
                     }
         }
         catch(Exception e){
-            System.out.println(e);
+            System.out.println(e);//alerts the class user that there was an error writting to the text file
         }
     }
     
-    public String reading(String name) {
-        String entireFileText = "";
-        try {
-            entireFileText = new Scanner(new File(name + ".txt")).useDelimiter("\\A").next();
+    public String reading(String name) {//creates a method to read the contents of the text file according to the inputted name
+        String entireFileText = "";//instantiates a string that will store the text file contents
+        try {//opens the trycatch
+            entireFileText = new Scanner(new File(name + ".txt")).useDelimiter("\\A").next();//creates a new scanner object to the scan the text file with the delimetre of '\A'
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(AddStudentNote.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddStudentNote.class.getName()).log(Level.SEVERE, null, ex);//a;erts the class user that there was an error scanning the contents of the text file
         }
-        
          String decrypin = entireFileText;//creates a string varable to store the cyper text
             String decryptk;//creates a string variable to store the key for the cyper 
             decryptk = "thisisasecurekey";//sets the key for the cyper
@@ -153,33 +146,28 @@ public class AddStudentNote { // main method
         }
             decryptpass = EncryptDecrypt.decrypt(decryptpass);//Parsing the String to the method decrypt
             String dtext = decryptpass;//sets the password to the decrypted password
-        System.out.println(dtext);
-        return dtext;
-    }
+        return dtext;//returns the decrypted contents of the text file
+    }//closes the reading method
     
-    public boolean fileExists(String name) {
-        boolean exists = true;
-        // Create new file
-        String path = name + ".txt";
-        File file = new File(path);
-        // If file doesn't exists, then create it
-        if (!file.exists()) {
-            exists = false;
+    public boolean fileExists(String name) {//creates a method to check if a file exists according to the student name inputted
+        boolean exists = true;//instantiates a boolean that will indicate whether the file exists or not
+        String path = name + ".txt";//instantiates a string that holds the path of the text file according to the inputted name
+        File file = new File(path);//instantiates a file object according to the path String
+        if (!file.exists()) {//checks if the file exists
+            exists = false;//flips exists to false
         }
-        return exists;
-    }
+        return exists;//return the boolean 'exists' indicating whether the file exists
+    }//closes the method fileExists
     
-    public boolean fileExists(String name, boolean image) {
-        boolean exists = true;
-        // Create new file
-        String path = name + ".png";
-        File file = new File(path);
-        // If file doesn't exists, then create it
-        if (!file.exists()) {
-            exists = false;
+    public boolean fileExists(String name, boolean image) {//creates a method to check if a file exists according to the student name inputted
+        boolean exists = true;//instantiates a boolean that will indicate whether the file exists or not
+        String path = name + ".png";//instantiates a string that holds the path of the text file according to the inputted name
+        File file = new File(path);//instantiates a file object according to the path String
+        if (!file.exists()) {//checks if the file exists
+            exists = false;//flips exists to false
         }
-        return exists;
-    }
+        return exists;//return the boolean 'exists' indicating whether the file exists
+    }//closes the method fileExists
 
 }
 

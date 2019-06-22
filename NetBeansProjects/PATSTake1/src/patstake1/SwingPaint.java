@@ -80,7 +80,7 @@ JButton clearBtn, done;
  
     frame.setSize(600, 600);
     // can close frame
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     // show the swing paint result
     frame.setVisible(true);
  

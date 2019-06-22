@@ -42,183 +42,178 @@ import static net.ucanaccess.converters.Functions.date;
  */
 public class CalendarHandler {
     
-    private static String DATE = "";
-    public static boolean DAY_HAS_LESSON = true;
-    private static int COLOUR = 0;
-    private static String FIRST_START_TIME = "";
-    private static String [] START_TIMES;
-    private static String [] END_TIMES;
-    private static String [] KEYS_ON_DAY;
-    private static int COUNT_SET = 0;
-    private static String LAST_END_TIME = "";
-    public static int countOnDay = 0;
+    private static String DATE = "";//creates a private static string that will hold the string value of the date selected by the user
+    public static boolean DAY_HAS_LESSON = true;//creates a private static boolean that will indicate whether the date selected by the user has any lessons on it
+    private static int COLOUR = 0;//creates a private static integer that will hold the current index of the color array that will be used to determine the color of the text in the daily planner
+    private static String FIRST_START_TIME = "";//creates a private static string that will hold the string value of the first start time on the day selected
+    private static String [] START_TIMES;//creates a private static string sarray that will hold the string value of the start times on the selected date
+    private static String [] END_TIMES;//creates a private static string array that will hold the string value of the end times on the selected date
+    private static String [] KEYS_ON_DAY;//creates a private static string array that will hold the string value of the keys of the lessons on the selected date
+    private static int COUNT_SET = 0;//creates a private static integer that will hold the number of lessons added to the daily planner on the selected date
+    private static String LAST_END_TIME = "";//creates a private static string that will hold the string value of the last end time on the selected date
+    public static int countOnDay = 0;//creates a private static integer that will hold the number of lessons on the selected date
     
     
 
-    public void JCalendarActionPerformed(JCalendar cal) {
-        cal.getDayChooser().addPropertyChangeListener("day", new PropertyChangeListener() {
+    public void JCalendarActionPerformed(JCalendar cal) {//creates a listener attached to the JCalendar object on the dashboard JFrame
+        cal.getDayChooser().addPropertyChangeListener("day", new PropertyChangeListener() {//instantiates the listener
         @Override
-        public void propertyChange(PropertyChangeEvent e) {
-            CalendarHandler ch = new CalendarHandler();
-            String date = ch.getFormattedDateFromJCalendar(cal.getDate().toString());
-            ch.passToDailyPlan(date);
-        }  
-        });
-    }
+        public void propertyChange(PropertyChangeEvent e) {//detects a property change to the JCalendar
+            CalendarHandler ch = new CalendarHandler();//creates an object for the CalendarHandler class
+            String date = ch.getFormattedDateFromJCalendar(cal.getDate().toString());//creates a string that holds the formatted date according to the date selected date from the JCalendar by the user
+            ch.passToDailyPlan(date);//calls the method that passes the date to the dailyPlannerForm JFrame (escapes it from the listener)
+        }//closes the property change listener
+        });//closes the listener
+    }//closes the method containing the listener
     
-    public void setDate(String date) {
-        DATE = date;
-    }
+    public void setDate(String date) {//creates a method that sets the static date String to the selected date
+        DATE = date;//sets the static date String to the selected date
+    }//closes the setDate method
     
-    public void setArrays() {
-        this.keysOnDayTest();
-        System.out.println("count on day: " + countOnDay);
-        for (int i = 0; i < KEYS_ON_DAY.length; i++) {
-            System.out.println(KEYS_ON_DAY[i]);
+    public void setArrays() {//creates method that sets the static arrays of this class to the relevant data accirding to the selected date
+        this.keysOnDayTest();//calls the method that sets the static array 'KEYS_ON_DAY' to an array of the keys
+        if (countOnDay > 0) {//checks if the static integer countOnDay is bigger than 0 i.e. there are lessons on the selected date
+            this.getStartTimesOnDate();//calls the method witch sets the static array of this class 'START_TIMES_ON_DAY' to an array of the start times on the selected date
+            this.getEndTimesOnDate();////calls the method witch sets the static array of this class 'END_TIMES_ON_DAY' to an array of the end times on the selected date
+            this.getFirstStartTime();////calls the method witch sets the static String of this class 'FIRST_START_TIME' to the first start time on the selected date
         }
-        if (countOnDay > 0) {
-            this.getStartTimesOnDate();
-            this.getEndTimesOnDate();
-            this.getFirstStartTime();
-        }
-    }
+    }//closes the setArray method
     
-    public String getFormattedDateFromJCalendar(String UDate) {
-        lessonDataArray la = new lessonDataArray();
-        String formattedDate = "";
+    public String getFormattedDateFromJCalendar(String UDate) {//creates a method that returns the formatted date selected
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        String formattedDate = "";//instantiates a string that will hold the final formatted date to be returned
         
-        String UYear = UDate.substring(25);
-        String UMonth = UDate.substring(4, 7);
-        String UDay = UDate.substring(8, 10);
+        String UYear = UDate.substring(25);//instantiates a string holding the selected year
+        String UMonth = UDate.substring(4, 7);//instantiates a string holding the selected month
+        String UDay = UDate.substring(8, 10);//instantiates a string holding the selected day
         
         //checks and formats month
-        String finalMonth = "";
-        switch (UMonth) {
-            case "Jan": 
-                finalMonth = "01";
-                break;
-            case "Feb":
-                finalMonth = "02";
-                break; 
-            case "Mar":
-                finalMonth = "03";
-                break; 
-            case "Apr":
-                finalMonth = "04";
-                break; 
-            case "May":
-                finalMonth = "05";
-                break; 
-            case "Jun":
-                finalMonth = "06";
-                break; 
-            case "Jul":
-                finalMonth = "07";
-                break; 
-            case "Aug":
-                finalMonth = "08";
-                break; 
-            case "Sep":
-                finalMonth = "09";
-                break; 
-            case "Oct":
-                finalMonth = "10";
-                break; 
-            case "Nov":
-                finalMonth = "11";
-                break; 
-            case "Dec":
-                finalMonth = "12";
-                break; 
-        }
-        formattedDate = UYear + "/" + UDay + "/" + finalMonth;
-        return formattedDate;
-    }
+        String finalMonth = "";//instantiates a string that will hold the formatted month
+        switch (UMonth) {//opens a switchcase statement according to the selected unformatted month
+            case "Jan": //creates the case of january
+                finalMonth = "01";//sets the finalMonth string to the correct format of january
+                break;//breaks the january case
+            case "Feb"://creates the case of february
+                finalMonth = "02";//sets the finalMonth string to the correct format of february
+                break;//breaks the february case
+                case "Mar"://creates the case of march
+                finalMonth = "03";//sets the finalMonth string to the correct format of march
+                break; //breaks the march case
+            case "Apr"://creates the case of april
+                finalMonth = "04";//sets the finalMonth string to the correct format of april
+                break; //breaks the april case
+            case "May"://creates the case of may
+                finalMonth = "05";//sets the finalMonth string to the correct format of may
+                break; //breaks the may case
+            case "Jun"://creates the case of june
+                finalMonth = "06";//sets the finalMonth string to the correct format of june
+                break; //breaks the june case
+            case "Jul"://creates the case of july
+                finalMonth = "07";//sets the finalMonth string to the correct format of july
+                break; //breaks the july case
+            case "Aug"://creates the case of august
+                finalMonth = "08";//sets the finalMonth string to the correct format of august
+                break; //breaks the august case
+            case "Sep"://creates the case of september
+                finalMonth = "09";//sets the finalMonth string to the correct format of september
+                break; //breaks the september case
+            case "Oct"://creates the case of october
+                finalMonth = "10";//sets the finalMonth string to the correct format of october
+                break; //breaks the october case
+            case "Nov"://creates the case of november
+                finalMonth = "11";//sets the finalMonth string to the correct format of november
+                break; //breaks the november case
+            case "Dec"://creates the case of december
+                finalMonth = "12";//sets the finalMonth string to the correct format of december
+                break; //breaks the december case
+        }//closes the switchcase statement
+        formattedDate = UYear + "/" + UDay + "/" + finalMonth;//sets the formattedDate string to the fomatted date
+        return formattedDate;//return the formatted date
+    }//closes the getFormattedDateFromJCalendar method
     
-     public void getFirstStartTime() {
-        String startTime = this.getStartTimesOnDate()[0];
-        FIRST_START_TIME = startTime;
-    }
+     public void getFirstStartTime() {//creates a method that gets the first start time on the selected day
+        String startTime = this.getStartTimesOnDate()[0];//gets the first start time on the selected day
+        FIRST_START_TIME = startTime;//sets the static string to the gotten first start time
+    }//closes the getFirstStartTime method
      
-     public void getLastEndTime() {
-         String endTime = this.getEndTimesOnDate()[this.getEndTimesOnDate().length-1];
-         LAST_END_TIME = endTime;
-     }
+     public void getLastEndTime() {//creates a method that gets the last end time on the selected day
+         String endTime = this.getEndTimesOnDate()[this.getEndTimesOnDate().length-1];//gets the last end time on the selected day
+         LAST_END_TIME = endTime;////sets the static string to the gotten last end time
+     }//closes the getLastEndTime method
     
-    public int getStartTimeIndexfromStartTime(String date, String startTime) {
-        int index = 0;
-        for (int i = 0; i < START_TIMES.length; i++) {
-            if (START_TIMES[i].equals(startTime)) {
-                index = i;
+    public int getStartTimeIndexfromStartTime(String date, String startTime) {//creates a method that gets the index of an inputted start time in the static String array 'START_TIMES'
+        int index = 0;//creates an integer that will store the index of the inpuuted start time and be returned
+        for (int i = 0; i < START_TIMES.length; i++) {//starts a for loop iteration through the start times of the selected date
+            if (START_TIMES[i].equals(startTime)) {//checks if the iterated start time is equal to the one inputted
+                index = i;//sets the index integer to the index of the start time in the static start times array
             }
         }
-        return index;
-    }
-    //TODO: fix to include first seg of lesson!
-    public String floorStartTime(String attemptedTime, String date) {
-        lessonDataArray la = new lessonDataArray();
-        TreeSet<Date> times = new TreeSet<> ();
-        String time = "";
+        return index;//returns the index integer
+    }//closes the getStartTimeIndexfromStartTime method
+
+    public String floorStartTime(String attemptedTime, String date) {//creates a method that return the start time of any 15 minute time segment inputted
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        TreeSet<Date> times = new TreeSet<>();//creates a tree set to store the start times of the date selected
+        String time = "";//creates a string to store the start time of the inputted segment
         
-        //create a date fromatter
-            DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
-            DateFormat sdf2 = new SimpleDateFormat("HH:mm");
+            DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");//creates a date formatter
+            DateFormat sdf2 = new SimpleDateFormat("HH:mm");//creates a date formatter
             
-            Calendar timeSeg = Calendar.getInstance(); // adds instance to cal
-            try {
-                timeSeg.setTime(sdf.parse(date + " " + attemptedTime));
-            } catch (ParseException ex) {
-                Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        for (int i = 0; i < START_TIMES.length; i++) {
-            //create a date fromatter
-            Calendar startTime = Calendar.getInstance(); // adds instance to timeIn
-            try {
-                startTime.setTime(sdf.parse(date + " " + START_TIMES[i])); 
-                times.add(startTime.getTime());
-            } catch (ParseException ex) {
-                Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Calendar timeSeg = Calendar.getInstance(); //instantiates a calendar object 
+            try {//opens a tryctach statement
+                timeSeg.setTime(sdf.parse(date + " " + attemptedTime));//sets the time of the calendar object to the time segment inputted
+            } catch (ParseException ex) {//opens the catch statemnt
+                Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error setting the time of the calendar object
+            }//closes the catch statement
+        for (int i = 0; i < START_TIMES.length; i++) {//starts a for loop iterating through the start times of the selected date
+            Calendar startTime = Calendar.getInstance(); //instantiates a Calendar object
+            try {//opens a tryctach statement
+                startTime.setTime(sdf.parse(date + " " + START_TIMES[i]));//sets the time of the startTime calnder object to the startTime of index i
+                times.add(startTime.getTime());//adds the calendar object to the treeset of start times
+            } catch (ParseException ex) {//opens the catch statemnt
+                Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the user that there was an error setting the time of the calendar object
+            }//closes the catch statement
         }
         //gets first starttime of day
-        Calendar firstStartTime = Calendar.getInstance();
-        try {
-            firstStartTime.setTime(sdf.parse(date + " " + FIRST_START_TIME));
-        } catch (ParseException ex) {
-            Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Calendar firstStartTime = Calendar.getInstance();//instantiates a calendar object to store the first start time of the date selected
+        try {//opens the trycatch
+            firstStartTime.setTime(sdf.parse(date + " " + FIRST_START_TIME));//sets the time of the calendar object to the first start time of the selected date
+        } catch (ParseException ex) {//opens the catch statement
+            Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);//alerts the user that there was an error setting the time of the calendar object
+        }//closes the catch statement
         
-        Date floor = null;
-        boolean overTime = true;
-        if (timeSeg.getTime().toString() != null && !(timeSeg.getTime().before(firstStartTime.getTime()))) {
-                if (times.floor(timeSeg.getTime()) != null) {
-                    floor = times.floor(timeSeg.getTime());
+        Date floor = null;//instantiates a date object to store the start time of the inputted time segment
+        boolean overTime = true;//creates a boolean that will check if the time segment is after the closest end time
+        if (timeSeg.getTime().toString() != null && !(timeSeg.getTime().before(firstStartTime.getTime()))) {//checks if the timeSeg is not null and if it is not before the first start time of the selected date
+                if (times.floor(timeSeg.getTime()) != null) {//checks if the floor function of the treeset of start times when set against the time sgements is not null
+                    floor = times.floor(timeSeg.getTime());//sets the floor date object to the result of the floor function of the start times tree set when set against the inpuuted time seg
                 }
-        Calendar endTime = Calendar.getInstance();
-        try {
-            if (floor != null) {
-                endTime.setTime(sdf.parse(date + " " + END_TIMES[this.getStartTimeIndexfromStartTime(date, sdf2.format(floor.getTime()))]));
-                if (timeSeg.before(endTime)) {
-                    overTime = false;
+        Calendar endTime = Calendar.getInstance();//creates a calendar object to store the end time corresponding to the floor start time
+        try {//opens the trycatch statement
+            if (floor != null) {//checks if the floor date object is null
+                endTime.setTime(sdf.parse(date + " " + END_TIMES[this.getStartTimeIndexfromStartTime(date, sdf2.format(floor.getTime()))]));//sets the time of the calendar object to the corresponding end time
+                if (timeSeg.before(endTime)) {//checks if the time segment is before the gotton corresponding end time
+                    overTime = false;//flips the overTime boolean to false
                 }
             }
-        } catch (ParseException ex) {
-            Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-          if (floor != null && overTime == false)  {
-            time = sdf2.format(times.floor(floor));
+        } catch (ParseException ex) {//opens catch statement
+            Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);//alerts the user that there was an error setting the time of the date object
+        }//closes the catch statement
+          if (floor != null && overTime == false)  {//checks if the floor date object is not null and if the over time boolean is false
+            time = sdf2.format(times.floor(floor));//sets the time string to the formatted string representation of the floor date object
           } 
         }
-        return time;
-    }
+        return time;//return the time string
+    }//closes the getFloorTime method
     
-    public String [] getStartTimesOnDate() {
-        lessonDataArray la = new lessonDataArray();
-        keysArray ka = new keysArray();
-        ArrayList<String> startTimes = new ArrayList<>();
-        for (int i = 0; i < KEYS_ON_DAY.length; i++) {
-            String startAttemptedTime = la.getLessonStartTimeFromLessonID(ka.getLessonIDFromKey(KEYS_ON_DAY[i]));
-            startTimes.add(startAttemptedTime);
+    public String [] getStartTimesOnDate() {//creates a method to get the start times of the lessons of the selected date
+        lessonDataArray la = new lessonDataArray();//creates an object of the lessonDataArray class
+        keysArray ka = new keysArray();//creates an object of the keysArray class
+        ArrayList<String> startTimes = new ArrayList<>();//creates an array list to store the dtart times of the selected date
+        for (int i = 0; i < KEYS_ON_DAY.length; i++) {//starts a for loop iterating through the kesy of the lessons on the selected date
+            String startAttemptedTime = la.getLessonStartTimeFromLessonID(ka.getLessonIDFromKey(KEYS_ON_DAY[i]));//creates a string holding the start time of a lesson corresponding to the lesson key
+            startTimes.add(startAttemptedTime);//adds the attempted start time to the start times array list
+            //** please note: distinctness of the start times array is ensured by the nature of the keys array
         }
         String times [] = startTimes.toArray(new String[startTimes.size()]);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");
@@ -389,64 +384,6 @@ public class CalendarHandler {
         return keysArray;
         
     }
-    
-//    public String [] keysOnDay() {
-//        System.out.println("getting keys");
-//        lessonDataArray la = new lessonDataArray();
-//        keysArray ka = new keysArray();
-//        ka.sortArray();
-//        la.sortArray();
-//        ArrayList<String> keys = new ArrayList<>();
-//        
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");
-//        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/dd/MM");
-//        Calendar time = Calendar.getInstance();
-//        Calendar refTime = Calendar.getInstance();
-//        int s = 0;
-//        try {
-//            time.setTime(sdf2.parse(la.getLessonDataArray().get(s).getLessonDate()));
-//            refTime.setTime(sdf2.parse(DATE));
-//            System.out.println("firstTime: " + sdf2.format(time.getTime()) + "      date: " + sdf2.format(refTime.getTime()));
-//        } catch (ParseException ex) {
-//            Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        while(!(time.after(refTime))) {
-//            try {
-//                time.setTime(sdf2.parse(la.getLessonDataArray().get(s).getLessonDate()));
-//            } catch (ParseException ex) {
-//                Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            if (la.getLessonDataArray().get(s).getLessonDate().equals(DATE)) {
-//                if (!keys.contains(ka.getKeyFromLessonID(la.getLessonDataArray().get(s).getLessonID()))) {
-//                    keys.add(ka.getKeyFromLessonID(la.getLessonDataArray().get(s).getLessonID()));
-//                }
-//            }
-//            s++;
-//        }
-//        
-//        Calendar p1 = Calendar.getInstance();
-//        Calendar p2 = Calendar.getInstance();
-//        
-//        for (int i = 0; i < keys.size()-1; i++) {
-//            for (int k =i+1; k < keys.size(); k++) {
-//                try {
-//                    p1.setTime(sdf.parse(ka.getDateFromKey(keys.get(i)) + " " + ka.getStartTimeFromKey(keys.get(i))));
-//                    p2.setTime(sdf.parse(ka.getDateFromKey(keys.get(k)) + " " + ka.getStartTimeFromKey(keys.get(k))));
-//                } catch (ParseException ex) {
-//                    Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//                String temp;
-//                if (p2.after(p1)) {
-//                    temp = keys.get(k);
-//                    keys.set(k, keys.get(i));
-//                    keys.set(i, temp);
-//                }
-//            }
-//        }
-//        String keysArray [] = keys.toArray(new String[keys.size()]);
-//        KEYS_ON_DAY = keysArray;
-//        return keysArray;
-//    }
     
     public String StartTimeFromLessonKey(String key) {
         lessonDataArray la = new lessonDataArray();

@@ -390,69 +390,45 @@ public class CalendarHandler {
     public String StartTimeFromLessonKey(String key) {//creates a method to get the start time of the lesson associated with the lesson key passed in
         lessonDataArray la = new lessonDataArray();//creates an object of the lessonDataArray object
         keysArray ka = new keysArray();//creates an object of the keysArray object
-        String time = "";//creates a string 
-        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
-            if (ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()).equals(key)) {
-                time = la.getLessonStartTimeFromLessonID(la.getLessonDataArray().get(i).getLessonID()); 
-                break;
+        String time = "";//creates a string to store the time gotten from the lesson key
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {//starts a for loop iterating through each of the items in the lessonDataArray array list
+            if (ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()).equals(key)) {//checks if the iterated key is equal to the key passed in
+                time = la.getLessonStartTimeFromLessonID(la.getLessonDataArray().get(i).getLessonID());//sets the time string to the time gotton from the iterated in key
+                break;//discontinues the loop
             }
         }
-        return time;
+        return time;//returns the time string
     }
     
-    public String timeFromLessonKey(String key) {
-        lessonDataArray la = new lessonDataArray();
-        keysArray ka = new keysArray();
-        String time = "";
-        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
-            
-            if (ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()).equals(key)) {
+    public String timeFromLessonKey(String key) {//creates a method to get the full formatted time from the passed in key
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        keysArray ka = new keysArray();//creates an object for the keysArray class
+        String time = "";//creates a string to store the formatted time
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {//starts a for loop iterting through the items in the lessonDataArray array list
+            if (ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()).equals(key)) {//checks if the iterated key is equal to the key passed in
                 time = la.getLessonDataArray().get(i).getLessonTime() + " - " +
-                        la.getEndTime(la.getLessonDataArray().get(i).getLessonTime(), la.getLessonDataArray().get(i).getLessonDuration());
-                break;
+                        la.getEndTime(la.getLessonDataArray().get(i).getLessonTime(), la.getLessonDataArray().get(i).getLessonDuration());//sets the time string to the formatted time gotten from the iterated key
+                break;//discontinues the loop
             }
         }
-        return time;
-    }
+        return time;//returns the time string
+    }//closes the timeFromLessonKey method
     
-    public String venueFromLessonKey(String key) {
-        keysArray ka = new keysArray();
-        venueArray va = new venueArray();
-        lessonDataArray la = new lessonDataArray();
-        String venue = "";
-        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
-            if (ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()).equals(key)) {
-                int lessonID = la.getLessonDataArray().get(i).getLessonID();
-                int index = la.getIndexFromID(lessonID);
-                venue = va.venueNameFromID(la.getLessonDataArray().get(index).getVenueID());
-                break;
+    public String venueFromLessonKey(String key) {//create method to get the venue of a lesson from the associated key
+        keysArray ka = new keysArray();//creates an object for the keysArray object
+        venueArray va = new venueArray();//creates an object for the venueArray class
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        String venue = "";//creates a string to store the venue gotten to be returned
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {//starts a for loop iterating through the items in the lessonDataArray array list
+            if (ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()).equals(key)) {//checks if the iterated key is equal to the passed in key
+                int lessonID = la.getLessonDataArray().get(i).getLessonID();//creates an intiger to store the iterated lesson id
+                int index = la.getIndexFromID(lessonID);//creates an integer representing the index of the lesson
+                venue = va.venueNameFromID(la.getLessonDataArray().get(index).getVenueID());//sets the venue string to the gotton venue
+                break;//discontinues the loop
             }
         }
-        return venue;
-    }
-    
-    public int NumberOfLessonsOnDay(String date) {
-        lessonDataArray la = new lessonDataArray();
-        keysArray ka = new keysArray();
-        ArrayList<String> keys = new ArrayList<>();
-        boolean keyAlreadyIn = false;
-        
-        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
-            if (la.getLessonDataArray().get(i).getLessonDate().equals(date)) {
-                //checks if lesson already added to key list by checking it against the lessonKey
-                for (int k = 0; k < keys.size(); k++) {
-                    if (keys.get(k).equals(ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()))) {
-                        keyAlreadyIn = true;
-                    }
-                }
-                if (keyAlreadyIn == false) {
-                    keys.add(ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()));
-                }
-                keyAlreadyIn = false;
-            }
-        }
-        return keys.size();
-    }
+        return venue;//returns the gotton venue
+    }//closes the venueFromLessonKey method
     
     public String [] studentsFromLessonDateAndTime(String date, String time) {
         lessonDataArray la = new lessonDataArray();

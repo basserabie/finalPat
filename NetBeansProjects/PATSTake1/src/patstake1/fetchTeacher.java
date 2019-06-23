@@ -242,4 +242,8 @@ public class fetchTeacher {
             }
     }
     
+    public void deleteAccount() {
+        
+    }
+    
 }

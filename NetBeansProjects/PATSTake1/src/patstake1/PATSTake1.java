@@ -38,6 +38,5 @@ public class PATSTake1 {
         }};
         Thread sampleThread = new Thread(backGroundRunnable);
         sampleThread.start();
- 
     }
 }

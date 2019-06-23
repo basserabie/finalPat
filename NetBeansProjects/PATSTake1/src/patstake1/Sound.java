@@ -32,6 +32,17 @@ public class Sound {
        }
     }
    
+   public static void playcam() {
+       File doh = new File("cam.WAV");
+       try {
+           Clip clip = AudioSystem.getClip();
+           clip.open(AudioSystem.getAudioInputStream(doh));
+           clip.start();
+           Thread.sleep(clip.getMicrosecondLength()/1000);
+       } catch (Exception e) {
+       }
+    }
+   
    public static void playbumb() {
        File doh = new File("r.WAV");
        try {

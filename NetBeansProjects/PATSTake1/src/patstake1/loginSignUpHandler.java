@@ -36,7 +36,27 @@ public class loginSignUpHandler {
     
     public static boolean allGood = false;
     
-    //TODO: make login screen invisible when works
+    public void loginWithFace(boolean recognised) {
+        loginSignup ls = new loginSignup();
+        fetchTeacher ft = new fetchTeacher();
+        boolean issignedUp = ft.getSignedUp();
+        String password = ft.getPassword();
+        if (issignedUp == true) {
+            
+            if (recognised) {
+                this.addLogInTime();
+                allGood = true;
+                dashboard d = new dashboard();
+                d.setVisible(true);
+                ls.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "FACE NOT RECOGNISED\nDont worry, we still think you are quite pretty :)");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "please sign up first!");
+        }
+    }
+    
     public void login(String passwordPassed) {
         loginSignup ls = new loginSignup();
         fetchTeacher ft = new fetchTeacher();

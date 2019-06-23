@@ -323,75 +323,74 @@ public class CalendarHandler {
         return students;//returns the formatted students string
     }//closes the studentsStringFromArray method
     
-    public String studentsStringFromArrayForParent(String [] studentsArray) {
-        String students = "";
-        for (int i = 0; i < studentsArray.length; i++) {
-            students += studentsArray[i] + ", ";
+    public String studentsStringFromArrayForParent(String [] studentsArray) {//creates a method to get a formatted string of students according to an inputted array of students
+        String students = "";//creates a string to hold the formatted string of students and be returned
+        for (int i = 0; i < studentsArray.length; i++) {//starts a for loop iterating through the students array
+            students += studentsArray[i] + ", ";//adds a formatted event of a student to the students string
         }
-        return students;
-    }
+        return students;//returns the students string
+    }//closes the studentsStringFromArrayForParent method
     
-    public String getKeyFromPositionInDayAndDate(int index, String date) {
-        String key = "";
-        for (int i = 0; i < KEYS_ON_DAY.length; i++) {
-            if (i == index) {
-                key = KEYS_ON_DAY[i];
-            }
-        }
-        return key;
-    }
+//    public String getKeyFromPositionInDayAndDate(int index, String date) {//creates a method to get the key from the position of the associated lesson on the selected date
+//        String key = "";//creates a string that will store the gotten key and will be returned
+//        for (int i = 0; i < KEYS_ON_DAY.length; i++) {//starts a for loop iterating through the key array
+//            if (i == index) {//checks if i is equal to the passed in index
+//                key = KEYS_ON_DAY[i];//sets the key string to the key at the index if i;
+//            }
+//        }
+//        return key;
+//    }
     
-    public String [] keysOnDayTest() {
-        ConnectDB db = new ConnectDB();
-        lessonDataArray la = new lessonDataArray();
-        keysArray ka = new keysArray();
-        la.sortArray();
-        ArrayList<String> keys = new ArrayList<>();
+    public String [] keysOnDayTest() {//creates a method that gets the keys of the lessons on the selected date
+        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        keysArray ka = new keysArray();//creates an object for the keysArray class
+        la.sortArray();//sorts the lessonDataArray lesson data
+        ArrayList<String> keys = new ArrayList<>();//creates an array list to store the keys on the selected date
         
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/dd/MM");
-        Calendar time = Calendar.getInstance();
-        Calendar refTime = Calendar.getInstance();
-        String getDates = "SELECT DISTINCT lessonKey " +"FROM lessonData, lessonKeys " +"WHERE lessonDate = '" + DATE + "' AND lessonData.LessonID = lessonKeys.lessonID";
-        ResultSet rKeys = db.getResults(getDates);
-        try {
-            while(rKeys.next()) { 
-               keys.add(rKeys.getString("lessonKey"));
-               countOnDay++;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");//creates a date formatter
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/dd/MM");//creates a date formatter
+        Calendar time = Calendar.getInstance();//creates a calendar instance
+        Calendar refTime = Calendar.getInstance();//creates a calendar instance
+        String getDates = "SELECT DISTINCT lessonKey " +"FROM lessonData, lessonKeys " +"WHERE lessonDate = '" + DATE + "' AND lessonData.LessonID = lessonKeys.lessonID";//creates a string to store the SQL query used to assertain the distinct keys of the lessons on the selected day
+        ResultSet rKeys = db.getResults(getDates);//creates a resultSet to store the results of the above query
+        try {//opens a trycatch statement
+            while(rKeys.next()) {//starts a while loop iterating through the results of the resultSet
+               keys.add(rKeys.getString("lessonKey"));//adds the lesson key in the resultSet to the keys array list
+               countOnDay++;//ups the count of countOnDay i.e for every lesson key added to the list, there is another lesson on the day
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (SQLException ex) {//opens the catch statement
+            Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error fetching the resultset' next record
+        }//coloses the catch statement
         
-        Calendar p1 = Calendar.getInstance();
-        Calendar p2 = Calendar.getInstance();
-        
-        for (int i = 0; i < keys.size()-1; i++) {
-            for (int k =i+1; k < keys.size(); k++) {
-                try {
-                    p1.setTime(sdf.parse(ka.getDateFromKey(keys.get(i)) + " " + ka.getStartTimeFromKey(keys.get(i))));
-                    p2.setTime(sdf.parse(ka.getDateFromKey(keys.get(k)) + " " + ka.getStartTimeFromKey(keys.get(k))));
-                } catch (ParseException ex) {
-                    Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
+        Calendar p1 = Calendar.getInstance();//creates a calendar object
+        Calendar p2 = Calendar.getInstance();//creates a calendar object
+        //sorting the key array list according to the date of the associated lesson
+        for (int i = 0; i < keys.size()-1; i++) {//starts a for loop iterating through the keys array list-1
+            for (int k =i+1; k < keys.size(); k++) {//starts a for loop iterating through the keys on the selected day corresponding to the above for loop
+                try {//opens a trycatch statement
+                    p1.setTime(sdf.parse(ka.getDateFromKey(keys.get(i)) + " " + ka.getStartTimeFromKey(keys.get(i))));//sets the time of the p1 object to the date for the key at 1
+                    p2.setTime(sdf.parse(ka.getDateFromKey(keys.get(k)) + " " + ka.getStartTimeFromKey(keys.get(k))));//sets the time of the p2 object to the datefor the key at 2
+                } catch (ParseException ex) {//opens the catch statement
+                    Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error setting the times of the calendar object
+                }//closes the catch statement
+                String temp;//instantiates a string to store a temporary date to be used in the sorting of the key array
+                if (p2.after(p1)) {//checks if p1 is after p2
+                    temp = keys.get(k);//sets the temp string to the key at index k
+                    keys.set(k, keys.get(i));//sets the key at index k to the key at index i
+                    keys.set(i, temp);//sets the key at index i to the key stored in the temp string
                 }
-                String temp;
-                if (p2.after(p1)) {
-                    temp = keys.get(k);
-                    keys.set(k, keys.get(i));
-                    keys.set(i, temp);
-                }
             }
         }
-        String keysArray [] = keys.toArray(new String[keys.size()]);
-        KEYS_ON_DAY = keysArray;
-        return keysArray;
-        
-    }
+        String keysArray [] = keys.toArray(new String[keys.size()]);//creates a string array representation of the keys array list
+        KEYS_ON_DAY = keysArray;//sets the class static of the keys array to the newly created key string array above
+        return keysArray;//returns the keysArray string array
+    }//closes the keysOnDayTest method
     
-    public String StartTimeFromLessonKey(String key) {
-        lessonDataArray la = new lessonDataArray();
-        keysArray ka = new keysArray();
-        String time = "";
+    public String StartTimeFromLessonKey(String key) {//creates a method to get the start time of the lesson associated with the lesson key passed in
+        lessonDataArray la = new lessonDataArray();//creates an object of the lessonDataArray object
+        keysArray ka = new keysArray();//creates an object of the keysArray object
+        String time = "";//creates a string 
         for (int i = 0; i < la.getLessonDataArray().size(); i++) {
             if (ka.getKeyFromLessonID(la.getLessonDataArray().get(i).getLessonID()).equals(key)) {
                 time = la.getLessonStartTimeFromLessonID(la.getLessonDataArray().get(i).getLessonID()); 

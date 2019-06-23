@@ -209,116 +209,119 @@ public class CalendarHandler {
     public String [] getStartTimesOnDate() {//creates a method to get the start times of the lessons of the selected date
         lessonDataArray la = new lessonDataArray();//creates an object of the lessonDataArray class
         keysArray ka = new keysArray();//creates an object of the keysArray class
-        ArrayList<String> startTimes = new ArrayList<>();//creates an array list to store the dtart times of the selected date
-        for (int i = 0; i < KEYS_ON_DAY.length; i++) {//starts a for loop iterating through the kesy of the lessons on the selected date
+        ArrayList<String> startTimes = new ArrayList<>();//creates an array list to store the start times of the selected date
+        
+        for (int i = 0; i < KEYS_ON_DAY.length; i++) {//starts a for loop iterating through the keys of the lessons on the selected date
             String startAttemptedTime = la.getLessonStartTimeFromLessonID(ka.getLessonIDFromKey(KEYS_ON_DAY[i]));//creates a string holding the start time of a lesson corresponding to the lesson key
             startTimes.add(startAttemptedTime);//adds the attempted start time to the start times array list
             //** please note: distinctness of the start times array is ensured by the nature of the keys array
         }
-        String times [] = startTimes.toArray(new String[startTimes.size()]);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
-        Calendar t1 = Calendar.getInstance();
-        Calendar t2 = Calendar.getInstance();
-        for (int i = 0; i < times.length-1; i++) {
-            for (int k = i+1; k < times.length; k++) {
-                try {
-                    t1.setTime(sdf.parse(DATE + " " + times[i]));
-                    t2.setTime(sdf.parse(DATE + " " + times[k]));
-                } catch (ParseException ex) {
-                    Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (t2.before(t1)) {
-                    String temp = sdf2.format(t1.getTime());
-                    times[i] = times[k];
-                    times[k] = temp;
+        String times [] = startTimes.toArray(new String[startTimes.size()]);//creates a string arrays representation of the sartTimes array list
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");//creates a simple dat formatter
+        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");//creates a simple date formatter
+        Calendar t1 = Calendar.getInstance();//creates a calendar instance to use in sorting the times array
+        Calendar t2 = Calendar.getInstance();//creates a calendar instance to use in sorting the times array
+        //sorting the array:
+        for (int i = 0; i < times.length-1; i++) {//starts a for loop iterating through each start time in the times array-1
+            for (int k = i+1; k < times.length; k++) {//starts a for loop corresponding the the loop above for sorting
+                try {//opens a trycatch statement
+                    t1.setTime(sdf.parse(DATE + " " + times[i]));//sets the t1 calendar object to the start time iat index i of the times array
+                    t2.setTime(sdf.parse(DATE + " " + times[k]));//sets the t2 calendar object to the start time iat index k of the times array
+                } catch (ParseException ex) {//opens the catch statement
+                    Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error setting the time of the calendar objects
+                }//closes the catch statement
+                if (t2.before(t1)) {//checks if the t2 calendar object time is beofore the t1 object
+                    String temp = sdf2.format(t1.getTime());//crerates a string object temp to store the start time held in the t1 object
+                    times[i] = times[k];//sets the start time at index i of the array to the start time at index k of the array
+                    times[k] = temp;//sets the start time at index k of the array to the start time string representation stored in the temp string variable
                 }
             }
         }
-        START_TIMES = times;
-        return times;
-    }
+        START_TIMES = times;//sets the class static string array of start times to the times array of start times
+        return times;//returns the times array
+    }//closes the getStartTimesOnDate method
     
-    public String [] getEndTimesOnDate() {
-        lessonDataArray la = new lessonDataArray();
-        keysArray ka = new keysArray();
-        ArrayList<String> endTimes = new ArrayList<>();
+    public String [] getEndTimesOnDate() {//creates a method to get the end times of the lessons of the selected date
+        lessonDataArray la = new lessonDataArray();//creates an object of the lessonDataArray class
+        keysArray ka = new keysArray();//creates an object of the keysArray class
+        ArrayList<String> endTimes = new ArrayList<>();//creates an array list to store the end times of the selected date
         
-        for (int i = 0; i < KEYS_ON_DAY.length; i++) {
-            String endAttemptedTime = la.getLessonEndTimeFromLessonID(ka.getLessonIDFromKey(KEYS_ON_DAY[i]));
-            endTimes.add(endAttemptedTime);
+        for (int i = 0; i < KEYS_ON_DAY.length; i++) {//starts a for loop iterating through the keys of the lessons on the selected date
+            String endAttemptedTime = la.getLessonEndTimeFromLessonID(ka.getLessonIDFromKey(KEYS_ON_DAY[i]));//creates a string holding the end time of a lesson corresponding to the lesson key
+            endTimes.add(endAttemptedTime);//adds the attempted end time to the start times array list
+            //** please note: distinctness of the end times array is ensured by the nature of the keys array
         }
-        String times [] = endTimes.toArray(new String[endTimes.size()]);
+        String times [] = endTimes.toArray(new String[endTimes.size()]);//creates a string arrays representation of the endTimes array list
         
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
-        Calendar t1 = Calendar.getInstance();
-        Calendar t2 = Calendar.getInstance();
-        for (int i = 0; i < times.length-1; i++) {
-            for (int k = i+1; k < times.length; k++) {
-                try {
-                    t1.setTime(sdf.parse(DATE + " " + times[i]));
-                    t2.setTime(sdf.parse(DATE + " " + times[k]));
-                } catch (ParseException ex) {
-                    Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (t2.before(t1)) {
-                    String temp = sdf2.format(t1.getTime());
-                    times[i] = times[k];
-                    times[k] = temp;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");//creates a simple dat formatter
+        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");//creates a simple dat formatter
+        Calendar t1 = Calendar.getInstance();//creates a calendar instance to use in sorting the times array
+        Calendar t2 = Calendar.getInstance();//creates a calendar instance to use in sorting the times array
+        for (int i = 0; i < times.length-1; i++) {//starts a for loop iterating through each end time in the times array-1
+            for (int k = i+1; k < times.length; k++) {//starts a for loop corresponding the the loop above for sorting
+                try {//opens a trycatch statement
+                    t1.setTime(sdf.parse(DATE + " " + times[i]));//sets the t1 calendar object to the end time iat index i of the times array
+                    t2.setTime(sdf.parse(DATE + " " + times[k]));//sets the t2 calendar object to the end time iat index k of the times array
+                } catch (ParseException ex) {//opens the catch statement
+                    Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error setting the time of the calendar objects
+                }//closes the catch statement
+                if (t2.before(t1)) {//checks if the t2 calendar object time is beofore the t1 object
+                    String temp = sdf2.format(t1.getTime());//crerates a string object temp to store the end time held in the t1 object
+                    times[i] = times[k];//sets the start time at index i of the array to the end time at index k of the array
+                    times[k] = temp;//sets the end time at index k of the array to the end time string representation stored in the temp string variable
                 }
             }
         }
-        END_TIMES = times;
-        return times;
-    }
+        END_TIMES = times;//sets the class static string array of end times to the times array of end times
+        return times;//returns the times array
+    }//closes the getEndTimesOnDate method
     
-    public String getLessonDataOnThatDateAndTime(String date, String timeInputted) {
-        lessonDataArray la = new lessonDataArray();
-        keysArray ka = new keysArray();
-        String lessonsOnDayData = "Youre lesson at this time is:\n\n";
-        String lessonIntro = "";
-        String timeRef = "";
+    public String getLessonDataOnThatDateAndTime(String date, String timeInputted) {//creates a method that formatts the output of the data regarding a selected lesson on a selected date from the daily planner form
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        keysArray ka = new keysArray();//creates an object for the keysArray class
+        String lessonsOnDayData = "Youre lesson at this time is:\n\n";//creates a string that will sore the final structure of the lesson data display (and adds the opeing message)
+        String lessonIntro = "";//creates a string that will store the display of the frequency of the selected lesson
+        String timeRef = "";//creates a string that will store the time of the selected lesson
         
-         //checks if there is a startTime to the selected time and assignes that startTime to timeRef
-        if (this.TimeHasLesson(date, timeInputted)) {
-            timeRef = this.floorStartTime(timeInputted, date);
+        if (this.TimeHasLesson(date, timeInputted)) {//checks if there is a startTime to the selected time and assigns that startTime to timeRef
+            timeRef = this.floorStartTime(timeInputted, date);//assigns start time to timeRef string
         }
-        if (!timeRef.equals("")) {
-            String time = "";
-            String venue = "";
-            String students = "";
+        if (!timeRef.equals("")) {//checks if the timeRef string is not null i.e no lesson at the time selected
+            String time = "";//creates a string that will sotre the time of the selected lesson
+            String venue = "";//creates a string that will store the venue of the selected lesson
+            String students = "";//creates a string that will store a list of the students attending the selected lesson
             //populates lessonsOnDayData with the data for all of the lessons on the selected date
-                String key = ka.getKeyFromDateAndTime(date, timeRef);
-                switch (la.getFrequencyFromKey(key)) {
-                    case "once-off":
-                        lessonIntro = "This is a once-off lesson:\n";
-                        break;
-                    case "weekly":
-                        lessonIntro = "This is a weekly lesson:\n";
-                        break;
-                    case "monthly":
-                        lessonIntro = "This is a monthly lesson:\n";
-                        break;
-                }
-            time = "Time: " + this.timeFromLessonKey(key) + "\n";
-            venue = "Venue: " + this.venueFromLessonKey(key) + "\n";
-            students = "Student(s): " + this.studentsStringFromArray(this.studentsFromLessonDateAndTime(date, this.StartTimeFromLessonKey(key)));
-            lessonsOnDayData += lessonIntro + time + venue + students + "\n";
-        } else {
-            lessonsOnDayData = "You ave no lesson at this time! :) :)";
+                String key = ka.getKeyFromDateAndTime(date, timeRef);//creates a string holding the key of the selected lesson
+                switch (la.getFrequencyFromKey(key)) {//creates a switchcase statement according to the frequency of the selected lesson
+                    case "once-off"://starts the once-off case
+                        lessonIntro = "This is a once-off lesson:\n";//sets the lessonIntro string to display the once-off nature of the selected lesson
+                        break;//breaks from the once-off case
+                    case "weekly"://starts the weekly case
+                        lessonIntro = "This is a weekly lesson:\n";//sets the lessonIntro string to display the weekly nature of the selected lesson
+                        break;//breaks from the weekly case
+                    case "monthly"://starts the monthly case
+                        lessonIntro = "This is a monthly lesson:\n";//sets the lessonIntro string to display the monthly nature of the selected lesson
+                        break;//breaks from the monthly case
+                }//closes the switchcase statement
+            time = "Time: " + this.timeFromLessonKey(key) + "\n";//sets the time string tot eh time of the selected lesson
+            venue = "Venue: " + this.venueFromLessonKey(key) + "\n";//sets the venue string to the venue of the selected lesson
+            students = "Student(s): " + this.studentsStringFromArray(this.studentsFromLessonDateAndTime(date, this.StartTimeFromLessonKey(key)));//sets the students string to the list of students attending the selected lesson
+            lessonsOnDayData += lessonIntro + time + venue + students + "\n";//formats the final string to be displayed to display the above gotten data
+        } else {//if there is no lesson at the selected time
+            lessonsOnDayData = "You ave no lesson at this time! :) :)";//formats the final display to alert the user that there are no lessons booked at the selected time
         }
         
-       return  lessonsOnDayData;
-    }
+       return  lessonsOnDayData;//returns the formatted lessonsOnDayData string
+    }//closes the getLessonDataOnThatDateAndTime method
     
-    public String studentsStringFromArray(String [] studentsArray) {
-        String students = "";
-        for (int i = 0; i < studentsArray.length; i++) {
-            students += studentsArray[i] + "\n                  ";
+    public String studentsStringFromArray(String [] studentsArray) {//creates a method to format the display of the students attending the selected lesson
+        String students = "";//creates a string that will store the formatted list of the attending students
+        for (int i = 0; i < studentsArray.length; i++) {//starts a for loop iterating through each student in the students array
+            students += studentsArray[i] + "\n                  ";//adds the formatted event of each student to the final student's string
         }
-        return students;
-    }
+        return students;//returns the formatted students string
+    }//closes the studentsStringFromArray method
     
     public String studentsStringFromArrayForParent(String [] studentsArray) {
         String students = "";

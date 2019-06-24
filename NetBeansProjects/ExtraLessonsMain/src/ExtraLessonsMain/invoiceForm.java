@@ -26,6 +26,7 @@ public class invoiceForm extends javax.swing.JFrame {
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         invoiceHandler ih = new invoiceHandler();
+        this.parentNameLabel.setText(parent);
         this.subjectTextField.setText(ih.getInvoiceSubjectTemplate(date, time));
         this.emailTextBox.setText(ih.getInvoiceTemplate(date, time, parent, cost));
     }

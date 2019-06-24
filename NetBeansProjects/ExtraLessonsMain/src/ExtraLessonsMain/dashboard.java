@@ -49,7 +49,6 @@ import javax.swing.JTable;
 public class dashboard extends javax.swing.JFrame {
     
     private boolean gotRequests = false;
-    public static boolean playTut = false;
     /**
      * Creates new form dashboard
      */
@@ -72,16 +71,6 @@ public class dashboard extends javax.swing.JFrame {
             } catch (IOException ex) {
                 System.out.println("problem getting icon");
             }
-        System.out.println(playTut);
-        if (!playTut) {
-            Desktop d = Desktop.getDesktop();
-            playTut = false;
-            try {
-                d.browse(new URI ("https://www.youtube.com/watch_popup?v=0h-gbeI0AFQ"));
-            } catch (URISyntaxException ex) {
-                Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
         
     }
     
@@ -631,7 +620,7 @@ public class dashboard extends javax.swing.JFrame {
         Desktop d = Desktop.getDesktop();
             try {
             try {
-                d.browse(new URI ("https://www.youtube.com/watch_popup?v=0h-gbeI0AFQ"));
+                d.browse(new URI ("https://www.youtube.com/watch_popup?v=9YtZLyit8xs"));
             } catch (IOException ex) {
                 Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -34,8 +34,6 @@ public class ExtraLessonsMain {//creates a class called ExtraLessonsMain to star
     public static void main(String[] args) {//creates the main static void method
         ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class, calling the constructo and establishing connection to database
         fetchTeacher ft = new fetchTeacher();
-        dashboard.playTut = ft.signedUp;
-        System.out.println(dashboard.playTut);
         new loginSignup().setVisible(true);//creates an object for the loginSignup class and sets its JFrame visible
         
         Runnable backGroundRunnable = new Runnable() {//creates a new background runnable to add to a seperate thread

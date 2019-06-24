@@ -40,7 +40,6 @@ public class loginSignUpHandler {
         loginSignup ls = new loginSignup();
         fetchTeacher ft = new fetchTeacher();
         boolean issignedUp = ft.getSignedUp();
-        String password = ft.getPassword();
         if (issignedUp == true) {
             
             if (recognised) {

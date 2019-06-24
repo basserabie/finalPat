@@ -37,7 +37,7 @@ public class loginSignup extends javax.swing.JFrame {
      */
     public loginSignup() {
         initComponents();
-        
+       
         try {
             Image myPicture = ImageIO.read(new File(takeIcon.getNoIconPath()));
             System.out.println(takeIcon.getPath());
@@ -494,6 +494,7 @@ public class loginSignup extends javax.swing.JFrame {
                         this.TpasswordT.getText().toString(), this.TpasswordConfirmT.getText().toString(), question, answer);
                         if (loginSignUpHandler.allGood) {
                             Sound.playgoahead();
+                            loginSignUpHandler.allGood = false;
                             this.setVisible(false);
                         }
                     } else {
@@ -518,6 +519,7 @@ public class loginSignup extends javax.swing.JFrame {
           lsh.login(this.TPasswordTLogin.getText());
           if (loginSignUpHandler.allGood) {
               Sound.playgoahead();
+              loginSignUpHandler.allGood = false;
                 this.setVisible(false);
             } else {
               System.out.println("not entered");
@@ -530,6 +532,7 @@ public class loginSignup extends javax.swing.JFrame {
              lsh.login(this.TPasswordTLogin.getText());
              if (loginSignUpHandler.allGood) {
                 Sound.playgoahead();
+                loginSignUpHandler.allGood = false;
                 this.setVisible(false);
              }
          }
@@ -595,6 +598,7 @@ public class loginSignup extends javax.swing.JFrame {
             lsh.loginWithFace(i.validateFace());
             if (loginSignUpHandler.allGood) {
                 Sound.playgoahead();
+                loginSignUpHandler.allGood = false;
                 this.setVisible(false);
             } else {
                 System.out.println("Face Not Recognised");

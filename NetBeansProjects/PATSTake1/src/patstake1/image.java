@@ -139,6 +139,11 @@ public class image {
         IDPath = file.getAbsolutePath();
     }
     
+    public void deleteIDFile() {
+        AddStudentNote add = new AddStudentNote();
+        add.deleteNote("faceID");
+    }
+    
     public static String readFaceID() {
         AddStudentNote add = new AddStudentNote();
         return add.reading("faceID");

@@ -243,7 +243,56 @@ public class fetchTeacher {
     }
     
     public void deleteAccount() {
-        
+        loginSignUpHandler h = new loginSignUpHandler();
+        ConnectDB db = new ConnectDB();
+        String pass = JOptionPane.showInputDialog("Please Enter Your Password");
+        String enpass = h.encryptPassword(pass, this.answer);
+        if (this.password.equals(enpass)) {
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you would like to delete your account?\nAll data will be permanently lost.", "Delete Account", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                this.deleteAllFiles();
+                String deleteLessons = "DELETE * FROM lessonData";
+                String deleteKeys = "DELETE * FROM lessonKeys";
+                String deleteMothers = "DELETE * FROM mothers";
+                String deleteSchools = "DELETE * FROM schools";
+                String deleteStudents= "DELETE * FROM sDetTable";
+                String deletePayments = "DELETE * FROM sPayTable";
+                String deleteUser = "DELETE * FROM teacherTable";
+                String deleteVenues = "DELETE * FROM venues";
+                try {
+                    db.UpdateDatabase(deleteLessons);
+                    db.UpdateDatabase(deleteKeys);
+                    db.UpdateDatabase(deleteMothers);
+                    db.UpdateDatabase(deleteSchools);
+                    db.UpdateDatabase(deleteStudents);
+                    db.UpdateDatabase(deletePayments);
+                    db.UpdateDatabase(deleteUser);
+                    db.UpdateDatabase(deleteVenues);
+                    JOptionPane.showMessageDialog(null, "Account Deleted. Please click 'OK' and then sign out.");
+                } catch (SQLException ex) {
+                    Logger.getLogger(fetchTeacher.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Account Not Deleted");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Password Incorrect");
+        }
+    }
+    
+    public void deleteAllFiles() {
+        AddStudentNote add = new AddStudentNote();
+        studentsArray sa = new studentsArray();
+        DrawArea d = new DrawArea();
+        image i = new image();
+        for (int k = 0; k < sa.getStudentArray().size(); k++) {
+            add.deleteNote(sa.studentNameFromID(sa.getStudentArray().get(k).getStudentID()));
+        }
+        i.deleteIDFile();
+        d.deleteSig();
+        takeIcon.deleteImage("icon.jpg");
+        takeIcon.deleteImage("iconr.jpg");
+        i.deleteImage();
     }
     
 }

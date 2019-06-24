@@ -40,7 +40,7 @@ import static net.ucanaccess.converters.Functions.date;
  *
  * @author YishaiBasserabie
  */
-public class CalendarHandler {
+public class CalendarHandler {//creates a class called CalendarHandler to handler and procces the JCalendar object and the dailyPlanForm Table
     
     private static String DATE = "";//creates a private static string that will hold the string value of the date selected by the user
     public static boolean DAY_HAS_LESSON = true;//creates a private static boolean that will indicate whether the date selected by the user has any lessons on it
@@ -430,151 +430,144 @@ public class CalendarHandler {
         return venue;//returns the gotton venue
     }//closes the venueFromLessonKey method
     
-    public String [] studentsFromLessonDateAndTime(String date, String time) {
-        lessonDataArray la = new lessonDataArray();
-        keysArray ka = new keysArray();
-        studentsArray sa = new studentsArray();
-        boolean studentAlreadyIn = false;
-        ArrayList<String> students = new ArrayList<>();
+    public String [] studentsFromLessonDateAndTime(String date, String time) {//creates a method that fetches an array of students attending a specific lesson
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        keysArray ka = new keysArray();//creates an object for the keysArray class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        ArrayList<String> students = new ArrayList<>();//creates an array list storing the students
         
-        for (int i = 0; i < la.getLessonDataArray().size(); i++) {
-            if (la.getLessonDataArray().get(i).getLessonDate().equals(date) && la.getLessonDataArray().get(i).getLessonTime().equals(time)) {
-                students.add(sa.studentNameFromID(la.getLessonDataArray().get(i).getStudentID()));
+        for (int i = 0; i < la.getLessonDataArray().size(); i++) {//starts a for loop iterating through the items in the lessondata array list
+            if (la.getLessonDataArray().get(i).getLessonDate().equals(date) && la.getLessonDataArray().get(i).getLessonTime().equals(time)) {//checks if the date and time of the iterated item is equal to the date and time passed in
+                students.add(sa.studentNameFromID(la.getLessonDataArray().get(i).getStudentID()));//add the student of the iterated item to the students array list
             }
         }
-        String studentsArray [] = students.toArray(new String[students.size()]);
-        return studentsArray;
-    }
+        String studentsArray [] = students.toArray(new String[students.size()]);//creates a string array representation of the students array list
+        return studentsArray;//returns the studentsArray
+    }//closes the studentsFromLessonDateAndTime method
     
-    public String getEndSegTime(String segStartTime, String date) {
-        //create a date fromatter
-        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
-        Calendar time = Calendar.getInstance(); // adds instance to cal
-        try {
-            time.setTime(sdf.parse(date + " " + segStartTime));
-        } catch (ParseException ex) {
-            Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        time.add(Calendar.MINUTE, 15);
-        String StringTime = sdf.format(time.getTime());
-        return StringTime;
-    }
+    public String getEndSegTime(String segStartTime, String date) {//creates a method to get the end time of a 15 minute time segment
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");//creates a date formatter
+        Calendar time = Calendar.getInstance(); //creates a calendar object
+        try {//opens a trycatch statement
+            time.setTime(sdf.parse(date + " " + segStartTime));//sets the time of the time calendar object
+        } catch (ParseException ex) {//opens the catch statement
+            Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error setting the time of the date object
+        }//closes the catch statement
+        time.add(Calendar.MINUTE, 15);//adds 15 minutes to the time calendar object
+        String StringTime = sdf.format(time.getTime());//creates a string representation of the time calendar object time using the date formatter
+        return StringTime;//returns the StringTime string
+    }//closes the getEndSegTime method
     
-    public boolean TimeHasLesson(String date, String time) {
-        lessonDataArray la = new lessonDataArray();
-        keysArray ka = new keysArray();
-        boolean segHasLessonBooked = false;
+    public boolean TimeHasLesson(String date, String time) {//creates a method that checks if a time segment is during a lesson
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        keysArray ka = new keysArray();//creates an object for the keysArray class
+        boolean segHasLessonBooked = false;//creates a boolean to indicate whether the segment has a lesson or not
         
-        if (COUNT_SET <= KEYS_ON_DAY.length) {
-            //create a date fromatter
-            DateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");
-            Calendar attemptedStartTime = Calendar.getInstance(); // adds instance to cal
-            Calendar attemptedEndTime = Calendar.getInstance();
-            try {
-                attemptedStartTime.setTime(sdf.parse(date + " " + time)); 
-                attemptedEndTime.setTime(sdf.parse(this.getEndSegTime(time, date)));
-            } catch (ParseException ex) {
-                Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            for (int i = 0; i < KEYS_ON_DAY.length; i++) {
-                Calendar refStartTime = Calendar.getInstance();
-                Calendar refEndTime = Calendar.getInstance();
-                try {
-                    refStartTime.setTime(sdf.parse(date + " " + START_TIMES[i]));
-                        refEndTime.setTime(sdf.parse(date + " " + END_TIMES[i]));
-                } catch (ParseException ex) {
-                    Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (attemptedStartTime.equals(refStartTime) ||
-                        attemptedEndTime.equals(refEndTime) ||
-                        attemptedStartTime.after(refStartTime) && attemptedEndTime.before(refEndTime)) {
-                    segHasLessonBooked = true;
+        if (COUNT_SET <= KEYS_ON_DAY.length) {//checks if all the lessons on the selected date have been already accounted for
+            DateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");//creates a date formatter
+            Calendar attemptedStartTime = Calendar.getInstance(); //creates a calendar object
+            Calendar attemptedEndTime = Calendar.getInstance();//creates a calendar object
+            try {//opens a trycatch statement
+                attemptedStartTime.setTime(sdf.parse(date + " " + time));//sets the time of the attemptedStartTime calendar object to the time passed in
+                attemptedEndTime.setTime(sdf.parse(this.getEndSegTime(time, date)));//sets the time of the attemptedEndTime calendar object to the end time of the time passed in
+            } catch (ParseException ex) {//opens the catch statement
+                Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error setting the times of the calendar objects
+            }//closes the catch statement
+            for (int i = 0; i < KEYS_ON_DAY.length; i++) {//starts a for loop iterating through the keys of the lessons on the selected date
+                Calendar refStartTime = Calendar.getInstance();//creates a calendar object to store the startTime of the lesson represented by the iterated key
+                Calendar refEndTime = Calendar.getInstance();//creates a calendar object to store the end Time of the lesson represented by the iterated key
+                try {//opens a trycatch statement
+                    refStartTime.setTime(sdf.parse(date + " " + START_TIMES[i]));//sets the time of the start time calendar object to the start time associated with the iterated key
+                    refEndTime.setTime(sdf.parse(date + " " + END_TIMES[i]));//sets the time of the end time calendar object to the end time associated with the iterated key
+                } catch (ParseException ex) {//closes the catch
+                    Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error setting the times of the calendar objects
+                }//closes the catch statement
+                if (attemptedStartTime.equals(refStartTime) ||//checks if the timeseg start time is equal to the reference lesson start time
+                        attemptedEndTime.equals(refEndTime) ||//checks if the timeseg end time is equal to the reference lesson end time
+                        attemptedStartTime.after(refStartTime) && attemptedEndTime.before(refEndTime)) {//checks if the timeseg start time is after the reference lesson start time and checks if the timeseg end time is before the reference lesson end time
+                    segHasLessonBooked = true;//flips the segHasLessonBooked boolean to true indicating that there is a lesson during the time seg passed in
                 } else {
-                    if (attemptedStartTime.equals(refEndTime)) {
-                        COUNT_SET++;
+                    if (attemptedStartTime.equals(refEndTime)) {//checks if the end time of the time segment is equal to the reference lesson end time i.e it is the end of the lesson
+                        COUNT_SET++;//upps the lesson counter
                     }
                 }
             }
         }
-        return segHasLessonBooked;
-    }
+        return segHasLessonBooked;//returns the segHasLessonBooked boolean
+    }//closes the timeHasLesson method
     
-    public String formatEventAtHour(String date, String time, String startTime) {
-        lessonDataArray la = new lessonDataArray();
+    public String formatEventAtHour(String date, String time, String startTime) {//creates a method to format the lesson event at each time seg (15 minutes) to be displayed in the corresponding column
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         
-        String lessonDataEventFiller = "";
-        boolean after = false;
-        if (this.TimeHasLesson(date, time)) {
-            DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
-            DateFormat sdf2 = new SimpleDateFormat("HH:mm");
-            String colours [] = {"red", "blue", "green", "pink", "purple", "yellow", "orange"};
-            String colour = colours[COLOUR];
+        String lessonDataEventFiller = "";//creates a string to hold the string that will be displayed for the corresponding tiem seg
+        if (this.TimeHasLesson(date, time)) {//checks if the passed in timeseg is during a lesson
+            DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");//creates a date formatter 
+            DateFormat sdf2 = new SimpleDateFormat("HH:mm");//creates a date formatter
+            String colours [] = {"red", "blue", "green", "pink", "purple", "yellow", "orange"};//creates a string array of colour names to be iterated through according to the lesson the event formatter is displaying
+            String colour = colours[COLOUR];//creates a string representing the name of a color at index 'COLOUR' of the colours array
             
-            String endTime = "";
-            for (int i = 0; i < la.getLessonDataArray().size(); i++) {
-                if (la.getLessonDataArray().get(i).getLessonDate().equals(date) && la.getLessonDataArray().get(i).getLessonTime().equals(startTime)) {
-                    endTime = la.getEndTime(la.getLessonDataArray().get(i).getLessonTime(), la.getLessonDataArray().get(i).getLessonDuration());
-                    break;
+            String endTime = "";//creates a string to hold the end time of the reference lesson
+            for (int i = 0; i < la.getLessonDataArray().size(); i++) {//starts a for loop iterating through the items in the lessonData Array list
+                if (la.getLessonDataArray().get(i).getLessonDate().equals(date) && la.getLessonDataArray().get(i).getLessonTime().equals(startTime)) {//checks if the date and time of the iterated item is euqla to the date and startTime passed in
+                    endTime = la.getEndTime(la.getLessonDataArray().get(i).getLessonTime(), la.getLessonDataArray().get(i).getLessonDuration());//sets the endTime string to the end time of the iterated item
+                    break;//discontinues the loop
                 }
             }
-            Calendar timeDate = Calendar.getInstance();
-            Calendar endTimeDate = Calendar.getInstance();
-            Calendar endTimeDateRef = Calendar.getInstance();
+            Calendar timeDate = Calendar.getInstance();//creates a calendar object
+            Calendar endTimeDate = Calendar.getInstance();//creates a calendar object
+            Calendar endTimeDateRef = Calendar.getInstance();//creates a calendar object
             
-            try {
-                timeDate.setTime(sdf.parse(date + " " + time));
-                endTimeDate.setTime(sdf.parse(this.getEndSegTime(sdf2.format(timeDate.getTime()), date)));
-                endTimeDateRef.setTime(sdf.parse(date + " " + endTime));
-            } catch (ParseException ex) {
-                Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            try {//opens a trycatch statement
+                timeDate.setTime(sdf.parse(date + " " + time));//sets the time of the timeDate calendar object to the time passed in of the seg
+                endTimeDate.setTime(sdf.parse(this.getEndSegTime(sdf2.format(timeDate.getTime()), date)));//sets the time of the endtimeDate calendar object to the end time of the time passed in of the seg
+                endTimeDateRef.setTime(sdf.parse(date + " " + endTime));//sets the time of the endTiemDateRef calendar object tot eh end time of the reference lesson
+            } catch (ParseException ex) {//opens the catch statement
+                Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error setting the times of the calendar objects
+            }//closes the catch statement
             
-            lessonDataEventFiller = "<html><font size = 200 color=\"" + colour + "\">■■■■</font></html>";
+            lessonDataEventFiller = "<html><font size = 200 color=\"" + colour + "\">■■■■</font></html>";//sets the lessonDataAevenFiller string to a string of squares indicating that the corresponding time seg has a lesson, formated with HTML code
             
-            if (endTimeDate.equals(endTimeDateRef)) {
-                if (COLOUR < colours.length-1) {
-                    COLOUR++;
-                } else {
-                    COLOUR = 0;
+            if (endTimeDate.equals(endTimeDateRef)) {//checks if the end time of the segment is equal to the end time of the reference lesson ie.e the lesson is over
+                if (COLOUR < colours.length-1) {//checks if the integer COLOUR is smaller that one less than the lenght of the colours string array
+                    COLOUR++;//upps the count of COLOUR i.e changes the colour of the event starting the next lesson
+                } else {//if the COLOUR integer is smaller than one less than the lenght of the colours string array
+                    COLOUR = 0;//sets the COLOUR counter to 0 i.e the next lesosn event will be red
                 }
             }
-        } else {
-            return "";
+        } else {//if the time segment passed in is not during a lesson
+            return "";//return an empty string to be displayed
         }
-        
-        return lessonDataEventFiller;
-    }
-     public void LessonsOnDay() {
-         if (countOnDay == 0) {
-             System.out.println("entered lessonHas no day: " + KEYS_ON_DAY.length);
-             DAY_HAS_LESSON = false;
-         } else {
-             DAY_HAS_LESSON = true;
+        return lessonDataEventFiller;//returns the HTML formatted event string for the passed in time segment
+    }//closes the formatEventAtHour method
+    
+     public void LessonsOnDay() {//creates a method to check if there are any lessons booked on the selected date
+         if (countOnDay == 0) {//checks if the countOnDay integer is 0 i.e there are no lessons on the date
+             DAY_HAS_LESSON = false;//sets the class static boolean DAY_HAS_LESSON to false
+         } else {//if there are lessons on the day
+             DAY_HAS_LESSON = true;//sets the class static DAY_HAS_LESSON to true
          }
-     }
+     }//closes the lessonOnDay method
      
-     public String formatTime(int iterate) {
-         String ts = "05:45";
-         DateFormat sdf = new SimpleDateFormat("HH:mm");
-         
-         Calendar time = Calendar.getInstance();
-        try {
-            time.setTime(sdf.parse(ts));
-            for (int i = 0; i <= iterate; i++) {
-                time.add(Calendar.MINUTE, 15);
+     public String formatTime(int iterate) {//creates a method that formates a string representation of the next timesegment as the column name of the dailyPlanner table
+         String ts = "05:45";//sets string to the string representation of a 05:45 calendar object
+         DateFormat sdf = new SimpleDateFormat("HH:mm");//creates a date formatter
+         Calendar time = Calendar.getInstance();//creates a calendar object
+        try {//opens a trycatch statement
+            time.setTime(sdf.parse(ts));//sets the time of the time calendar object to the ts string  i.e 05:45
+            for (int i = 0; i <= iterate; i++) {//starts a for loop running from 0 to the integer 'iterate' passed in
+                time.add(Calendar.MINUTE, 15);//adds 15 minutes to the time claendar object
             }
-        } catch (ParseException ex) {
-            Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String StringTime = sdf.format(time.getTime());
-        return StringTime;
-     }
+        } catch (ParseException ex) {//opens the catch statement
+            Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);//alerts the user that there was an error setting the time of the calendar object
+        }//closes the catch statement
+        String StringTime = sdf.format(time.getTime());//creates a string represenation of the time calendar object formatted using the date formatter
+        return StringTime;//return the string StringTime
+     }//closes the formatTime method
      
-     public DefaultTableModel schedModel(String date) {
-         DefaultTableModel model = null;
-        lessonDataArray la = new lessonDataArray();
-        keysArray ka = new keysArray();
-//        ka.sortArray();
+     public DefaultTableModel schedModel(String date) {//creates a method returning a tabelModel that is the daily planner
+        DefaultTableModel model = null;//instantiates a defaultTableModel temporarily setting it to null
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        keysArray ka = new keysArray();//creates an object for the keysArray class
         
             Object columnNames[] = {"06:00", "06:15", "06:30", "06:45", "07:00", "07:15", "07:30", "07:45", "08:00",
                 "08:15", "08:30", "08:45", "09:00", "09:15", "09:30", "09:45", "10:00", "10:15", "10:30", "10:45",
@@ -582,61 +575,59 @@ public class CalendarHandler {
                     "13:45", "14:00", "14:15", "14:30", "14:45", "15:00", "15:15", "15:30", "15:45", "16:00", "16:15",
                     "16:30", "16:45", "17:00", "17:15", "17:30", "17:45", "18:00", "18:15", "18:30", "18:45", "19:00",
                     "19:15", "19:30", "19:45", "20:00", "20:15", "20:30", "20:45", "21:00", "21:15", "21:30", "21:45",
-                    "22:00", "22:15", "22:30", "22:45", "23:00", "23:15", "23:30", "23:45"};
+                    "22:00", "22:15", "22:30", "22:45", "23:00", "23:15", "23:30", "23:45"};//creates an object array of the time segemnts in any day to become the column names of the table model
+            model = new DefaultTableModel(columnNames, 0);//adds a default table model to the model
             
-            
-            model = new DefaultTableModel(columnNames, 0);
-            
-            DateFormat sdf = new SimpleDateFormat("HH:mm");
-            this.getLastEndTime();
-            String segEvent [] = new String[71];
-            Calendar LET = Calendar.getInstance();
-            Calendar segTime = Calendar.getInstance();
-        try {
-            LET.setTime(sdf.parse(LAST_END_TIME));
-        } catch (ParseException ex) {
-            Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for (int i = 0; i < 71; i++) {
-            String seg = this.formatTime(i);
-             try {
-                 segTime.setTime(sdf.parse(seg));
-             } catch (ParseException ex) {
-                 Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);
-             }
-             if (segTime.before(LET)) {
-                 segEvent[i] = this.formatEventAtHour(date, seg, this.floorStartTime(seg, date));
-             } else {
-                 segEvent[i] = "";
+            DateFormat sdf = new SimpleDateFormat("HH:mm");//creates a date formatter
+            this.getLastEndTime();//calls the method that returns the last end time of the last lesson on the selected passed in date
+            String segEvent [] = new String[71];//instantiates a string array to hold the formatted time event of each time segemnt
+            Calendar LET = Calendar.getInstance();//creates a calendar object
+            Calendar segTime = Calendar.getInstance();//creates a calendar object
+        try {//opens a trycatch statement
+            LET.setTime(sdf.parse(LAST_END_TIME));//sets the time of the LET calendar object to the last end time string
+        } catch (ParseException ex) {//opens the catch statement
+            Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error setting the time of the LET calendar object
+        }//closes the catch
+        for (int i = 0; i < 71; i++) {//starts a for loop running from 0 to 71(the number of time segments in a day)
+            String seg = this.formatTime(i);//creates a string holding the string represenation of the iterated time segment
+             try {//opens a trycatch staement
+                 segTime.setTime(sdf.parse(seg));//sets the time of the segTime calendar object to the seg string
+             } catch (ParseException ex) {//opens the catch statement
+                 Logger.getLogger(CalendarHandler.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error setting the time of the segTime calendar object
+             }//closes the catch statement
+             if (segTime.before(LET)) {//checks if the segTime is before the last end time of the passed in date
+                 segEvent[i] = this.formatEventAtHour(date, seg, this.floorStartTime(seg, date));//sets the segEvent item at index i to the formatted string of the segment event
+             } else {//is the segTime is not before the last end time
+                 segEvent[i] = "";//sets the segTime item at i to an empty string
              }
         }
         
-        model.addRow(segEvent);
-        return model;
-     }
+        model.addRow(segEvent);//adds the row (segEvent) to the table model
+        return model;//returns tje table model
+     }//closes the schedModel method
     
-    public DefaultTableModel noLessonModel() {
-        DefaultTableModel model = null;
-        String n = "<html><font size = 20 color=\" black\">N/A</font></html>";
-        Object columnNames[] = {n, n, n, n, n, n, n, n, n, n, n, n, n};
-        model = new DefaultTableModel(columnNames, 0);
-        model.addRow(new Object[] {n, n, n, n, n, n, n, n, n, n, n, n, n});
-        return model;
-    }
+    public DefaultTableModel noLessonModel() {//creates a method returning a table model representing no lessons on the date
+        DefaultTableModel model = null;//instantiates a tabel model to be returned and temporarily sets it to null
+        String n = "<html><font size = 20 color=\" black\">N/A</font></html>";//creates an HTML formatted string representing N/A
+        Object columnNames[] = {n, n, n, n, n, n, n, n, n, n, n, n, n};//creates an object array of the 'n' string to be used as the column names of the table model
+        model = new DefaultTableModel(columnNames, 0);//adds a defuatl table model to the model
+        model.addRow(new Object[] {n, n, n, n, n, n, n, n, n, n, n, n, n});//adds a row (n's) to the model
+        return model;//returns the model
+    }//closes the noLessonModel method
     
-    public DefaultTableModel DefModel() {
-        DefaultTableModel model = null;
-        String l = "<html><font size = 200 color=\" black\">↻</font></html>";
-        Object columnNames[] = {l, l, l, l, l, l, l, l, l, l, l, l, l, l};
-        model = new DefaultTableModel(columnNames, 0);
-        model.addRow(new Object[] {l, l, l, l, l, l, l, l, l, l, l, l, l, l});
-        return model;
-    }
+    public DefaultTableModel DefModel() {//creates a method returning a table model representing the loading of the schedule for the date
+        DefaultTableModel model = null;//instantiates a tabel model to be returned and temporarily sets it to null
+        String l = "<html><font size = 200 color=\" black\">↻</font></html>";//creates an HTML formatted string representing th eloading sign
+        Object columnNames[] = {l, l, l, l, l, l, l, l, l, l, l, l, l, l};//creates an object array of the 'l' string to be used as the column names of the table model
+        model = new DefaultTableModel(columnNames, 0);//adds a defuatl table model to the model
+        model.addRow(new Object[] {l, l, l, l, l, l, l, l, l, l, l, l, l, l});//adds a row (l's) to the model
+        return model;//returns the model
+    }//closes the DefModel method
 
-    public void passToDailyPlan(String date) {
-        dailyPlanForm dp = new dailyPlanForm();
-        dp.setDateLabel(date);
-        dp.setVisible(true);
-    }
+    public void passToDailyPlan(String date) {//creates a method to pass the selected date on the JCalendar object to the dailyPlan form
+        dailyPlanForm dp = new dailyPlanForm();//creates an object for the dailyPlanForm class
+        dp.setDateLabel(date);//sets the dateLable on the JFrame to the date passed in
+        dp.setVisible(true);//sets the JFrame visible
+    }//closes the passToDailyPlan method
    
-}
+}//closes the CalendarHandler class

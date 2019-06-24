@@ -1,0 +1,15 @@
+# Add face image to person with person_id_filter (person_id) Python Code
+
+import requests
+
+import json
+
+url = 'https://api.chooch.ai/predict/face?person_id_filter=5028&apikey=4df35e9e-77d1-43b8-b5a0-b3588c017ee5&command=insert_person_image'
+
+files = {'image': open('face.png', 'rb')}
+
+response = requests.post(url, files=files)
+
+json_data = json.loads(response.content)
+
+print(json_data)

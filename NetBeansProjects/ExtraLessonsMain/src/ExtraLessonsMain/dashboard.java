@@ -620,7 +620,7 @@ public class dashboard extends javax.swing.JFrame {
         Desktop d = Desktop.getDesktop();
             try {
             try {
-                d.browse(new URI ("https://www.youtube.com/watch_popup?v=9YtZLyit8xs"));
+                d.browse(new URI ("https://www.youtube.com/watch_popup?v=sWBJJ8PM2SY"));
             } catch (IOException ex) {
                 Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
             }

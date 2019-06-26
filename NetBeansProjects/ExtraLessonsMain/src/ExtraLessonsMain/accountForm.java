@@ -12,22 +12,18 @@ import javax.swing.JOptionPane;
  *
  * @author YishaiBasserabie
  */
-public class accountForm extends javax.swing.JFrame {
+public class accountForm extends javax.swing.JFrame {//creates a class that handles the JFrame allowing for the display and editing of the user' account information
 
     /**
      * Creates new form accountForm
      */
-    public accountForm() {
+    public accountForm() {//creates the constructor for the accountForm class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        fetchTeacher ft = new fetchTeacher();
-        this.cellTextField.setText(ft.getCell());
-        this.emailTextField.setText(ft.getEmail());
-    }
-    
-    public void setInvisable() {
-        this.setVisible(false);
-    }
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the JFrame to dispose
+        fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacaher class
+        this.cellTextField.setText(ft.getCell());//sets the cellTextField' text to the cell phone number of the user
+        this.emailTextField.setText(ft.getEmail());//sets the emailTextField' text to the email of the user
+    }//closes the c;ass constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,7 +50,7 @@ public class accountForm extends javax.swing.JFrame {
         changeQuestion = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
         changeSig = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        changeIconButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -173,10 +169,10 @@ public class accountForm extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Change Icon");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        changeIconButton.setText("Change Icon");
+        changeIconButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                changeIconButtonActionPerformed(evt);
             }
         });
 
@@ -209,7 +205,7 @@ public class accountForm extends javax.swing.JFrame {
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(cellTextField)
                                                 .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(changeIconButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(6, 6, 6)
@@ -235,7 +231,7 @@ public class accountForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(changeQuestion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(changeIconButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(changeSig)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -260,46 +256,46 @@ public class accountForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        this.setVisible(false);
+        this.setVisible(false);//sets the current JFrame invisible
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        fetchTeacher ft = new fetchTeacher();
-        dataValidation dv = new dataValidation();
-        if (dv.checkCell(this.cellTextField.getText()) && dv.checkEmail(this.emailTextField.getText())) {
-            ft.changeCell(this.cellTextField.getText());
-            ft.changeEmail(this.emailTextField.getText());
-            JOptionPane.showMessageDialog(null, "account updated!");
-            this.setVisible(false);
-        } else {
-            if (!dv.getProblems().toLowerCase().contains("()email") && !dv.getProblems().toLowerCase().contains("()The cell")) {
-                JOptionPane.showMessageDialog(null, dv.getProblems());
-            } else {
-                JOptionPane.showMessageDialog(null, dv.getProblems());
+        fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacher class
+        dataValidation dv = new dataValidation();//creates an object for the dataValidation class
+        if (dv.checkCell(this.cellTextField.getText()) && dv.checkEmail(this.emailTextField.getText())) {//checks if the format of the inputted cell number and email is valid
+            ft.changeCell(this.cellTextField.getText());//changes the user' cell number to the number inputted
+            ft.changeEmail(this.emailTextField.getText());//changes the user' email to the email inputted
+            JOptionPane.showMessageDialog(null, "account updated!");//alerts the user that the account has been updated
+            this.setVisible(false);//discontinues the current JFrame
+        } else {//if the format of the cell or email is not valid
+            if (!dv.getProblems().toLowerCase().contains("()email") && !dv.getProblems().toLowerCase().contains("()The cell")) {//checks which of the cell or email is invalid
+                JOptionPane.showMessageDialog(null, dv.getProblems());//alerts the user of the invalid format
+            } else {//if the other is invalid
+                JOptionPane.showMessageDialog(null, dv.getProblems());//alerts the user of the invalidity of the entities
             }
         }
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void changePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordButtonActionPerformed
-        changePasswordForm cpf = new changePasswordForm();
-        cpf.setVisible(true);
+        changePasswordForm cpf = new changePasswordForm();//creates an object for the changePasswordForm class
+        cpf.setVisible(true);//sets the change password JFrame visible
     }//GEN-LAST:event_changePasswordButtonActionPerformed
 
     private void changeQuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeQuestionActionPerformed
-        fetchTeacher ft = new fetchTeacher();
-        ft.getSecurityAnswerForm();
+        fetchTeacher ft = new fetchTeacher();//creates am object for the fetchTeacher class
+        ft.getSecurityAnswerForm();//sets the security question and answer form visible
     }//GEN-LAST:event_changeQuestionActionPerformed
 
     private void changeSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeSigActionPerformed
-        SwingPaint.sigchange = true;
-        SwingPaint p = new SwingPaint();
-        p.show();
+        SwingPaint.sigchange = true;//flips the sigchange boolean of the SwingPaint class to tru indication that the user is changing their signiture
+        SwingPaint p = new SwingPaint();//creates an object for the SingPaint class
+        p.show();//shows the JFrame with the draw area and control buttons allowing for the signiture change
     }//GEN-LAST:event_changeSigActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        loginSignUpHandler h = new loginSignUpHandler();
-        h.changeIcon();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void changeIconButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeIconButtonActionPerformed
+        loginSignUpHandler h = new loginSignUpHandler();//creates an object for the loginSignUpHnadler class
+        h.changeIcon();//calls the method that accesses the webcam to change the icon
+    }//GEN-LAST:event_changeIconButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,11 +335,11 @@ public class accountForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JTextField cellTextField;
+    private javax.swing.JButton changeIconButton;
     private javax.swing.JButton changePasswordButton;
     private javax.swing.JButton changeQuestion;
     private javax.swing.JButton changeSig;
     private javax.swing.JTextField emailTextField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

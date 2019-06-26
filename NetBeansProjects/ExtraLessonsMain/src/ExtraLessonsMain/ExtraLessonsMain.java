@@ -39,7 +39,7 @@ public class ExtraLessonsMain {//creates a class called ExtraLessonsMain to star
         Runnable backGroundRunnable = new Runnable() {//creates a new background runnable to add to a seperate thread
         public void run(){//creates a method to run in the seperate thread
             sendEmail send = new sendEmail();//creates an object for the sendEmail class
-            send.configure("null", "null", "null");//calls the configure method from the send object to configure the email service
+            send.configure();//calls the configure method from the send object to configure the email service
         }};//closes the background runnable
         Thread sampleThread = new Thread(backGroundRunnable);//creates a new thread object and adds the background runnable to it
         sampleThread.start();//starts the new thread

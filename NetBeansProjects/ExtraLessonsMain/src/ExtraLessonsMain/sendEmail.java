@@ -109,10 +109,10 @@ public class sendEmail {
 //              frame.dispose();
     }
     
-    public void configure(String to, String subject, String text) {
+    public void configure() {
         try {
             String host = "smtp.gmail.com";
-            String user = "yourextralessons@gmail.com";
+            String user = "extralessoninternet@gmail.com";
             String pass = "Macbookpro1";
             String from = user;
             boolean sessionDebug = false;
@@ -131,20 +131,23 @@ public class sendEmail {
             mailSession.setDebug(sessionDebug);
             Message msg = new MimeMessage(mailSession);
             msg.setFrom(new InternetAddress(from));
-            InternetAddress address = new InternetAddress(to);
+            InternetAddress address = new InternetAddress("extralessoninternet@gmail.com");
             msg.setRecipient(Message.RecipientType.TO, address);
-            msg.setSubject(subject);
+            msg.setSubject("internet establishment");
             msg.setSentDate(new Date());
-            msg.setText(text);
+            msg.setText("established");
             
             Transport transport = mailSession.getTransport("smtp");
             transport.connect(host, user, pass);
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
-        } catch (Exception e) {
             System.out.println("configuration complete");
-            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please Connect to the internet first");
+            System.exit(0);
         }
     }
+    
+    
     
 }

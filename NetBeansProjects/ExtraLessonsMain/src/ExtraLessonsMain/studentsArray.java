@@ -104,41 +104,32 @@ public class studentsArray {
             schoolsArray sa = new schoolsArray();
             dashboard d = new dashboard();
             
-            //push
             try {
                 if (ma.getMotherIDFromMotherName(mfname + " " + mlname) == 0) {
                     int motherID = 1;
                     if (ma.getMothersArray().size() != 0) {
                         motherID = ma.getMothersArray().get(ma.getMothersArray().size()-1).getMotherID()+1;
-                        //get motherID
                         String pushMother = "INSERT INTO mothers (motherfName, motherLName, motherEmail, motherCell) VALUES('" + mfname + "', '"
                                 + mlname + "', '" + memail + "', '" + mcell + "')";
-                        //pushes mother
                         db.UpdateDatabase(pushMother);
                         sendEmail send = new sendEmail();
                         send.send(memail, "You Have Been Added To The Extra Lesson Register!", this.addParentEmail(mlname));
                     } else {
-                        //get motherID
                         String pushMother = "INSERT INTO mothers (motherfName, motherLName, motherEmail, motherCell) VALUES('" + mfname + "', '"
                                 + mlname + "', '" + memail + "', '" + mcell + "')";
-                        //pushes mother
                         db.UpdateDatabase(pushMother);
                         sendEmail send = new sendEmail();
                         send.send(memail, "You Have Been Added To The Extra Lesson Register!", this.addParentEmail(mlname));
                     }
-                    //get SchoolID
                     String schoolID = ""+sa.getSchoolID(school);
-                    //push student
                     String pushStudent = "INSERT INTO sDetTable (fname, lName, grade, schoolID, motherID) VALUES ('" + fname
                             + "', '" + lname + "', '" + grade + "', '" + schoolID + "', '" + motherID+ "')";
-                    db.UpdateDatabase(pushStudent);//pushes student
+                    db.UpdateDatabase(pushStudent);
                 }else {
                     String schoolID = ""+sa.getSchoolID(school);
-                    //gets mother ID
-                    //push student
                     String pushStudent = "INSERT INTO sDetTable (fname, lName, grade, schoolID, motherID) VALUES ('" + fname
                             + "', '" + lname + "', '" + grade + "', '" + schoolID + "', '" + ma.getMotherIDFromMotherName(mfname + " " + mlname) + "')";
-                    db.UpdateDatabase(pushStudent);//pushes student
+                    db.UpdateDatabase(pushStudent);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(addStudentForm.class.getName()).log(Level.SEVERE, null, ex);

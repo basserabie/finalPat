@@ -13,21 +13,21 @@ import javax.swing.JOptionPane;
  *
  * @author YishaiBasserabie
  */
-public class SecurityQuestionForm extends javax.swing.JFrame {
+public class SecurityQuestionForm extends javax.swing.JFrame {//creates a class to handle the security question and answer JFrame
 
-    public static boolean changing = false;
+    public static boolean changing = false;//creates a static boolean to indicate that the user is changing their security question
     
     /**
      * Creates new form SecurityQuestionForm
      */
-    public SecurityQuestionForm() {
+    public SecurityQuestionForm() {//creates the constructor for the SecurityQuestionForm class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the JFrame' close action to dispose
         
-        populateComboBoxes pop = new populateComboBoxes();
-        DefaultComboBoxModel qs = new DefaultComboBoxModel(pop.populateQuestions());
-        this.questions.setModel(qs);
-    }
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        DefaultComboBoxModel qs = new DefaultComboBoxModel(pop.populateQuestions());//creates a default combo box model and populates it to the populateQuestions string array
+        this.questions.setModel(qs);//sets the model of the questions combo box to the qs model
+    }//closes the constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,7 +47,7 @@ public class SecurityQuestionForm extends javax.swing.JFrame {
         questions = new javax.swing.JComboBox<>();
         answer = new javax.swing.JTextField();
         go = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,10 +109,10 @@ public class SecurityQuestionForm extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cancelButton.setText("cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cancelButtonActionPerformed(evt);
             }
         });
 
@@ -124,7 +124,7 @@ public class SecurityQuestionForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton2)
+                        .addComponent(cancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -145,7 +145,7 @@ public class SecurityQuestionForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(cancelButton))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -172,28 +172,28 @@ public class SecurityQuestionForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        this.setVisible(false);//sets the JFrame invisible
+    }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void goActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goActionPerformed
-        if (!this.questions.getSelectedItem().toString().equals(null)) {
-            if (!this.answer.getText().equals(null)) {
-                if (!changing) {
-                    loginSignup.question = this.questions.getSelectedItem().toString();
-                    loginSignup.answer = this.answer.getText();
-                    loginSignup.enteredQuestion = true;
-                    this.setVisible(false);
-                } else {
-                    fetchTeacher ft = new fetchTeacher();
-                    ft.changeSecurity(this.questions.getSelectedItem().toString(), this.answer.getText());
-                    this.setVisible(false);
+        if (!this.questions.getSelectedItem().toString().equals(null)) {//checks if the questions combobox has a selected item
+            if (!this.answer.getText().equals(null)) {//checks if the answer textField is not blank
+                if (!changing) {//checks if the user is not changing their security question and answer
+                    loginSignup.question = this.questions.getSelectedItem().toString();//sets the static String question of the loginSignup class to the question selected
+                    loginSignup.answer = this.answer.getText();//sets the static String answer of the loginSignup class to the inputted answer
+                    loginSignup.enteredQuestion = true;//sets the static boolean enteredQuestion of the loginSignup class to true
+                    this.setVisible(false);//sets the current JFrame invisible
+                } else {//if the user is changing their question and answer, not adding one for the first time
+                    fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacher class
+                    ft.changeSecurity(this.questions.getSelectedItem().toString(), this.answer.getText());//calls the changeSecurity method to change the question and answer according to the new items passed in
+                    this.setVisible(false);//sets the current JFrame invisible
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Please input an answer.");
+            } else {//if the answer field is blank
+                JOptionPane.showMessageDialog(null, "Please input an answer.");//alerts the user that they must insert an answer to the answer text field
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a question.");
+        } else {//if no question has been selected
+            JOptionPane.showMessageDialog(null, "Please select a question.");//alerts the user that they must first select a question
         }
     }//GEN-LAST:event_goActionPerformed
 
@@ -234,8 +234,8 @@ public class SecurityQuestionForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField answer;
+    private javax.swing.JButton cancelButton;
     private javax.swing.JButton go;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

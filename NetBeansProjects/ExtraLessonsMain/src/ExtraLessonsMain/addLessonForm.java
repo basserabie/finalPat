@@ -24,43 +24,36 @@ import static ExtraLessonsMain.editLessonForm.ADDED_ARRAY;
  *
  * @author YishaiBasserabie
  */
-public class addLessonForm extends javax.swing.JFrame {
+public class addLessonForm extends javax.swing.JFrame {//creates a class to handle the FRame that allows the  user to add a lesson
 
-    public static ArrayList<String> ADDED_ARRAY = new ArrayList<>();
-    private static boolean HOUR_CHOSEN = false;
-    String lessonKey;
+    public static ArrayList<String> ADDED_ARRAY = new ArrayList<>();//creates an arrau list of the students added to the lesson
+    private static boolean HOUR_CHOSEN = false;//creates a static boolean to indicate whether the user has selected a time
+    String lessonKey;//creates a string that holds the unique lesson UUID string for the lesson being added
+    DefaultListModel StudentsAddedListModel = new DefaultListModel();//creates a list model for the studentsAddedList
     
     /**
      * Creates new form addLessonForm
      */
-    public addLessonForm() {
+    public addLessonForm() {//creates a constructor for the addlessonForm class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        populateComboBoxes pop = new populateComboBoxes();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the JFrame to dispose
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
         
         this.studentsAddedList.removeAll(); //removes generic items from studentsAddedList
         this.addStudentNameComboBox.removeAllItems();//removes all generic tiems from name combo box
         
-        //populates grade combo box
-        DefaultComboBoxModel grades = new DefaultComboBoxModel(pop.populateGrades());
-        this.addStudentGradeComboBox.setModel(grades);
-        //populates venues combo box
-        DefaultComboBoxModel venues = new DefaultComboBoxModel(pop.populateVenues());
-        this.addVenueComboBox.setModel(venues);
-        //populates duration spinner with hour options
-        SpinnerListModel hours = new SpinnerListModel(pop.populateDurationSpinner());
-        this.durationSpinner.setModel(hours);
-        //populates hourSpinner
-        SpinnerListModel hourModel = new SpinnerListModel(pop.populateHourSpinner());
-        this.HourSpinner.setModel(hourModel);
-        //generates the lesson key for lesson to be added
-        lessonDataArray la = new lessonDataArray();
-        this.lessonKey = la.generateLessonKey();
-        //sets tool tip text for cost help button
-        this.helpCostButton.setToolTipText("Please enter cost in rands, do not include cents");
-    }
-    //list model
-    DefaultListModel StudentsAddedListModel = new DefaultListModel();
+        DefaultComboBoxModel grades = new DefaultComboBoxModel(pop.populateGrades());//creates a default combo box model populated with the grades string array
+        this.addStudentGradeComboBox.setModel(grades);//sets the model of the grade combo box to the grades model
+        DefaultComboBoxModel venues = new DefaultComboBoxModel(pop.populateVenues());//creates a default combo box model populated with the venues string array
+        this.addVenueComboBox.setModel(venues);//sets the model of the venues combo box to the venues model
+        SpinnerListModel hours = new SpinnerListModel(pop.populateDurationSpinner());//creates a default spinner model populated with the duration string array
+        this.durationSpinner.setModel(hours);//sets the model of the duration spinner to the hours model
+        SpinnerListModel hourModel = new SpinnerListModel(pop.populateHourSpinner());//creates a default list model populated with the hours string array
+        this.HourSpinner.setModel(hourModel);//sets the model of the hours spinner to the hourModel model
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        this.lessonKey = la.generateLessonKey();//sets the lessonKey String to the generated lesson key
+        this.helpCostButton.setToolTipText("Please enter cost in rands, do not include cents");//sets tool tip text for cost help button
+    }//closes the class constructor
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -531,18 +524,18 @@ public class addLessonForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addStudentToLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentToLessonButtonActionPerformed
-        ConnectDB db = new ConnectDB();
-        lessonDataArray la = new lessonDataArray();
-        String name = this.addStudentNameComboBox.getSelectedItem().toString();
-        if (!ADDED_ARRAY.contains(name)) {
-            ADDED_ARRAY.add(name);
+        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        String name = this.addStudentNameComboBox.getSelectedItem().toString();//creates a string holding the name of the selected student in the combo box
+        if (!ADDED_ARRAY.contains(name)) {//checks if the list does not already has the student added
+            ADDED_ARRAY.add(name);//adds the selected student to the students added array list
         }
-        la.setNamesList(ADDED_ARRAY);
-        this.StudentsAddedListModel.removeAllElements();
-        for (int i = 0; i < la.getNames().size(); i++) {
-            StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));
+        la.setNamesList(ADDED_ARRAY);//sets the names list model to the new added_array list
+        this.StudentsAddedListModel.removeAllElements();//removes all elements from the list model
+        for (int i = 0; i < la.getNames().size(); i++) {//starts a for loop iterating through the students added in the new list
+            StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));//adds the iterated name to the list mode;
         }
-        this.studentsAddedList.setModel(StudentsAddedListModel);
+        this.studentsAddedList.setModel(StudentsAddedListModel);//sets the model of the studentsAddedList to the updated model
     }//GEN-LAST:event_addStudentToLessonButtonActionPerformed
 
     private void addStudentGradeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentGradeComboBoxActionPerformed

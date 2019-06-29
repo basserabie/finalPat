@@ -22,25 +22,22 @@ import javax.swing.JTextField;
  *
  * @author YishaiBasserabie
  */
-public class addStudentForm extends javax.swing.JFrame {
+public class addStudentForm extends javax.swing.JFrame {//creates a class for the handling of the adding of a student to the database
     
     /**
      * Creates new form addStudentForm
      */
-    public addStudentForm() {
+    public addStudentForm() {//creates the constructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        schoolsArray sa = new schoolsArray();
-        populateComboBoxes pop = new populateComboBoxes();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the current JFrame to dispose
+        schoolsArray sa = new schoolsArray();//creates an object for the studentsArray class
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
         
-        //populate grades comboBox
-        DefaultComboBoxModel grades = new DefaultComboBoxModel(pop.populateGrades());
-        this.studentGradeComboBox.setModel(grades);
-        
-        //populates grade combo box
-        DefaultComboBoxModel schools = new DefaultComboBoxModel(pop.populateSchools());
-        this.studentSchoolComboBox.setModel(schools);
-    }
+        DefaultComboBoxModel grades = new DefaultComboBoxModel(pop.populateGrades());//creates a combo box model for the grades
+        this.studentGradeComboBox.setModel(grades);//sets the model of the grades combo box to the grades model
+        DefaultComboBoxModel schools = new DefaultComboBoxModel(pop.populateSchools());//creates a combo box model for the schools
+        this.studentSchoolComboBox.setModel(schools);//sets the model of the schools combo box to the schools model
+    }//closes the constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -307,15 +304,15 @@ public class addStudentForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentButtonActionPerformed
-        dataValidation dv = new dataValidation();
-        studentsArray sa = new studentsArray();
-        if (dv.checkAddStudent(this.studentfNameT.getText(), this.studentlNameT.getText(), this.motherFNameT.getText(), this.motherLNameT.getText(), this.motherEmailT.getText(), this.motherCellT.getText())) {
+        dataValidation dv = new dataValidation();//creates an object for the dataValidation class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArrayy class
+        if (dv.checkAddStudent(this.studentfNameT.getText(), this.studentlNameT.getText(), this.motherFNameT.getText(), this.motherLNameT.getText(), this.motherEmailT.getText(), this.motherCellT.getText())) {//checks if the data inputted is valid
             sa.addStudent(dv.fixEntries(this.studentfNameT.getText()), dv.fixEntries(this.studentlNameT.getText()), dv.fixEntries(this.studentGradeComboBox.getSelectedItem().toString()), 
                     dv.fixEntries(this.studentSchoolComboBox.getSelectedItem().toString()), dv.fixEntries(this.motherFNameT.getText()), dv.fixEntries(this.motherLNameT.getText()), dv.fixEntries(this.motherEmailT.getText())
-                    , dv.fixEntries(this.motherCellT.getText()));
-            this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(null, dv.getProblems());
+                    , dv.fixEntries(this.motherCellT.getText()));//adds the inputted students data into the database
+            this.setVisible(false);//discontinues the current JFrame
+        } else {//if any data is invalid
+            JOptionPane.showMessageDialog(null, dv.getProblems());//alerts the user of the invalid data
         }
     }//GEN-LAST:event_addStudentButtonActionPerformed
 
@@ -324,9 +321,7 @@ public class addStudentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_studentGradeComboBoxActionPerformed
 
     private void backToDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardButtonActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        la.sortArray();
-        this.hide();
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_backToDashboardButtonActionPerformed
 
     private void studentSchoolComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentSchoolComboBoxActionPerformed

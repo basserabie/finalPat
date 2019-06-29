@@ -14,16 +14,16 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author YishaiBasserabie
- */
-public class addVenueForm extends javax.swing.JFrame {
+ *///
+public class addVenueForm extends javax.swing.JFrame {//creates a class handling the adding of a venue to the database
 
     /**
      * Creates new form addVenueForm
      */
-    public addVenueForm() {
+    public addVenueForm() {//creates the constructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the current JFrame to dispose
+    }//closes the constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -176,26 +176,24 @@ public class addVenueForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backToDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardButtonActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        la.sortArray();
-        this.hide();
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_backToDashboardButtonActionPerformed
 
     private void addVenueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVenueButtonActionPerformed
-        venueArray va = new venueArray();
-        dataValidation dv = new dataValidation();
-        if (dv.checkAddVenue(this.addVenueT.getText())) {
-            va.addVenue(dv.fixEntries(this.addVenueT.getText()));
-            this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(null, dv.getProblems());
+        venueArray va = new venueArray();//creates an object for the venuesArray class
+        dataValidation dv = new dataValidation();//creates an object for the dataValidation class
+        if (dv.checkAddVenue(this.addVenueT.getText())) {//checks if the venue inputted is valid
+            va.addVenue(dv.fixEntries(this.addVenueT.getText()));//adds the venue to the database
+            this.setVisible(false);//discontinues the current JFrame
+        } else {//if any data is invalid
+            JOptionPane.showMessageDialog(null, dv.getProblems());//alerts the user of the invalid data inputted
         }
     }//GEN-LAST:event_addVenueButtonActionPerformed
 
     private void deleteAVenueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAVenueButtonActionPerformed
-        deleteVenueForm dv = new deleteVenueForm();
-        dv.setVisible(true);
-        this.setVisible(false);
+        deleteVenueForm dv = new deleteVenueForm();//creates an object for the deleteVenueForm class
+        dv.setVisible(true);//sets the deleteVenueForm JFrame visible
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_deleteAVenueButtonActionPerformed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus

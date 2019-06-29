@@ -17,15 +17,15 @@ import rx.observables.SwingObservable;
  *
  * @author YishaiBasserabie
  */
-public class addSchoolForm extends javax.swing.JFrame {
+public class addSchoolForm extends javax.swing.JFrame {//creates a class to handle the adding school JFrame and proceses
 
     /**
      * Creates new form addSchoolForm
      */
-    public addSchoolForm() {
+    public addSchoolForm() {//creates the constructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the current JFrame to dispose
+    }//closes the constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -226,20 +226,18 @@ public class addSchoolForm extends javax.swing.JFrame {
     }//GEN-LAST:event_PLNameTActionPerformed
 
     private void addSchoolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSchoolButtonActionPerformed
-        schoolsArray ta = new schoolsArray();
-        dataValidation dv = new dataValidation();
-        if (dv.checkAddSchool(this.schoolNameT.getText(), this.PFNameT.getText(), this.PLNameT.getText(), this.PEmailT.getText())) {
-            ta.addSchool(dv.fixEntries(this.schoolNameT.getText()), dv.fixEntries(this.PFNameT.getText()), dv.fixEntries(this.PLNameT.getText()), dv.fixEntries(this.PEmailT.getText()));
-            this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(null, dv.getProblems());
+        schoolsArray ta = new schoolsArray();//creates an object for the schoolsArray class
+        dataValidation dv = new dataValidation();//creates an object for the dataValidation class
+        if (dv.checkAddSchool(this.schoolNameT.getText(), this.PFNameT.getText(), this.PLNameT.getText(), this.PEmailT.getText())) {//checks if the school data inputted is valid
+            ta.addSchool(dv.fixEntries(this.schoolNameT.getText()), dv.fixEntries(this.PFNameT.getText()), dv.fixEntries(this.PLNameT.getText()), dv.fixEntries(this.PEmailT.getText()));//adds the inputted school to the database
+            this.setVisible(false);//discontinues the current JFrame
+        } else {//if any data is invalid
+            JOptionPane.showMessageDialog(null, dv.getProblems());//alerts the user of the invalid data inputted
         }
     }//GEN-LAST:event_addSchoolButtonActionPerformed
 
     private void backToDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardButtonActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        la.sortArray();
-        this.hide();
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_backToDashboardButtonActionPerformed
 
     private void schoolNameTKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_schoolNameTKeyPressed

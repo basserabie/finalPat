@@ -12,15 +12,15 @@ import javax.swing.JOptionPane;
  *
  * @author YishaiBasserabie
  */
-public class changePasswordForm extends javax.swing.JFrame {
+public class changePasswordForm extends javax.swing.JFrame {//creates a class allowing the user to change their password
 
     /**
      * Creates new form changePasswordForm
      */
-    public changePasswordForm() {
+    public changePasswordForm() {//creates the constructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the current JFrame to dispose
+    }//closes the constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -182,26 +182,23 @@ public class changePasswordForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void changePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordButtonActionPerformed
-        fetchTeacher ft = new fetchTeacher();
-        accountForm af = new accountForm();
-        loginSignUpHandler h = new loginSignUpHandler();
-        dataValidation dv = new dataValidation();
-        if (dv.checkOldPassword(this.oldPasswordTextField.getText()) && dv.checkPassword(this.newPasswordTextField.getText(), this.conrimPasswordTextField.getText())) {
-            ft.changePassword(this.oldPasswordTextField.getText(), this.newPasswordTextField.getText(), this.conrimPasswordTextField.getText());
-            af.setVisible(false);
-            af.setVisible(false);
-            this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(null, dv.getProblems());
+        fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacher class
+        loginSignUpHandler h = new loginSignUpHandler();//creates an object for the loginSignUpHandler class
+        dataValidation dv = new dataValidation();//creates an object for the dataValidation class
+        if (dv.checkOldPassword(this.oldPasswordTextField.getText()) && dv.checkPassword(this.newPasswordTextField.getText(), this.conrimPasswordTextField.getText())) {//checks if the password was inputted correctly, the new password is valid, and that the confirmation password matches
+            ft.changePassword(this.oldPasswordTextField.getText(), this.newPasswordTextField.getText(), this.conrimPasswordTextField.getText());//changes the password
+            this.setVisible(false);//discontinues the current JFrame
+        } else {//if any data inputted is invalid
+            JOptionPane.showMessageDialog(null, dv.getProblems());//alerts the user of the invalid data
         } 
     }//GEN-LAST:event_changePasswordButtonActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-        this.setVisible(false);
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_cancelActionPerformed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-         this.setVisible(false);
+         this.setVisible(false);//dicontinues the current JFrame if the frame loses focus
     }//GEN-LAST:event_formWindowLostFocus
 
     /**

@@ -11,19 +11,19 @@ import javax.swing.JFrame;
  *
  * @author YishaiBasserabie
  */
-public class contactSchoolForm extends javax.swing.JFrame {
+public class contactSchoolForm extends javax.swing.JFrame {//creates a class handling the contacting of a school
 
-    public static String P_EMAIL;
-    public static String P_NAME;
-    public static String SCHOOL;
+    public static String P_EMAIL;//creates a static string for the principal's email
+    public static String P_NAME;//creates a static string for the principal's name
+    public static String SCHOOL;//creates a static string for the school
     
     /**
      * Creates new form contactSchoolForm
      */
-    public contactSchoolForm() {
+    public contactSchoolForm() {//creates the constructor for the current JFrame
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.SchoolLabel.setText(SCHOOL);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the current JFrame to dispose
+        this.SchoolLabel.setText(SCHOOL);//sets the text of the schoolLabel to the SCHOOl String
     }
 
     /**
@@ -193,13 +193,13 @@ public class contactSchoolForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        this.setVisible(false);
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-        sendEmail send = new sendEmail();
-        send.send(P_EMAIL, this.subjectTextField.getText(), this.emailTextBox.getText());
-        this.setVisible(false);
+        sendEmail send = new sendEmail();//creates an object for the sendEmail class
+        send.send(P_EMAIL, this.subjectTextField.getText(), this.emailTextBox.getText());//sends the email
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_sendButtonActionPerformed
 
     /**

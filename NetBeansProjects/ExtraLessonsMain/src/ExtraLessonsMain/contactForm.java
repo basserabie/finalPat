@@ -12,20 +12,20 @@ import javax.swing.JOptionPane;
  *
  * @author YishaiBasserabie
  */
-public class contactForm extends javax.swing.JFrame {
+public class contactForm extends javax.swing.JFrame {//creates a class handling the contacting of a parent
 
-    public static String parentEmail;
-    public static String parentName;
+    public static String parentEmail;//creates a static string holding the email of the selected parent
+    public static String parentName;//creates a static string holding the name of the selected parent
     
     /**
      * Creates new form contactForm
      */
-    public contactForm() {
+    public contactForm() {//creates a constructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.parentNameLabel.setText(parentName);
-        this.emailTextBox.setText("Dear " + parentName + "...");
-    }
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the defsult close operation of the current JFrame to dispose
+        this.parentNameLabel.setText(parentName);//sets thetes of the parentNameLabel to the parentName string
+        this.emailTextBox.setText("Dear " + parentName + "...");//sets the ext of the emailTextBox to "dear 'parent name'..."
+    }//closes the constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -194,13 +194,13 @@ public class contactForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        this.setVisible(false);
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-        sendEmail send = new sendEmail();
-        send.send(parentEmail, this.subjectTextField.getText(), this.emailTextBox.getText());
-        this.setVisible(false);
+        sendEmail send = new sendEmail();//creates an object for the sendEmail class
+        send.send(parentEmail, this.subjectTextField.getText(), this.emailTextBox.getText());//sends the email
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_sendButtonActionPerformed
 
     /**

@@ -20,38 +20,29 @@ import javax.swing.table.TableColumn;
  *
  * @author YishaiBasserabie
  */
-public class dailyPlanForm extends javax.swing.JFrame {
+public class dailyPlanForm extends javax.swing.JFrame {//creates a class handling the daily planner JFrame
     
     /**
      * Creates new form dailyPlanForm
      */
-    public dailyPlanForm() {
+    public dailyPlanForm() {//creates the constructore for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        CalendarHandler ch = new CalendarHandler();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the current JFrame to disopose
+        CalendarHandler ch = new CalendarHandler();//creates an object for the CalendarHandler class
         
-        this.dayTable.setAutoResizeMode(AUTO_RESIZE_OFF);
-        this.dayTable.getColumnModel().getColumn(0).setPreferredWidth(5);
-        this.dayTable.setRowHeight(120);
-        this.dayTable.setModel(ch.DefModel());
-        
-    }
+        this.dayTable.setAutoResizeMode(AUTO_RESIZE_OFF);//sets the auto resize nature of the dayTable to false
+        this.dayTable.getColumnModel().getColumn(0).setPreferredWidth(5);//sets the prefered width of the dayTable columns to 5
+        this.dayTable.setRowHeight(120);//sets the row hieght to 120
+        this.dayTable.setModel(ch.DefModel());//sets the model of the dayTable to the defModel
+    }//closes the constructor
     
-    public void setDateLabel(String date) {
-        this.dateLabel.setText(date);
-    }
+    public void setDateLabel(String date) {//creates a method to set the text of the dateLabel
+        this.dateLabel.setText(date);//sets the text of the dateLabel to the date string passed in
+    }//closes the setDateLabel method
     
-    public void setDayTableVisible(boolean set) {
-        this.dayTable.setVisible(set);
-    }
-    
-    public void setLoadingLabelVisible(boolean set) {
-        this.loadingLabel.setVisible(set);
-    }
-    
-    public void setLoadingLabelText(String text) {
-        this.loadingLabel.setText(text);
-    }
+    public void setLoadingLabelText(String text) {//creates a method to set the tect of the loadingLabel
+        this.loadingLabel.setText(text);//sets the text of the loadingLabel to the text string passed in
+    }//closes the setLoadingLabelText method
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -220,29 +211,28 @@ public class dailyPlanForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void showDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showDayActionPerformed
-        CalendarHandler ch = new CalendarHandler();
-        ch.setDate(this.dateLabel.getText());
-        ch.setArrays();
-        ch.LessonsOnDay();
-        System.out.println("lessons?: " + CalendarHandler.DAY_HAS_LESSON);
-        if (CalendarHandler.DAY_HAS_LESSON) {
-            this.dayTable.setModel(ch.schedModel(this.dateLabel.getText()));
-            this.loadingLabel.setText("NOW SHOWING LESSONS:");
-            CalendarHandler.countOnDay = 0;
-        } else {
-            this.dayTable.setModel(ch.noLessonModel());
-            this.loadingLabel.setText("NO LESSONS ON THIS DAY :), WATCH A MOVIE!");
+        CalendarHandler ch = new CalendarHandler();//creates an object for the CalndarHandler class
+        ch.setDate(this.dateLabel.getText());//sets the date to the selected date
+        ch.setArrays();//instantiates the arrays according to the date
+        ch.LessonsOnDay();//checks if there are any lessons of the selected date
+        if (CalendarHandler.DAY_HAS_LESSON) {//if there is a lesson(s) on the selected date
+            this.dayTable.setModel(ch.schedModel(this.dateLabel.getText()));//stes the model to the schedule model accroding to the selected date
+            this.loadingLabel.setText("NOW SHOWING LESSONS:");//sets the text of the loadingLabel indicating that the lessons are being dosplayed
+            CalendarHandler.countOnDay = 0;//sets the countOnDay integer back to 0 for the nect time the showDay button is clicked
+        } else {//if there are no lessons on the selected date
+            this.dayTable.setModel(ch.noLessonModel());//sets the dayTable ti the noLessonModel inficating the lack of lessons
+            this.loadingLabel.setText("NO LESSONS ON THIS DAY :), WATCH A MOVIE!");//sets the loadingLabel text, indicating tht there are no lessons on the selected date
         }
     }//GEN-LAST:event_showDayActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        this.setVisible(false);
+        this.setVisible(false);//dicontinues the current JFrame
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void dayTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dayTableMouseClicked
-        CalendarHandler ch = new CalendarHandler();
-        String timeClicked = this.dayTable.getColumnName(this.dayTable.getSelectedColumn());
-        JOptionPane.showMessageDialog(null, ch.getLessonDataOnThatDateAndTime(this.dateLabel.getText(), timeClicked));
+        CalendarHandler ch = new CalendarHandler();//creates an object for the CalendarHandler class
+        String timeClicked = this.dayTable.getColumnName(this.dayTable.getSelectedColumn());//creates a string to hold the time clicked i.e. the name of the column selected
+        JOptionPane.showMessageDialog(null, ch.getLessonDataOnThatDateAndTime(this.dateLabel.getText(), timeClicked));//displays the lesson data for the selected time
     }//GEN-LAST:event_dayTableMouseClicked
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus

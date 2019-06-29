@@ -539,26 +539,25 @@ public class addLessonForm extends javax.swing.JFrame {//creates a class to hand
     }//GEN-LAST:event_addStudentToLessonButtonActionPerformed
 
     private void addStudentGradeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentGradeComboBoxActionPerformed
-        ConnectDB db = new ConnectDB();
-        studentsArray sa = new studentsArray();
-        populateComboBoxes pop = new populateComboBoxes();
+        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoes class
         //populates students combo box according to grade selected
-        this.addStudentNameComboBox.removeAllItems();
-        DefaultComboBoxModel correctedStudents = new DefaultComboBoxModel(pop.correctStudentsAccordingToGrade(this.addStudentGradeComboBox.getSelectedItem().toString()));
-        this.addStudentNameComboBox.setModel(correctedStudents);
+        this.addStudentNameComboBox.removeAllItems();//removes all elements from the students combo box
+        DefaultComboBoxModel correctedStudents = new DefaultComboBoxModel(pop.correctStudentsAccordingToGrade(this.addStudentGradeComboBox.getSelectedItem().toString()));//creates a defualt combo box model populated with a string array of students acording to grade
+        this.addStudentNameComboBox.setModel(correctedStudents);//sets the model of the addStudentNameComboBox to the vorrectedStudents model
     }//GEN-LAST:event_addStudentGradeComboBoxActionPerformed
 
     private void deleteStudentFromLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStudentFromLessonButtonActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        
-        String name = this.studentsAddedList.getSelectedValue();
-        ADDED_ARRAY.remove(name);
-        la.setNamesList(ADDED_ARRAY);
-        this.StudentsAddedListModel.removeAllElements();
-        for (int i = 0; i < la.getNames().size(); i++) {
-            StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        String name = this.studentsAddedList.getSelectedValue();//creates a string holding the selected student name
+        ADDED_ARRAY.remove(name);//removes the selected name from the array list of students attending the lesson
+        la.setNamesList(ADDED_ARRAY);//sets the namesList of the lessonDataArray class to the edited added_array list
+        this.StudentsAddedListModel.removeAllElements();//removes all the elements from the current studentsAddedListModel model
+        for (int i = 0; i < la.getNames().size(); i++) {//starts a for loop iterating through the names list of the lessonDataArray class
+            StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));//adds the iterated item to the studentsAddedListModel
         }
-        this.studentsAddedList.setModel(StudentsAddedListModel);
+        this.studentsAddedList.setModel(StudentsAddedListModel);//sets the model of the studentsAddedList list to the studentsAddedListModel model
     }//GEN-LAST:event_deleteStudentFromLessonButtonActionPerformed
 
     private void addVenueComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVenueComboBoxActionPerformed
@@ -566,45 +565,42 @@ public class addLessonForm extends javax.swing.JFrame {//creates a class to hand
     }//GEN-LAST:event_addVenueComboBoxActionPerformed
 
     private void addLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonButtonActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        dataValidation dv = new dataValidation();
-        if (this.addDateComboBox.getDate() != null) {
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        dataValidation dv = new dataValidation();//creates an object for the dataValidation Class
+        if (this.addDateComboBox.getDate() != null) {//checks if the date selected is not null
         //gets and formats date
         if (dv.checkAddLesson(la.formatDate(this.addDateComboBox.getDate().toString()),
                 this.minuteSpinner.getModel().getValue().toString(), this.StudentsAddedListModel.size(),
-                this.costTextField.getText())) {
-            Sound.playflagpole();
-        String time = this.minuteSpinner.getModel().getValue().toString();
-        String date = la.formatDate(this.addDateComboBox.getDate().toString());
-        String day = la.formatDay(this.addDateComboBox.getDate().toString());
-        
-        String venue = this.addVenueComboBox.getSelectedItem().toString();
-        int size = this.StudentsAddedListModel.size();
-        int frequency = this.frequencyComboBox.getSelectedIndex();
-        int duration = Integer.parseInt(this.durationSpinner.getValue().toString());
-        String key = this.lessonKey;
-        int cost = Integer.parseInt(this.costTextField.getText());
+                this.costTextField.getText())) {//checks if all the data inputted is not blank and is valid
+            Sound.playflagpole();//plays the flagpole sound
+        String time = this.minuteSpinner.getModel().getValue().toString();//creates a string holding the selected time
+        String date = la.formatDate(this.addDateComboBox.getDate().toString());//creates a string holding the selected date
+        String day = la.formatDay(this.addDateComboBox.getDate().toString());//creates a string holding the selected day
+        String venue = this.addVenueComboBox.getSelectedItem().toString();//creates a string holding the selected venue
+        int size = this.StudentsAddedListModel.size();//creates an integer holding the number of students attending the lesson
+        int frequency = this.frequencyComboBox.getSelectedIndex();//creates an integer representing the frequesncy of the lesson (0 = once-off; 1 = weekly; 2 = monthly)
+        int duration = Integer.parseInt(this.durationSpinner.getValue().toString());//creates an integer holding the number of hours the lesson will last i.e. the duration of the lesson
+        int cost = Integer.parseInt(this.costTextField.getText());//creates an integer holding the cost of the lesson for each student in Rands
             //pushes lesson
-            for (int i = 0; i < this.StudentsAddedListModel.size(); i++) {
-                la.addLesson(venue, date, time, day, size, this.StudentsAddedListModel.get(i).toString(),frequency,duration,key, false, cost);
+            for (int i = 0; i < this.StudentsAddedListModel.size(); i++) {//starts a for loop iterating through each student added to the student list
+                la.addLesson(venue, date, time, day, size, this.StudentsAddedListModel.get(i).toString(),frequency,duration, this.lessonKey, false, cost);//adds the lesson to the database for the iterated student
             }
-            la.sortArray();
-            ADDED_ARRAY.removeAll(ADDED_ARRAY);
-            this.hide();
-        } else {
-            JOptionPane.showMessageDialog(null, dv.getProblems());
+            la.sortArray();//sorts the lessonDataArray array list 
+            ADDED_ARRAY.removeAll(ADDED_ARRAY);//removes all items from the students added array list
+            this.setVisible(false);//sets the current JFrame invisible
+        } else {//if there was blank or invalid data entered
+            JOptionPane.showMessageDialog(null, dv.getProblems());//alerts the user of the invalid data entry
         }
-    } else {
-            JOptionPane.showMessageDialog(null, "Please do not leave the date blank");
-        }
-        
+    } else {//if the date field was left blank
+            JOptionPane.showMessageDialog(null, "Please do not leave the date blank");//alerts the user that the date field weas left blank
+        }    
     }//GEN-LAST:event_addLessonButtonActionPerformed
 
     private void backToDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardButtonActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        ADDED_ARRAY.removeAll(ADDED_ARRAY);
-        la.sortArray();
-        this.hide();
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        ADDED_ARRAY.removeAll(ADDED_ARRAY);//removes all items from the students added array list
+        la.sortArray();//sorts the lessonDataArray array list
+        this.hide();//discontinues the current JFrame
     }//GEN-LAST:event_backToDashboardButtonActionPerformed
 
     private void frequencyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frequencyComboBoxActionPerformed
@@ -612,17 +608,17 @@ public class addLessonForm extends javax.swing.JFrame {//creates a class to hand
     }//GEN-LAST:event_frequencyComboBoxActionPerformed
 
     private void durationSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_durationSpinnerStateChanged
-        lessonDataArray la = new lessonDataArray();
-        if (HOUR_CHOSEN) {
-            if (this.minuteSpinner.getModel().getValue().toString().equals("")) {
-                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.HourSpinner.getModel().getValue().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-                this.timeSetLabel.setText(timeSet);
-            } else {
-                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-                this.timeSetLabel.setText(timeSet);
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        if (HOUR_CHOSEN) {//checks if the user has selected a time
+            if (this.minuteSpinner.getModel().getValue().toString().equals("")) {//checks if the minuteSpinner is blank
+                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.HourSpinner.getModel().getValue().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));//formats the timeSet String according to the selected time data
+                this.timeSetLabel.setText(timeSet);//sets the timeSetLabel to the timeSet String
+            } else {//if the minuteSpinner is not blank
+                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));//formats the timeSet String according to the selected time data
+                this.timeSetLabel.setText(timeSet);//sets the timeSet label to the timeSet String
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "before choosing a duration please select a time");
+        } else {//if there has not been a time inputted
+            JOptionPane.showMessageDialog(null, "before choosing a duration please select a time");//alerts the user to enter a time before selecting a duration
         }
     }//GEN-LAST:event_durationSpinnerStateChanged
 
@@ -635,33 +631,33 @@ public class addLessonForm extends javax.swing.JFrame {//creates a class to hand
     }//GEN-LAST:event_studentBeingAddedTextFieldKeyTyped
 
     private void studentBeingAddedTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_studentBeingAddedTextFieldKeyPressed
-        populateComboBoxes pop = new populateComboBoxes();
-        if (!this.addStudentGradeComboBox.getSelectedItem().toString().equals("")) {
-            DefaultComboBoxModel nameModel = new DefaultComboBoxModel(pop.correctStudentsAccordingToSearchTextField(this.addStudentGradeComboBox.getSelectedItem().toString(), this.studentBeingAddedTextField.getText()));
-            this.addStudentNameComboBox.setModel(nameModel);
-        } else {
-            JOptionPane.showMessageDialog(null, "Before you start typing please select the grade :)");
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes
+        if (!this.addStudentGradeComboBox.getSelectedItem().toString().equals("")) {//cheks if the grade has not been selected
+            DefaultComboBoxModel nameModel = new DefaultComboBoxModel(pop.correctStudentsAccordingToSearchTextField(this.addStudentGradeComboBox.getSelectedItem().toString(), this.studentBeingAddedTextField.getText()));//sets the students model to the students filtered by the inputted name search
+            this.addStudentNameComboBox.setModel(nameModel);//sets the students combo box model to the corrected students according to the inputted name
+        } else {//if the grade has been selected
+            JOptionPane.showMessageDialog(null, "Before you start typing please select the grade :)");//alerts the user that they must fist select a grade
         }
     }//GEN-LAST:event_studentBeingAddedTextFieldKeyPressed
 
     private void HourSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_HourSpinnerStateChanged
-        HOUR_CHOSEN = true;
-        populateComboBoxes pop = new populateComboBoxes();
-        lessonDataArray la = new lessonDataArray();
-        SpinnerListModel minuteModel = new SpinnerListModel(pop.populateMinuteComboBoxAccordingToHour(this.HourSpinner.getModel().getValue().toString()));
-        this.minuteSpinner.setModel(minuteModel);
-        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.HourSpinner.getModel().getValue().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-        this.timeSetLabel.setText(timeSet);
+        HOUR_CHOSEN = true;//sets the hour chosen to true indicating that user has selected a time
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        SpinnerListModel minuteModel = new SpinnerListModel(pop.populateMinuteComboBoxAccordingToHour(this.HourSpinner.getModel().getValue().toString()));//creates a spinner list model that formats the minute spinner filtered by the hour selected
+        this.minuteSpinner.setModel(minuteModel);//sets the minuteSpinnerModel to the minuteModel spinner model
+        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.HourSpinner.getModel().getValue().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));//formats the timeSet String according to the hour chosen
+        this.timeSetLabel.setText(timeSet);//sets the timeSetLabel text to the timeSet String
     }//GEN-LAST:event_HourSpinnerStateChanged
 
     private void minuteSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_minuteSpinnerStateChanged
-            lessonDataArray la = new lessonDataArray();
-            String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-            this.timeSetLabel.setText(timeSet);
+            lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+            String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));//formats the timeSet string according to the minuteSpinner selected item
+            this.timeSetLabel.setText(timeSet);//sets the text of the timeSetLabel to the timeSet string
     }//GEN-LAST:event_minuteSpinnerStateChanged
 
     private void helpCostButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpCostButtonActionPerformed
-        JOptionPane.showMessageDialog(null, "Please enter the cost for each student for the lesson\nFormat example: 100\nPlease do not specify cents");
+        JOptionPane.showMessageDialog(null, "Please enter the cost for each student for the lesson\nFormat example: 100\nPlease do not specify cents");//displays to the user the specifics of inserting the cost of the lesson
     }//GEN-LAST:event_helpCostButtonActionPerformed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
@@ -704,7 +700,7 @@ public class addLessonForm extends javax.swing.JFrame {//creates a class to hand
     }
     
     
-
+//TODO: remove if not needed
     public JComboBox<String> getAddStudentGradeComboBox() {
         return addStudentGradeComboBox;
     }

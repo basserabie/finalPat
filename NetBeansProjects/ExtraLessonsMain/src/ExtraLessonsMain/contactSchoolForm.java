@@ -24,7 +24,7 @@ public class contactSchoolForm extends javax.swing.JFrame {//creates a class han
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the current JFrame to dispose
         this.SchoolLabel.setText(SCHOOL);//sets the text of the schoolLabel to the SCHOOl String
-    }
+    }//closes the constructor
 
     /**
      * This method is called from within the constructor to initialize the form.

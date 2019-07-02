@@ -46,33 +46,31 @@ import javax.swing.JTable;
  * @author YishaiBasserabie
  */
 
-public class dashboard extends javax.swing.JFrame {
+public class dashboard extends javax.swing.JFrame {//creates a class handling the dashboard JFrame
     
-    private boolean gotRequests = false;
+    private boolean gotRequests = false;//creates a static boolean indicating whether the emails has been succefully fetched
     /**
      * Creates new form dashboard
      */
-    public dashboard() throws IOException {
+    public dashboard() throws IOException {//creates the constructor for the current class
         initComponents();
-        lessonDataArray la = new lessonDataArray();
-        studentsArray sa = new studentsArray();
-        populateComboBoxes pop = new populateComboBoxes();
-        la.DeletePastLessonsAndLessonKeys();
-        sa.updateStudentsAnnually();
-        this.dateLabel.setText(pop.populateTodayDateLabel());
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        la.DeletePastLessonsAndLessonKeys();//deletes the lessons that have already occured (not the associated payment information)
+        sa.updateStudentsAnnually();//if it is the new year this will change the grades of all students accordingly
+        this.dateLabel.setText(pop.populateTodayDateLabel());//sets the text of the dateLabel to today' date
         
-        CalendarHandler ch = new CalendarHandler();
-        ch.JCalendarActionPerformed(CalendarDisplay);
+        CalendarHandler ch = new CalendarHandler();//creates an object for the CalendarHandler class
+        ch.JCalendarActionPerformed(CalendarDisplay);//calls the action listener linked to the JCalendar component
         
-        try {
-                Image myPicture = ImageIO.read(new File(takeIcon.getPath()));
-                System.out.println(takeIcon.getPath());
-                this.dashboardIconLabel.setIcon(new ImageIcon(myPicture));
-            } catch (IOException ex) {
-                System.out.println("problem getting icon");
-            }
-        
-    }
+        try {//opensvthe trycatch statement
+                Image myPicture = ImageIO.read(new File(takeIcon.getPath()));//creates an image object according to the icon file
+                this.dashboardIconLabel.setIcon(new ImageIcon(myPicture));//sets the dashBoardIconLabel to the image icon
+            } catch (IOException ex) {//opens the catch statement
+                System.out.println("problem getting icon");//alerts the class user that there was an error creating the image object
+            }//closes the catch statement
+    }//closes the constructor
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -523,46 +521,46 @@ public class dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void signOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutButtonActionPerformed
-        loginSignup l = new loginSignup();
-        Sound.playbyebye();
-        l.setVisible(true);
-        this.hide();
+        loginSignup l = new loginSignup();//creates an object for the loginSignup class
+        Sound.playbyebye();//plays the byebye sound
+        l.setVisible(true);//sets the loginSignup JFrame visible
+        this.hide();//discontinues the current JFrame
     }//GEN-LAST:event_signOutButtonActionPerformed
 
     private void accountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountButtonActionPerformed
-        accountForm af = new accountForm();
-        af.setVisible(true);
+        accountForm af = new accountForm();//creates an object for the accountForm class
+        af.setVisible(true);//sets the accountForm JFrame visible
     }//GEN-LAST:event_accountButtonActionPerformed
 
     private void schoolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_schoolButtonActionPerformed
-        school s = new school();
+        school s = new school();//creates an object for the school class
         s.setVisible(true);
     }//GEN-LAST:event_schoolButtonActionPerformed
 
     private void parentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parentsButtonActionPerformed
-        mothers m = new mothers();
+        mothers m = new mothers();//creates an object for the mother class
         m.setVisible(true);
     }//GEN-LAST:event_parentsButtonActionPerformed
 
     private void studentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentsButtonActionPerformed
-        student s = new student();
+        student s = new student();//creates an object for the student class
         s.setVisible(true);
     }//GEN-LAST:event_studentsButtonActionPerformed
 
     private void paymentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentsButtonActionPerformed
-        paymentsForm pf = new paymentsForm();
+        paymentsForm pf = new paymentsForm();//creates an object for the paymentsForm class
         pf.setVisible(true);
     }//GEN-LAST:event_paymentsButtonActionPerformed
 
     private void lessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonButtonActionPerformed
-        lesson l = new lesson();
-        lessonDataArray la = new lessonDataArray();
+        lesson l = new lesson();//creates an object for the lesson class
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         la.sortArray();
         l.setVisible(true);
     }//GEN-LAST:event_lessonButtonActionPerformed
 
     private void addlessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addlessonButtonActionPerformed
-        lessonDataArray la = new lessonDataArray();
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         if (la.lessonComponentsExist().equals("")) {
             addLessonForm add = new addLessonForm();
             add.setVisible(true);
@@ -572,7 +570,7 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_addlessonButtonActionPerformed
 
     private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentButtonActionPerformed
-        studentsArray sa = new studentsArray();
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
         if (sa.schoolExists().equals("")) {
             addStudentForm add = new addStudentForm();
             add.setVisible(true);
@@ -582,27 +580,27 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_addStudentButtonActionPerformed
 
     private void addschoolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addschoolButtonActionPerformed
-        addSchoolForm add = new addSchoolForm();
+        addSchoolForm add = new addSchoolForm();//creates an object for the addSchoolForm class
         add.setVisible(true);
     }//GEN-LAST:event_addschoolButtonActionPerformed
 
     private void addVenueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVenueButtonActionPerformed
-        addVenueForm va = new addVenueForm();
+        addVenueForm va = new addVenueForm();//creates an object for the addVenueForm class
         va.setVisible(true);
     }//GEN-LAST:event_addVenueButtonActionPerformed
 
     private void chuckNorisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chuckNorisActionPerformed
-       chuckNoris cn = new chuckNoris();
+       chuckNoris cn = new chuckNoris();//creates an object for the chuckNoris class
        cn.getFact();
     }//GEN-LAST:event_chuckNorisActionPerformed
 
     private void requestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestsActionPerformed
-        requests r = new requests();
+        requests r = new requests();//creates an object for the requests class
         r.setVisible(true);
     }//GEN-LAST:event_requestsActionPerformed
 
     private void helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpActionPerformed
-        loginSignUpHandler h = new loginSignUpHandler();
+        loginSignUpHandler h = new loginSignUpHandler();//creates an object for the loginSignUpHandler class
         h.getHelp();
     }//GEN-LAST:event_helpActionPerformed
 
@@ -617,15 +615,15 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void playTutuorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playTutuorialActionPerformed
-        Desktop d = Desktop.getDesktop();
-            try {
-            try {
-                d.browse(new URI ("https://www.youtube.com/watch_popup?v=sWBJJ8PM2SY"));
-            } catch (IOException ex) {
-                Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            } catch (URISyntaxException ex) {
-                Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        Desktop d = Desktop.getDesktop();//creates an object for the Desktop class
+            try {//opens the first trycatch statement
+            try {//opens the secound trycatch statement
+                d.browse(new URI ("https://www.youtube.com/watch_popup?v=sWBJJ8PM2SY"));//opens the url link in the defaul browser to the help video
+            } catch (IOException ex) {//opens the first catch statement
+                Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that something went wrong opening the link
+            }//closes the first catch
+            } catch (URISyntaxException ex) {//opens the secound catch
+                Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that the url syntax in incorrect
             }
     }//GEN-LAST:event_playTutuorialActionPerformed
 

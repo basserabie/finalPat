@@ -503,7 +503,7 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
         if (this.TimeHasLesson(date, time)) {//checks if the passed in timeseg is during a lesson
             DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");//creates a date formatter 
             DateFormat sdf2 = new SimpleDateFormat("HH:mm");//creates a date formatter
-            String colours [] = {"red", "blue", "green", "pink", "purple", "yellow", "orange"};//creates a string array of colour names to be iterated through according to the lesson the event formatter is displaying
+            String colours [] = {"red", "blue", "green", "pink", "purple", "yellow", "orange", "cyan"};//creates a string array of colour names to be iterated through according to the lesson the event formatter is displaying
             String colour = colours[COLOUR];//creates a string representing the name of a color at index 'COLOUR' of the colours array
             
             String endTime = "";//creates a string to hold the end time of the reference lesson

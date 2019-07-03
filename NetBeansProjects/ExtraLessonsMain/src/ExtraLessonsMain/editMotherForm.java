@@ -12,19 +12,19 @@ import javax.swing.JOptionPane;
  *
  * @author YishaiBasserabie
  */
-public class editMotherForm extends javax.swing.JFrame {
+public class editMotherForm extends javax.swing.JFrame {//creates a method handling the editing of a parent
 
     /**
      * Creates new form editMotherForm
      */
-    public editMotherForm() {
+    public editMotherForm() {//creates a constructor for the current JFrame
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation if the current JFrame to dispose
+    }//closes the constructor
     
-    public void setParentNameText(String name) {
-        this.parentLabel.setText(name);
-    }
+    public void setParentNameText(String name) {//creates a method to set the parentLabel text to the name inputted
+        this.parentLabel.setText(name);//sets the parentLabel text to the name string passed in
+    }//closes the setParentNameText method
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -222,32 +222,27 @@ public class editMotherForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        this.setVisible(false);
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_cancelButtonActionPerformed
-
+//TODO: what the fuck have you done
     private void confirmUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmUpdateButtonActionPerformed
-        
-        
-        //TODO: fix autoReset
-        
-        
-        mothersArray ma = new mothersArray();
-        populateComboBoxes pop = new populateComboBoxes();
-        mothers m = new mothers();
-        if (!(this.newEmailTextField.getText() != null)) {
-            this.newEmailTextField.setText("");
+        mothersArray ma = new mothersArray();//creates an object for the mothersArray class
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        mothers m = new mothers();//creates an object for the mothers class
+        if (this.newEmailTextField.getText() == null) {//checks if the newEmailTextField is null (not being edited)
+            this.newEmailTextField.setText("");//sets the text of the text field to an empty string
         }
-        if (!(this.newCellTextField.getText() != null)) {
-            this.newCellTextField.setText("");
+        if (this.newCellTextField.getText() == null) {//checks if the newCellTextField is null (not being edited)
+            this.newCellTextField.setText("");//sets the text of the text field to an empty string
         }
-        ma.editMother(mothers.MOTHER_SELECTED, this.newEmailTextField.getText(), this.newCellTextField.getText());
-        JOptionPane.showMessageDialog(null, "information updated");
-        m.setTableModelTable(pop.parents());
-        this.setVisible(false);
+        ma.editMother(mothers.MOTHER_SELECTED, this.newEmailTextField.getText(), this.newCellTextField.getText());//edits the parent
+        JOptionPane.showMessageDialog(null, "information updated");//alerts the user that the parsnt was updated
+        m.setTableModelTable(pop.parents());//resets the tablemodel of the parents
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_confirmUpdateButtonActionPerformed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-         this.setVisible(false);
+         this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_formWindowLostFocus
 
     /**

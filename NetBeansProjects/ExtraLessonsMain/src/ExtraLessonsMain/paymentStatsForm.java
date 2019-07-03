@@ -13,8 +13,10 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -91,6 +93,7 @@ public class paymentStatsForm extends javax.swing.JFrame {
         realIncomeGraph = new javax.swing.JButton();
         projectedMonthlyIncomes = new javax.swing.JButton();
         byMonth = new javax.swing.JButton();
+        studentPieChart = new javax.swing.JButton();
 
         jLabel4.setText("jLabel4");
 
@@ -420,6 +423,13 @@ public class paymentStatsForm extends javax.swing.JFrame {
             }
         });
 
+        studentPieChart.setText("Show Chart For Student Month Info");
+        studentPieChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentPieChartActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -443,8 +453,9 @@ public class paymentStatsForm extends javax.swing.JFrame {
                     .addComponent(realIncomeGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(byMonth)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(studentPieChart)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(byMonth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -470,9 +481,12 @@ public class paymentStatsForm extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(byMonth))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(byMonth)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(studentPieChart)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -584,6 +598,22 @@ public class paymentStatsForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_byMonthActionPerformed
 
+    private void studentPieChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentPieChartActionPerformed
+        if (this.resultsGotten) {
+            DefaultPieDataset pieSet = new DefaultPieDataset();
+            paymentsArray pa = new paymentsArray();
+            pieSet.setValue("Paid", new Integer(pa.getStudentPaidForMonth(this.addStudentNameComboBox.getSelectedItem().toString())));
+            pieSet.setValue("Un-Paid", new Integer(pa.getStudentOwedForMonth(this.addStudentNameComboBox.getSelectedItem().toString())));
+            JFreeChart chart = ChartFactory.createPieChart("Student Payment Info", pieSet, true, true, true);
+            PiePlot p = (PiePlot)chart.getPlot();
+            ChartFrame frame = new ChartFrame("StudentInfo", chart);
+            frame.setVisible(true);
+            frame.setSize(450, 500);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please get the results for a student first.");
+        }
+    }//GEN-LAST:event_studentPieChartActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -641,6 +671,7 @@ public class paymentStatsForm extends javax.swing.JFrame {
     private javax.swing.JButton realIncomeGraph;
     private javax.swing.JTextField studentBeingAddedTextField;
     private javax.swing.JButton studentPaidResultButton;
+    private javax.swing.JButton studentPieChart;
     private javax.swing.JLabel totalPayedThisMonthLabel;
     // End of variables declaration//GEN-END:variables
 }

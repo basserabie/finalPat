@@ -13,25 +13,25 @@ import javax.swing.JOptionPane;
  *
  * @author YishaiBasserabie
  */
-public class deleteVenueForm extends javax.swing.JFrame {
+public class deleteVenueForm extends javax.swing.JFrame {//creates a class handling the deletion of a venue
 
-        private String [] tempRepArr = new String[1];
+        private String [] tempRepArr = new String[1];//creates a private string array of size one
         
     /**
      * Creates new form deleteVenueForm
      */
-    public deleteVenueForm() {
+    public deleteVenueForm() {//creates the constructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the defualt close operation of the current JFrame to dispose
         
-        populateComboBoxes pop = new populateComboBoxes();
-        DefaultComboBoxModel venues = new DefaultComboBoxModel(pop.populateVenues());
-        this.venuesComboBox.setModel(venues);
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        DefaultComboBoxModel venues = new DefaultComboBoxModel(pop.populateVenues());//creates a default combo box model according the to the venues in the database
+        this.venuesComboBox.setModel(venues);//sets the model of the venuesComboBox to the venues model
         
-        tempRepArr[0] = "";
-        DefaultComboBoxModel tempRep = new DefaultComboBoxModel(tempRepArr);
-        this.repvenueComboBox.setModel(tempRep);
-    }
+        tempRepArr[0] = "";//sets the string at inex 0 to null
+        DefaultComboBoxModel tempRep = new DefaultComboBoxModel(tempRepArr);//creates an empty default combo box model
+        this.repvenueComboBox.setModel(tempRep);//sets the model of the repvenueComboBox to the tempRep model
+    }//closes the constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -197,35 +197,33 @@ public class deleteVenueForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backToAddVenueFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToAddVenueFormActionPerformed
-        addVenueForm av = new addVenueForm();
-        this.hide();
+        this.hide();//discontinues the current JFrame
     }//GEN-LAST:event_backToAddVenueFormActionPerformed
 
     private void deleteVenuesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteVenuesButtonActionPerformed
-        venueArray va = new venueArray(); //venue array object
-        if (!this.repvenueComboBox.getItemAt(0).equals("")) {
-            populateComboBoxes pop = new populateComboBoxes();//object for populating combo boxes
+        venueArray va = new venueArray();//creates an object for the venuesArray class
+        if (!this.repvenueComboBox.getItemAt(0).equals("")) {//checks if there is a replacement venue selected
+            populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
             va.deleteVenue(this.venuesComboBox.getSelectedItem().toString(), this.repvenueComboBox.getSelectedItem().toString());//calls smethod to delete venue from database
-            DefaultComboBoxModel venues = new DefaultComboBoxModel(pop.populateVenues()); // calls a method to access venues from database to populate combo box
-            this.venuesComboBox.setModel(venues);
-            tempRepArr[0] = "";
-            DefaultComboBoxModel tempRep = new DefaultComboBoxModel(tempRepArr);
-            this.repvenueComboBox.setModel(tempRep);
-            JOptionPane.showMessageDialog(null, "Venue deleted!");
-        } else {
-            JOptionPane.showMessageDialog(null, "please select a replacement venue first!");
+            DefaultComboBoxModel venues = new DefaultComboBoxModel(pop.populateVenues());//calls a method to access venues from database to populate combo box model
+            this.venuesComboBox.setModel(venues);//sets the model of the venuesComboBox to the venues model
+            tempRepArr[0] = "";//sets the string at index 0 to null of the tempRepArr
+            DefaultComboBoxModel tempRep = new DefaultComboBoxModel(tempRepArr);//creates an empty default combo box model
+            this.repvenueComboBox.setModel(tempRep);//sets the model of the repvenuesComboBox to the tempRep model
+            JOptionPane.showMessageDialog(null, "Venue deleted!");//alerts the user that the venue was deleted
+        } else {//if there was no replacement selected
+            JOptionPane.showMessageDialog(null, "please select a replacement venue first!");//alerts the user that they must first select a replacement venue
         }
-        
     }//GEN-LAST:event_deleteVenuesButtonActionPerformed
 
     private void venuesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venuesComboBoxActionPerformed
-        populateComboBoxes pop = new populateComboBoxes();
-        DefaultComboBoxModel rep = new DefaultComboBoxModel(pop.populateVenues());
-        this.repvenueComboBox.setModel(rep);
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes model
+        DefaultComboBoxModel rep = new DefaultComboBoxModel(pop.populateVenues());//creates a default combo box model according to the venues in the database
+        this.repvenueComboBox.setModel(rep);//sets the model of the repvenueComboBox to the rep model
     }//GEN-LAST:event_venuesComboBoxActionPerformed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-         this.setVisible(false);
+         this.setVisible(false);//disconinues the current JFrame
     }//GEN-LAST:event_formWindowLostFocus
 
     /**

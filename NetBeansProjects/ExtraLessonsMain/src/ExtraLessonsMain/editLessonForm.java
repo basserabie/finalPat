@@ -18,58 +18,57 @@ import static ExtraLessonsMain.addLessonForm.ADDED_ARRAY;
  *
  * @author YishaiBasserabie
  */
-public class editLessonForm extends javax.swing.JFrame {
+public class editLessonForm extends javax.swing.JFrame {//creates a class to handle the editing of a lesson
 
     //checks if check-boxes are checked
-    private static boolean STUDENTS_CHECKED = false;
-    private static boolean DATETIME_CHECKED = false;
-    private static boolean VENUE_CHECKED = false;
+    private static boolean STUDENTS_CHECKED = false;//creates a static boolean indicating whether the students are being edited
+    private static boolean DATETIME_CHECKED = false;//creates a static boolean indicating whether the date and time is being edited
+    private static boolean VENUE_CHECKED = false;//creates a static boolean indicating whether the venue is being edited
     
-    private static boolean HOUR_CHOSEN = false;
+    private static boolean HOUR_CHOSEN = false;//creates a boolean indicating whether an hour has been selected
     //arrayList of students
-    public static ArrayList<String> ADDED_ARRAY = new ArrayList<>();
+    public static ArrayList<String> ADDED_ARRAY = new ArrayList<>();//creates an array list according to the students added to the lesson
     //list model
-    DefaultListModel StudentsAddedListModel = new DefaultListModel();
-    public static DefaultListModel checkListModel = new DefaultListModel();
+    DefaultListModel StudentsAddedListModel = new DefaultListModel();//creates a default list model for the new students added to the lesson
+    public static DefaultListModel checkListModel = new DefaultListModel();//creates a default list model according to the students already added to the lesson
     //checks what has been edited
-    private boolean STUDENTS_CHANGED = false;
-    private boolean VENUE_CHANGED = false;
+    private boolean STUDENTS_CHANGED = false;//creates a private boolean indicating whether the students were changed
+    private boolean VENUE_CHANGED = false;//creates a private boolean indicating whether the venue was changed
     
     /**
      * Creates new form editLessonForm
      */
-    public editLessonForm() {
+    public editLessonForm() {//creates the constructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the current class to dispose
         
-        this.editStudentPanel.setBackground(Color.red);
-        this.editDateTimePanel.setBackground(Color.red);
-        this.venuePanel.setBackground(Color.red);
+        this.editStudentPanel.setBackground(Color.red);//sets the background colour of the panel to red
+        this.editDateTimePanel.setBackground(Color.red);//sets the background colour of the panel to red
+        this.venuePanel.setBackground(Color.red);//sets the background colour of the panel to red
         
         this.studentsAddedList.removeAll(); //removes generic items from studentsAddedList
         this.addStudentNameComboBox.removeAllItems();//removes all generic tiems from name combo box
-        populateComboBoxes pop = new populateComboBoxes();
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
         //populates grade combo box
-        DefaultComboBoxModel grades = new DefaultComboBoxModel(pop.populateGrades());
-        this.addStudentGradeComboBox.setModel(grades);
+        DefaultComboBoxModel grades = new DefaultComboBoxModel(pop.populateGrades());//creates a default combo box model for the grades
+        this.addStudentGradeComboBox.setModel(grades);//sets the model of the addStudentGradeComboBox to the grades model
         //populates venues combo box
-        DefaultComboBoxModel venuesModel = new DefaultComboBoxModel(pop.populateVenues());
-        this.venuesComboBox.setModel(venuesModel);
+        DefaultComboBoxModel venuesModel = new DefaultComboBoxModel(pop.populateVenues());//creates a default combo box model for the venues
+        this.venuesComboBox.setModel(venuesModel);//sets the venuesComboBox to the venuesModel model
         //populates hourSpinner
-        SpinnerListModel hourModel = new SpinnerListModel(pop.populateHourSpinner());
-        this.HourSpinner.setModel(hourModel);
-        SpinnerListModel hours = new SpinnerListModel(pop.populateDurationSpinner());
-        this.durationSpinner.setModel(hours);
+        SpinnerListModel hourModel = new SpinnerListModel(pop.populateHourSpinner());//creates a spinner model for the hours
+        this.HourSpinner.setModel(hourModel);//sets the hourspinner to the hour model
+        SpinnerListModel hours = new SpinnerListModel(pop.populateDurationSpinner());//creates a spinner model for the duration
+        this.durationSpinner.setModel(hours);//sets the duration spinner to the hours model
         //creates and populates a reference listModel
-        CalendarHandler ch = new CalendarHandler();
-        for (int i = 0; i < ch.studentsFromLessonDateAndTime(lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME).length; i++) {
-            ADDED_ARRAY.add(ch.studentsFromLessonDateAndTime(lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME)[i]);
-            this.StudentsAddedListModel.addElement(ADDED_ARRAY.get(i));
-            checkListModel.addElement(ADDED_ARRAY.get(i));
+        CalendarHandler ch = new CalendarHandler();//creates an object for the calendarHandler class
+        for (int i = 0; i < ch.studentsFromLessonDateAndTime(lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME).length; i++) {//starts a for loop iterating through the students according to the selected lesson
+            ADDED_ARRAY.add(ch.studentsFromLessonDateAndTime(lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME)[i]);//adds the iterated student to the added array
+            this.StudentsAddedListModel.addElement(ADDED_ARRAY.get(i));//adds the iterated student to the studentsAddedListModel
+            checkListModel.addElement(ADDED_ARRAY.get(i));//adds the iterated element to the checkListModel
         }
-        this.studentsAddedList.setModel(checkListModel);
-        
-    }
+        this.studentsAddedList.setModel(checkListModel);//sets the model of the studentsAddedList to the checkListModel
+    }//closes the constructor
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -934,13 +933,13 @@ public class editLessonForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addStudentGradeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentGradeComboBoxActionPerformed
-        ConnectDB db = new ConnectDB();
-        studentsArray sa = new studentsArray();
-        populateComboBoxes pop = new populateComboBoxes();
+        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
         //populates students combo box according to grade selected
-        this.addStudentNameComboBox.removeAllItems();
-        DefaultComboBoxModel correctedStudents = new DefaultComboBoxModel(pop.correctStudentsAccordingToGrade(this.addStudentGradeComboBox.getSelectedItem().toString()));
-        this.addStudentNameComboBox.setModel(correctedStudents);
+        this.addStudentNameComboBox.removeAllItems();//removes the items in the addStudentNameComboBox
+        DefaultComboBoxModel correctedStudents = new DefaultComboBoxModel(pop.correctStudentsAccordingToGrade(this.addStudentGradeComboBox.getSelectedItem().toString()));//corrects the students according to grade
+        this.addStudentNameComboBox.setModel(correctedStudents);//sets the model of the addStudensNameComboBox to the correctedStudents model
     }//GEN-LAST:event_addStudentGradeComboBoxActionPerformed
 
     private void studentBeingAddedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentBeingAddedTextFieldActionPerformed
@@ -952,46 +951,46 @@ public class editLessonForm extends javax.swing.JFrame {
     }//GEN-LAST:event_studentBeingAddedTextFieldKeyTyped
 
     private void studentBeingAddedTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_studentBeingAddedTextFieldKeyPressed
-        populateComboBoxes pop = new populateComboBoxes();
-        if (!this.addStudentGradeComboBox.getSelectedItem().toString().equals("")) {
-            DefaultComboBoxModel nameModel = new DefaultComboBoxModel(pop.correctStudentsAccordingToSearchTextField(this.addStudentGradeComboBox.getSelectedItem().toString(), this.studentBeingAddedTextField.getText()));
-            this.addStudentNameComboBox.setModel(nameModel);
-        } else {
-            JOptionPane.showMessageDialog(null, "Before you start typing please select the grade :)");
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        if (!this.addStudentGradeComboBox.getSelectedItem().toString().equals("")) {//checks if the student grade selected is not null
+            DefaultComboBoxModel nameModel = new DefaultComboBoxModel(pop.correctStudentsAccordingToSearchTextField(this.addStudentGradeComboBox.getSelectedItem().toString(), this.studentBeingAddedTextField.getText()));//correct the combo box model according to the typed name
+            this.addStudentNameComboBox.setModel(nameModel);//sets the model of the addStudentNameComboBox to the nameModel model
+        } else {//if the grade is null
+            JOptionPane.showMessageDialog(null, "Before you start typing please select the grade :)");//alerts the user that a grade must first be selected
         }
     }//GEN-LAST:event_studentBeingAddedTextFieldKeyPressed
 
     private void deleteStudentFromLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStudentFromLessonButtonActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        String name = this.studentsAddedList.getSelectedValue();
-        ADDED_ARRAY.remove(name);
-        la.setNamesList(ADDED_ARRAY);
-        this.StudentsAddedListModel.removeAllElements();
-        for (int i = 0; i < la.getNames().size(); i++) {
-            StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        String name = this.studentsAddedList.getSelectedValue();//creates a string for the selected student name
+        ADDED_ARRAY.remove(name);//removes the student from the added array
+        la.setNamesList(ADDED_ARRAY);//sets the names list to the added array
+        this.StudentsAddedListModel.removeAllElements();//removes all elements from the studentsAddedListModel
+        for (int i = 0; i < la.getNames().size(); i++) {//starts a for loop iterating througb the students in the array of the lessonDataArray class
+            StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));//adds the iterated item to the studentsAeedListModel
         }
-        this.studentsAddedList.setModel(StudentsAddedListModel);
+        this.studentsAddedList.setModel(StudentsAddedListModel);//sets the model of the studentsAddedList to the studentsAddedListModel
     }//GEN-LAST:event_deleteStudentFromLessonButtonActionPerformed
 
     private void addStudentToLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentToLessonButtonActionPerformed
-        ConnectDB db = new ConnectDB();
-        lessonDataArray la = new lessonDataArray();
-        String name = this.addStudentNameComboBox.getSelectedItem().toString();
-        if (!ADDED_ARRAY.contains(name)) {
-            ADDED_ARRAY.add(name);
+        ConnectDB db = new ConnectDB();//creates an obkect for the ConnectDB class
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        String name = this.addStudentNameComboBox.getSelectedItem().toString();//creates a string for the selected student name
+        if (!ADDED_ARRAY.contains(name)) {//checks if the added array does not contain name
+            ADDED_ARRAY.add(name);//adds the name to the added array
         }
-        la.setNamesList(ADDED_ARRAY);
-        this.StudentsAddedListModel.removeAllElements();
-        for (int i = 0; i < la.getNames().size(); i++) {
-            StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));
+        la.setNamesList(ADDED_ARRAY);//sets the names list of the lessonDataArray class
+        this.StudentsAddedListModel.removeAllElements();//removes all items from studentsAddedArrayListModel
+        for (int i = 0; i < la.getNames().size(); i++) {//starst a for loop iterating through the names in the lessonDataArray class
+            StudentsAddedListModel.addElement(la.getArrayOfStudentsAdded(i));//adds the iterated name to the studentsAddedListModel
         }
-        this.studentsAddedList.setModel(StudentsAddedListModel);
+        this.studentsAddedList.setModel(StudentsAddedListModel);//sets the model of the studentsAddedList to the studentsAddedListModel
     }//GEN-LAST:event_addStudentToLessonButtonActionPerformed
 
     private void backToDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardButtonActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        la.sortArray();
-        this.hide();
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        la.sortArray();//sorts the lessonDataArray array
+        this.hide();//discontinues the current JFrame
     }//GEN-LAST:event_backToDashboardButtonActionPerformed
 
     private void addLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonButtonActionPerformed
@@ -1068,131 +1067,126 @@ public class editLessonForm extends javax.swing.JFrame {
     }//GEN-LAST:event_addVenueComboBoxActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        STUDENTS_CHECKED = false;
-        DATETIME_CHECKED = false;
-        VENUE_CHECKED = false;
-        ADDED_ARRAY.removeAll(ADDED_ARRAY);
-        checkListModel.removeAllElements();
-        la.sortArray();
-        this.setVisible(false);
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        STUDENTS_CHECKED = false;//sets the studentsChecked to false
+        DATETIME_CHECKED = false;//sets the dateTime checked to false
+        VENUE_CHECKED = false;//sets the venue checked to false
+        ADDED_ARRAY.removeAll(ADDED_ARRAY);//removes all items from the added array
+        checkListModel.removeAllElements();//removes all elements from the checkListModel
+        la.sortArray();//sorts the lessonDataArray array
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void editSelectedLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSelectedLessonButtonActionPerformed
-       lessonDataArray la = new lessonDataArray();
-       boolean lessonDoubleBooked = false;
-       if (DATETIME_CHECKED) {
-           la.checkIfDoubleBookingForEdit(la.formatDate(this.addDateComboBox.getDate().toString()), this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()), ADDED_ARRAY.size(), lesson.SELECTED_KEY);
-           if (lessonDataArray.EDIT_DOUBLE_BOOKED) {
-               lessonDoubleBooked = true;
-               JOptionPane.showMessageDialog(null, la.checkIfDoublebooking(la.formatDate(this.addDateComboBox.getDate().toString()), this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()), ADDED_ARRAY.size(), lesson.SELECTED_KEY) + "\nPlease try again!");
+       lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+       boolean lessonDoubleBooked = false;//creates a boolean indicating whteher the lesson is double booked
+       if (DATETIME_CHECKED) {//checks if the date ad time is being edited
+           la.checkIfDoubleBookingForEdit(la.formatDate(this.addDateComboBox.getDate().toString()), this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()), ADDED_ARRAY.size(), lesson.SELECTED_KEY);//checks if the new time is being double booked
+           if (lessonDataArray.EDIT_DOUBLE_BOOKED) {//checks if the lesson is double booked
+               lessonDoubleBooked = true;//sets the lessonDoubleBooked boolean to true
+               JOptionPane.showMessageDialog(null, la.checkIfDoublebooking(la.formatDate(this.addDateComboBox.getDate().toString()), this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()), ADDED_ARRAY.size(), lesson.SELECTED_KEY) + "\nPlease try again!");//alerts the user that the lesson is being double booked
            }
        }
-        if (!lessonDoubleBooked) {
-            if (STUDENTS_CHECKED) {
-                la.editSelectedLessonStudents(ADDED_ARRAY, lesson.SELECTED_LESSON_ID, lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
+        if (!lessonDoubleBooked) {//checks if the lesson is not douuble booked
+            if (STUDENTS_CHECKED) {//checks if the students are being edited
+                la.editSelectedLessonStudents(ADDED_ARRAY, lesson.SELECTED_LESSON_ID, lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);//edits the students
             }
-            if (VENUE_CHECKED) {
-                la.editSelectedLessonVenue(this.venuesComboBox.getSelectedItem().toString(), lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
+            if (VENUE_CHECKED) {//checks if the venue is being edited
+                la.editSelectedLessonVenue(this.venuesComboBox.getSelectedItem().toString(), lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);//edits the venue
             }
-            if (DATETIME_CHECKED) {
-                la.updateLessonDateTime(lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME, this.addDateComboBox.getDate().toString(), this.minuteSpinner.getModel().getValue().toString(), this.durationSpinner.getModel().getValue().toString());
+            if (DATETIME_CHECKED) {//checks if the date and time is being edited
+                la.updateLessonDateTime(lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME, this.addDateComboBox.getDate().toString(), this.minuteSpinner.getModel().getValue().toString(), this.durationSpinner.getModel().getValue().toString());//edits the date and time
             }
-            STUDENTS_CHECKED = false;
-            DATETIME_CHECKED = false;
-            VENUE_CHECKED = false;
-            ADDED_ARRAY.removeAll(ADDED_ARRAY);
-            checkListModel.removeAllElements();
-            JOptionPane.showMessageDialog(null, "Lesson Edited");
-            this.setVisible(false);
+            STUDENTS_CHECKED = false;//sets the students checked to false
+            DATETIME_CHECKED = false;//sets the datetime checked to false
+            VENUE_CHECKED = false;//sets the venue checked to false
+            ADDED_ARRAY.removeAll(ADDED_ARRAY);//removes all items from the added array
+            checkListModel.removeAllElements();//removes all elements from the checkListModel
+            JOptionPane.showMessageDialog(null, "Lesson Edited");//alerts the user that the lesson was edited
+            this.setVisible(false);//discontinues the current JFrame
         }
-        STUDENTS_CHECKED = false;
-        DATETIME_CHECKED = false;
-        VENUE_CHECKED = false;
-        ADDED_ARRAY.removeAll(ADDED_ARRAY);
-        checkListModel.removeAllElements();
-        la.sortArray();
+        STUDENTS_CHECKED = false;//sets the students checked to false
+        DATETIME_CHECKED = false;//sets the datetime checked to false
+        VENUE_CHECKED = false;//sets the venue checked to false
+        ADDED_ARRAY.removeAll(ADDED_ARRAY);//removes all items from the added array
+        checkListModel.removeAllElements();//removes all elements from the checkListModel
+        la.sortArray();//sorts the lesson array
     }//GEN-LAST:event_editSelectedLessonButtonActionPerformed
 
     private void durationSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_durationSpinnerStateChanged
-        lessonDataArray la = new lessonDataArray();
-        if (HOUR_CHOSEN) {
-            if (this.minuteSpinner.getModel().getValue().toString().equals("")) {
-                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.HourSpinner.getModel().getValue().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-                this.timeSetLabel.setText(timeSet);
-            } else {
-                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-                this.timeSetLabel.setText(timeSet);
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        if (HOUR_CHOSEN) {//checks if an hour has been selected by the user
+            if (this.minuteSpinner.getModel().getValue().toString().equals("")) {//checks if the user has selected a minute
+                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.HourSpinner.getModel().getValue().toString() + ":00", Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));//creates a string according to the minute chosen
+                this.timeSetLabel.setText(timeSet);//sets the text of the timeSet Label to the timseSet string
+            } else {//if there is only an hour selected
+                String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));//creates a string according to the hour chosen
+                this.timeSetLabel.setText(timeSet);//sets the text of the timeSetLabel to the timeSet string
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "before choosing a duration please select a time");
+        } else {//if the user has not yet selected an hour
+            JOptionPane.showMessageDialog(null, "before choosing a duration please select a time");//alerts the use that they must first select an hour
         }
     }//GEN-LAST:event_durationSpinnerStateChanged
 
     private void HourSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_HourSpinnerStateChanged
-        HOUR_CHOSEN = true;
-        populateComboBoxes pop = new populateComboBoxes();
-        lessonDataArray la = new lessonDataArray();
-        SpinnerListModel minuteModel;
-        minuteModel = new SpinnerListModel(pop.populateMinuteComboBoxAccordingToHour(this.HourSpinner.getModel().getValue().toString()));
-        this.minuteSpinner.setModel(minuteModel);
-        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-        this.timeSetLabel.setText(timeSet);
+        HOUR_CHOSEN = true;//sets the hourChosen to true indicating that the user has selected an hour
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the lessonDataArray class
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        SpinnerListModel minuteModel = new SpinnerListModel(pop.populateMinuteComboBoxAccordingToHour(this.HourSpinner.getModel().getValue().toString()));//instantiates a spinnerListModel
+        this.minuteSpinner.setModel(minuteModel);//sets the model of the minuteSpinner to the minuteModel
+        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));//creates a string displaying the time according to the hour selected
+        this.timeSetLabel.setText(timeSet);//sets the text of the timeSetLabel to the timeSet string
     }//GEN-LAST:event_HourSpinnerStateChanged
 
     private void minuteSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_minuteSpinnerStateChanged
-        lessonDataArray la = new lessonDataArray();
-        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));
-        this.timeSetLabel.setText(timeSet);
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        String timeSet = la.getLessonTimeFromStartTimeAndDuration(this.minuteSpinner.getModel().getValue().toString(), Integer.parseInt(this.durationSpinner.getModel().getValue().toString()));//creates a string displaying the time according to the minute selected
+        this.timeSetLabel.setText(timeSet);//sets the text of the timeSetLabel to the timeSet string
     }//GEN-LAST:event_minuteSpinnerStateChanged
 
     private void studentCheckBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_studentCheckBoxStateChanged
-        STUDENTS_CHECKED = !STUDENTS_CHECKED;
-        if (STUDENTS_CHECKED) {
-            this.editStudentPanel.setBackground(Color.green);
-        } else {
-            this.editStudentPanel.setBackground(Color.red);
+        STUDENTS_CHECKED = !STUDENTS_CHECKED;//flips the students checked boolean
+        if (STUDENTS_CHECKED) {//checks if the studentsChecked boolean is true indicating that the students are being edited
+            this.editStudentPanel.setBackground(Color.green);//sets the background colour of the studentsPanel to green
+        } else {//if the students are not being edited
+            this.editStudentPanel.setBackground(Color.red);//sets the background colour of the studentsPanel to red
         }
     }//GEN-LAST:event_studentCheckBoxStateChanged
 
     private void dateTimeCheckBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_dateTimeCheckBoxStateChanged
-        DATETIME_CHECKED = !DATETIME_CHECKED;
-        if (DATETIME_CHECKED) {
-            this.editDateTimePanel.setBackground(Color.green);
+        DATETIME_CHECKED = !DATETIME_CHECKED;//flips the datetime checked boolean
+        if (DATETIME_CHECKED) {//checks if the datettimeChecked boolean is true indicating that the date and time are being edited
+            this.editDateTimePanel.setBackground(Color.green);//sets the background colour of the datetimePanel to green
             this.editAllLessonsButton.setVisible(false);
-        } else {
-            this.editDateTimePanel.setBackground(Color.red);
+        } else {//if the date and time are not being edited
+            this.editDateTimePanel.setBackground(Color.red);//sets the background colour of the dateTimePanel to red
             this.editAllLessonsButton.setVisible(true);
         }
     }//GEN-LAST:event_dateTimeCheckBoxStateChanged
 
     private void venueCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_venueCheckboxStateChanged
-        VENUE_CHECKED = !VENUE_CHECKED;
-        if (VENUE_CHECKED) {
-            this.venuePanel.setBackground(Color.green);
-        } else {
-            this.venuePanel.setBackground(Color.red);
+        VENUE_CHECKED = !VENUE_CHECKED;//flips the venue checked boolean
+        if (VENUE_CHECKED) {//checks if the venueChecked boolean is true indicating that the venue is being edited
+            this.venuePanel.setBackground(Color.green);//sets the background colour of the venuePanel to green
+        } else {//if the venue is not being edited
+            this.venuePanel.setBackground(Color.red);//sets the background colour of the venuePanel to red
         }
     }//GEN-LAST:event_venueCheckboxStateChanged
 
     private void editAllLessonsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAllLessonsButtonActionPerformed
-       lessonDataArray la = new lessonDataArray();
-        if (!DATETIME_CHECKED) {
-            if (VENUE_CHECKED) {
-                la.editAllLessonVenue(this.venuesComboBox.getSelectedItem().toString(), lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
+       lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+            if (VENUE_CHECKED) {//checks if the venue is being edited
+                la.editAllLessonVenue(this.venuesComboBox.getSelectedItem().toString(), lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);//edits the venue
             }
-            if (STUDENTS_CHECKED) {
-                la.editAllLessonStudents(ADDED_ARRAY, lesson.SELECTED_LESSON_ID, lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);
+            if (STUDENTS_CHECKED) {//checks if the students are being edited
+                la.editAllLessonStudents(ADDED_ARRAY, lesson.SELECTED_LESSON_ID, lesson.SELECTED_LESSON_DATE, lesson.SELECTED_LESSON_TIME);//edits the students
             }
-            STUDENTS_CHECKED = false;
-            VENUE_CHECKED = false;
-            ADDED_ARRAY.removeAll(ADDED_ARRAY);
-            checkListModel.removeAllElements();
-            this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(null, "You may not edit the lesson date or time of all the lessons in this group.\nOnly the one selected");
-        }
-        la.sortArray();
+            STUDENTS_CHECKED = false;//sets the students checked boolean to false
+            VENUE_CHECKED = false;//sets the venue checked boolean to false
+            ADDED_ARRAY.removeAll(ADDED_ARRAY);//removes all elements from the added_array array
+            checkListModel.removeAllElements();//removes all elements from the checkListMsodel
+            la.sortArray();//sorts the lessonDataArray array list
+            this.setVisible(false);//discontinues the current JFrame 
     }//GEN-LAST:event_editAllLessonsButtonActionPerformed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus

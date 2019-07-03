@@ -13,16 +13,16 @@ import javax.swing.JFrame;
  *
  * @author YishaiBasserabie
  */
-public class editStudentForm extends javax.swing.JFrame {
+public class editStudentForm extends javax.swing.JFrame {//creates a class to handle the editing of students
 
     /**
      * Creates new form editStudentForm
      */
-    public editStudentForm() {
+    public editStudentForm() {//creates the constructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        populateComboBoxes pop = new populateComboBoxes();
-        this.studentNameLabel.setText(student.STUDENT_NAME);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation if the current JFrame to dispose
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        this.studentNameLabel.setText(student.STUDENT_NAME);//sets the text of the 
         DefaultComboBoxModel schoolsModel = new DefaultComboBoxModel(pop.populateSchools());
         this.schoolsComboBox.setModel(schoolsModel);
         this.updateButton.setToolTipText("<html><p width=\"500\">" + "Here you can update the school of " + student.STUDENT_NAME + 

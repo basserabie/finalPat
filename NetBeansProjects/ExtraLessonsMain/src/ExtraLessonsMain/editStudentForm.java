@@ -22,16 +22,17 @@ public class editStudentForm extends javax.swing.JFrame {//creates a class to ha
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation if the current JFrame to dispose
         populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
-        this.studentNameLabel.setText(student.STUDENT_NAME);//sets the text of the 
-        DefaultComboBoxModel schoolsModel = new DefaultComboBoxModel(pop.populateSchools());
-        this.schoolsComboBox.setModel(schoolsModel);
+        this.studentNameLabel.setText(student.STUDENT_NAME);//sets the text of the studentNameLabel to the studentName selected
+        DefaultComboBoxModel schoolsModel = new DefaultComboBoxModel(pop.populateSchools());//creates a default combo box model for the schools
+        this.schoolsComboBox.setModel(schoolsModel);//sets the model of the schoolsComboBox to the schoolsModel model
         this.updateButton.setToolTipText("<html><p width=\"500\">" + "Here you can update the school of " + student.STUDENT_NAME + 
-                ". Please note: all grades are automatically updated annually and matriculants deleted" +"</p></html>");
-    }
+                ". Please note: all grades are automatically updated annually and matriculants deleted" +"</p></html>");//sets the toolTipText of the updateButton explaining the deatisl of the update function
+    }//closes the constructor
 
-    public JButton getUpdateButton() {
-        return updateButton;
-    }
+    //TODO: delete this
+//    public JButton getUpdateButton() {//creates a method to return the updateButton
+//        return updateButton;//
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -218,16 +219,16 @@ public class editStudentForm extends javax.swing.JFrame {//creates a class to ha
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        this .setVisible(false);
+        this .setVisible(false);//discontinures the current JFrame
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        student s = new student();
-        populateComboBoxes pop = new populateComboBoxes();
-        studentsArray sa = new studentsArray();
-        sa.editStudent(student.STUDENT_NAME, this.schoolsComboBox.getSelectedItem().toString());
-        s.setTableModel(pop.Students());
-        this.setVisible(false);
+        student s = new student();//creates an object for the students class
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        sa.editStudent(student.STUDENT_NAME, this.schoolsComboBox.getSelectedItem().toString());//edits the student information
+        s.setTableModel(pop.Students());//resets the table model of the students frame from the students class
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_updateButtonActionPerformed
 
     /**

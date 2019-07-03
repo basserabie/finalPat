@@ -9,8 +9,8 @@ package ExtraLessonsMain;
  *
  * @author YishaiBasserabie
  */
-public class fetchMothers {
-    private int motherID;
+public class fetchMothers {//creates a class representing a parent object
+    private int motherID;//
     private String motherFName, motherLName, motherEmail, motherCell;
 
     public fetchMothers(int motherID, String motherFName, String motherLName, String motherEmail, String motherCell) {

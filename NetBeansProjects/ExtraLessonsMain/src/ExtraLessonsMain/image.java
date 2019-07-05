@@ -278,31 +278,13 @@ public class image {
     public void pushFace() throws IOException {
         this.addUser();
         addImageURL = "https://api.chooch.ai/predict/face?person_id_filter=" + image.readFaceID() + "&apikey=4df35e9e-77d1-43b8-b5a0-b3588c017ee5&command=insert_person_image";
-        JOptionPane.showMessageDialog(null, "Please click the 'take' button and then look into the camera (you will do this five times).");
-        this.take();
-        Sound.playcam();
-        this.imagePost(path);
-        this.deleteImage();
-        JOptionPane.showMessageDialog(null, "Please click the 'take' button and then look into the camera again (you will do this five times).");
-        this.take();
-        Sound.playcam();
-        this.imagePost(path);
-        this.deleteImage();
-        JOptionPane.showMessageDialog(null, "Please click the 'take' button and then look into the camera again (you will do this five times).");
-        this.take();
-        Sound.playcam();
-        this.imagePost(path);
-        this.deleteImage();
-        JOptionPane.showMessageDialog(null, "Please click the 'take' button and then look into the camera again (you will do this five times).");
-        this.take();
-        Sound.playcam();
-        this.imagePost(path);
-        this.deleteImage();
-        JOptionPane.showMessageDialog(null, "Please click the 'take' button and then look into the camera again (you will do this five times).");
-        this.take();
-        Sound.playcam();
-        this.imagePost(path);
-        this.deleteImage();
+        for (int i = 0; i < 5; i++) {
+            JOptionPane.showMessageDialog(null, "PICTURE " + (i+1) + "\nPlease click the 'take' button and then look into the camera (you will do this " + (5-i) + " more times).");
+            this.take();
+            Sound.playcam();
+            this.imagePost(path);
+            this.deleteImage();
+        }
         JOptionPane.showMessageDialog(null, "Shots Taken (looking great!)");
     }
     

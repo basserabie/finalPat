@@ -11,25 +11,25 @@ import javax.swing.JFrame;
  *
  * @author YishaiBasserabie
  */
-public class invoiceForm extends javax.swing.JFrame {
+public class invoiceForm extends javax.swing.JFrame {//creates a class handling the invoice sending and formating
 
-    public static String date;
-    public static String time;
-    public static String parent;
-    public static String parentEmail;
-    public static String cost;
+    public static String date;//creates a static string to store the date of the unpaid lesson
+    public static String time;//creates a static string to store the time of the unpaid lesson
+    public static String parent;//creates a static string to store the parent name of the student attending the the unpaid lesson
+    public static String parentEmail;//creates a static string to store the parent emal address of the student attending the the unpaid lesson
+    public static String cost;//creates a static string to store the cost of the unpaid lesson
     
     /**
      * Creates new form invoiceForm
      */
-    public invoiceForm() {
+    public invoiceForm() {//creates a constructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        invoiceHandler ih = new invoiceHandler();
-        this.parentNameLabel.setText(parent);
-        this.subjectTextField.setText(ih.getInvoiceSubjectTemplate(date, time));
-        this.emailTextBox.setText(ih.getInvoiceTemplate(date, time, parent, cost));
-    }
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the current JFrame to dispose
+        invoiceHandler ih = new invoiceHandler();//creates an object for the incoiceHandler class
+        this.parentNameLabel.setText(parent);//sets the text of the parentNameLabel to the parent string
+        this.subjectTextField.setText(ih.getInvoiceSubjectTemplate(date, time));//sets the text of the subjectTextField to the formatted subject string created in the invoiceHandler class
+        this.emailTextBox.setText(ih.getInvoiceTemplate(date, time, parent, cost));//sets the text of the emailTextBox textArea to the formatted invoice string created in the invoiceHandler class
+    }//closes the cosntructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -201,13 +201,13 @@ public class invoiceForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        this.setVisible(false);
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-        sendEmail send = new sendEmail();
-        send.send(parentEmail, this.subjectTextField.getText(), this.emailTextBox.getText());
-        this.setVisible(false);
+        sendEmail send = new sendEmail();//creates an object for the sendEmail class
+        send.send(parentEmail, this.subjectTextField.getText(), this.emailTextBox.getText());//sends the email
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_sendButtonActionPerformed
 
     /**

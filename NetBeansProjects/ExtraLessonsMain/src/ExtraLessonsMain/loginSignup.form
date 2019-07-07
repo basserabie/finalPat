@@ -122,14 +122,15 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="forgotPassword" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="forgotPassword" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="addimageButton" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="221" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="iconPanel" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="338" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="iconPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="205" max="-2" attributes="0"/>
                                               <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
@@ -137,17 +138,17 @@
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="286" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="260" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
                                               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="TPasswordTLogin" min="-2" pref="240" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
                                               <Component id="loginButtonLogin" min="-2" pref="193" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="logInWithFace" min="-2" pref="183" max="-2" attributes="0"/>
+                                              <Component id="logInWithFace" min="-2" pref="185" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -175,7 +176,10 @@
                                   <Component id="logInWithFace" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="35" max="32767" attributes="0"/>
-                              <Component id="forgotPassword" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="forgotPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="addimageButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -313,6 +317,14 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logInWithFaceActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="addimageButton">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Add Image To Facial Recognisition"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addimageButtonActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>

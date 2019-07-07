@@ -81,6 +81,7 @@ public class loginSignup extends javax.swing.JFrame {
         iconPanel = new javax.swing.JPanel();
         iconLabel = new javax.swing.JLabel();
         logInWithFace = new javax.swing.JButton();
+        addimageButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         TfnameT = new javax.swing.JTextField();
         TlnameT = new javax.swing.JTextField();
@@ -207,25 +208,33 @@ public class loginSignup extends javax.swing.JFrame {
             }
         });
 
+        addimageButton.setText("Add Image To Facial Recognisition");
+        addimageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addimageButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(forgotPassword)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(forgotPassword)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addimageButton))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(221, 221, 221)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(iconPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(338, 338, 338))
+                            .addComponent(iconPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(205, 205, 205)
                                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(286, 286, 286)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(260, 260, 260)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -233,7 +242,7 @@ public class loginSignup extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(loginButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(logInWithFace, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(logInWithFace, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(236, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -252,7 +261,9 @@ public class loginSignup extends javax.swing.JFrame {
                     .addComponent(loginButtonLogin)
                     .addComponent(logInWithFace))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(forgotPassword))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(forgotPassword)
+                    .addComponent(addimageButton)))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -608,6 +619,16 @@ public class loginSignup extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_logInWithFaceActionPerformed
 
+    private void addimageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addimageButtonActionPerformed
+        image i = new image();
+        fetchTeacher ft = new fetchTeacher();
+        if (!ft.signedUp) {
+            i.addAnotherSnapshot();
+        } else {
+            JOptionPane.showMessageDialog(null, "Please sign up first");
+        }
+    }//GEN-LAST:event_addimageButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -653,6 +674,7 @@ public class loginSignup extends javax.swing.JFrame {
     private javax.swing.JPasswordField TpasswordT;
     private javax.swing.JButton addFaceButton;
     private javax.swing.JButton addIcon;
+    private javax.swing.JButton addimageButton;
     private javax.swing.JButton forgotPassword;
     private javax.swing.JLabel iconLabel;
     private javax.swing.JPanel iconPanel;

@@ -5,29 +5,21 @@
  */
 package ExtraLessonsMain;
 
-import com.mindfusion.common.DateTime;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import static java.time.temporal.TemporalQueries.localDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import java.time.LocalDate;
-import static java.time.temporal.TemporalQueries.localDate;
-import java.time.Clock;
-import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Locale;
 import java.util.UUID;
-import static org.apache.commons.lang.CharSetUtils.count;
 
 /**
  *

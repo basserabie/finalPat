@@ -19,43 +19,41 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author YishaiBasserabie
  */
-public class lesson extends javax.swing.JFrame {
+public class lesson extends javax.swing.JFrame {//creates a class to handle the displaying of the lessons
 
-    public static int SELECTED_LESSON_ID;
-    public static String SELECTED_LESSON_DATE;
-    public static String SELECTED_LESSON_TIME;
-    public static String SELECTED_KEY;
+    public static int SELECTED_LESSON_ID;//creates a static integer to hold the selected lesson id
+    public static String SELECTED_LESSON_DATE;//creates a static integer to hold the selected lesson date
+    public static String SELECTED_LESSON_TIME;//creates a static integer to hold the selected lesson time
+    public static String SELECTED_KEY;//creates a static integer to hold the selected lesson key
     
     /**
      * Creates new form lesson
      */
-    public lesson() {
+    public lesson() {//creates the constructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        lessonDataArray la = new lessonDataArray();
-        la.sortArray();
-        this.selectedLessonLabelReal.setText("----------------");
-        this.seeStudentsButton.setText("---------");
-        populateComboBoxes pop = new populateComboBoxes();
-        this.searchComboBox.removeAllItems();
-        this.filterTypeStudent.removeAllItems();;
-        this.filterTypeStudent.addItem("Use Date Picker");
-        this.searchComboBox.addItem("Use Date Picker");
-        this.searchTextField.setText("Use Date Picker");
-        this.lessonsTable.setModel(pop.Lessons());
-        this.lessonsTable.setAutoCreateRowSorter(true);
-        DefaultComboBoxModel primarySearch = new DefaultComboBoxModel(pop.populatePrimaryFilterTpeLessonsComboBox());
-        this.filterTypeComboBox.setModel(primarySearch);
-        
-    }
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the current JFRame to dispose
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        la.sortArray();//sorts the lessonDataArray lessonData Array list
+        this.selectedLessonLabelReal.setText("----------------");//sets the default text of the selectedLessonsLabelReal button
+        this.seeStudentsButton.setText("---------");//sets the default text of the seeStudentsButton
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        this.searchComboBox.removeAllItems();//removes all items from the searchComboBox
+        this.filterTypeStudent.removeAllItems();//removes all items from the filerTypeStudent comboBox
+        this.filterTypeStudent.addItem("Use Date Picker");//adds an item to the filterTypeStudent combo box instructing the user to use the date chooser
+        this.searchComboBox.addItem("Use Date Picker");//adds an item to the searchComboBox combo box instructing the user to use the date chooser
+        this.searchTextField.setText("Use Date Picker");//adds an item to the searchTextField instructing the user to use the date chooser
+        this.lessonsTable.setModel(pop.Lessons());//sets the model of the lessonsTable to the lessons table model from the populateComboBoxes class
+        DefaultComboBoxModel primarySearch = new DefaultComboBoxModel(pop.populatePrimaryFilterTpeLessonsComboBox());//creates a combo box model of the search/filter options
+        this.filterTypeComboBox.setModel(primarySearch);//sets the filterTypeComboBox model to the primarySearch model
+    }//closes the constructor
     
-    public void setTableModel(DefaultTableModel model) {
-        this.lessonsTable.setModel(model);
-    } 
+//    public void setTableModel(DefaultTableModel model) {
+//        this.lessonsTable.setModel(model);
+//    } 
 
-    public JButton getSeeStudentsButton() {
-        return seeStudentsButton;
-    }
+//    public JButton getSeeStudentsButton() {
+//        return seeStudentsButton;
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -408,55 +406,55 @@ public class lesson extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backToDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardButtonActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        la.sortArray();
-        this.setVisible(false);
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        la.sortArray();//sorts the lessonDataArray array list of lesson objects
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_backToDashboardButtonActionPerformed
 
     private void searchTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyTyped
-        populateComboBoxes pop = new populateComboBoxes();
-        switch (this.filterTypeStudent.getSelectedItem().toString()) {
-            case "Student Name":
-                this.lessonsTable.setModel(pop.LessonsByStudentName(this.searchTextField.getText()));
-                break;
-            case "Mother Name":
-                this.lessonsTable.setModel(pop.LessonsByParentSName(this.searchTextField.getText()));
-                break;
-            case "School":
-                this.lessonsTable.setModel(pop.LessonsBySchool(this.searchTextField.getText()));
-        }
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        switch (this.filterTypeStudent.getSelectedItem().toString()) {//starts a switchcase statement according to the filter type chosen by the user
+            case "Student Name"://opens the case of student name filter type
+                this.lessonsTable.setModel(pop.LessonsByStudentName(this.searchTextField.getText()));//sets the model of the lessonsTable to the filtered version of the lessons tablle model
+                break;//discontinues the current case
+            case "Mother Name"://opens the case of parent name filter type
+                this.lessonsTable.setModel(pop.LessonsByParentSName(this.searchTextField.getText()));//sets the model of the lessonsTable to the filtered version of the lessons tablle model
+                break;//discontinues the current case
+            case "School"://opens the case of school name filter type
+                this.lessonsTable.setModel(pop.LessonsBySchool(this.searchTextField.getText()));//sets the model of the lessonsTable to the filtered version of the lessons tablle model
+        }//closes the switchcase statement
     }//GEN-LAST:event_searchTextFieldKeyTyped
 
     private void filterTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterTypeComboBoxActionPerformed
-        populateComboBoxes pop = new populateComboBoxes();
-        switch (this.filterTypeComboBox.getSelectedItem().toString()) {
-            case "Date":
-                String dateChosenCorrection [] = {"Use Date Picker"};
-                DefaultComboBoxModel dateChosenModel = new DefaultComboBoxModel(dateChosenCorrection);
-                this.searchComboBox.setModel(dateChosenModel);
-                this.filterTypeStudent.setModel(dateChosenModel);
-                this.searchTextField.setText(dateChosenCorrection[0]);
-                this.lessonsTable.setModel(pop.Lessons());
-                break;
-            case "Venue":
-                String venueChosenCorrection [] = {"Use Venue Box"};
-                DefaultComboBoxModel venueChosenModel = new DefaultComboBoxModel(venueChosenCorrection);
-                this.filterTypeStudent.setModel(venueChosenModel);
-                this.searchTextField.setText(venueChosenCorrection[0]);
-                DefaultComboBoxModel venuesModel = new DefaultComboBoxModel(pop.populateVenues());
-                this.searchComboBox.setModel(venuesModel);
-                this.lessonsTable.setModel(pop.Lessons());
-                break;
-            case "Student":
-                String studentNameChosenCorrection [] = {"Use Student Block"};
-                DefaultComboBoxModel studentNameChosenModel = new DefaultComboBoxModel(studentNameChosenCorrection);
-                this.searchComboBox.setModel(studentNameChosenModel);
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboNBoxes class
+        switch (this.filterTypeComboBox.getSelectedItem().toString()) {//opens a switchcase statement according to the filter chosen by the user
+            case "Date"://opens the case of date filter type
+                String dateChosenCorrection [] = {"Use Date Picker"};//creates a string array with an item instructing the user to use the date picker
+                DefaultComboBoxModel dateChosenModel = new DefaultComboBoxModel(dateChosenCorrection);//creates a combobox model according to the dateChosenCorrection string array
+                this.searchComboBox.setModel(dateChosenModel);//sets the model of the combobox to the above comboBoxModel
+                this.filterTypeStudent.setModel(dateChosenModel);//sets the model of the combobox to the above comboBoxModel
+                this.searchTextField.setText(dateChosenCorrection[0]);//sets the text of the searchTextField to the first item of the dateChosejCorrection
+                this.lessonsTable.setModel(pop.Lessons());//sets the model of the lessons table to the lessons table model in the populateComboBoxes class
+                break;//discontinues the current case
+            case "Venue"://opens the case of venue filter type
+                String venueChosenCorrection [] = {"Use Venue Box"};//creates a string array with an item instructing the user to use the venue combobox
+                DefaultComboBoxModel venueChosenModel = new DefaultComboBoxModel(venueChosenCorrection);//creates a combobox model according to the VenueChosenCorrection string array
+                this.filterTypeStudent.setModel(venueChosenModel);//sets the model of the combobox to the above comboBoxModel
+                this.searchTextField.setText(venueChosenCorrection[0]);//sets the model of the combobox to the above comboBoxModel
+                DefaultComboBoxModel venuesModel = new DefaultComboBoxModel(pop.populateVenues());//creates a combo box model according to the venues in the database
+                this.searchComboBox.setModel(venuesModel);//sets the model searchComboBox to the venuesModel
+                this.lessonsTable.setModel(pop.Lessons());//sets the model of the lessons table to the lessons table model in the populateComboBoxes class
+                break;//discontinues the current case
+            case "Student"://opens the case of student filter type
+                String studentNameChosenCorrection [] = {"Use Student Block"};//creates a string array with an item instructing the user to use the student bordered panel
+                DefaultComboBoxModel studentNameChosenModel = new DefaultComboBoxModel(studentNameChosenCorrection);//creates a combobox model according to the studentChosenCorrection string array
+                this.searchComboBox.setModel(studentNameChosenModel);//sets the model of the combobox to the above comboBoxModel
                 DefaultComboBoxModel studentPickerModel = new DefaultComboBoxModel(pop.populateStudentFilterTypeComboBox());
-                this.filterTypeStudent.setModel(studentPickerModel);
-                this.searchTextField.setText("");
-                this.lessonsTable.setModel(pop.Lessons());
-                break;
-        }
+                this.filterTypeStudent.setModel(studentPickerModel);//sets the model of the combobox to the above comboBoxModel
+                this.searchTextField.setText("");//sets the text of the searchTextField to blank
+                this.lessonsTable.setModel(pop.Lessons());//sets the model of the lessons table to the lessons table model in the populateComboBoxes class
+                break;//discontinues the current case
+        }//closes the switchcase statement
     }//GEN-LAST:event_filterTypeComboBoxActionPerformed
 
     private void searchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextFieldActionPerformed
@@ -464,33 +462,33 @@ public class lesson extends javax.swing.JFrame {
     }//GEN-LAST:event_searchTextFieldActionPerformed
 
     private void searchComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchComboBoxActionPerformed
-       populateComboBoxes pop = new populateComboBoxes();
-       if (this.filterTypeComboBox.getSelectedItem().toString().equals("Venue")) {
-           this.lessonsTable.setModel(pop.LessonsByVenue(this.searchComboBox.getSelectedItem().toString()));
+       populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+       if (this.filterTypeComboBox.getSelectedItem().toString().equals("Venue")) {//checks if user is filtering by venue
+           this.lessonsTable.setModel(pop.LessonsByVenue(this.searchComboBox.getSelectedItem().toString()));//sets the model to the filtered version of the lesson table model
        }
     }//GEN-LAST:event_searchComboBoxActionPerformed
 
     private void searchByDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchByDateActionPerformed
-        populateComboBoxes poop = new populateComboBoxes();
-        lessonDataArray la = new lessonDataArray();
-        String date = la.formatDate(this.dateChooser.getDate().toString());
-        if (!(this.dateChooser.getDate().toString()).equals("")) {
-            this.lessonsTable.setModel(poop.LessonsByDate(date));
-        } else {
-            JOptionPane.showMessageDialog(null, "please select a date first\nor ensure that the filter type is set to date.");
+        populateComboBoxes poop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        String date = la.formatDate(this.dateChooser.getDate().toString());//creates a string to hold a formatted version of the date selected
+        if (!(this.dateChooser.getDate().toString()).equals("")) {//checks that the dateChooser is not null i.e. the user has not selected a date
+            this.lessonsTable.setModel(poop.LessonsByDate(date));//filters the tabel according to the date selected
+        } else {//if the user has not yet selected a date
+            JOptionPane.showMessageDialog(null, "please select a date first\nor ensure that the filter type is set to date.");//alerts the user to selected a date first
         }
     }//GEN-LAST:event_searchByDateActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-        populateComboBoxes pop = new populateComboBoxes();
-        this.lessonsTable.setModel(pop.Lessons());
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        this.lessonsTable.setModel(pop.Lessons());//resets the lessonstable to the unfiltered lessons table model from the populateComboBoxes class
     }//GEN-LAST:event_resetActionPerformed
 
     private void lessonsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lessonsTableMouseClicked
-        populateComboBoxes pop = new populateComboBoxes();
-        lessonDataArray la = new lessonDataArray();
-        studentsArray sa = new studentsArray();
-        keysArray ka = new keysArray();
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        keysArray ka = new keysArray();//
         this.seeStudentsButton.setText("See Students!");
         String date = this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 2).toString();
         int studentID = sa.studentIDFromName(this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 0).toString());
@@ -524,7 +522,7 @@ public class lesson extends javax.swing.JFrame {
     private void deleteLessonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLessonActionPerformed
         if (!this.lessonsTable.getSelectionModel().isSelectionEmpty()) {
             lessonDataArray la = new lessonDataArray();
-            populateComboBoxes pop = new populateComboBoxes();
+            populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
             la.deleteLesson(SELECTED_LESSON_ID, SELECTED_LESSON_DATE, SELECTED_LESSON_TIME, pop.populateSelectedLessonLabel(SELECTED_LESSON_ID));
             this.lessonsTable.setModel(pop.Lessons());
         } else {
@@ -533,7 +531,7 @@ public class lesson extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteLessonActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        populateComboBoxes pop = new populateComboBoxes();
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
         this.lessonsTable.setModel(pop.Lessons());
     }//GEN-LAST:event_formWindowGainedFocus
 

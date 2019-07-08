@@ -38,10 +38,8 @@ public class addLessonForm extends javax.swing.JFrame {//creates a class to hand
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the JFrame to dispose
         populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
-        
         this.studentsAddedList.removeAll(); //removes generic items from studentsAddedList
         this.addStudentNameComboBox.removeAllItems();//removes all generic tiems from name combo box
-        
         DefaultComboBoxModel grades = new DefaultComboBoxModel(pop.populateGrades());//creates a default combo box model populated with the grades string array
         this.addStudentGradeComboBox.setModel(grades);//sets the model of the grade combo box to the grades model
         DefaultComboBoxModel venues = new DefaultComboBoxModel(pop.populateVenues());//creates a default combo box model populated with the venues string array

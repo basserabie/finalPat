@@ -488,51 +488,51 @@ public class lesson extends javax.swing.JFrame {//creates a class to handle the 
         populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
-        keysArray ka = new keysArray();//
-        this.seeStudentsButton.setText("See Students!");
-        String date = this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 2).toString();
-        int studentID = sa.studentIDFromName(this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 0).toString());
-        String time = this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 3).toString().substring(0, 5);
-        SELECTED_LESSON_ID = la.getLessoIDFromDateTimeAndStudentID(date, time, studentID);
-        SELECTED_LESSON_DATE = date;
-        SELECTED_LESSON_TIME = time;
-        SELECTED_KEY = ka.getKeyFromLessonID(SELECTED_LESSON_ID);
-        this.selectedLessonLabelReal.setText(pop.populateSelectedLessonLabel(SELECTED_LESSON_ID));
+        keysArray ka = new keysArray();//creates an object for the keysArray class
+        this.seeStudentsButton.setText("See Students!");//sets the text of the seeStudentsButton to instruct the user to see the students
+        String date = this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 2).toString();//creates a string holding the formatted date of the selected lesson
+        int studentID = sa.studentIDFromName(this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 0).toString());//creates an ineteger to hold the lesson id of the selected lesson
+        String time = this.lessonsTable.getModel().getValueAt(this.lessonsTable.getSelectedRow(), 3).toString().substring(0, 5);//creates a string to hold the time of the selected lesson
+        SELECTED_LESSON_ID = la.getLessoIDFromDateTimeAndStudentID(date, time, studentID);//sets the lesson ID int to the id
+        SELECTED_LESSON_DATE = date;//sets the lesson date string to the date
+        SELECTED_LESSON_TIME = time;//sets the lesson time to the time
+        SELECTED_KEY = ka.getKeyFromLessonID(SELECTED_LESSON_ID);//sets the selected key to the key of the selected lesson
+        this.selectedLessonLabelReal.setText(pop.populateSelectedLessonLabel(SELECTED_LESSON_ID));//sets the text of the selectedLessonLabel text to the formatted string of the lesson data
     }//GEN-LAST:event_lessonsTableMouseClicked
 
     private void seeStudentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeStudentsButtonActionPerformed
-     seeStudentsForm ssf = new seeStudentsForm();
-     if (!this.lessonsTable.getSelectionModel().isSelectionEmpty()) {
-         ssf.setLocation((this.seeStudentsButton.getLocationOnScreen().x - 358), (this.seeStudentsButton.getLocationOnScreen().y));
-         ssf.setVisible(true);
-     } else {
-         JOptionPane.showMessageDialog(null, "Please Select A Lesson (row) First");
+     if (!this.lessonsTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a lesson selected
+         seeStudentsForm ssf = new seeStudentsForm();//creates an object for the seeStudentsForm class
+         ssf.setLocation((this.seeStudentsButton.getLocationOnScreen().x - 358), (this.seeStudentsButton.getLocationOnScreen().y));//sets the location of the students JFrame
+         ssf.setVisible(true);//sets the seeStudents JFrame visible
+     } else {//if there has not been a lesson selected
+         JOptionPane.showMessageDialog(null, "Please Select A Lesson (row) First");//alerts the user that they must first selecte a lesson
      }
     }//GEN-LAST:event_seeStudentsButtonActionPerformed
 
     private void editLessonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editLessonActionPerformed
-        if (!this.lessonsTable.getSelectionModel().isSelectionEmpty()) {
-            editLessonForm elf = new editLessonForm();
-            elf.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a lesson first");
+        if (!this.lessonsTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a selected lesson
+            editLessonForm elf = new editLessonForm();//creates an object for the editLessonForm class
+            elf.setVisible(true);//sets the editLessonForm JFrame visible
+        } else {//if there has not been a lesson selected
+            JOptionPane.showMessageDialog(null, "Please select a lesson first");//alerts the user to selected a lesson first
         }
     }//GEN-LAST:event_editLessonActionPerformed
 
     private void deleteLessonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLessonActionPerformed
-        if (!this.lessonsTable.getSelectionModel().isSelectionEmpty()) {
-            lessonDataArray la = new lessonDataArray();
+        if (!this.lessonsTable.getSelectionModel().isSelectionEmpty()) {//checks if there has been a selected lesson
+            lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
             populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
-            la.deleteLesson(SELECTED_LESSON_ID, SELECTED_LESSON_DATE, SELECTED_LESSON_TIME, pop.populateSelectedLessonLabel(SELECTED_LESSON_ID));
-            this.lessonsTable.setModel(pop.Lessons());
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a lesson first");
+            la.deleteLesson(SELECTED_LESSON_ID, SELECTED_LESSON_DATE, SELECTED_LESSON_TIME, pop.populateSelectedLessonLabel(SELECTED_LESSON_ID));//deletes the selected lesson
+            this.lessonsTable.setModel(pop.Lessons());//resets the model of the lessonsTable
+        } else {//if there has not been a selected lesson
+            JOptionPane.showMessageDialog(null, "Please select a lesson first");//alerts the user to first select a lesson
         }
     }//GEN-LAST:event_deleteLessonActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
-        this.lessonsTable.setModel(pop.Lessons());
+        this.lessonsTable.setModel(pop.Lessons());//resets the model of the lessonsTable
     }//GEN-LAST:event_formWindowGainedFocus
 
     /**

@@ -25,252 +25,241 @@ import java.util.UUID;
  *
  * @author YishaiBasserabie
  */
-public class lessonDataArray {
-    ConnectDB  db = new ConnectDB();
-    dataValidation vd = new dataValidation();
-    private ArrayList<fetchLessonData> lessonDataArray = new ArrayList<>();
-    private ArrayList<String> names = new ArrayList<>();
-    private String lessonKey;
-    private static String studentLost = "";
-    private static int STUDENTS_ADDED_TO_LESSON = 0;
-    public static boolean EDIT_DOUBLE_BOOKED = false;
+public class lessonDataArray {//creates a class to handle and process the lesson objects
+    private ArrayList<fetchLessonData> lessonDataArray = new ArrayList<>();//creates an array list of lesson objects//
+    private ArrayList<String> names = new ArrayList<>();//creates an array list for the names of students added to a lesson
+    private String lessonKey;//instantiates a string for the lessonKey to be added to the database
+    private static String studentLost = "";//creates a string to store the studentremoved from the lesson
+    private static int STUDENTS_ADDED_TO_LESSON = 0;//creates an int to store the number of students added to a lesson
+    public static boolean EDIT_DOUBLE_BOOKED = false;//creates a boolean to indicate whether the edited lesson is set to be double booked
 
-    public lessonDataArray() {
-        ResultSet r = db.getResults("SELECT * FROM lessonData");
-        try {
-            while(r.next()) {
+    public lessonDataArray() {//creates a constructor for the current class
+        ConnectDB  db = new ConnectDB();//creates an object for the ConnectDB class
+        ResultSet r = db.getResults("SELECT * FROM lessonData");//creates a result set of lesson objects
+        try {//opens the trycatch statement
+            while(r.next()) {//iterates through the resultSet
                 fetchLessonData fld = new fetchLessonData(r.getInt("LessonID"), r.getInt("StudentID"),
-                        r.getInt("venueID"), r.getInt("lessonDuration"), r.getString("lessonDate"), r.getString("lessonTime"), r.getString("lessonDay"));
-                lessonDataArray.add(fld);
+                        r.getInt("venueID"), r.getInt("lessonDuration"), r.getString("lessonDate"), r.getString("lessonTime"), r.getString("lessonDay"));//creates a new fetchLessons object according to the iterated result
+                lessonDataArray.add(fld);//adds the fetchlesson object to the lessonDataArray
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Database error, please contact administrator at 0836570642");
-        }
-        //calls method to sort array list
-        this.sortArray();
-    }
+        } catch (SQLException ex) {//closes the catch statement
+            Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user as to what went wrong getting the resultSet
+            JOptionPane.showMessageDialog(null, "Database error, please contact administrator at 0836570642");//alerts the user to contact the administrator
+        }//closes the catch statement
+        this.sortArray();//calls method to sort array list
+    }//closes the cosntructor
 
-    public ArrayList<fetchLessonData> getLessonDataArray() {
-        return lessonDataArray;
-    }
+    public ArrayList<fetchLessonData> getLessonDataArray() {//creates a method to return the lessonDataArray array list
+        return lessonDataArray;//returns the array list
+    }//closes the getter method
 
-    public void setLessonDataArray(ArrayList<fetchLessonData> lessonDataArray) {
-        this.lessonDataArray = lessonDataArray;
-    }
+    public ArrayList<String> getNames() {//creates a method to return the names array list
+        return names;//returns the array list
+    }//closes the getter method
 
-    public ArrayList<String> getNames() {
-        return names;
-    }
+    public void setNames(ArrayList<String> names) {//creates a method to set the names array list
+        this.names = names;//sets the array list
+    }//closes the setter method
 
-    public void setNames(ArrayList<String> names) {
-        this.names = names;
-    }
+    public String getLessonKey() {//creates a method to return the lesson key
+        return lessonKey;//returns the lessonKey
+    }//closes the getter method
 
-    public String getLessonKey() {
-        return lessonKey;
-    }
-
-    public void setLessonKey(String lessonKey) {
-        this.lessonKey = lessonKey;
-    }
+    public void setLessonKey(String lessonKey) {//creates a method to set the lesson key
+        this.lessonKey = lessonKey;//sets the lesson key
+    }//closes the setter method
 
     
-    public void setNamesList(ArrayList<String> list) {
-        boolean alreadyIn = false;
-        for (int i = 0; i < list.size(); i++) {
-            for (int k = 0; k < this.names.size(); k++) {
-                if (this.names.get(k).equals(list.get(i))) {
-                    alreadyIn = true;
+    public void setNamesList(ArrayList<String> list) {//creates a method to set the names array list
+        boolean alreadyIn = false;//creates a boolean indicating whether the names has already been added
+        for (int i = 0; i < list.size(); i++) {//iterates through the list passed in
+            for (int k = 0; k < this.names.size(); k++) {//iterates through the name array list
+                if (this.names.get(k).equals(list.get(i))) {//checks if the names array list already contains the iterated name
+                    alreadyIn = true;//sets alreadyIn to true
                 }
             }
-            if (alreadyIn == false) {
-                this.names.add(list.get(i));
+            if (alreadyIn == false) {//checks if the iterated name is not already in the names list
+                this.names.add(list.get(i));//adds the iterated name to the names list
             }
-            alreadyIn = false;
+            alreadyIn = false;//flips alreadyIn to false
         }
-    }
+    }//closes the setNamesList method
     
-    public int getIndexFromID(int id) {
-        int index = 0;
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
-            if (this.lessonDataArray.get(i).getLessonID() == id) {
-                index = i;
-            }
-        }
-        return index;
-    }
-    
-    public  int getStudentIDFromIndex(int index) {
-        int student  = 0;
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
-            if (i == index) {
-                student = this.lessonDataArray.get(i).getStudentID();
+    public int getIndexFromID(int id) {//creates a method to get the index of a lesson object from the passed in ID
+        int index = 0;//creates an int to store the index
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
+            if (this.lessonDataArray.get(i).getLessonID() == id) {//checks if the iterated id euqlas the passed in array
+                index = i;//sets the index to i
             }
         }
-        return student;
-    }
+        return index;//returns index
+    }//closes the getIndexfromID method
     
-    public String getStartTimeFromIndex(int index) {
-        String time  = "";
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
-            if (i == index) {
-                time = this.lessonDataArray.get(i).getLessonTime();
+    public int getStudentIDFromIndex(int index) {//creates a method to the ther student id from the lesson index
+        int student  = 0;//creates 
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
+            if (i == index) {//checks if i is equal to the index passed in
+                student = this.lessonDataArray.get(i).getStudentID();//sets the students id to the student id of the iterated lesson
             }
         }
-        return time;
-    }
+        return student;//returns the student id
+    }//closes the getStudentIDFromIndex method
     
-    public boolean compareTimesFromKeys(String key1, String key2) {
-        keysArray ka = new keysArray();
-        boolean before = false;
+    public String getStartTimeFromIndex(int index) {//creates a method to get the start time of a lesson from the index passed in
+        String time  = "";//creates a string to store the time
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
+            if (i == index) {//checks if the index is equal to i
+                time = this.lessonDataArray.get(i).getLessonTime();//sets the time string to the iterated time
+            }
+        }
+        return time;//returns time
+    }//closes the getStartTimeFromIndex method
+    
+    public boolean compareTimesFromKeys(String key1, String key2) {//creates a method to check if one time is before the other
+        keysArray ka = new keysArray();//creates an object for the keysArray class
+        boolean before = false;//creates a boolean indicating whether the one time is before the other
         
-        int startTime1 = (Integer.parseInt(ka.getStartTimeFromKey(key1).substring(0, 2))*60)+Integer.parseInt(ka.getStartTimeFromKey(key1).substring(3, 5));
-        int startTime2 = (Integer.parseInt(ka.getStartTimeFromKey(key2).substring(0, 2))*60)+Integer.parseInt(ka.getStartTimeFromKey(key2).substring(3, 5)); 
-                
-        if (startTime1 < startTime2) {
-            before = true;
+        int startTime1 = (Integer.parseInt(ka.getStartTimeFromKey(key1).substring(0, 2))*60)+Integer.parseInt(ka.getStartTimeFromKey(key1).substring(3, 5));//creates an integer representation of the time
+        int startTime2 = (Integer.parseInt(ka.getStartTimeFromKey(key2).substring(0, 2))*60)+Integer.parseInt(ka.getStartTimeFromKey(key2).substring(3, 5));//creates an integer representation of the time
+        if (startTime1 < startTime2) {//checks if the startTime1 int is smaller than the startTime2 int i.e. it is before
+            before = true;//flips before to true
         }
-        return before;
-    }
+        return before;//returns the before boolean
+    }//closes the compareTimesFromKeys method
     
-    public String getFrequencyFromKey(String lessonKey) {
-        keysArray ka = new keysArray();
-        String frequency = "once-off";
-        int countFreq = 0;
-        ArrayList<String> refDates = new ArrayList<>();
+    public String getFrequencyFromKey(String lessonKey) {//creates a method to get the frequency of a lesson from the key passed in
+        keysArray ka = new keysArray();//creates an object for the keysArray class
+        String frequency = "once-off";//creates a string to indicate the frequency
+        int countFreq = 0;//creates an int to count the lessons of that key in a period of time
+        ArrayList<String> refDates = new ArrayList<>();//creates an array list of the dates of the lessons according to the passed in key
+        int day1, month1, day2, month2;//instantiates ints to represent the iterated dates and times as integers
         
-        int day1, month1, day2, month2;
-        
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
-            if (i > 0) {
-                if (ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()).equals(lessonKey) && !this.lessonDataArray.get(i).getLessonDate().equals(this.lessonDataArray.get(i-1).getLessonDate())) {
-                    refDates.add(this.lessonDataArray.get(i).getLessonDate());
-                    countFreq++;
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
+            if (i > 0) {//checks if i is bigger than 0
+                if (ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()).equals(lessonKey) && !this.lessonDataArray.get(i).getLessonDate().equals(this.lessonDataArray.get(i-1).getLessonDate())) {//checks if the key of the iterated lesson is the same as the one passed in and the lesson is on a different date to the last one checked
+                    refDates.add(this.lessonDataArray.get(i).getLessonDate());//adds the lessondate to the refDates array list
+                    countFreq++;//ups the frequency of the lessons
                 }
             }
-            
-            if (countFreq > 1) {
-                day1 = Integer.parseInt(refDates.get(0).substring(5, 7));
-                day2 = Integer.parseInt(refDates.get(1).substring(5, 7));
-                month1 = Integer.parseInt(refDates.get(0).substring(8, 10));
-                month2 = Integer.parseInt(refDates.get(1).substring(8, 10));
-                
-                if (this.isMonthArpart(refDates.get(0), refDates.get(1))) {
-                    frequency = "monthly";
+            if (countFreq > 1) {//checks if the countFreq is more than 1 i.e. it is not once off
+                day1 = Integer.parseInt(refDates.get(0).substring(5, 7));//sets the day1 int to the first item in the refDates array list
+                day2 = Integer.parseInt(refDates.get(1).substring(5, 7));//sets the day2 int to the second item in the refDates array list
+                month1 = Integer.parseInt(refDates.get(0).substring(8, 10));//sets the month1 int to the first item in the refDates array list
+                month2 = Integer.parseInt(refDates.get(1).substring(8, 10));//sets the month2 int to the first item in the refDates array list
+                if (this.isMonthArpart(refDates.get(0), refDates.get(1))) {//checks if the two dates are a month apart
+                    frequency = "monthly";//sets the frequency to monthly
                 }
-                if (this.isWeekApart(refDates.get(0), refDates.get(1))) {
-                    frequency = "weekly";
+                if (this.isWeekApart(refDates.get(0), refDates.get(1))) {//checks if the two dates are week apart
+                    frequency = "weekly";//sets the frequency to weekly
                 }
             }
         }
-        return frequency;
-    }
+        return frequency;//returns the frequency
+    }//closes the getFrequencyFromKey method
     
-    public boolean isLeapYear(String date) {
-        boolean leap = false;
-        int year = Integer.parseInt(date.substring(0, 4));
-        //checks if leap year
-        if (year%100 == 0 && year%400 ==0) {
-                leap = true;
-            } else {
-                if (year%4 == 0 && year%100 != 0) {
-                    leap = true;
+    public boolean isLeapYear(String date) {//creates a method to check if a date passed in is in a leap year
+        boolean leap = false;//creates a boolean to indicate whether the date passed in is in a leap year
+        int year = Integer.parseInt(date.substring(0, 4));//creates an integer representation of the year
+        if (year%100 == 0 && year%400 ==0) {//checks if the year is a leap year (divisible by 100 and 400)
+                leap = true;//sets leap to true
+            } else {//if the year is not divisible by 100 or 400
+                if (year%4 == 0 && year%100 != 0) {//check if the year is leap (divisible by 4 and not 100)
+                    leap = true;//flips leap to true
                 }
             }
-        return leap;
-    }
+        return leap;//returns leap
+    }//closes the isLeapYear method
     
-    public int checkDaysInMonth(String date) {
-        int days = 0;
-        int month = Integer.parseInt(date.substring(8, 10));
+    public int checkDaysInMonth(String date) {//creates a method to format the days passed in
+        int days = 0;//creates an int to store the day
+        int month = Integer.parseInt(date.substring(8, 10));//creates an int for the month
         
-        if (this.isLeapYear(date)) {
-            switch (month) {
-                case 1:
-                    days = 31;
-                    break;
-                case 2:
-                    days = 28;
-                    break;
-                case 3:
-                    days = 31;
-                    break;
-                case 4:
-                    days = 30;
-                    break;
-                case 5:
-                    days = 31;
-                    break;
-                case 6:
-                    days = 30;
-                    break;
-                case 7:
-                    days = 31;
-                    break;
-                case 8: 
-                    days = 31;
-                    break;
-                case 9:
-                    days = 30;
-                    break;
-                case 10:
-                    days = 31;
-                    break;
-                case 11:
-                    days = 30;
-                    break;
-                case 12:
-                    days = 31;
-                    break;
-            }
-        } else {
-            switch (month) {
-                case 1:
-                    days = 31;
-                    break;
-                case 2:
-                    days = 29;
-                    break;
-                case 3:
-                    days = 31;
-                    break;
-                case 4:
-                    days = 30;
-                    break;
-                case 5:
-                    days = 31;
-                    break;
-                case 6:
-                    days = 30;
-                    break;
-                case 7:
-                    days = 31;
-                    break;
-                case 8: 
-                    days = 31;
-                    break;
-                case 9:
-                    days = 30;
-                    break;
-                case 10:
-                    days = 31;
-                    break;
-                case 11:
-                    days = 30;
-                    break;
-                case 12:
-                    days = 31;
-                    break;
-            }
+        if (this.isLeapYear(date)) {//checks if the date is a leap year
+            switch (month) {//creates a switchcase statement according to the month int
+                case 1://case jan
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+                case 2://case feb
+                    days = 28;//sets days to 28
+                    break;//dicontinues the current case
+                case 3://case mar
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+                case 4://case apr
+                    days = 30;//sets days to 30
+                    break;//dicontinues the current case
+                case 5://case may
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+                case 6://case jun
+                    days = 30;//sets days to 30
+                    break;//dicontinues the current case
+                case 7://case jul
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+                case 8://case aug
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+                case 9://case sep
+                    days = 30;//sets days to 30
+                    break;//dicontinues the current case
+                case 10://case oct
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+                case 11://case nov
+                    days = 30;//sets days to 30
+                    break;//dicontinues the current case
+                case 12://case dec
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+            }//closes the switchcase statement
+        } else {//if the year is not a leap
+            switch (month) {//creates a switchcase statement according to the month int
+                case 1://case jan
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+                case 2://case feb
+                    days = 29;//sets days to 29
+                    break;//dicontinues the current case
+                case 3://case mar
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+                case 4://case apr
+                    days = 30;//sets days to 30
+                    break;//dicontinues the current case
+                case 5://case may
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+                case 6://case june
+                    days = 30;//sets days to 30
+                    break;//dicontinues the current case
+                case 7://case july
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+                case 8://case aug
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+                case 9://case sep
+                    days = 30;//sets days to 30
+                    break;//dicontinues the current case
+                case 10://case oct
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+                case 11://case nov
+                    days = 30;//sets days to 30
+                    break;//dicontinues the current case
+                case 12://case dec
+                    days = 31;//sets days to 31
+                    break;//dicontinues the current case
+            }//closes the switchcase statement
         }
-        return days;
-    }
+        return days;//return days
+    }//closes the checkDaysInMonth method
     
-    public boolean isWeekApart(String date1, String date2) {
-        boolean weekly = false;
+    public boolean isWeekApart(String date1, String date2) {//creates a method to check if two dates are a week apart
+        boolean weekly = false;//creates a boolean indicating whether the dates are a week apart
         
-        int day1 = Integer.parseInt(date1.substring(5, 7));
+        int day1 = Integer.parseInt(date1.substring(5, 7));//
         int day2 = Integer.parseInt(date2.substring(5, 7));
         int month1 = Integer.parseInt(date1.substring(8, 10));
         int month2 = Integer.parseInt(date2.substring(8, 10));
@@ -455,10 +444,10 @@ public class lessonDataArray {
     }
     
     public void addLessonForEdit(String venue, String date, String time, String day, int size, String name, int frequency, int duration, String lessonKeyToAdd, boolean paid, int cost) {
-        ConnectDB db = new ConnectDB();
+        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
         lessonDataArray la = new lessonDataArray();
         studentsArray sa = new studentsArray();
-        keysArray ka = new keysArray();
+        keysArray ka = new keysArray();//creates an object for the keysArray class
         paymentsArray pa = new paymentsArray();
         venueArray va = new venueArray();
         int countDisplayMessages = 0;
@@ -543,10 +532,10 @@ public class lessonDataArray {
     }
     
     public void addLesson(String venue, String date, String time, String day, int size, String name, int frequency, int duration, String lessonKeyToAdd, boolean paid, int cost) {
-        ConnectDB db = new ConnectDB();
+        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
         lessonDataArray la = new lessonDataArray();
         studentsArray sa = new studentsArray();
-        keysArray ka = new keysArray();
+        keysArray ka = new keysArray();//creates an object for the keysArray class
         paymentsArray pa = new paymentsArray();
         venueArray va = new venueArray();
         int countDisplayMessages = 0;
@@ -653,7 +642,8 @@ public class lessonDataArray {
     }
     
     public void deleteLesson(int lessonID, String date, String time, String lesson) {
-        keysArray ka = new keysArray();
+        ConnectDB  db = new ConnectDB();//creates an object for the ConnectDB class
+        keysArray ka = new keysArray();//creates an object for the keysArray class
         paymentsArray pa = new paymentsArray();
         CalendarHandler ch = new CalendarHandler();
         int yes = JOptionPane.YES_OPTION;
@@ -665,7 +655,7 @@ public class lessonDataArray {
         
         if (deleteAllDialog == no) {
             if (deletePaymentsDialog == yes) {
-                    for (int i = 0; i < this.lessonDataArray.size(); i++) {
+                    for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
                         int lessonID2 = this.lessonDataArray.get(i).getLessonID();
                         if (ka.getKeyFromLessonID(lessonID2).equals(key) && this.lessonDataArray.get(i).getLessonDate().equals(date) && this.lessonDataArray.get(i).getLessonTime().equals(time)) {
                             String deletePayments = "DELETE * FROM sPayTable WHERE lessonID = " + lessonID2;
@@ -681,7 +671,7 @@ public class lessonDataArray {
                         }
                     }
                 } else {
-                    for (int i = 0; i < this.lessonDataArray.size(); i++) {
+                    for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
                         int lessonID2 = this.lessonDataArray.get(i).getLessonID();
                         if (ka.getKeyFromLessonID(lessonID2).equals(key) && this.lessonDataArray.get(i).getLessonDate().equals(date) && this.lessonDataArray.get(i).getLessonTime().equals(time)) {
                             String deleteKeys = "DELETE * FROM lessonKeys WHERE lessonID = " + lessonID2;
@@ -698,7 +688,7 @@ public class lessonDataArray {
         } else {
             if (deleteAllDialog == yes) {
                 if (deletePaymentsDialog == yes) {
-                    for (int i = 0; i < this.lessonDataArray.size(); i++) {
+                    for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
                         int lessonID2 = this.lessonDataArray.get(i).getLessonID();
                         if (ka.getKeyFromLessonID(lessonID2).equals(key)) {
                             String deletePayments = "DELETE * FROM sPayTable WHERE lessonID = " + lessonID2;
@@ -714,7 +704,7 @@ public class lessonDataArray {
                         }
                     }
                 } else {
-                    for (int i = 0; i < this.lessonDataArray.size(); i++) {
+                    for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
                         int lessonID2 = this.lessonDataArray.get(i).getLessonID();
                         if (ka.getKeyFromLessonID(lessonID2).equals(key)) {
                             String deleteKeys = "DELETE * FROM lessonKeys WHERE lessonID = " + lessonID2;
@@ -737,7 +727,7 @@ public class lessonDataArray {
     public String getLessonDayFromLessonID(int id) {
         String day = "";
         
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (this.lessonDataArray.get(i).getLessonID() == id) {
                 day = this.lessonDataArray.get(i).getDay();
             }
@@ -746,8 +736,8 @@ public class lessonDataArray {
     }
     
     public void deleteStudentsInSpecificLesson(String date, String time) {
-       ConnectDB db = new ConnectDB();
-       keysArray ka = new keysArray();
+       ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
+       keysArray ka = new keysArray();//creates an object for the keysArray class
        CalendarHandler ch = new CalendarHandler();
        paymentsArray pa = new paymentsArray();
        studentsArray sa = new studentsArray();
@@ -772,8 +762,8 @@ public class lessonDataArray {
     }
     
     public void deletStudentsInAllLesson(String date, String time, String key) {
-       ConnectDB db = new ConnectDB();
-       keysArray ka = new keysArray();
+       ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
+       keysArray ka = new keysArray();//creates an object for the keysArray class
        CalendarHandler ch = new CalendarHandler();
        paymentsArray pa = new paymentsArray();
        studentsArray sa = new studentsArray();
@@ -781,7 +771,7 @@ public class lessonDataArray {
        
        String students [] = ch.studentsFromLessonDateAndTime(date, time);
        
-       for (int i = 0; i < this.lessonDataArray.size(); i++) {
+       for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
            int lessonID = this.lessonDataArray.get(i).getLessonID();
            if (ka.getKeyFromLessonID(lessonID).equals(key)) {
                int studentID = this.lessonDataArray.get(i).getStudentID();
@@ -812,8 +802,8 @@ public class lessonDataArray {
     }
     
     public void editAllLessonStudents(ArrayList<String> list, int id, String date, String time) {
-       ConnectDB db = new ConnectDB();
-       keysArray ka = new keysArray();
+       ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
+       keysArray ka = new keysArray();//creates an object for the keysArray class
        CalendarHandler ch = new CalendarHandler();
        paymentsArray pa = new paymentsArray();
        studentsArray sa = new studentsArray();
@@ -841,8 +831,8 @@ public class lessonDataArray {
    }
     
    public void editSelectedLessonStudents(ArrayList<String> list, int id, String date, String time) {
-       ConnectDB db = new ConnectDB();
-       keysArray ka = new keysArray();
+       ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
+       keysArray ka = new keysArray();//creates an object for the keysArray class
        CalendarHandler ch = new CalendarHandler();
        paymentsArray pa = new paymentsArray();
        studentsArray sa = new studentsArray();
@@ -877,14 +867,14 @@ public class lessonDataArray {
    }
    
    public void updateLessonDateTime(String originalDate, String originalTime, String newDateIn, String newTime, String newDuration) {
-       ConnectDB db = new ConnectDB();
-       keysArray ka = new keysArray();
+       ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
+       keysArray ka = new keysArray();//creates an object for the keysArray class
        
        String newDate = this.formatDate(newDateIn);
        String day = this.formatDay(newDateIn.substring(0, 3));
        
        String key = ka.getKeyFromDateAndTime(originalDate, originalTime);
-       for (int i = 0; i < this.lessonDataArray.size(); i++) {
+       for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
            if (ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()).equals(key) && this.lessonDataArray.get(i).getLessonDate().equals(originalDate) && this.lessonDataArray.get(i).getLessonTime().equals(originalTime)) {
                String updateDateTime = "UPDATE lessonData SET lessonDate = '" + newDate + "', lessonTime = '" + newTime + "', lessonDuration = " + newDuration + ", lessonDay = '" + day + "' "
                        + "WHERE LessonID = " + this.lessonDataArray.get(i).getLessonID();
@@ -901,13 +891,13 @@ public class lessonDataArray {
    }
     
    public void editAllLessonVenue(String  venue, String date, String time) {
-       ConnectDB db = new ConnectDB();
+       ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
        venueArray va = new venueArray();
-       keysArray ka = new keysArray();
+       keysArray ka = new keysArray();//creates an object for the keysArray class
 
        int venueID = va.venueIDFromVenue(venue);
        String key = ka.getKeyFromDateAndTime(date, time);
-       for (int i = 0; i < this.lessonDataArray.size(); i++) {
+       for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
            if (ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()).equals(key)) {
                String updateVenue = "UPDATE lessonData SET venueID = " + venueID + " "
                        + "WHERE LessonID = " + this.lessonDataArray.get(i).getLessonID();
@@ -921,13 +911,13 @@ public class lessonDataArray {
    }
    
    public void editSelectedLessonVenue(String  venue, String date, String time) {
-       ConnectDB db = new ConnectDB();
+       ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
        venueArray va = new venueArray();
-       keysArray ka = new keysArray();
+       keysArray ka = new keysArray();//creates an object for the keysArray class
        
        int venueID = va.venueIDFromVenue(venue);
        String key = ka.getKeyFromDateAndTime(date, time);
-       for (int i = 0; i < this.lessonDataArray.size(); i++) {
+       for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
            if (ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()).equals(key) && this.lessonDataArray.get(i).getLessonDate().equals(date) && this.lessonDataArray.get(i).getLessonTime().equals(time)) {
                String updateVenue = "UPDATE lessonData SET venueID = " + venueID + " "
                        + "WHERE LessonID = " + this.lessonDataArray.get(i).getLessonID();
@@ -942,7 +932,7 @@ public class lessonDataArray {
    
     public int getDurationFromTimeAndDate(String time, String date) {
         int duration = 0;
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (this.lessonDataArray.get(i).getLessonTime().equals(time) && this.lessonDataArray.get(i).getLessonDate().equals(date)) {
                 duration = this.lessonDataArray.get(i).getLessonDuration();
             }
@@ -960,7 +950,7 @@ public class lessonDataArray {
     
     //checks if double booked
     public String checkIfDoublebooking(String date, String time, int duration, int size, String lessonKeyToCheck) {
-        ConnectDB db = new ConnectDB();
+        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
         lessonDataArray la = new lessonDataArray();
         studentsArray sa = new studentsArray();
         venueArray va = new venueArray();
@@ -980,7 +970,7 @@ public class lessonDataArray {
         int minsAttemptedEndTime = (Integer.parseInt(endTimeAttempted.substring(0, 2))*60)+Integer.parseInt(endTimeAttempted.substring(3, 5));
         int minsDuration = duration*60;
             
-            for (int i = 0; i < this.lessonDataArray.size(); i++) {
+            for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             //gets reference end time TODO: problem is that the size of the lessonArray is not updating
             String endTimeReference = this.getEndTime(this.getLessonDataArray().get(i).getLessonTime(), this.lessonDataArray.get(i).getLessonDuration());
             
@@ -1054,9 +1044,9 @@ public class lessonDataArray {
     
     public String getLessonKey(int lessonID) {
         lessonDataArray la = new lessonDataArray();
-        keysArray ka = new keysArray();
+        keysArray ka = new keysArray();//creates an object for the keysArray class
         String key = "";
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             for (int k = 0; k < ka.getKeyArray().size(); k++) {
                 if (this.lessonDataArray.get(i).getLessonID() == ka.getKeyArray().get(k).getLessonID()) {
                     key = ka.getKeyArray().get(k).getLessonKey();
@@ -1119,11 +1109,11 @@ public class lessonDataArray {
     }
     
     public void DeletePastLessonsAndLessonKeys() {
-        ConnectDB db = new ConnectDB();
+        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
         String deleteLessons = "";
         String deleteKeys = "";
         
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (this.checkIfInPast(this.lessonDataArray.get(i).getLessonDate(), this.lessonDataArray.get(i).getLessonTime()) == true) {
                 deleteLessons = "DELETE * FROM lessonData WHERE LessonID = " + this.lessonDataArray.get(i).getLessonID();
                 deleteKeys = "DELETE * FROM lessonKeys WHERE lessonID = " + this.lessonDataArray.get(i).getLessonID();
@@ -1141,7 +1131,7 @@ public class lessonDataArray {
         String message = "";
         boolean booked = false;
         //checks if in fact booked a lesson
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (this.lessonDataArray.get(i).getStudentID() == studentID) {
                 booked = true;
             }
@@ -1151,7 +1141,7 @@ public class lessonDataArray {
             this.sortArray();
             String date = "";
         
-            for (int i = 0; i < this.lessonDataArray.size(); i++) {
+            for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
                 if (this.lessonDataArray.get(i).getStudentID() == studentID) {
                     date = this.lessonDataArray.get(i).getLessonDate();
                     break;
@@ -1166,7 +1156,7 @@ public class lessonDataArray {
     public String upcomingTime(int studentID, String upcomingDate) {
         if (!this.upcomingDate(studentID).equals("N/A")) {
             String time = "";
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (upcomingDate.equals(this.lessonDataArray.get(i).getLessonDate()) && studentID == this.lessonDataArray.get(i).getStudentID()) {
                 time = this.lessonDataArray.get(i).getLessonTime() + " - " +  this.getEndTime(this.lessonDataArray.get(i).getLessonTime(), this.lessonDataArray.get(i).getLessonDuration());
             }
@@ -1181,7 +1171,7 @@ public class lessonDataArray {
         if (!this.upcomingDate(studentID).equals("N/A")) {
             venueArray va = new venueArray();
         String venue = "";
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (upcomingDate.equals(this.lessonDataArray.get(i).getLessonDate()) && studentID == this.lessonDataArray.get(i).getStudentID() 
                     && upcomingTime.equals(this.lessonDataArray.get(i).getLessonTime())) {
                 venue = va.venueNameFromID(this.lessonDataArray.get(i).getVenueID());
@@ -1196,7 +1186,7 @@ public class lessonDataArray {
     public String upcomingDay(int studentID, String upcomingDate, String upcomingTime) {
         if (!this.upcomingDate(studentID).equals("N/A")) {
             String day = "";
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (upcomingDate.equals(this.lessonDataArray.get(i).getLessonDate()) && studentID == this.lessonDataArray.get(i).getStudentID() 
                     && upcomingTime.equals(this.lessonDataArray.get(i).getLessonTime())) {
                 day = this.lessonDataArray.get(i).getDay();
@@ -1210,7 +1200,7 @@ public class lessonDataArray {
     
     public String getLessonStartTimeFromLessonID(int id) {
         String time = "";
-        for (int i = 0;  i < this.lessonDataArray.size(); i++) {
+        for (int i = 0;  i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (this.lessonDataArray.get(i).getLessonID() == id) {
                 time = this.lessonDataArray.get(i).getLessonTime();
             }
@@ -1220,7 +1210,7 @@ public class lessonDataArray {
     
     public String getLessonDateFromLessonID(int id) {
         String date = "";
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (this.lessonDataArray.get(i).getLessonID() == id) {
                 date = this.lessonDataArray.get(i).getLessonDate();
             }
@@ -1230,7 +1220,7 @@ public class lessonDataArray {
     
     public String getLessonEndTimeFromLessonID(int id) {
         String time = "";
-        for (int i = 0;  i < this.lessonDataArray.size(); i++) {
+        for (int i = 0;  i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (this.lessonDataArray.get(i).getLessonID() == id) {
                 time = this.getEndTime(this.lessonDataArray.get(i).getLessonTime(), this.lessonDataArray.get(i).getLessonDuration());
             }
@@ -1245,7 +1235,7 @@ public class lessonDataArray {
     
     public String getTimeFromLessonID(int id) {
         String time = "";
-        for (int i = 0;  i < this.lessonDataArray.size(); i++) {
+        for (int i = 0;  i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (this.lessonDataArray.get(i).getLessonID() == id) {
                 time = this.lessonDataArray.get(i).getLessonTime() + "-" + this.getEndTime(this.lessonDataArray.get(i).getLessonTime(), this.lessonDataArray.get(i).getLessonDuration());
             }
@@ -1255,7 +1245,7 @@ public class lessonDataArray {
     
     public int countLessonsFromStudentID(int id) {
         int lessons = 0;
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (this.lessonDataArray.get(i).getStudentID() == id) {
                 lessons++;
             }
@@ -1264,9 +1254,9 @@ public class lessonDataArray {
     }
     
     public String getDateFromKeyAndStudentID(String key, int id) {
-        keysArray ka = new keysArray();
+        keysArray ka = new keysArray();//creates an object for the keysArray class
         String date = "";
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (ka.getKeyFromLessonID(this.lessonDataArray.get(i).getLessonID()).equals(key) &&
                     this.lessonDataArray.get(i).getStudentID() == id) {
                 date = this.lessonDataArray.get(i).getLessonDate();
@@ -1278,7 +1268,7 @@ public class lessonDataArray {
     
     public int getLessoIDFromDateTimeAndStudentID(String date, String time, int studentID) {
         int id = 0;
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             String startTime = time.substring(0, 5);
             if (this.lessonDataArray.get(i).getLessonDate().equals(date) &&
                     this.lessonDataArray.get(i).getLessonTime().equals(startTime) &&
@@ -1291,7 +1281,7 @@ public class lessonDataArray {
     
     public int getLessonIDFromDateAndTime(String date, String time) {
         int id = 0;
-        for (int i = 0; i < this.lessonDataArray.size(); i++) {
+        for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (this.lessonDataArray.get(i).getLessonDate().equals(date) && this.lessonDataArray.get(i).getLessonTime().equals(time)) {
                 id = this.lessonDataArray.get(i).getLessonID();
             }

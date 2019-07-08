@@ -622,7 +622,7 @@ public class loginSignup extends javax.swing.JFrame {
     private void addimageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addimageButtonActionPerformed
         image i = new image();
         fetchTeacher ft = new fetchTeacher();
-        if (!ft.signedUp) {
+        if (ft.signedUp) {
             i.addAnotherSnapshot();
         } else {
             JOptionPane.showMessageDialog(null, "Please sign up first");

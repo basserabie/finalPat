@@ -593,13 +593,18 @@ public class loginSignup extends javax.swing.JFrame {
     }//GEN-LAST:event_addIconActionPerformed
 
     private void addFaceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFaceButtonActionPerformed
-        image i = new image();
-        try {
-            i.pushFace();
-        } catch (IOException ex) {
-            Logger.getLogger(loginSignup.class.getName()).log(Level.SEVERE, null, ex);
+        fetchTeacher ft = new fetchTeacher();
+        if (!ft.signedUp) {
+            image i = new image();
+            try {
+                i.pushFace();
+            } catch (IOException ex) {
+                Logger.getLogger(loginSignup.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            faceAdded = true;
+        }else {
+            JOptionPane.showMessageDialog(null, "You have already added your facial recognition profile\nyou may add photos to your profile later on.");
         }
-        faceAdded = true;
     }//GEN-LAST:event_addFaceButtonActionPerformed
 
     private void logInWithFaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInWithFaceActionPerformed
@@ -620,9 +625,9 @@ public class loginSignup extends javax.swing.JFrame {
     }//GEN-LAST:event_logInWithFaceActionPerformed
 
     private void addimageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addimageButtonActionPerformed
-        image i = new image();
         fetchTeacher ft = new fetchTeacher();
         if (ft.signedUp) {
+            image i = new image();
             i.addAnotherSnapshot();
         } else {
             JOptionPane.showMessageDialog(null, "Please sign up first");

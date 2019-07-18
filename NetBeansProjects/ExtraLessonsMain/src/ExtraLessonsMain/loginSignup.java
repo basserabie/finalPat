@@ -24,38 +24,30 @@ import javax.swing.JOptionPane;
  *
  * @author YishaiBasserabie
  */
-public class loginSignup extends javax.swing.JFrame {
+public class loginSignup extends javax.swing.JFrame {//creates a class to handle login/signup JFrame
 
-    public static String question, answer;
-    public static boolean enteredQuestion = false;
-    private boolean sigAdded = false;
-    private boolean iconAdded = false;
-    private boolean faceAdded = false;
+    public static String question, answer;//creates a string for the security question and answer
+    public static boolean enteredQuestion = false;//creates a boolean indicating whether there has been a question and answer added
+    private boolean sigAdded = false;//creates a boolean indicating whether there has been a signiture added
+    private boolean iconAdded = false;//creates a boolean indicating whether there has been a icon added
+    private boolean faceAdded = false;//creates a boolean indicating whether there has been a face for facial recognition added
     
     /**
      * Creates new form loginSignup
      */
-    public loginSignup() {
+    public loginSignup() {//creates the constructor for the current class
         initComponents();
-       
-        try {
-            Image myPicture = ImageIO.read(new File(takeIcon.getNoIconPath()));
-            System.out.println(takeIcon.getPath());
-        this.iconLabel.setIcon(new ImageIcon(myPicture));
-        } catch (IOException ex) {
-            Logger.getLogger(loginSignup.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            try {
-                Image myPicture = ImageIO.read(new File(takeIcon.getPath()));
-                System.out.println(takeIcon.getPath());
-                this.iconLabel.setIcon(new ImageIcon(myPicture));
-            } catch (IOException ex) {
-                
-            }
-            
-        
-        
-    }
+        try {//opens the trycatch statement
+            Image myPicture = ImageIO.read(new File(takeIcon.getNoIconPath()));//creates a new image object of the icon stored if the user has not yet signed up
+            this.iconLabel.setIcon(new ImageIcon(myPicture));//sets the icon label to the no icon icon
+        } catch (IOException ex) {//opens the ctahc statement
+            Logger.getLogger(loginSignup.class.getName()).log(Level.SEVERE, null, ex);//alerts the user that there was an error setting the label icon
+        }//closes the catch statement
+            try {//oepns the trycatch statement
+                Image myPicture = ImageIO.read(new File(takeIcon.getPath()));//creates an image object for the icon stored of the user
+                this.iconLabel.setIcon(new ImageIcon(myPicture));//sets the icon label to the myPictire icon
+            } catch (IOException ex) {}//opens and closes the catch statement
+    }//closes the constructor
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -491,37 +483,37 @@ public class loginSignup extends javax.swing.JFrame {
     }//GEN-LAST:event_TcellTActionPerformed
 
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
-        loginSignUpHandler lsh = new loginSignUpHandler();
-        dataValidation dv = new dataValidation();
-        fetchTeacher ft = new fetchTeacher();
-        if (!ft.getSignedUp()) {
-            if (enteredQuestion) {
-            AddStudentNote add = new AddStudentNote();
-            if (add.fileExists("signiture", true)) {
-                if (takeIcon.fileExists()) {
-                    if (faceAdded) {
+        loginSignUpHandler lsh = new loginSignUpHandler();//creates an object for the loginSignUpHandler class
+        dataValidation dv = new dataValidation();//creates an object for the dataValidation class
+        fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacher class
+        if (!ft.getSignedUp()) {//checks if the user has not already signed up
+            if (enteredQuestion) {//checks if the user has enetered a security question and answer
+            AddStudentNote add = new AddStudentNote();//creates an object for the AddStudentNote class
+            if (add.fileExists("signiture", true)) {//checks if the signiture file exists i.e. the user has enetered a signiture
+                if (takeIcon.fileExists()) {//checks if the icon file exists
+                    if (faceAdded) {//checks if the user has configurated the facial recognition
                         lsh.signUp(dv.fixEntries(this.TfnameT.getText().toString()), dv.fixEntries(this.TlnameT.getText().toString()), 
                         this.TemailT.getText().toString(), this.TcellT.getText().toString(), 
-                        this.TpasswordT.getText().toString(), this.TpasswordConfirmT.getText().toString(), question, answer);
-                        if (loginSignUpHandler.allGood) {
-                            Sound.playgoahead();
-                            loginSignUpHandler.allGood = false;
-                            this.setVisible(false);
+                        this.TpasswordT.getText().toString(), this.TpasswordConfirmT.getText().toString(), question, answer);//signs the user upp
+                        if (loginSignUpHandler.allGood) {//checks if the signUp was successful
+                            Sound.playgoahead();//plays the go ahead sound
+                            loginSignUpHandler.allGood = false;//resets the allGood boolean to false
+                            this.setVisible(false);//discontinues the current JFrame
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Please click the 'Your Face' button first.");
+                    } else {//if the user has not yet configured the facial recognition
+                        JOptionPane.showMessageDialog(null, "Please click the 'Your Face' button first.");//instructs the user to fist configure the facial recognition
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Please add an icon.");
+                } else {//if the user has not yet added an icon
+                    JOptionPane.showMessageDialog(null, "Please add an icon.");//instructs the user to fist add an icon
                 }
-        } else {
-            JOptionPane.showMessageDialog(null, "Please enter a signiture.");
+        } else {//if the user has not yet added a signiture
+            JOptionPane.showMessageDialog(null, "Please enter a signiture.");//instructs the user to fist add a signiture
         }
-            } else {
-            JOptionPane.showMessageDialog(null, "Please enter a security\nquestion and answer.");
+            } else {//if the user has not yet added a security question and answer
+            JOptionPane.showMessageDialog(null, "Please enter a security\nquestion and answer.");//instructs the user to fist add a question and answer
         }
-        } else {
-            JOptionPane.showMessageDialog(null, "you are already signed up\nplease login instead");
+        } else {//if the user has already signed up
+            JOptionPane.showMessageDialog(null, "you are already signed up\nplease login instead");//instructs the user to login instead
         }   
     }//GEN-LAST:event_signUpButtonActionPerformed
 

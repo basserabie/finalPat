@@ -14,26 +14,21 @@ import javax.swing.SpinnerListModel;
  *
  * @author YishaiBasserabie
  */
-public class paymentsForm extends javax.swing.JFrame {
+public class paymentsForm extends javax.swing.JFrame {//creates a class to handle the payments form
 
-    private static int TOGGLE_PAID = 1;
-    private static boolean TOGGLE_DISPLAY_ALL = true;
-    private static boolean HOUR_CHOSEN = false;
+    private static int TOGGLE_PAID = 1;//creates an integer for the toggle display paid button
+    private static boolean TOGGLE_DISPLAY_ALL = true;//creats a boolean for the display all toggle button
+    private static boolean HOUR_CHOSEN = false;//creates a boolean indicating whether an hour has been selected
     
     /**
      * Creates new form paymentsForm
      */
-    public paymentsForm() {
+    public paymentsForm() {//creates the constructor
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        populateComboBoxes pop = new populateComboBoxes();
-        this.paymetsTable.setModel(pop.payments());
-    }
-    
-    public void resetTableModel() {
-        populateComboBoxes pop = new populateComboBoxes();
-        this.paymetsTable.setModel(pop.payments());
-    }
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the close operation to dispose
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes mehtod
+        this.paymetsTable.setModel(pop.payments());//sets the model of the payments table to the payments model
+    }//closes the constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -376,61 +371,59 @@ public class paymentsForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backToDashBoardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashBoardActionPerformed
-        this.hide();
+        this.hide();//discontinues the current JFrame
     }//GEN-LAST:event_backToDashBoardActionPerformed
 
     private void togglePaidButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_togglePaidButtonStateChanged
-        populateComboBoxes pop = new populateComboBoxes();
-        TOGGLE_PAID++;
-        if (TOGGLE_PAID%2 == 0) {
-            this.paymetsTable.setModel(pop.paymentsPaid());
-            this.togglePaidButton.setText("Display Not Paid");
-        } else {
-            this.paymetsTable.setModel(pop.paymentsNotPaid());
-            this.togglePaidButton.setText("Display Paid");
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes mehtod
+        TOGGLE_PAID++;//ups the paid toggle
+        if (TOGGLE_PAID%2 == 0) {//checks if the pay toggle is even
+            this.paymetsTable.setModel(pop.paymentsPaid());//sets the model of the payments table to the paid model
+            this.togglePaidButton.setText("Display Not Paid");//sets the text of the toggle button to diplay not paid
+        } else {//the pay toggle is odd
+            this.paymetsTable.setModel(pop.paymentsNotPaid());//sets the model of the payments table to the unpaid model
+            this.togglePaidButton.setText("Display Paid");//sets the text of the toggle button to diplay not paid
         }
-        TOGGLE_DISPLAY_ALL = false;
+        TOGGLE_DISPLAY_ALL = false;//sets the display all to false
     }//GEN-LAST:event_togglePaidButtonStateChanged
 
     private void dispayAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dispayAllButtonActionPerformed
-        populateComboBoxes pop = new populateComboBoxes();
-        this.paymetsTable.setModel(pop.payments());
-        TOGGLE_DISPLAY_ALL = true;
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes mehtod
+        this.paymetsTable.setModel(pop.payments());//resets the payments table
+        TOGGLE_DISPLAY_ALL = true;//sets the display all to true
     }//GEN-LAST:event_dispayAllButtonActionPerformed
 
     private void addPayementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPayementButtonActionPerformed
-        if (!this.paymetsTable.getSelectionModel().isSelectionEmpty()) {
-            Sound.playcoin();
-            paymentsArray pa = new paymentsArray();
-        lessonDataArray la = new lessonDataArray();
-        studentsArray sa = new studentsArray();
-        populateComboBoxes pop = new populateComboBoxes();
-        String studentName = this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 0).toString();
-        int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
-        String date = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 1).toString());
-        String time = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 2).toString()).substring(0, 5);
-        pa.addPayment(pa.getLessonPayIDFromDateTimeStudentID(date, time, studentID));
+        if (!this.paymetsTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a selected payment
+            Sound.playcoin();//plays the coin sound
+            paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes mehtod
+        String studentName = this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 0).toString();//creates a string for the selected student name
+        int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));//creates an int for the selected student id
+        String date = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 1).toString());//creates a string for the selected date
+        String time = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 2).toString()).substring(0, 5);//creates a string for the selected time
+        pa.addPayment(pa.getLessonPayIDFromDateTimeStudentID(date, time, studentID));//adds the payment
         this.paymetsTable.setModel(pop.payments());
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a row first.");
+        } else {//if the user has not selected a payment
+            JOptionPane.showMessageDialog(null, "Please select a row first.");//instructs the user to first select a row
         }
     }//GEN-LAST:event_addPayementButtonActionPerformed
 
     private void removePaymentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePaymentButtonActionPerformed
-        if (!this.paymetsTable.getSelectionModel().isSelectionEmpty()) {
-            Sound.playbumb();
-            paymentsArray pa = new paymentsArray();
-            lessonDataArray la = new lessonDataArray();
-            studentsArray sa = new studentsArray();
-            populateComboBoxes pop = new populateComboBoxes();
-            String studentName = this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 0).toString();
-            int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
-            String date = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 1).toString());
-            String time = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 2).toString());
+        if (!this.paymetsTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a selected payment
+            Sound.playbumb();//plays the bump sound
+            paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
+            studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+            populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes mehtod
+            String studentName = this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 0).toString();//creates a string for the selected student name
+            int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));//creates an int for the selected student id
+            String date = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 1).toString());//creates a string for the selected date
+            String time = pa.formattOutHTMLTags(this.paymetsTable.getModel().getValueAt(this.paymetsTable.getSelectedRow(), 2).toString());//creates a string for the selected time
             pa.removePayment(pa.getLessonPayIDFromDateTimeStudentID(date, time, studentID));
-            this.paymetsTable.setModel(pop.payments());
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a row first.");
+            this.paymetsTable.setModel(pop.payments());//removes the payment
+        } else {//if the user has not selected a payment
+            JOptionPane.showMessageDialog(null, "Please select a row first.");//instructs the user to first select a row
         }
     }//GEN-LAST:event_removePaymentButtonActionPerformed
 
@@ -443,14 +436,14 @@ public class paymentsForm extends javax.swing.JFrame {
     }//GEN-LAST:event_studentBeingAddedTextFieldKeyTyped
 
     private void studentBeingAddedTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_studentBeingAddedTextFieldKeyPressed
-        populateComboBoxes pop = new populateComboBoxes();
-        if (TOGGLE_DISPLAY_ALL) {
-            this.paymetsTable.setModel(pop.paymentsByStudentName(this.studentBeingAddedTextField.getText()));
-        } else {
-            if (TOGGLE_PAID%2 == 0) {
-                this.paymetsTable.setModel(pop.paymentsPaidByStudentName(this.studentBeingAddedTextField.getText()));
-            } else {
-                this.paymetsTable.setModel(pop.paymentsNotPaidByStudentName(this.studentBeingAddedTextField.getText()));
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes mehtod
+        if (TOGGLE_DISPLAY_ALL) {//checks if the display all is selected
+            this.paymetsTable.setModel(pop.paymentsByStudentName(this.studentBeingAddedTextField.getText()));//sets the model filtered by name and display all
+        } else {//if display all is false
+            if (TOGGLE_PAID%2 == 0) {//if the paid is selected
+                this.paymetsTable.setModel(pop.paymentsPaidByStudentName(this.studentBeingAddedTextField.getText()));//sets the model filtered by name and paid
+            } else {//if the unpaid is selected
+                this.paymetsTable.setModel(pop.paymentsNotPaidByStudentName(this.studentBeingAddedTextField.getText()));//sets the model filtered by name and unpaid
             }
         }
     }//GEN-LAST:event_studentBeingAddedTextFieldKeyPressed
@@ -460,53 +453,51 @@ public class paymentsForm extends javax.swing.JFrame {
     }//GEN-LAST:event_togglePaidButtonActionPerformed
 
     private void GoByDateAndTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoByDateAndTimeActionPerformed
-        populateComboBoxes pop = new populateComboBoxes();
-        lessonDataArray la = new lessonDataArray();
-        
-        String date = la.formatDate(this.dateChooser.getDate().toString());
-        
-        if (TOGGLE_DISPLAY_ALL) {
-            this.paymetsTable.setModel(pop.paymentsByDateAndTime(date));
-        } else {
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes mehtod
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        String date = la.formatDate(this.dateChooser.getDate().toString());//creates a string for the chosen date
+        if (TOGGLE_DISPLAY_ALL) {//checks if the display all is selected
+            this.paymetsTable.setModel(pop.paymentsByDateAndTime(date));//sets the model filtered by date and display all
+        } else {//if display all is false
             if (TOGGLE_PAID%2 == 0) {
-                this.paymetsTable.setModel(pop.paymentsPaidByDateAndTime(date));
-            } else {
-                this.paymetsTable.setModel(pop.paymentsNotPaidByDateAndTime(date));
+                this.paymetsTable.setModel(pop.paymentsPaidByDateAndTime(date));//sets the model filtered by date and paid
+            } else {//if the unpaid is selected
+                this.paymetsTable.setModel(pop.paymentsNotPaidByDateAndTime(date));//sets the model filtered by date and unpaid
             }
         }
     }//GEN-LAST:event_GoByDateAndTimeActionPerformed
 
     private void dateChooserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dateChooserKeyPressed
-        this.studentBeingAddedTextField.setText("");
+        this.studentBeingAddedTextField.setText("");//sets the students text field to null
     }//GEN-LAST:event_dateChooserKeyPressed
 
     private void statsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsButtonActionPerformed
-        paymentStatsForm stats = new paymentStatsForm();
-        stats.setVisible(true);
+        paymentStatsForm stats = new paymentStatsForm();//creates an object for the paymentStatsForm class
+        stats.setVisible(true);//sets the payment stats JFrame visible
     }//GEN-LAST:event_statsButtonActionPerformed
 
     private void deletePastAndUnpaidButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePastAndUnpaidButtonActionPerformed
-        paymentsArray pa = new paymentsArray();
-        populateComboBoxes pop = new populateComboBoxes();
-        pa.deletePastAndunpaidPayments();
-        this.paymetsTable.setModel(pop.payments());
+        paymentsArray pa = new paymentsArray();//creates an object for the payments array class
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes mehtod
+        pa.deletePastAndunpaidPayments();//deletes past and unpaid payments
+        this.paymetsTable.setModel(pop.payments());//resets the table model
     }//GEN-LAST:event_deletePastAndUnpaidButtonActionPerformed
 
     private void paymentsByLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentsByLessonButtonActionPerformed
-        paymentsByLessonForm pblf = new paymentsByLessonForm();
-        pblf.setVisible(true);
+        paymentsByLessonForm pblf = new paymentsByLessonForm();//creates an object for the paymentsByLessonForm class
+        pblf.setVisible(true);// sets the paymentsByLessonForm JFrame visible
     }//GEN-LAST:event_paymentsByLessonButtonActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-         populateComboBoxes pop = new populateComboBoxes();
-        this.paymetsTable.setModel(pop.payments());
+         populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes mehtod
+        this.paymetsTable.setModel(pop.payments());//resets the table model
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void DeleteAllPastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteAllPastActionPerformed
-        paymentsArray pa = new paymentsArray();
-        populateComboBoxes pop = new populateComboBoxes();
-        pa.deletePast();
-        this.paymetsTable.setModel(pop.payments());
+        paymentsArray pa = new paymentsArray();//creates an object for the payments array class
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes mehtod
+        pa.deletePast();//deletes past payments
+        this.paymetsTable.setModel(pop.payments());//resets the table model
     }//GEN-LAST:event_DeleteAllPastActionPerformed
 
     /**

@@ -14,20 +14,20 @@ import static ExtraLessonsMain.mothers.MOTHER_EMAIL;
  *
  * @author YishaiBasserabie
  */
-public class school extends javax.swing.JFrame {
+public class school extends javax.swing.JFrame {//creates a class to handle the school JFrame
 
-    static String SCHOOL;
+    public static String SCHOOL;//creates a string for the selected school
     
     /**
      * Creates new form school
      */
-    public school() {
+    public school() {//creates the constructor
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the close operation to dispose
         //populates school table
-        populateComboBoxes pop = new populateComboBoxes();
-        this.schoolsTable.setModel(pop.schools());
-    }
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        this.schoolsTable.setModel(pop.schools());//sets the schoolstable model to the chools model
+    }//closes the cosntructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -199,22 +199,20 @@ public class school extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backToDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        la.sortArray();
-        this.hide();
+        this.hide();//discontinues the current JFrame
     }//GEN-LAST:event_backToDashboardActionPerformed
 
     private void searchTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyTyped
-        populateComboBoxes pop = new populateComboBoxes();
-        this.schoolsTable.setModel(pop.schoolsByName(this.searchTextField.getText()));
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        this.schoolsTable.setModel(pop.schoolsByName(this.searchTextField.getText()));//filters the table model by the name styped
     }//GEN-LAST:event_searchTextFieldKeyTyped
 
     private void contactSchoolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactSchoolButtonActionPerformed
-        contactSchoolForm c = new contactSchoolForm();
-        if (!this.schoolsTable.getSelectionModel().isSelectionEmpty()) {
-            c.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a school first");
+        contactSchoolForm c = new contactSchoolForm();//creates an object for the contact school form class
+        if (!this.schoolsTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a school selected
+            c.setVisible(true);//sets the contactSchoolForm JFrame visible
+        } else {//if there has not been a school selected
+            JOptionPane.showMessageDialog(null, "Please select a school first");//instructs the user to first select a school
         }
     }//GEN-LAST:event_contactSchoolButtonActionPerformed
 
@@ -223,9 +221,9 @@ public class school extends javax.swing.JFrame {
     }//GEN-LAST:event_schoolsTableKeyPressed
 
     private void schoolsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_schoolsTableMouseClicked
-        contactSchoolForm.P_EMAIL = this.schoolsTable.getModel().getValueAt(this.schoolsTable.getSelectedRow(), 2).toString();
-        contactSchoolForm.P_NAME = this.schoolsTable.getModel().getValueAt(this.schoolsTable.getSelectedRow(), 1).toString();
-        contactSchoolForm.SCHOOL = this.schoolsTable.getModel().getValueAt(this.schoolsTable.getSelectedRow(), 0).toString();
+        contactSchoolForm.P_EMAIL = this.schoolsTable.getModel().getValueAt(this.schoolsTable.getSelectedRow(), 2).toString();//sets the contactSchoolForm email to the selected one
+        contactSchoolForm.P_NAME = this.schoolsTable.getModel().getValueAt(this.schoolsTable.getSelectedRow(), 1).toString();//sets the contactSchoolForm principal name to the selected one
+        contactSchoolForm.SCHOOL = this.schoolsTable.getModel().getValueAt(this.schoolsTable.getSelectedRow(), 0).toString();//sets the contactSchoolForm school name to the selected one
     }//GEN-LAST:event_schoolsTableMouseClicked
 
     /**

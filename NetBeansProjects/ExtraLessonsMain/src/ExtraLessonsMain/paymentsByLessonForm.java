@@ -14,20 +14,20 @@ import javax.swing.SpinnerListModel;
  *
  * @author YishaiBasserabie
  */
-public class paymentsByLessonForm extends javax.swing.JFrame {
+public class paymentsByLessonForm extends javax.swing.JFrame {//creates a class to handle the payments by lesson JFrame
 
-    private static boolean HOUR_CHOSEN = false;
+    private static boolean HOUR_CHOSEN = false;//creates a boolean indicating whether the user has selected an hour
     
     /**
      * Creates new form paymentsByLessonForm
      */
-    public paymentsByLessonForm() {
+    public paymentsByLessonForm() {//creates the constructor
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        populateComboBoxes pop = new populateComboBoxes();
-        SpinnerListModel hour = new SpinnerListModel(pop.populateHourSpinner());
-        this.HourSpinner.setModel(hour);
-    }
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the close oeration to dispose
+        populateComboBoxes pop = new populateComboBoxes();//creates an obect for the populateComboBoxes class
+        SpinnerListModel hour = new SpinnerListModel(pop.populateHourSpinner());//creates a spinner list model for the hours
+        this.HourSpinner.setModel(hour);//sets the model of the hourSpinner to the hour model
+    }//closes the constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -269,85 +269,85 @@ public class paymentsByLessonForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void HourSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_HourSpinnerStateChanged
-        HOUR_CHOSEN = true;
-        populateComboBoxes pop = new populateComboBoxes();
-        lessonDataArray la = new lessonDataArray();
-        SpinnerListModel minuteModel = new SpinnerListModel(pop.populateMinuteComboBoxAccordingToHour(this.HourSpinner.getModel().getValue().toString()));
-        this.minuteSpinner.setModel(minuteModel);
+        HOUR_CHOSEN = true;//sets the hour chosen boolean to true
+        populateComboBoxes pop = new populateComboBoxes();//creates an obect for the populateComboBoxes class
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        SpinnerListModel minuteModel = new SpinnerListModel(pop.populateMinuteComboBoxAccordingToHour(this.HourSpinner.getModel().getValue().toString()));//creates spinner model for the minutes according to the hour selected
+        this.minuteSpinner.setModel(minuteModel);//sets the minute spinner model to the minuteModel
     }//GEN-LAST:event_HourSpinnerStateChanged
 
     private void minuteSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_minuteSpinnerStateChanged
-        lessonDataArray la = new lessonDataArray();
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
     }//GEN-LAST:event_minuteSpinnerStateChanged
 
     private void showtableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showtableActionPerformed
-        populateComboBoxes pop = new populateComboBoxes();
-        lessonDataArray la = new lessonDataArray();
-        String date = la.formatDate(this.dateChooser.getDate().toString());
-        String time = this.minuteSpinner.getModel().getValue().toString();
-        this.paymentsForLessonTable.setModel(pop.PaymentsByLesson(date, time));
+        populateComboBoxes pop = new populateComboBoxes();//creates an obect for the populateComboBoxes class
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        String date = la.formatDate(this.dateChooser.getDate().toString());//sets the date string to the chosen date
+        String time = this.minuteSpinner.getModel().getValue().toString();//sets the time string to the chosen time
+        this.paymentsForLessonTable.setModel(pop.PaymentsByLesson(date, time));//sets the model of the payments table acording to date and time
     }//GEN-LAST:event_showtableActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.setVisible(false);
+        this.setVisible(false);//disontinues the current JFrame
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void removePaymentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePaymentButtonActionPerformed
-        if (!this.paymentsForLessonTable.getSelectionModel().isSelectionEmpty()) {
-            Sound.playbumb();
-            paymentsArray pa = new paymentsArray();
-            lessonDataArray la = new lessonDataArray();
-            studentsArray sa = new studentsArray();
-            populateComboBoxes pop = new populateComboBoxes();
-            String studentName = this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 0).toString();
-            int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
-            String date = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 1).toString());
-            String time = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 2).toString()).substring(0, 5);
+        if (!this.paymentsForLessonTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a lesson selected
+            Sound.playbumb();//plays the bump sound
+            paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
+            lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+            studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+            populateComboBoxes pop = new populateComboBoxes();//creates an obect for the populateComboBoxes class
+            String studentName = this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 0).toString();//creates a string for the selected student name
+            int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));//creates an int for the student id
+            String date = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 1).toString());//creates a string for the selected date
+            String time = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 2).toString()).substring(0, 5);//creates a string for the selected time
 
-            pa.removePayment(pa.getLessonPayIDFromDateTimeStudentID(date, time, studentID));
-            this.paymentsForLessonTable.setModel(pop.PaymentsByLesson(date, time));
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a student first.");
+            pa.removePayment(pa.getLessonPayIDFromDateTimeStudentID(date, time, studentID));//removes the payment
+            this.paymentsForLessonTable.setModel(pop.PaymentsByLesson(date, time));//resets the payTable model
+        } else {//if there is no lesson selected
+            JOptionPane.showMessageDialog(null, "Please select a student first.");//instructs the user to first selected a row
         }
     }//GEN-LAST:event_removePaymentButtonActionPerformed
 
     private void addPayementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPayementButtonActionPerformed
-        if (!this.paymentsForLessonTable.getSelectionModel().isSelectionEmpty()) {
+        if (!this.paymentsForLessonTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a lesson selected
             Sound.playcoin();
-            paymentsArray pa = new paymentsArray();
-            lessonDataArray la = new lessonDataArray();
-            studentsArray sa = new studentsArray();
+            paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
+            lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+            studentsArray sa = new studentsArray();//creates an object for the studentsArray class
         
-            String studentName = this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 0).toString();
-            int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
-            String date = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 1).toString());
-            String time = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 2).toString()).substring(0, 5);
-            pa.addPayment(pa.getLessonPayIDFromDateTimeStudentID(date, time, studentID));
-            populateComboBoxes pop = new populateComboBoxes();
-            this.paymentsForLessonTable.setModel(pop.PaymentsByLesson(date, time));
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a student first.");
+            String studentName = this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 0).toString();//creates a string for the selected student name
+            int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));;//creates an int for the student id
+            String date = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 1).toString());//creates a string for the selected date
+            String time = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 2).toString()).substring(0, 5);//creates a string for the selected time
+            pa.addPayment(pa.getLessonPayIDFromDateTimeStudentID(date, time, studentID));//adds the payment
+            populateComboBoxes pop = new populateComboBoxes();//creates an obect for the populateComboBoxes class
+            this.paymentsForLessonTable.setModel(pop.PaymentsByLesson(date, time));//resets the payTable model
+        } else {//if there is no lesson selected
+            JOptionPane.showMessageDialog(null, "Please select a student first.");//instructs the user to first selected a row
         }
     }//GEN-LAST:event_addPayementButtonActionPerformed
 
     private void invoiceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invoiceButtonActionPerformed
-        if (!this.paymentsForLessonTable.getSelectionModel().isSelectionEmpty()) {
+        if (!this.paymentsForLessonTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a lesson selected
             mothersArray ma = new mothersArray();
-            lessonDataArray la = new lessonDataArray();
-            paymentsArray pa = new paymentsArray();
-            studentsArray sa = new studentsArray();
-            String studentName = this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 0).toString();
+            lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+            paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
+            studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+            String studentName = this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 0).toString();//creates a string for the selected student name
             String cost = pa.formattOutHTMLTags(this.paymentsForLessonTable.getModel().getValueAt(this.paymentsForLessonTable.getSelectedRow(), 3).toString());
-            int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));
-            invoiceForm.date = la.formatDate(this.dateChooser.getDate().toString());
-            invoiceForm.time = this.minuteSpinner.getModel().getValue().toString();
-            invoiceForm.parent = ma.getMotherNameFromStudentID(studentID);
-            invoiceForm.parentEmail = ma.getMotherEmailFromMotherName(invoiceForm.parent);
-            invoiceForm.cost = cost;
-            invoiceForm ih = new invoiceForm();
-            ih.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a student first.");
+            int studentID = sa.studentIDFromName(pa.formattOutHTMLTags(studentName));;//creates an int for the student id
+            invoiceForm.date = la.formatDate(this.dateChooser.getDate().toString());//sets the date of the invoice form to the selected date
+            invoiceForm.time = this.minuteSpinner.getModel().getValue().toString();//sets the time of the invoice form to the selected time
+            invoiceForm.parent = ma.getMotherNameFromStudentID(studentID);//sets the parent of the invoice form to the selected parent
+            invoiceForm.parentEmail = ma.getMotherEmailFromMotherName(invoiceForm.parent);//sets the email of the invoice form to the selected email
+            invoiceForm.cost = cost;//sets the cost of the invoice form to the selected cost
+            invoiceForm ih = new invoiceForm();//creates an object for the invoiceForm class
+            ih.setVisible(true);//sets the invoice JFrame visible
+        } else {//if there is no lesson selected
+            JOptionPane.showMessageDialog(null, "Please select a student first.");//instructs the user to first selected a row
         }
     }//GEN-LAST:event_invoiceButtonActionPerformed
 

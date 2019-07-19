@@ -11,17 +11,17 @@ import javax.swing.JFrame;
  *
  * @author YishaiBasserabie
  */
-public class requests extends javax.swing.JFrame {
+public class requests extends javax.swing.JFrame {//creates a class for the emails JFrame
 
     /**
      * Creates new form requests
      */
-    public requests() {
+    public requests() {//creates the cosntructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        fetchingEmail fe = new fetchingEmail();
-        fetchingEmail.doEmail();
-        this.requests.setText(fe.toString());
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the close operation to dispose
+        fetchingEmail fe = new fetchingEmail();//creates an object for the fetchingEmail class
+        fetchingEmail.doEmail();//gets the emails
+        this.requests.setText(fe.toString());//sts the text area to the emails
     }
 
     /**
@@ -139,7 +139,7 @@ public class requests extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        this.setVisible(false);
+        this.setVisible(false);//discontinues the JFrame
     }//GEN-LAST:event_backActionPerformed
 
     /**

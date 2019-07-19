@@ -12,21 +12,21 @@ import javax.swing.JFrame;
  *
  * @author YishaiBasserabie
  */
-public class seeStudentsForm extends javax.swing.JFrame {
+public class seeStudentsForm extends javax.swing.JFrame {//creates a class for the students of a lesson display
 
     /**
      * Creates new form seeStudentsForm
      */
-    public seeStudentsForm() {
+    public seeStudentsForm() {//creates the constructor
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the close operation to dispose
         //populates student list
-        populateComboBoxes pop = new populateComboBoxes();
-        DefaultListModel studentsListModel = new DefaultListModel();
-        for (int i = 0; i < pop.populateSelectedLessonStudentsList(lesson.SELECTED_LESSON_ID).length; i++) {
-            studentsListModel.addElement(pop.populateSelectedLessonStudentsList(lesson.SELECTED_LESSON_ID)[i]);
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        DefaultListModel studentsListModel = new DefaultListModel();//creates a list model for the students
+        for (int i = 0; i < pop.populateSelectedLessonStudentsList(lesson.SELECTED_LESSON_ID).length; i++) {//iterates through the students atending
+            studentsListModel.addElement(pop.populateSelectedLessonStudentsList(lesson.SELECTED_LESSON_ID)[i]);//adds the iterated student to the list model
         }
-        this.studentsList.setModel(studentsListModel);
+        this.studentsList.setModel(studentsListModel);//sets the stdentsList model to the students list model
     }
 
     /**
@@ -127,7 +127,7 @@ public class seeStudentsForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void doneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneButtonActionPerformed
-        this.setVisible(false);
+        this.setVisible(false);//discontinues the JFrame
     }//GEN-LAST:event_doneButtonActionPerformed
 
     /**

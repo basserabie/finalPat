@@ -22,26 +22,26 @@ import org.jfree.data.general.DefaultPieDataset;
  *
  * @author YishaiBasserabie
  */
-public class paymentStatsForm extends javax.swing.JFrame {
+public class paymentStatsForm extends javax.swing.JFrame {//creates a class to handle the pay stats JFrame
 
-    private boolean resultsGotten = false;
-    private int toggle = 1;
+    private boolean resultsGotten = false;//creates a boolean to indicate whether the studetn results have been fetched
+    private int toggle = 1;//creates an int to indicate the toggle between the all or monthly payment info
     
     /**
      * Creates new form paymentStatsForm
      */
-    public paymentStatsForm() {
+    public paymentStatsForm() {//creates the constructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        populateComboBoxes pop = new populateComboBoxes();
-        DefaultComboBoxModel namesModel = new DefaultComboBoxModel(pop.correctStudentsAccordingToGrade(this.addStudentGradeComboBox.getSelectedItem().toString()));
-        this.addStudentNameComboBox.setModel(namesModel);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the current class to dispose
+        populateComboBoxes pop = new populateComboBoxes();//creates an objec t for the populateComboBoxes class
+        DefaultComboBoxModel namesModel = new DefaultComboBoxModel(pop.correctStudentsAccordingToGrade(this.addStudentGradeComboBox.getSelectedItem().toString()));//creates a combo box model for the students
+        this.addStudentNameComboBox.setModel(namesModel);//sets the model of the tsudents combo box to the namesModel model
         
-        paymentsArray pa = new paymentsArray();
-        this.ProjectedThisMonthLabel.setText(""+pa.totalForCurrentMonth());
-        this.outstandingThisMonthLabel.setText(""+pa.totalOutstandingForCurrentMonth());
-        this.totalPayedThisMonthLabel.setText(""+pa.totalPaidForCurrentMonth());
-    }
+        paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
+        this.ProjectedThisMonthLabel.setText(""+pa.totalForCurrentMonth());//sets the projected string text to the amount projected
+        this.outstandingThisMonthLabel.setText(""+pa.totalOutstandingForCurrentMonth());//sets the outstanding string text to the amount outstanding
+        this.totalPayedThisMonthLabel.setText(""+pa.totalPaidForCurrentMonth());//sets the total string text to the amount total
+    }//closes the constructor
     
     
 
@@ -506,19 +506,19 @@ public class paymentStatsForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void realIncomeGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realIncomeGraphActionPerformed
-        paymentsArray pa = new paymentsArray();
-        pa.sortArray();
+        paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
+        pa.sortArray();//sorts the paymnets
         //creates payment chart
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        for (int i = 0; i < pa.monthsForRealChart().length; i++) {
-            dataset.setValue(pa.totalPaymentsForAllMonthsArrayForRealChart()[i], "paid Monthly Income", pa.monthsForRealChart()[i].substring(0, 5) + pa.monthsForRealChart()[i].substring(6, 8));
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();//creates a dataset object for the chart
+        for (int i = 0; i < pa.monthsForRealChart().length; i++) {//iterates through the months having oayments
+            dataset.setValue(pa.totalPaymentsForAllMonthsArrayForRealChart()[i], "paid Monthly Income", pa.monthsForRealChart()[i].substring(0, 5) + pa.monthsForRealChart()[i].substring(6, 8));//adds a data point to the cart acording to income
         }
-        JFreeChart chart = ChartFactory.createBarChart3D("Paid Monthly Incomes", "Year/Month", "paid Income", dataset, PlotOrientation.VERTICAL, false, true, false);
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.setRangeGridlinePaint(Color.BLACK);
-        ChartFrame frame = new ChartFrame("Paid Monthly Income", chart);
-        frame.setVisible(true);
-        frame.setSize(1280, 500);
+        JFreeChart chart = ChartFactory.createBarChart3D("Paid Monthly Incomes", "Year/Month", "paid Income", dataset, PlotOrientation.VERTICAL, false, true, false);//creates a chart object
+        CategoryPlot plot = chart.getCategoryPlot();//creates a plot object
+        plot.setRangeGridlinePaint(Color.BLACK);//sets the grid colout to black
+        ChartFrame frame = new ChartFrame("Paid Monthly Income", chart);//creates a frame object
+        frame.setVisible(true);//sets the frame visible
+        frame.setSize(1280, 500);//sets the sixe of the frame
     }//GEN-LAST:event_realIncomeGraphActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -526,29 +526,29 @@ public class paymentStatsForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void projectedMonthlyIncomesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projectedMonthlyIncomesActionPerformed
-        paymentsArray pa = new paymentsArray();
+        paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
         pa.sortArray();
         //creates payment chart
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        for (int i = 0; i < pa.monthsForProjectedChart().length; i++) {
-            dataset.setValue(pa.totalPaymentsForAllMonthsArrayForProjectedChart()[i], "Total Monthly Income", pa.monthsForProjectedChart()[i].substring(0, 5) + pa.monthsForProjectedChart()[i].substring(6, 8));
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();//creates a dataset object for the chart
+        for (int i = 0; i < pa.monthsForProjectedChart().length; i++) {//iterates through the months having oayments
+            dataset.setValue(pa.totalPaymentsForAllMonthsArrayForProjectedChart()[i], "Total Monthly Income", pa.monthsForProjectedChart()[i].substring(0, 5) + pa.monthsForProjectedChart()[i].substring(6, 8));//adds a data point to the cart acording to income
         }
-        JFreeChart chart = ChartFactory.createBarChart3D("Projected Monthly Incomes", "Year/Month", "Total Income", dataset, PlotOrientation.VERTICAL, false, true, false);
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.setRangeGridlinePaint(Color.BLACK);
-        ChartFrame frame = new ChartFrame("Projected Monthly Income", chart);
-        frame.setVisible(true);
-        frame.setSize(1280, 500);
+        JFreeChart chart = ChartFactory.createBarChart3D("Projected Monthly Incomes", "Year/Month", "Total Income", dataset, PlotOrientation.VERTICAL, false, true, false);//creates a chart object
+        CategoryPlot plot = chart.getCategoryPlot();//creates a plot object
+        plot.setRangeGridlinePaint(Color.BLACK);//sets the grid colout to black
+        ChartFrame frame = new ChartFrame("Projected Monthly Income", chart);//creates a frame object
+        frame.setVisible(true);//sets the frame visible
+        frame.setSize(1280, 500);//sets the sixe of the frame
     }//GEN-LAST:event_projectedMonthlyIncomesActionPerformed
 
     private void addStudentGradeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentGradeComboBoxActionPerformed
-        ConnectDB db = new ConnectDB();
-        studentsArray sa = new studentsArray();
-        populateComboBoxes pop = new populateComboBoxes();
+        ConnectDB db = new ConnectDB();//creates an object for the connectDB class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
         //populates students combo box according to grade selected
-        this.addStudentNameComboBox.removeAllItems();
-        DefaultComboBoxModel correctedStudents = new DefaultComboBoxModel(pop.correctStudentsAccordingToGrade(this.addStudentGradeComboBox.getSelectedItem().toString()));
-        this.addStudentNameComboBox.setModel(correctedStudents);
+        this.addStudentNameComboBox.removeAllItems();//removes all items from the students combop box
+        DefaultComboBoxModel correctedStudents = new DefaultComboBoxModel(pop.correctStudentsAccordingToGrade(this.addStudentGradeComboBox.getSelectedItem().toString()));//creates a default combo box model for the corrected students
+        this.addStudentNameComboBox.setModel(correctedStudents);//sets the model of the students combo box to the corrected model
     }//GEN-LAST:event_addStudentGradeComboBoxActionPerformed
 
     private void studentBeingAddedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentBeingAddedTextFieldActionPerformed
@@ -560,57 +560,57 @@ public class paymentStatsForm extends javax.swing.JFrame {
     }//GEN-LAST:event_studentBeingAddedTextFieldKeyTyped
 
     private void studentBeingAddedTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_studentBeingAddedTextFieldKeyPressed
-        populateComboBoxes pop = new populateComboBoxes();
-        if (!this.addStudentGradeComboBox.getSelectedItem().toString().equals("")) {
-            DefaultComboBoxModel nameModel = new DefaultComboBoxModel(pop.correctStudentsAccordingToSearchTextField(this.addStudentGradeComboBox.getSelectedItem().toString(), this.studentBeingAddedTextField.getText()));
-            this.addStudentNameComboBox.setModel(nameModel);
-        } else {
-            JOptionPane.showMessageDialog(null, "Before you start typing please select the grade :)");
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        if (!this.addStudentGradeComboBox.getSelectedItem().toString().equals("")) {//checks if there is a selected grade
+            DefaultComboBoxModel nameModel = new DefaultComboBoxModel(pop.correctStudentsAccordingToSearchTextField(this.addStudentGradeComboBox.getSelectedItem().toString(), this.studentBeingAddedTextField.getText()));//creates a combo box model according to the name typed
+            this.addStudentNameComboBox.setModel(nameModel);//sets the model of the students combo box to the corrected model
+        } else {//if there is no grade selected
+            JOptionPane.showMessageDialog(null, "Before you start typing please select the grade :)");//instructs the user to first select a grade
         }
     }//GEN-LAST:event_studentBeingAddedTextFieldKeyPressed
 
     private void studentPaidResultButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentPaidResultButtonActionPerformed
-        paymentsArray pa = new paymentsArray();
-        this.resultsGotten = true;
-        this.StudentAmountTotalLabel.setText(""+pa.getStudentTotal(this.addStudentNameComboBox.getSelectedItem().toString()));
-        this.StudentAmountPaidLabel.setText(""+pa.getStudentPaid(this.addStudentNameComboBox.getSelectedItem().toString()));
-        this.StudentAmountOwedLabel.setText(""+pa.getStudentOwed(this.addStudentNameComboBox.getSelectedItem().toString()));
+        paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
+        this.resultsGotten = true;//sets the results gotten to true
+        this.StudentAmountTotalLabel.setText(""+pa.getStudentTotal(this.addStudentNameComboBox.getSelectedItem().toString()));//sets the total label to the total
+        this.StudentAmountPaidLabel.setText(""+pa.getStudentPaid(this.addStudentNameComboBox.getSelectedItem().toString()));//sets the paid label to the paid
+        this.StudentAmountOwedLabel.setText(""+pa.getStudentOwed(this.addStudentNameComboBox.getSelectedItem().toString()));//sets the owed label to the owed
     }//GEN-LAST:event_studentPaidResultButtonActionPerformed
 
     private void byMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_byMonthActionPerformed
-        if (this.resultsGotten) {
-            paymentsArray pa = new paymentsArray();
-            if (this.toggle%2 == 0) {
-                this.StudentAmountTotalLabel.setText(""+pa.getStudentTotal(this.addStudentNameComboBox.getSelectedItem().toString()));
-                this.StudentAmountPaidLabel.setText(""+pa.getStudentPaid(this.addStudentNameComboBox.getSelectedItem().toString()));
-                this.StudentAmountOwedLabel.setText(""+pa.getStudentOwed(this.addStudentNameComboBox.getSelectedItem().toString()));
-                this.toggle++;
-                this.byMonth.setText("Get all Student Info");
-            } else {
-                this.StudentAmountTotalLabel.setText(""+pa.getStudentTotalForMonth(this.addStudentNameComboBox.getSelectedItem().toString()));
-                this.StudentAmountPaidLabel.setText(""+pa.getStudentPaidForMonth(this.addStudentNameComboBox.getSelectedItem().toString()));
-                this.StudentAmountOwedLabel.setText(""+pa.getStudentOwedForMonth(this.addStudentNameComboBox.getSelectedItem().toString()));
-                this.toggle++;
-                this.byMonth.setText("Get Student Info By Month");
+        if (this.resultsGotten) {//checks if the results have been gotten first
+            paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
+            if (this.toggle%2 == 0) {//checks the toggle i.e. even
+                this.StudentAmountTotalLabel.setText(""+pa.getStudentTotal(this.addStudentNameComboBox.getSelectedItem().toString()));//sets the total label to the total
+                this.StudentAmountPaidLabel.setText(""+pa.getStudentPaid(this.addStudentNameComboBox.getSelectedItem().toString()));//sets the paid label to the paid
+                this.StudentAmountOwedLabel.setText(""+pa.getStudentOwed(this.addStudentNameComboBox.getSelectedItem().toString()));//sets the owed label to the owed
+                this.toggle++;//ups the toggle
+                this.byMonth.setText("Get all Student Info By Month");//sets the byMonth button text to get the month info
+            } else {//if the toggle is odd
+                this.StudentAmountTotalLabel.setText(""+pa.getStudentTotalForMonth(this.addStudentNameComboBox.getSelectedItem().toString()));//sets the total label to the total for the month
+                this.StudentAmountPaidLabel.setText(""+pa.getStudentPaidForMonth(this.addStudentNameComboBox.getSelectedItem().toString()));//sets the paid label to the paid for the month
+                this.StudentAmountOwedLabel.setText(""+pa.getStudentOwedForMonth(this.addStudentNameComboBox.getSelectedItem().toString()));//sets the owed label to the owed for the month
+                this.toggle++;//ups the toggle
+                this.byMonth.setText("Get All Student Info");//sets the byMonth button text to get the all info
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Please get the results for a student first.");
+        } else {//if the results have not yet been gotten
+            JOptionPane.showMessageDialog(null, "Please get the results for a student first.");//instruts the user to get the results first
         }
     }//GEN-LAST:event_byMonthActionPerformed
 
     private void studentPieChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentPieChartActionPerformed
-        if (this.resultsGotten) {
-            DefaultPieDataset pieSet = new DefaultPieDataset();
-            paymentsArray pa = new paymentsArray();
-            pieSet.setValue("Paid", new Integer(pa.getStudentPaidForMonth(this.addStudentNameComboBox.getSelectedItem().toString())));
-            pieSet.setValue("Un-Paid", new Integer(pa.getStudentOwedForMonth(this.addStudentNameComboBox.getSelectedItem().toString())));
-            JFreeChart chart = ChartFactory.createPieChart("Student Payment Info", pieSet, true, true, true);
-            PiePlot p = (PiePlot)chart.getPlot();
-            ChartFrame frame = new ChartFrame("StudentInfo", chart);
-            frame.setVisible(true);
-            frame.setSize(450, 500);
-        } else {
-            JOptionPane.showMessageDialog(null, "Please get the results for a student first.");
+        if (this.resultsGotten) {//checks if the results have been gotten
+            DefaultPieDataset pieSet = new DefaultPieDataset();//creates a pie dataset object
+            paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
+            pieSet.setValue("Paid", new Integer(pa.getStudentPaidForMonth(this.addStudentNameComboBox.getSelectedItem().toString())));//sets the value of paid to the amount paid by the student
+            pieSet.setValue("Un-Paid", new Integer(pa.getStudentOwedForMonth(this.addStudentNameComboBox.getSelectedItem().toString())));//sets the value of unpaid to the amount unpaid by the student
+            JFreeChart chart = ChartFactory.createPieChart("Student Payment Info", pieSet, true, true, true);//creates a pie chart object
+            PiePlot p = (PiePlot)chart.getPlot();//creates a plot object
+            ChartFrame frame = new ChartFrame("StudentInfo", chart);//creates a frame object
+            frame.setVisible(true);//sets the frame visible
+            frame.setSize(450, 500);//sets the size of the frame
+        } else {//if the results have not yet been gotten
+            JOptionPane.showMessageDialog(null, "Please get the results for a student first.");//instructs the user to first get the results
         }
     }//GEN-LAST:event_studentPieChartActionPerformed
 

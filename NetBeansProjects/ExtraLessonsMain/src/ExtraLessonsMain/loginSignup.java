@@ -518,111 +518,101 @@ public class loginSignup extends javax.swing.JFrame {//creates a class to handle
     }//GEN-LAST:event_signUpButtonActionPerformed
 
     private void loginButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonLoginActionPerformed
-          loginSignUpHandler lsh = new loginSignUpHandler();
-          lsh.login(this.TPasswordTLogin.getText());
-          if (loginSignUpHandler.allGood) {
-              Sound.playgoahead();
-              loginSignUpHandler.allGood = false;
-                this.setVisible(false);
-            } else {
-              System.out.println("not entered");
+          loginSignUpHandler lsh = new loginSignUpHandler();//creates an object for the loginSignUpHandler class
+          lsh.login(this.TPasswordTLogin.getText());//attempts to login
+          if (loginSignUpHandler.allGood) {//checks if login was successful
+              Sound.playgoahead();//plays the go ahead sound
+              loginSignUpHandler.allGood = false;//resets the allGood boolean to false
+              this.setVisible(false);//discontinues the current JFrame
+            } else {//if the login was unsuccessfull
+              System.out.println("not entered");//alerts the class user that the login was unsuccessfull
           }
     }//GEN-LAST:event_loginButtonLoginActionPerformed
     //TODO: fix the enter key
     private void loginButtonLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_loginButtonLoginKeyPressed
-         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-             loginSignUpHandler lsh = new loginSignUpHandler();
-             lsh.login(this.TPasswordTLogin.getText());
-             if (loginSignUpHandler.allGood) {
-                Sound.playgoahead();
-                loginSignUpHandler.allGood = false;
-                this.setVisible(false);
-             }
-         }
+         
     }//GEN-LAST:event_loginButtonLoginKeyPressed
 
     private void forgotPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgotPasswordActionPerformed
-        loginSignUpHandler lsh = new loginSignUpHandler();
-        lsh.forgotPassword();
+        loginSignUpHandler lsh = new loginSignUpHandler();//creates an object for the loginSignUpHandler class
+        lsh.forgotPassword();//send the forgotten password to the user
     }//GEN-LAST:event_forgotPasswordActionPerformed
 
     private void squestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_squestionActionPerformed
-        AddStudentNote add = new AddStudentNote();
-        fetchTeacher ft = new fetchTeacher();
-        if (!ft.signedUp) {
-               loginSignUpHandler lsh = new loginSignUpHandler();
-                SecurityQuestionForm s = new SecurityQuestionForm();
-                s.setVisible(true);
-           } else {
-            JOptionPane.showMessageDialog(null, "You have already signed up, you may change\nyour security question and answer once\nlogged in.");
+        fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacher class
+        if (!ft.signedUp) {//checks if the user has signed up
+               loginSignUpHandler lsh = new loginSignUpHandler();//creates an object for the loginSignUpHandler class
+                SecurityQuestionForm s = new SecurityQuestionForm();//creates an object for the SecurityQuestionForm class
+                s.setVisible(true);//sets the security question JFrame visible
+           } else {//if the user has not signed up yet
+            JOptionPane.showMessageDialog(null, "You have already signed up, you may change\nyour security question and answer once\nlogged in.");//instructs the user to sign up first
         }
-        
     }//GEN-LAST:event_squestionActionPerformed
 
     private void signitureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signitureActionPerformed
-       AddStudentNote n = new AddStudentNote();
-       if (!n.fileExists("signiture", true)) {
-           SwingPaint p = new SwingPaint();
-           p.show();
-           if (n.fileExists("signiture", true)) {
-               this.sigAdded = true;
+       AddStudentNote n = new AddStudentNote();//creates an object for the AddStudentNote class
+       if (!n.fileExists("signiture", true)) {//checks if the user has not already added a siggniture
+           SwingPaint p = new SwingPaint();//creates an object for the SwingPaint class
+           p.show();//allows the user to enter their signiture
+           if (n.fileExists("signiture", true)) {//if the signiture was successful
+               this.sigAdded = true;//sets thje sigAdded boolean to true
            }
-       } else {
-           JOptionPane.showMessageDialog(null, "Signiture already added, you may change it later on.");
+       } else {//if the user has already added a signiture
+           JOptionPane.showMessageDialog(null, "Signiture already added, you may change it later on.");//instructs the user to change it later on
        }
     }//GEN-LAST:event_signitureActionPerformed
 
     private void addIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIconActionPerformed
-        fetchTeacher ft = new fetchTeacher();
-        if (!ft.signedUp) {
-            new takeIcon();
-            if (takeIcon.fileExists()) {
-                iconAdded = true;
+        fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacher class
+        if (!ft.signedUp) {//checks if the user has signed up
+            new takeIcon();//takes a picture of the user for their icon
+            if (takeIcon.fileExists()) {//checks if the icon was taken
+                iconAdded = true;//sets the iconAdded boolean to true
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Icon already added, you may change it later on.");
+        } else {//if the user has already added an icon
+            JOptionPane.showMessageDialog(null, "Icon already added, you may change it later on.");//instructs the user to change their icon later on
         }
     }//GEN-LAST:event_addIconActionPerformed
 
     private void addFaceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFaceButtonActionPerformed
-        fetchTeacher ft = new fetchTeacher();
-        if (!ft.signedUp) {
-            image i = new image();
-            try {
-                i.pushFace();
-            } catch (IOException ex) {
-                Logger.getLogger(loginSignup.class.getName()).log(Level.SEVERE, null, ex);
+        fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacher class
+        if (!ft.signedUp) {//checks if the user has signed up
+            image i = new image();//creates an object for the image class
+            try {//opens the trycatch statement
+                i.pushFace();//configures the facial recognition
+            } catch (IOException ex) {//opens the catch statement
+                Logger.getLogger(loginSignup.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error configuring the facial recognition
             }
-            faceAdded = true;
-        }else {
-            JOptionPane.showMessageDialog(null, "You have already added your facial recognition profile\nyou may add photos to your profile later on.");
+            faceAdded = true;//sets the face added to true
+        } else {//if the user has already configured the facial recognition
+            JOptionPane.showMessageDialog(null, "You have already added your facial recognition profile\nyou may add photos to your profile later on.");//instructs the user to add a portrait later on
         }
     }//GEN-LAST:event_addFaceButtonActionPerformed
 
     private void logInWithFaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInWithFaceActionPerformed
-        try {
-            loginSignUpHandler lsh = new loginSignUpHandler();
-            image i = new image();
-            lsh.loginWithFace(i.validateFace());
-            if (loginSignUpHandler.allGood) {
-                Sound.playgoahead();
-                loginSignUpHandler.allGood = false;
-                this.setVisible(false);
-            } else {
-                System.out.println("Face Not Recognised");
+        try {//opens the trycatch statement
+            loginSignUpHandler lsh = new loginSignUpHandler();//creates an object for the loginSignUpHandler class
+            image i = new image();//creates an object for the image class
+            lsh.loginWithFace(i.validateFace());//attempts to login with face
+            if (loginSignUpHandler.allGood) {//checks if the login was successfull
+                Sound.playgoahead();//plays the go ahead sound
+                loginSignUpHandler.allGood = false;//resets the allGood boolean to false
+                this.setVisible(false);//discontinues the current JFrame
+            } else {//if the login was unsuccessfull
+                System.out.println("error login with facial recognition");//aletts the class user that there was an error loggin in
             }
-        } catch (IOException ex) {
-            Logger.getLogger(loginSignup.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {//opens the catch statement
+            Logger.getLogger(loginSignup.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error logging in with faicla recognition
         }
     }//GEN-LAST:event_logInWithFaceActionPerformed
 
     private void addimageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addimageButtonActionPerformed
-        fetchTeacher ft = new fetchTeacher();
-        if (ft.signedUp) {
-            image i = new image();
-            i.addAnotherSnapshot();
-        } else {
-            JOptionPane.showMessageDialog(null, "Please sign up first");
+        fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacher class
+        if (ft.signedUp) {//checks if the user has signed up
+            image i = new image();//creates an object for the image class
+            i.addAnotherSnapshot();//adds another portrait of the user to the facial recognition database
+        } else {//if the user has not signed up yet
+            JOptionPane.showMessageDialog(null, "Please sign up first");//instructs the user tyo first sign up
         }
     }//GEN-LAST:event_addimageButtonActionPerformed
 

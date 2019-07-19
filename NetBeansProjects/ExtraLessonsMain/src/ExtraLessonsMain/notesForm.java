@@ -11,24 +11,24 @@ import javax.swing.JFrame;
  *
  * @author YishaiBasserabie
  */
-public class notesForm extends javax.swing.JFrame {
+public class notesForm extends javax.swing.JFrame {//creates a class to handle the notes fro the students
 
-    public static String name;
+    public static String name;//creates a string for the student name
     
     /**
      * Creates new form notesForm
      */
-    public notesForm() {
+    public notesForm() {//creates the cosntrucor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        AddStudentNote add = new AddStudentNote();
-        this.studentLabel.setText("notes for " + name + ":");
-        if (add.fileExists(name)) {
-            this.Note.setText(add.reading(name));
-        } else {
-            add.createNote(name);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the feault close operation of the current class to dispose
+        AddStudentNote add = new AddStudentNote();//creates an object for the AddStudentNote class
+        this.studentLabel.setText("notes for " + name + ":");//sets the text of the name label to the name  string
+        if (add.fileExists(name)) {//checks if there is already a note for the student
+            this.Note.setText(add.reading(name));//sets the text of the text area to the previous note
+        } else {//if there is no note
+            add.createNote(name);//creates a note
         }
-    }
+    }//closes the constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,7 +43,7 @@ public class notesForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         studentLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        cancel = new javax.swing.JButton();
         submit = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -76,10 +76,10 @@ public class notesForm extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        jButton1.setText("cancel");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cancel.setText("Cancel");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                cancelActionPerformed(evt);
             }
         });
 
@@ -122,7 +122,7 @@ public class notesForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(cancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -135,7 +135,7 @@ public class notesForm extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                    .addComponent(cancel)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,14 +159,14 @@ public class notesForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        AddStudentNote add = new AddStudentNote();
-        add.writing(name, this.Note.getText());
-        this.setVisible(false);
+        AddStudentNote add = new AddStudentNote();//creates an object for the AddStudentNote class
+        add.writing(name, this.Note.getText());//updates the note
+        this.setVisible(false);//discontues the current JFrame
     }//GEN-LAST:event_submitActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        this.setVisible(false);//discontues the current JFrame
+    }//GEN-LAST:event_cancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,7 +205,7 @@ public class notesForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Note;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton cancel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

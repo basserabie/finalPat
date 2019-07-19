@@ -15,27 +15,27 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author YishaiBasserabie
  */
-public class mothers extends javax.swing.JFrame {
+public class mothers extends javax.swing.JFrame {//creates a class to handle the parent JFrame
     /**
      * Creates new form mothers
      */
-    public static String MOTHER_SELECTED;
-    public static String MOTHER_EMAIL;
-    public static String MOTHER_CELL;
+    public static String MOTHER_SELECTED;//creates a string for the name of the selected parent
+    public static String MOTHER_EMAIL;//creates a string for the email of the selected parent
+    public static String MOTHER_CELL;//creates a string for the cell number of the selected parent
     
-    public mothers() {
+    public mothers() {//creates the cosntructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        populateComboBoxes pop = new populateComboBoxes();
-        this.parentsTable.setModel(pop.parents());
-        DefaultComboBoxModel filterType = new DefaultComboBoxModel(pop.populateParentFilterTypeComboBox());
-        this.filterTypeComboBox.setModel(filterType);
-    }
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the current JFrame to dispose
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        this.parentsTable.setModel(pop.parents());//sets the model of the parentsTable to the model of the parents
+        DefaultComboBoxModel filterType = new DefaultComboBoxModel(pop.populateParentFilterTypeComboBox());//creates a default combo box model for the filter types
+        this.filterTypeComboBox.setModel(filterType);//sets the model of the filter type combo box to the fikterType model
+    }//closes the cosntructor
     
 
-    public void setTableModelTable(DefaultTableModel model) {
-        this.parentsTable.setModel(model);
-    }
+    public void setTableModelTable(DefaultTableModel model) {//creates a method to set the table model
+        this.parentsTable.setModel(model);//sets the table model to the one passed in
+    }//closes the setTableModelTable method
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -334,7 +334,7 @@ public class mothers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backToDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardActionPerformed
-        this.setVisible(false);
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_backToDashboardActionPerformed
 
     private void filterTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterTypeComboBoxActionPerformed
@@ -342,37 +342,35 @@ public class mothers extends javax.swing.JFrame {
     }//GEN-LAST:event_filterTypeComboBoxActionPerformed
 
     private void displayAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayAllButtonActionPerformed
-        populateComboBoxes pop = new populateComboBoxes();
-        this.parentsTable.setModel(pop.parents());
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        this.parentsTable.setModel(pop.parents());//resets the model of the parents table
     }//GEN-LAST:event_displayAllButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        mothersArray ma = new mothersArray();
-        editMotherForm emf = new editMotherForm();
-        if (!this.parentsTable.getSelectionModel().isSelectionEmpty()) {
-            ma.passSelectedMotherNameToEdit(MOTHER_SELECTED);
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a parent (row) first :)");
+        mothersArray ma = new mothersArray();//creates an object for the mothersArray class
+        if (!this.parentsTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a selected parent
+            ma.passSelectedMotherNameToEdit(MOTHER_SELECTED);//configures the edit parent JFrame
+        } else {//if there is no selected parent
+            JOptionPane.showMessageDialog(null, "Please select a parent (row) first :)");//instructs the user to first selected a parent
         }
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void infoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoButtonActionPerformed
-        moreInfoParentForm mi = new moreInfoParentForm();
-        mothersArray ma = new mothersArray();
-        if (!this.parentsTable.getSelectionModel().isSelectionEmpty()) {
-            ma.passSelectedMotherToInfo(MOTHER_SELECTED);
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a parent (row) first :)");
+        mothersArray ma = new mothersArray();//creates an object for the mothersArray class
+        if (!this.parentsTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a parent selected
+            ma.passSelectedMotherToInfo(MOTHER_SELECTED);//configures the more info on parent JFrame
+        } else {//if there is no selected parent
+            JOptionPane.showMessageDialog(null, "Please select a parent (row) first :)");//instructs the user to first select a parent
         }
     }//GEN-LAST:event_infoButtonActionPerformed
 
     private void parentsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_parentsTableMouseClicked
-            MOTHER_EMAIL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 1).toString();
-            MOTHER_CELL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 2).toString();
-            MOTHER_SELECTED = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 0).toString();
-            contactForm.parentEmail = MOTHER_EMAIL;
-            contactForm.parentName = MOTHER_SELECTED;
-            this.selectedParentLabel.setText(MOTHER_SELECTED);
+            MOTHER_EMAIL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 1).toString();//gets the selected email
+            MOTHER_CELL = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 2).toString();//gets the selected cell
+            MOTHER_SELECTED = this.parentsTable.getModel().getValueAt(this.parentsTable.getSelectedRow(), 0).toString();//gets the selected mother name
+            contactForm.parentEmail = MOTHER_EMAIL;//sets the cosntact form email to the email gotten
+            contactForm.parentName = MOTHER_SELECTED;//sets the cosntact form name to the name gotten
+            this.selectedParentLabel.setText(MOTHER_SELECTED);//sets the text of the parent contact form to the selected parent name
     }//GEN-LAST:event_parentsTableMouseClicked
 
     private void searchTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyTyped
@@ -380,28 +378,28 @@ public class mothers extends javax.swing.JFrame {
     }//GEN-LAST:event_searchTextFieldKeyTyped
 
     private void searchTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyPressed
-        populateComboBoxes pop = new populateComboBoxes();
-        switch (this.filterTypeComboBox.getSelectedItem().toString()) {
-            case "Child Name":
-                this.parentsTable.setModel(pop.parentsByChildName(this.searchTextField.getText()));
-                break;
-            case "Parent Name":
-                this.parentsTable.setModel(pop.parentsByParentName(this.searchTextField.getText()));
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        switch (this.filterTypeComboBox.getSelectedItem().toString()) {//opens the switch case statement according to the filter type
+            case "Child Name"://opens the case for child name
+                this.parentsTable.setModel(pop.parentsByChildName(this.searchTextField.getText()));//filters accordingly
+                break;//discontinues the current case
+            case "Parent Name"://opens the case for the paren name
+                this.parentsTable.setModel(pop.parentsByParentName(this.searchTextField.getText()));//sets the model accordingly
         }
     }//GEN-LAST:event_searchTextFieldKeyPressed
 
     private void contactButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactButtonActionPerformed
-        if (!this.parentsTable.getSelectionModel().isSelectionEmpty()) {
-            contactForm c = new contactForm();
-            c.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a parent first");
+        if (!this.parentsTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a selected parent
+            contactForm c = new contactForm();//creates an object for the contactForm class
+            c.setVisible(true);//sets the contatc JFrame visible
+        } else {//if there is no parent selected
+            JOptionPane.showMessageDialog(null, "Please select a parent first");//instructs the user to first select a parent
         }
     }//GEN-LAST:event_contactButtonActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-         populateComboBoxes pop = new populateComboBoxes();
-        this.parentsTable.setModel(pop.parents());
+         populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        this.parentsTable.setModel(pop.parents());//resets the parent table model
     }//GEN-LAST:event_formWindowGainedFocus
 
     /**

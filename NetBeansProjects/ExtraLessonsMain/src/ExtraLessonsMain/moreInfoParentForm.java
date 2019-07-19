@@ -16,42 +16,40 @@ import javax.swing.ListCellRenderer;
  *
  * @author YishaiBasserabie
  */
-public class moreInfoParentForm extends javax.swing.JFrame {
+public class moreInfoParentForm extends javax.swing.JFrame {//creates a class to handle the more info on parent JFrame
     
     /**
      * Creates new form moreInfoParentForm
      */
-    public moreInfoParentForm() {
+    public moreInfoParentForm() {//creates the constructor for the current class
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the default close operation of the current JFrame to close
         //populates the students list
-        populateComboBoxes pop = new populateComboBoxes();
-        DefaultListModel studentsListModel = new DefaultListModel();
-        for (int i = 0; i < pop.getStudentsFromMotherName(mothers.MOTHER_SELECTED).length; i++) {
-            studentsListModel.addElement(pop.getStudentsFromMotherName(mothers.MOTHER_SELECTED)[i]);
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        DefaultListModel studentsListModel = new DefaultListModel();//creates a default list model for the students associated woth the parent in question
+        for (int i = 0; i < pop.getStudentsFromMotherName(mothers.MOTHER_SELECTED).length; i++) {//iterates through the parent's associated students
+            studentsListModel.addElement(pop.getStudentsFromMotherName(mothers.MOTHER_SELECTED)[i]);//adds the iterated student to the list model
         }
-        this.childrenList.setModel(studentsListModel);
+        this.childrenList.setModel(studentsListModel);//sets the model of the children list to the list model
         //populate the lessonList
-        DefaultListModel lessonListModel = new DefaultListModel();
-        for (int i = 0; i < pop.getLessonsFromMotherName(mothers.MOTHER_SELECTED).length; i++) {
-            lessonListModel.addElement(pop.getLessonsFromMotherName(mothers.MOTHER_SELECTED)[i]);
+        DefaultListModel lessonListModel = new DefaultListModel();//creates a default list model for the lessons of the parent's children
+        for (int i = 0; i < pop.getLessonsFromMotherName(mothers.MOTHER_SELECTED).length; i++) {//iterates through the lessons for the children
+            lessonListModel.addElement(pop.getLessonsFromMotherName(mothers.MOTHER_SELECTED)[i]);//adds the iterated lesson to the listModel
         }
-        this.lessonList.setModel(lessonListModel);
+        this.lessonList.setModel(lessonListModel);//sets the model of the lessonList to the lesson list model
         //populates email label text
-        this.emailLabel.setText(mothers.MOTHER_EMAIL);
-        
+        this.emailLabel.setText(mothers.MOTHER_EMAIL);//sets the text of the email lable to the parent email
         //populates cell label text
-        this.cellLabel.setText(mothers.MOTHER_CELL);
-        
-        mothersArray ma = new mothersArray();
-        String motherName = mothers.MOTHER_SELECTED;
-        contactForm.parentName = motherName;
-        contactForm.parentEmail = mothers.MOTHER_EMAIL;
-    }
+        this.cellLabel.setText(mothers.MOTHER_CELL);//sets the text of the cell label to the parent's cell number
+        mothersArray ma = new mothersArray();//creates an ibject for the mothersArray class
+        String motherName = mothers.MOTHER_SELECTED;//creates a string for the parent name
+        contactForm.parentName = motherName;//sets the contact form's name to the motherName string
+        contactForm.parentEmail = mothers.MOTHER_EMAIL;//sets the contact form's email to the motherEmail string
+    }//closes the cosntructor
     
-    public void setParentNameText(String name) {
-        this.motherSelectedLabel.setText(name);
-    }
+    public void setParentNameText(String name) {//creates amethod to set the parent label text
+        this.motherSelectedLabel.setText(name);//sets the text o the name passed in
+    }//closes the setParentNameText method
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,7 +75,7 @@ public class moreInfoParentForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         childrenList = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
         contactButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         lessonList = new javax.swing.JList<>();
@@ -203,10 +201,10 @@ public class moreInfoParentForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(childrenList);
 
-        jButton1.setText("done");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        backButton.setText("done");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                backButtonActionPerformed(evt);
             }
         });
 
@@ -229,7 +227,7 @@ public class moreInfoParentForm extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1)
+                .addComponent(backButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -258,7 +256,7 @@ public class moreInfoParentForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(backButton)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(contactButton)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -290,13 +288,13 @@ public class moreInfoParentForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.setVisible(false);//discontinues the current JFrame
+    }//GEN-LAST:event_backButtonActionPerformed
 
     private void contactButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactButtonActionPerformed
-        contactForm c = new contactForm();
-        c.setVisible(true);
+        contactForm c = new contactForm();//creates an object for the contactForm class
+        c.setVisible(true);//sets the contact form JFrame to visible
     }//GEN-LAST:event_contactButtonActionPerformed
 
     /**
@@ -335,11 +333,11 @@ public class moreInfoParentForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JLabel cellLabel;
     private javax.swing.JList<String> childrenList;
     private javax.swing.JButton contactButton;
     private javax.swing.JLabel emailLabel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

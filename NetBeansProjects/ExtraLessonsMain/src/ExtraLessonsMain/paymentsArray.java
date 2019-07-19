@@ -23,487 +23,480 @@ import javax.swing.JOptionPane;
  *
  * @author YishaiBasserabie
  */
-public class paymentsArray {
-    ConnectDB  db = new ConnectDB();
-    dataValidation vd = new dataValidation();
-    private ArrayList<fetchPayments> paymentArray = new ArrayList<>();
+public class paymentsArray {//creates a class to handle the payments
+    private ArrayList<fetchPayments> paymentArray = new ArrayList<>();//creates an array list for the payment objects
 
-    public paymentsArray() {
-        ResultSet r = db.getResults("SELECT * FROM sPayTable");
+    public paymentsArray() {//creates the cosntructor
+        ConnectDB  db = new ConnectDB();//creates an object for the Connect db class
+        ResultSet r = db.getResults("SELECT * FROM sPayTable");//creates a result set for the payment objects
         try {
-            while(r.next()) {
+            while(r.next()) {//iterates through the results
                 fetchPayments fp = new fetchPayments(r.getInt("lessonID") ,r.getInt("StudID"), r.getInt("PayDuration"), r.getBoolean("Paid"), r.getString("PayDate"), r.getString("PayTime")
-                , r.getInt("Cost"));
-                paymentArray.add(fp);
+                , r.getInt("Cost"));//creates a new payment object for the iterated result
+                paymentArray.add(fp);//adds the object to the array
             }
         } catch (SQLException ex) {
-            Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Database error, please contact administrator at 0836570642");
+            Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error
+            JOptionPane.showMessageDialog(null, "Database error, please contact administrator at 0836570642");//instructs the user to contact the admin
         }
-        this.sortArray();
-    }
+        this.sortArray();//sorts the payments array
+    }//closes the constructor
 
-    public ArrayList<fetchPayments> getPaymentArray() {
-        return paymentArray;
-    }
+    public ArrayList<fetchPayments> getPaymentArray() {//creates a mehtod to get the array
+        return paymentArray;//returns the array
+    }//closes the getPaymentArray method
     
     //method sorts the array list
     public void sortArray() {
         //sorts by dates and times
-         Collections.sort(this.paymentArray, new Comparator<fetchPayments>() {
-             public int compare(fetchPayments m1, fetchPayments m2) {
-                 int comp = 0;
-                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");
+         Collections.sort(this.paymentArray, new Comparator<fetchPayments>() {//sorts with comparator
+             public int compare(fetchPayments m1, fetchPayments m2) {//creates a method to compare the objects
+                 int comp = 0;//creates an int to returns the comparison
+                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");//cretes a simple date formatter
                  try {
-                     Date date1 = sdf.parse(m1.getPayDate() + " " + m1.getPayTime());
-                     Date date2 = sdf.parse(m2.getPayDate() + " " + m2.getPayTime());
-                     comp =  date1.compareTo(date2);
+                     Date date1 = sdf.parse(m1.getPayDate() + " " + m1.getPayTime());//createsa date object for the first iterated payment
+                     Date date2 = sdf.parse(m2.getPayDate() + " " + m2.getPayTime());//createsa date object for the 2nd iterated payment
+                     comp =  date1.compareTo(date2);//compares the two
                  } catch (ParseException ex) {
-                     Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+                     Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error setting the dates of the date objects
                  }
-                  return comp;
-             }
+                  return comp;//returns the comp int
+             }//closes the compare method
 
-             public int comparePayments(fetchPayments o1, fetchPayments o2) {
-                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-             }
-         });
-    }
+             public int comparePayments(fetchPayments o1, fetchPayments o2) {//creates an abstract method for the comparison
+                 throw new UnsupportedOperationException("Not supported yet."); //throws not supported exception
+             }//closes the comparePayments method
+         });//closes the sort comparator
+    }//closes the sort method
     
-    public String formattOutHTMLTags(String input) {
-        String output = input.replaceAll("\\<.*?\\>", "");
-        return output;
-    }
+    public String formattOutHTMLTags(String input) {//creates a method to remove HTML tags from text
+        String output = input.replaceAll("\\<.*?\\>", "");//creates a string without tags
+        return output;//returns the output string
+    }//closes the formattOutHTMLTags method
     
-    public int getCostFromLessonID(int id) {
-        int cost = 0;
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            if (this.paymentArray.get(i).getLessonID() == id) {
-                cost = this.paymentArray.get(i).getCost();
+    public int getCostFromLessonID(int id) {//creates a method to get cost from id
+        int cost = 0;//creates an int for the cost
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            if (this.paymentArray.get(i).getLessonID() == id) {//chec is the iterated and reference ids match
+                cost = this.paymentArray.get(i).getCost();//sets the cost to the iterated cost
             }
         }
-        return cost;
+        return cost;//returns the cost
     }
     
-    public boolean getIfPaidFromLessonID(int id) {
-        boolean paid = false;
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            if (this.paymentArray.get(i).getLessonID() == id) {
-                paid = this.paymentArray.get(i).isPaid();
+    public boolean getIfPaidFromLessonID(int id) {//creates a method to get if paid from lesson id
+        boolean paid = false;//creates a boolean i.e. if paid
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            if (this.paymentArray.get(i).getLessonID() == id) {//chec is the iterated and reference ids match
+                paid = this.paymentArray.get(i).isPaid();//sets paid to the iterated paid boolean
             }
         }
-        return paid;
-    }
+        return paid;//returns paid
+    }//closes the getIfPaidFromLessonID method
     
-    public int getLessonPayIDFromDateTimeStudentID(String date, String time, int studentID) {
-        int id = 0;
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            String startTime = time.substring(0, 5);
+    public int getLessonPayIDFromDateTimeStudentID(String date, String time, int studentID) {//creates a method to get id from date time and student id
+        int id = 0;//creates an in for the id
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            String startTime = time.substring(0, 5);//creates a string for the start time
             if (this.paymentArray.get(i).getPayDate().equals(date) &&
                     this.paymentArray.get(i).getPayTime().equals(startTime) &&
-                    this.paymentArray.get(i).getStudentID() == studentID) {
-                id = this.paymentArray.get(i).getLessonID();
+                    this.paymentArray.get(i).getStudentID() == studentID) {//checks if the date time and id mathc the iterated
+                id = this.paymentArray.get(i).getLessonID();//sets the id to the iterated id
             }
         }
-        return id;
-    }
+        return id;//returns id
+    }//cloes the getLessonPayIDFromDateTimeStudentID method
 
-    public void addPayment(int lessonID) {
-        System.out.println("lessonID: " + lessonID);
-        ConnectDB db = new ConnectDB();
-        String addPaymentString = "UPDATE sPaytable SET Paid = true WHERE lessonID = " + lessonID;
-        System.out.println(addPaymentString);
+    public void addPayment(int lessonID) {//creates a method to add a payment
+        ConnectDB db = new ConnectDB();//creates an object for the Connect DB class
+        String addPaymentString = "UPDATE sPaytable SET Paid = true WHERE lessonID = " + lessonID;//creates a string for the SQL query used to add a payment
         try {
-            db.UpdateDatabase(addPaymentString);
+            db.UpdateDatabase(addPaymentString);//adds payment
         } catch (SQLException ex) {
-            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error to add the payment
         }
-    }
+    }//closes the addPayment method
     
-    public String [] monthsForRealChart() {
-        ArrayList<String> months = new ArrayList<>();
-        int count = -1;
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            if (!months.contains(this.paymentArray.get(i).getPayDate().substring(0, 5) + " " + this.paymentArray.get(i).getPayDate().substring(8, 10)) && this.paymentArray.get(i).isPaid()) {
-                months.add(this.paymentArray.get(i).getPayDate().substring(0, 5) + " " + this.paymentArray.get(i).getPayDate().substring(8, 10));
-                count++;
+    public String [] monthsForRealChart() {//creates a method to get the months for the paid bar chart
+        ArrayList<String> months = new ArrayList<>();//creates an array list for the months
+        int count = -1;//creates an int to count the months
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            if (!months.contains(this.paymentArray.get(i).getPayDate().substring(0, 5) + " " + this.paymentArray.get(i).getPayDate().substring(8, 10)) && this.paymentArray.get(i).isPaid()) {//checks if the terated month contains a payment
+                months.add(this.paymentArray.get(i).getPayDate().substring(0, 5) + " " + this.paymentArray.get(i).getPayDate().substring(8, 10));//adds the iterated month the to the array
+                count++;//ups the count
             }
         }
-        if (months.size() == 0) {
-            months.add("no payments");
+        if (months.size() == 0) {//checks if there are no payments
+            months.add("no payments");//adds the no payments message to the array
         }
-        String monthString [] = months.toArray(new String[months.size()]);
-        return monthString;
-    }
+        String monthString [] = months.toArray(new String[months.size()]);//streams the array list to a string array
+        return monthString;//returns the string array
+    }//closes the monthsForRealChart method
     
-    public int [] totalPaymentsForAllMonthsArrayForRealChart() {
-        ArrayList<Integer> p = new ArrayList<>();
-        int monthSum = 0;
-        for (int i = 0;i < this.monthsForRealChart().length; i++) {
-            for (int k = 0; k < this.paymentArray.size(); k++) {
-                if ((this.paymentArray.get(k).getPayDate().substring(0, 5) + " " + this.paymentArray.get(k).getPayDate().substring(8, 10)).equals(this.monthsForRealChart()[i]) && this.paymentArray.get(k).isPaid()) {
-                    monthSum += this.paymentArray.get(k).getCost();
+    public int [] totalPaymentsForAllMonthsArrayForRealChart() {//creates a method to get the amount paid for each months
+        ArrayList<Integer> p = new ArrayList<>();//creates an array list for the payments
+        int monthSum = 0;//creates an int for the sum of payments for the iterated month
+        for (int i = 0;i < this.monthsForRealChart().length; i++) {//iterates through the months
+            for (int k = 0; k < this.paymentArray.size(); k++) {//iterates through the payments
+                if ((this.paymentArray.get(k).getPayDate().substring(0, 5) + " " + this.paymentArray.get(k).getPayDate().substring(8, 10)).equals(this.monthsForRealChart()[i]) && this.paymentArray.get(k).isPaid()) {//checks if the iterated payments is paid and in the same mnth as the iterated month
+                    monthSum += this.paymentArray.get(k).getCost();//adds the oayment to the sum
                 }
             }
-            p.add(monthSum);
-            monthSum = 0;
+            p.add(monthSum);//adds the sum
+            monthSum = 0;//resets sum to 0
         }
-        if (p.size() == 0) {
-            p.add(0);
+        if (p.size() == 0) {//checks if there are no payments
+            p.add(0);//adds 0 to the array
         }
-        int[] Parr = p.stream().mapToInt(s -> s).toArray();
-        return Parr;
-    }
+        int[] Parr = p.stream().mapToInt(s -> s).toArray();//streams the array lsit to a int array
+        return Parr;//returns the int array
+    }//closes the totalPaymentsForAllMonthsArrayForRealChart method
     
-    public String [] monthsForProjectedChart() {
-        ArrayList<String> months = new ArrayList<>();
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            if (!months.contains(this.paymentArray.get(i).getPayDate().substring(0, 5) + " " +  this.paymentArray.get(i).getPayDate().substring(8, 10))) {
-                months.add(this.paymentArray.get(i).getPayDate().substring(0, 5) + " " + this.paymentArray.get(i).getPayDate().substring(8, 10));
+    public String [] monthsForProjectedChart() {//creates a method to get the months for the unpaid bar chart
+        ArrayList<String> months = new ArrayList<>();//creates an array list for the months
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            if (!months.contains(this.paymentArray.get(i).getPayDate().substring(0, 5) + " " +  this.paymentArray.get(i).getPayDate().substring(8, 10))) {//checks if the iterated month does not ocntain a payment
+                months.add(this.paymentArray.get(i).getPayDate().substring(0, 5) + " " + this.paymentArray.get(i).getPayDate().substring(8, 10));//adds the iterated month to the array
             }
         }
-        if (months.size() == 0) {
-            months.add("no payments");
+        if (months.size() == 0) {//checks if there are no months i.e., no payments
+            months.add("no payments");//adds the no payments message to the array
         }
-        String monthString [] = months.toArray(new String[months.size()]);
-        return monthString;
-    }
+        String monthString [] = months.toArray(new String[months.size()]);//streams the array list to a string array
+        return monthString;//returns the string array
+    }//closes the monthsForProjectedChart method
     
-    public int [] totalPaymentsForAllMonthsArrayForProjectedChart() {
-        ArrayList<Integer> p = new ArrayList<>();
-        int monthSum = 0;
-        for (int i = 0;i < this.monthsForProjectedChart().length; i++) {
-            for (int k = 0; k < this.paymentArray.size(); k++) {
-                if ((this.paymentArray.get(k).getPayDate().substring(0, 5) + " " + this.paymentArray.get(k).getPayDate().substring(8, 10)).equals(this.monthsForProjectedChart()[i])) {
-                    monthSum += this.paymentArray.get(k).getCost();
+    public int [] totalPaymentsForAllMonthsArrayForProjectedChart() {//creates a method to get the amount unpaid for each months
+        ArrayList<Integer> p = new ArrayList<>();//creates an array list for the payments
+        int monthSum = 0;//creates an int for the sum of payments for the iterated month
+        for (int i = 0;i < this.monthsForProjectedChart().length; i++) {//iterates through the months
+            for (int k = 0; k < this.paymentArray.size(); k++) {//iterates through the payments
+                if ((this.paymentArray.get(k).getPayDate().substring(0, 5) + " " + this.paymentArray.get(k).getPayDate().substring(8, 10)).equals(this.monthsForProjectedChart()[i])) {//checks if the iterated payments is unpaid and in the same mnth as the iterated month
+                    monthSum += this.paymentArray.get(k).getCost();//adds the nonpayment to the sum
                 }
             }
-            p.add(monthSum);
-            monthSum = 0;
+            p.add(monthSum);//adds the some to the array
+            monthSum = 0;//resets the sum to 0
         }
-        if (p.size() == 0) {
-            p.add(0);
+        if (p.size() == 0) {//checks if there are no payments
+            p.add(0);//adds 0 to the array
         }
-        int[] Parr = p.stream().mapToInt(s -> s).toArray();
-        return Parr;
-    }
+        int[] Parr = p.stream().mapToInt(s -> s).toArray();//streams the array list to an int array
+        return Parr;//returns the int array
+    }//closes the totalPaymentsForAllMonthsArrayForProjectedChart method
     
-    public void removePayment(int lessonID) {
-        ConnectDB db = new ConnectDB();
-        String addPaymentString = "UPDATE sPaytable SET Paid = false WHERE lessonID = " + lessonID;
+    public void removePayment(int lessonID) {//creates a method to remove a payment
+        ConnectDB db = new ConnectDB();//creates an object for the Connect DB class
+        String addPaymentString = "UPDATE sPaytable SET Paid = false WHERE lessonID = " + lessonID;//creates a string for the SQL query used to remove the payment
         try {
-            db.UpdateDatabase(addPaymentString);
+            db.UpdateDatabase(addPaymentString);//removes the payment
         } catch (SQLException ex) {
-            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error removing the payment
         }
-    }
+    }//closes the removePayment method
     
-    public int totalForCurrentMonth() {
-        lessonDataArray la = new lessonDataArray();
-        int total = 0;
-        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
-        Calendar today = Calendar.getInstance();
+    public int totalForCurrentMonth() {//creates a method to get the total for the current month
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        int total = 0;//creates an in to the total
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");//creates a simple date formatter
+        Calendar today = Calendar.getInstance();//creates a calendar instance
         try {
-            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));
+            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));//sets the calendar object to today
         } catch (ParseException ex) {
-            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
         }
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            Calendar ref = Calendar.getInstance();
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            Calendar ref = Calendar.getInstance();//creates a clalendar instance
             try {
-                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));
+                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));//sets the date to the iterated date
             } catch (ParseException ex) {
-                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
             }
-            if (ref.get(Calendar.MONTH) == today.get(Calendar.MONTH)) {
-                total += this.paymentArray.get(i).getCost();
+            if (ref.get(Calendar.MONTH) == today.get(Calendar.MONTH)) {//checks if the months are the same
+                total += this.paymentArray.get(i).getCost();//adds the iterated payment to the total
             }
         }
-        return total;
-    }
+        return total;//returns the total
+    }//closes the totalForCurrentMonth method
     
-    public int totalPaidForCurrentMonth() {
-        lessonDataArray la = new lessonDataArray();
-        int total = 0;
-        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
-        Calendar today = Calendar.getInstance();
+    public int totalPaidForCurrentMonth() {//creates a method to get the paid for the current month
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        int total = 0;//creates an in to the total
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");//creates a simple date formatter
+        Calendar today = Calendar.getInstance();//creates a calendar instance
         try {
-            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));
+            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));//sets the calendar object to today
         } catch (ParseException ex) {
-            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
         }
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            Calendar ref = Calendar.getInstance();
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            Calendar ref = Calendar.getInstance();//creates a clalendar instance
             try {
-                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));
+                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));//sets the date to the iterated date
             } catch (ParseException ex) {
-                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
             }
-            if (ref.get(Calendar.MONTH) == today.get(Calendar.MONTH) && this.paymentArray.get(i).isPaid()) {
-                total += this.paymentArray.get(i).getCost();
+            if (ref.get(Calendar.MONTH) == today.get(Calendar.MONTH) && this.paymentArray.get(i).isPaid()) {//checks if the months are the same and the payment is paid
+                total += this.paymentArray.get(i).getCost();//adds the iterated payment to the total
             }
         }
-        return total;
-    }
+        return total;//returns the total
+    }//closes the totalPaidForCurrentMonth method
     
-    public int totalOutstandingForCurrentMonth() {
-        lessonDataArray la = new lessonDataArray();
-        int total = 0;
-        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
-        Calendar today = Calendar.getInstance();
+    public int totalOutstandingForCurrentMonth() {//creates a method to get the owed for the current month
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        int total = 0;//creates an in to the total
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");//creates a simple date formatter
+        Calendar today = Calendar.getInstance();//creates a calendar instance
         try {
-            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));
+            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));//sets the calendar object to today
         } catch (ParseException ex) {
-            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
         }
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            Calendar ref = Calendar.getInstance();
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            Calendar ref = Calendar.getInstance();//creates a clalendar instance
             try {
-                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));
+                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));//sets the date to the iterated date
             } catch (ParseException ex) {
-                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
             }
-            if (ref.get(Calendar.MONTH) == today.get(Calendar.MONTH) && !this.paymentArray.get(i).isPaid()) {
-                total += this.paymentArray.get(i).getCost();
-            }
-        }
-        return total;
-    }
-    
-    public int getStudentTotal(String name) {
-        lessonDataArray la = new lessonDataArray();
-        studentsArray sa = new studentsArray();
-        int total = 0;
-        
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));
-            String studentName = sa.studentNameFromID(studentID);
-            if (studentName.toLowerCase().equals(name.toLowerCase())) {
-                total += this.paymentArray.get(i).getCost();
+            if (ref.get(Calendar.MONTH) == today.get(Calendar.MONTH) && !this.paymentArray.get(i).isPaid()) {//checks if the months are the same and the payment is not paid
+                total += this.paymentArray.get(i).getCost();//adds the iterated payment to the total
             }
         }
-        return total;
-    }
+        return total;//returns the total
+    }//cloes the totalOutstandingForCurrentMonth method
     
-    public int getStudentTotalForMonth(String name) {
-        lessonDataArray la = new lessonDataArray();
-        studentsArray sa = new studentsArray();
-        int total = 0;
+    public int getStudentTotal(String name) {//creates a method to get the sudent total
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        int total = 0;//creates an int for the total
         
-        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
-        Calendar today = Calendar.getInstance();
-        Calendar ref = Calendar.getInstance();
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));//creates an int to the iterated student id
+            String studentName = sa.studentNameFromID(studentID);//creates a string for the iterated student name
+            if (studentName.toLowerCase().equals(name.toLowerCase())) {//checks if the iterated name is the same as the one passed in
+                total += this.paymentArray.get(i).getCost();//adds the iterated payment to the total
+            }
+        }
+        return total;//returns the total
+    }//closes the getStudentTotal method
+    
+    public int getStudentTotalForMonth(String name) {//creates a method to get the student total for the month
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        int total = 0;//creates an int for the total
+        
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");//creates a simple date formatter
+        Calendar today = Calendar.getInstance();//creates a vcalendar instance for today
+        Calendar ref = Calendar.getInstance();//creates a vcalendar instance for the ietrated payment object
         try {
-            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));
+            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));//sets the time to today
         } catch (ParseException ex) {
-            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
         }
         
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));
-            String studentName = sa.studentNameFromID(studentID);
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));//creates an int to the iterated student id
+            String studentName = sa.studentNameFromID(studentID);//creates a string for the iterated student name
             try {
-                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));
+                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));//sets the date of the ref object to the iterated date
             } catch (ParseException ex) {
-                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
             }
-            if (studentName.toLowerCase().equals(name.toLowerCase()) && ref.get(Calendar.MONTH) == today.get(Calendar.MONTH)) {
-                total += this.paymentArray.get(i).getCost();
-            }
-        }
-        return total;
-    }
-    
-    public int getStudentPaid(String name) {
-        lessonDataArray la = new lessonDataArray();
-        studentsArray sa = new studentsArray();
-        int total = 0;
-        
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));
-            String studentName = sa.studentNameFromID(studentID);
-            if (studentName.toLowerCase().equals(name.toLowerCase()) && this.paymentArray.get(i).isPaid()) {
-                total += this.paymentArray.get(i).getCost();
+            if (studentName.toLowerCase().equals(name.toLowerCase()) && ref.get(Calendar.MONTH) == today.get(Calendar.MONTH)) {//checks if the name and months match
+                total += this.paymentArray.get(i).getCost();//adds the iterated payment to the total
             }
         }
-        return total;
-    }
+        return total;//returns the total
+    }//closes the getStudentTotalForMonth method
     
-    public int getStudentPaidForMonth(String name) {
-        lessonDataArray la = new lessonDataArray();
-        studentsArray sa = new studentsArray();
-        int total = 0;
+    public int getStudentPaid(String name) {//creates a method to get the amount a student has paid
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        int total = 0;//creates an int for the total
         
-        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
-        Calendar today = Calendar.getInstance();
-        Calendar ref = Calendar.getInstance();
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));//creates an int to the iterated student id
+            String studentName = sa.studentNameFromID(studentID);//creates a string for the iterated student name
+            if (studentName.toLowerCase().equals(name.toLowerCase()) && this.paymentArray.get(i).isPaid()) {//checks if the payment is paud and the names match
+                total += this.paymentArray.get(i).getCost();//adds the iterated payment to the total
+            }
+        }
+        return total;//returns the total
+    }//closes the getStudentPaid method
+    
+    public int getStudentPaidForMonth(String name) {//creates a method to get the payments aid for the month of a student
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        int total = 0;//creates an int for the total
+        
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");//creates a simple date formatter
+        Calendar today = Calendar.getInstance();//creates a vcalendar instance for today
+        Calendar ref = Calendar.getInstance();//creates a vcalendar instance for the ietrated payment object
         try {
-            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));
+            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));//sets the time to today
         } catch (ParseException ex) {
-            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
         }
         
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));
-            String studentName = sa.studentNameFromID(studentID);
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));//creates an int to the iterated student id
+            String studentName = sa.studentNameFromID(studentID);//creates a string for the iterated student name
             
              try {
-                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));
+                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));//sets the date of the ref object to the iterated date
             } catch (ParseException ex) {
-                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
             }
             
-            if (studentName.toLowerCase().equals(name.toLowerCase()) && this.paymentArray.get(i).isPaid() && ref.get(Calendar.MONTH) == today.get(Calendar.MONTH)) {
-                total += this.paymentArray.get(i).getCost();
+            if (studentName.toLowerCase().equals(name.toLowerCase()) && this.paymentArray.get(i).isPaid() && ref.get(Calendar.MONTH) == today.get(Calendar.MONTH)) {//checks if the months match and the iterated oayment is paid
+                total += this.paymentArray.get(i).getCost();//adds the iterated payment to the total
             }
         }
-        return total;
-    }
+        return total;//returns the total
+    }//returns the getStudentPaidForMonth method
         
-    public int getStudentOwed(String name) {
-        lessonDataArray la = new lessonDataArray();
-        studentsArray sa = new studentsArray();
-        int total = 0;
+    public int getStudentOwed(String name) {//gets the amount a student owes
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        int total = 0;//creates an int for the total
         
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));
-            String studentName = sa.studentNameFromID(studentID);
-            if (studentName.toLowerCase().equals(name.toLowerCase()) && !this.paymentArray.get(i).isPaid()) {
-                total += this.paymentArray.get(i).getCost();
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));//creates an int to the iterated student id
+            String studentName = sa.studentNameFromID(studentID);//creates a string for the iterated student name
+            if (studentName.toLowerCase().equals(name.toLowerCase()) && !this.paymentArray.get(i).isPaid()) {//checks if the names match and the payment is unpaid
+                total += this.paymentArray.get(i).getCost();//adds the iterated payment to the total
             }
         }
-        return total;
-    }
+        return total;//returns the total
+    }//closes the getStudentOwed method
     
     public int getStudentOwedForMonth(String name) {
-        lessonDataArray la = new lessonDataArray();
-        studentsArray sa = new studentsArray();
-        int total = 0;
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        int total = 0;//creates an int for the total
         
-        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");
-        Calendar today = Calendar.getInstance();
-        Calendar ref = Calendar.getInstance();
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM");//creates a simple date formatter
+        Calendar today = Calendar.getInstance();//creates a vcalendar instance for today
+        Calendar ref = Calendar.getInstance();//creates a vcalendar instance for the ietrated payment object
         try {
-            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));
+            today.setTime(sdf.parse(la.formatDate(""+Calendar.getInstance().getTime())));//sets the time to today
         } catch (ParseException ex) {
-            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
         }
         
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));
-            String studentName = sa.studentNameFromID(studentID);
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            int studentID = la.getStudentIDFromIndex(la.getIndexFromID(this.paymentArray.get(i).getLessonID()));//creates an int to the iterated student id
+            String studentName = sa.studentNameFromID(studentID);//creates a string for the iterated student name
             
             try {
-                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));
+                ref.setTime(sdf.parse(this.paymentArray.get(i).getPayDate()));//sets the date of the ref object to the iterated date
             } catch (ParseException ex) {
-                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
             }
             
-            if (studentName.toLowerCase().equals(name.toLowerCase()) && !this.paymentArray.get(i).isPaid() && ref.get(Calendar.MONTH) == today.get(Calendar.MONTH)) {
-                total += this.paymentArray.get(i).getCost();
+            if (studentName.toLowerCase().equals(name.toLowerCase()) && !this.paymentArray.get(i).isPaid() && ref.get(Calendar.MONTH) == today.get(Calendar.MONTH)) {//checks if the months match and the iterated oayment is unpaid
+                total += this.paymentArray.get(i).getCost();//adds the iterated payment to the total
             }
         }
-        return total;
-    }
+        return total;//returns the total
+    }//closes the getStudentOwedForMonth method
     
-    public String getPaymentsLessonDateFromLessonID(int id) {
-        String date = "";
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            if (this.paymentArray.get(i).getLessonID() == id) {
-                date = this.paymentArray.get(i).getPayDate();
+    public String getPaymentsLessonDateFromLessonID(int id) {//creates a method to get the date form the id
+        String date = "";//creates a string for the date
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            if (this.paymentArray.get(i).getLessonID() == id) {//chec is the iterated and reference ids match
+                date = this.paymentArray.get(i).getPayDate();//sets the date to the iterated date
             }
         }
-        return date;
-    }
+        return date;//returns the date
+    }//closes the getPaymentsLessonDateFromLessonID method
     
-    public String getPaymentsLessonTimeFromLessonID(int id) {
-        String time = "";
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            if (this.paymentArray.get(i).getLessonID() == id) {
-                time = this.paymentArray.get(i).getPayTime();
+    public String getPaymentsLessonTimeFromLessonID(int id) {//creates a method to get the time form the id
+        String time = "";//creates a string for the time
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            if (this.paymentArray.get(i).getLessonID() == id) {//chec is the iterated and reference ids match
+                time = this.paymentArray.get(i).getPayTime();//sets the time to the iterated time
             }
         }
-        return time;
-    }
+        return time;//returns the time
+    }//closes the getPaymentsLessonTimeFromLessonID method
     
     public boolean getPaidFromID(int id) {
-        boolean paid = false;
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            if (this.paymentArray.get(i).getLessonID() == id) {
-                paid = this.paymentArray.get(i).isPaid();
+        boolean paid = false;//creates a boolean indicating if the is paid or not
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            if (this.paymentArray.get(i).getLessonID() == id) {//chec is the iterated and reference ids match
+                paid = this.paymentArray.get(i).isPaid();//sets the paid boolean to the iterated paid boolean
             }
         }
-        return paid;
-    }
+        return paid;//returns the paid boolean
+    }//closes the getPaidFromID method
         
-    public void deletePastAndunpaidPayments() {
-        lessonDataArray la = new lessonDataArray();
-        ConnectDB db = new ConnectDB();
-        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
-        Calendar today = Calendar.getInstance();
-        Calendar ref = Calendar.getInstance();
-        today.setTime(new Date());
+    public void deletePastAndunpaidPayments() {//creates a method to delete past payments and upaid payments
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        ConnectDB db = new ConnectDB();//creates an object for the Connect DB class
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");//creates a simple date formatter
+        Calendar today = Calendar.getInstance();//creates a calendar object for today
+        Calendar ref = Calendar.getInstance();//creates a calendar object for the iterated date
+        today.setTime(new Date());//sets the time of the today object to the currebt date
         
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            int id = this.paymentArray.get(i).getLessonID();
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            int id = this.paymentArray.get(i).getLessonID();//creates an integer for the iterated id
             try {
-                ref.setTime(sdf.parse(this.getPaymentsLessonDateFromLessonID(id) + " " + this.getPaymentsLessonTimeFromLessonID(id)));
+                ref.setTime(sdf.parse(this.getPaymentsLessonDateFromLessonID(id) + " " + this.getPaymentsLessonTimeFromLessonID(id)));//sets the ref calendar object to the iterated date
             } catch (ParseException ex) {
-                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
             }
-            System.out.println("ref: " + sdf.format(ref.getTime()) + "   today: " + sdf.format(today.getTime()) + "  id: " + id + "paid: " + this.getIfPaidFromLessonID(id));
-            if (ref.before(today) && !this.getIfPaidFromLessonID(id)) {
-                System.out.println("entered");
-                String delete = "DELETE * FROM sPayTable WHERE lessonID = " + id;
+            if (ref.before(today) && !this.getIfPaidFromLessonID(id)) {//checks if the lesosn is in the past and that is is unpaid
+                String delete = "DELETE * FROM sPayTable WHERE lessonID = " + id;//creates a string for the SQL query used to delete the payments
                 try {
-                    db.UpdateDatabase(delete);
+                    db.UpdateDatabase(delete);//deletes the payment
                 } catch (SQLException ex) {
-                    Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error deleting the payment
                 }
             }
         }
     }
     
-    public void deletePast() {
-        lessonDataArray la = new lessonDataArray();
-        ConnectDB db = new ConnectDB();
-        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");
-        Calendar today = Calendar.getInstance();
-        Calendar ref = Calendar.getInstance();
-        today.setTime(new Date());
+    public void deletePast() {//creates a method to delete past payments
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        ConnectDB db = new ConnectDB();//creates an object for the Connect DB class
+        DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");//creates a simple date formatter
+        Calendar today = Calendar.getInstance();//creates a calendar object for today
+        Calendar ref = Calendar.getInstance();//creates a calendar object for the iterated date
+        today.setTime(new Date());//sets the time of the today object to the currebt date
         
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            int id = this.paymentArray.get(i).getLessonID();
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            int id = this.paymentArray.get(i).getLessonID();//creates an integer for the iterated id
             try {
-                ref.setTime(sdf.parse(this.getPaymentsLessonDateFromLessonID(id) + " " + this.getPaymentsLessonTimeFromLessonID(id)));
+                ref.setTime(sdf.parse(this.getPaymentsLessonDateFromLessonID(id) + " " + this.getPaymentsLessonTimeFromLessonID(id)));//sets the ref calendar object to the iterated date
             } catch (ParseException ex) {
-                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error setting the date
             }
-            System.out.println("ref: " + sdf.format(ref.getTime()) + "   today: " + sdf.format(today.getTime()) + "  id: " + id);
-            if (ref.before(today)) {
-                System.out.println("enytered");
-                String delete = "DELETE * FROM sPayTable WHERE lessonID = " + id;
+            if (ref.before(today)) {//checks if the lesosn is in the past
+                String delete = "DELETE * FROM sPayTable WHERE lessonID = " + id;//creates a string for the SQL query used to delete the payments
                 try {
-                    db.UpdateDatabase(delete);
+                    db.UpdateDatabase(delete);//deletes the payment
                 } catch (SQLException ex) {
-                    Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(paymentsArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error deleteing the payment
                 }
             }
         }
     }
     
-    public void deletePaymentsFromDateAndTime(String date, String time) {
-        ConnectDB db = new ConnectDB();
-        for (int i = 0; i < this.paymentArray.size(); i++) {
-            if (this.paymentArray.get(i).getPayDate().equals(date) && this.paymentArray.get(i).getPayTime().equals(time)) {
-                String deletePayments = "DELETE * FROM sPayTable WHERE lessonID = " + this.paymentArray.get(i).getLessonID();
+    public void deletePaymentsFromDateAndTime(String date, String time) {//creates a method to delete payments from date and time
+        ConnectDB db = new ConnectDB();//creates an object for the Connect DB class
+        for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
+            if (this.paymentArray.get(i).getPayDate().equals(date) && this.paymentArray.get(i).getPayTime().equals(time)) {//checks if the date and time of the iterated match those passed in
+                String deletePayments = "DELETE * FROM sPayTable WHERE lessonID = " + this.paymentArray.get(i).getLessonID();//creates a string for the SQL query used to delete the payments
                 try {
-                    db.UpdateDatabase(deletePayments);
+                    db.UpdateDatabase(deletePayments);//deletes the payments
                 } catch (SQLException ex) {
-                    Logger.getLogger(keysArray.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(keysArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error deleteing the payment
                 }
             }
         }
-    }
+    }//closes the deletePaymentsFromDateAndTime method
 
-}
+}//closes the paymentsArray class

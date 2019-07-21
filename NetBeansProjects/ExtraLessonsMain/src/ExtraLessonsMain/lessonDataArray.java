@@ -1327,5 +1327,3 @@ public class lessonDataArray {//creates a class to handle and process the lesson
     }//closes the lessonComponentsExist method
     
 }//closes the lessonDataArray class
-
-

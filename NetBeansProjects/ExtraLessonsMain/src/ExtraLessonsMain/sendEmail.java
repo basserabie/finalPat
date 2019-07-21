@@ -38,116 +38,106 @@ import javax.swing.JOptionPane;
  *
  * @author YishaiBasserabie
  */
-public class sendEmail {
-    public static boolean sent = false;
-    
-    
-    
-    public void send(String to, String subject, String text) {
+public class sendEmail {//creates a class for handling the emails
+    public static boolean sent = false;//creates a boolean indicating whether the email was sent
+
+    public void send(String to, String subject, String text) {//
                 try {
-                 String host = "smtp.gmail.com";
-            String user = "yourextralessons@gmail.com";
-            String pass = "Macbookpro1";
-            String from = user;
-            boolean sessionDebug = false;
+            String host = "smtp.gmail.com";//creates a string for the host
+            String user = "yourextralessons@gmail.com";//creates a string for the email address
+            String pass = "Macbookpro1";//creates a string for the password
+            String from = user;//creates a string for the from email address
+            boolean sessionDebug = false;//creates a boolean for the session debug boolean indicating that the session is not being debugged
             
             Properties prop = System.getProperties(); //to set different types of properties
             
-            prop.put("mail.smtp.starttls.enable", "true");
-            prop.put("mail.smtp.host", host);
-            prop.put("mail.smtp.port", "587");
-            prop.put("mail.smtp.auth", "true");
-            prop.put("mail.smtp.starttls.required", "true");
+            prop.put("mail.smtp.starttls.enable", "true");//enable the ttls protocol
+            prop.put("mail.smtp.host", host);//adds the host to the property
+            prop.put("mail.smtp.port", "587");//adds the port to the property
+            prop.put("mail.smtp.auth", "true");//adds the authorisation enabled setting to the property
+            prop.put("mail.smtp.starttls.required", "true");//adds the ttls required setting to the property
             
-            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());//adds a security provider
             
-            // This mail has 2 part, the BODY and the embedded image
-         MimeMultipart multipart = new MimeMultipart("related");
-
+         // This mail has 2 part, the BODY and the embedded image
+         MimeMultipart multipart = new MimeMultipart("related");//creates the mimeMultiPart Object
          // first part (the html)
-         BodyPart messageBodyPart = new MimeBodyPart();
-         String htmlText = text + "<img src=\"cid:image\">";
-         messageBodyPart.setContent(htmlText, "text/html");
+         BodyPart messageBodyPart = new MimeBodyPart();//creates the body part of the mimeMultiPart
+         String htmlText = text + "<img src=\"cid:image\">";//formatts the text to html text to add image
+         messageBodyPart.setContent(htmlText, "text/html");//sets the type of the multipart body to html
          // add it
-         multipart.addBodyPart(messageBodyPart);
+         multipart.addBodyPart(messageBodyPart);//adds the message part to the multipart
 
          // second part (the image)
-         messageBodyPart = new MimeBodyPart();
-         DataSource fds = new FileDataSource(
+         messageBodyPart = new MimeBodyPart();//creates a new mimebodyPart for the message part
+         DataSource fds = new FileDataSource(//finds the image (signiture) file
             "signiture.png");
 
-         messageBodyPart.setDataHandler(new DataHandler(fds));
-         messageBodyPart.setHeader("Content-ID", "<image>");
+         messageBodyPart.setDataHandler(new DataHandler(fds));//sets the data handler to the image datasource
+         messageBodyPart.setHeader("Content-ID", "<image>");//sets the header of the part to image header
 
          // add image to the multipart
-         multipart.addBodyPart(messageBodyPart);
+         multipart.addBodyPart(messageBodyPart);//adds the message body part to the multipart
             
-            Session mailSession = Session.getDefaultInstance(prop, null);
-            mailSession.setDebug(sessionDebug);
-            Message msg = new MimeMessage(mailSession);
-            msg.setFrom(new InternetAddress(from));
-            InternetAddress address = new InternetAddress(to);
-            msg.setRecipient(Message.RecipientType.TO, address);
-            msg.setSubject(subject);
-            msg.setSentDate(new Date());
-            msg.setContent(multipart);
+            Session mailSession = Session.getDefaultInstance(prop, null);//instantiates a mail session according to the properties specified above
+            mailSession.setDebug(sessionDebug);//sets the debug setting to false
+            Message msg = new MimeMessage(mailSession);//creates a new message according to the multipart
+            msg.setFrom(new InternetAddress(from));//adds a sent from field to the message
+            InternetAddress address = new InternetAddress(to);//creates an internet address object for the reciever email address
+            msg.setRecipient(Message.RecipientType.TO, address);//sets the reciever of the message to the address internet address
+            msg.setSubject(subject);//sets the subject of the message
+            msg.setSentDate(new Date());//sets the date of the message
+            msg.setContent(multipart);//sets the content of the message to the multipart
             
-            Transport transport = mailSession.getTransport("smtp");
-            transport.connect(host, user, pass);
-            transport.sendMessage(msg, msg.getAllRecipients());
-            transport.close();
-//            JOptionPane.showMessageDialog(null, "Email successfully sent!");
-            System.out.println("email sent!");
+            Transport transport = mailSession.getTransport("smtp");//creates a transport object for the mail session
+            transport.connect(host, user, pass);//connects the mailsession cia the transport object
+            transport.sendMessage(msg, msg.getAllRecipients());//sends the message
+            transport.close();//closes the transport object
+            JOptionPane.showMessageDialog(null, "Successfull");//alerts the user that the email was sent successfully
            
         } catch (Exception e) {
-            System.out.println("email not send ERROR!!!");
-            JOptionPane.showMessageDialog(null, "Email not sent: please insure you are connect to the internet");
+            System.out.println("email not send ERROR!!!");//alerts the class user of the error in sending the email
+            JOptionPane.showMessageDialog(null, "Email not sent: please insure you are connect to the internet");//alerts the user that there was an error sending the email
         }
-            
-//        });  
-//        t1.start();
-//              frame.dispose();
-    }
+    }//closes the send method
     
-    public void configure() {
+    public void configure() {//creates a method to condigure the networking aspects of the program and to check if there is internet connection
         try {
-            String host = "smtp.gmail.com";
-            String user = "extralessoninternet@gmail.com";
-            String pass = "Macbookpro1";
-            String from = user;
-            boolean sessionDebug = false;
+            String host = "smtp.gmail.com";//creates a string for the host
+            String user = "extralessoninternet@gmail.com";//creates a string for the email address
+            String pass = "Macbookpro1";//creates a string for the password
+            String from = user;//creates a string for the from email address
+            boolean sessionDebug = false;//creates a boolean for the session debug boolean indicating that the session is not being debugged
             
             Properties prop = System.getProperties(); //to set different types of properties
             
-            prop.put("mail.smtp.starttls.enable", "true");
-            prop.put("mail.smtp.host", host);
-            prop.put("mail.smtp.port", "587");
-            prop.put("mail.smtp.auth", "true");
-            prop.put("mail.smtp.starttls.required", "true");
+            prop.put("mail.smtp.starttls.enable", "true");//enable the ttls protocol
+            prop.put("mail.smtp.host", host);//adds the host to the property
+            prop.put("mail.smtp.port", "587");//adds the port to the property
+            prop.put("mail.smtp.auth", "true");//adds the authorisation enabled setting to the property
+            prop.put("mail.smtp.starttls.required", "true");//adds the ttls required setting to the property
             
-            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());//adds a security provider
             
-            Session mailSession = Session.getDefaultInstance(prop, null);
-            mailSession.setDebug(sessionDebug);
-            Message msg = new MimeMessage(mailSession);
-            msg.setFrom(new InternetAddress(from));
-            InternetAddress address = new InternetAddress("extralessoninternet@gmail.com");
-            msg.setRecipient(Message.RecipientType.TO, address);
-            msg.setSubject("internet establishment");
-            msg.setSentDate(new Date());
-            msg.setText("established");
+            Session mailSession = Session.getDefaultInstance(prop, null);//instantiates a mail session according to the properties specified above
+            mailSession.setDebug(sessionDebug);//sets the debug setting to false
+            Message msg = new MimeMessage(mailSession);//creates a new message according to the multipart
+            msg.setFrom(new InternetAddress(from));//adds a sent from field to the message
+            InternetAddress address = new InternetAddress("extralessoninternet@gmail.com");//creates an internet address object for the reciever email address
+            msg.setRecipient(Message.RecipientType.TO, address);//sets the reciever of the message to the address internet address
+            msg.setSubject("internet establishment");//sets the subject of the message
+            msg.setSentDate(new Date());//sets the date of the message
+            msg.setText("established");//sets the content of the message to the multipart
             
-            Transport transport = mailSession.getTransport("smtp");
-            transport.connect(host, user, pass);
-            transport.sendMessage(msg, msg.getAllRecipients());
-            transport.close();
-            System.out.println("configuration complete");
+            Transport transport = mailSession.getTransport("smtp");//creates a transport object for the mail session
+            transport.connect(host, user, pass);//connects the mailsession cia the transport object
+            transport.sendMessage(msg, msg.getAllRecipients());//sends the message
+            transport.close();//closes the transport object
+            System.out.println("configuration complete");//alerts the class user that the configuration is complete
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Please Connect to the internet first");
-            System.exit(0);
+            JOptionPane.showMessageDialog(null, "Please Connect to the internet first");//alerts the user to first connect to the internet
+            System.exit(0);//closes the program
         }
-    }
+    }//closes the configure method
     
-    
-    
-}
+}//closes the sendEmail class

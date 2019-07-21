@@ -18,26 +18,26 @@ import static ExtraLessonsMain.mothers.MOTHER_SELECTED;
  *
  * @author YishaiBasserabie
  */
-public class student extends javax.swing.JFrame {
+public class student extends javax.swing.JFrame {//creates a class to handle the student JFrame
 
-    public static String STUDENT_NAME;
+    public static String STUDENT_NAME;//creates a string for the selected student name
     
     /**
      * Creates new form student
      */
-    public student() {
+    public student() {//creates the cosntructor
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        populateComboBoxes pop = new populateComboBoxes();
-        this.studentTable.setModel(pop.Students());
-        this.studentTable.setAutoCreateRowSorter(true);
-        DefaultComboBoxModel filterTypeModel = new DefaultComboBoxModel(pop.populateStudentFilterTypeComboBox());
-        this.filterTypeComboBox.setModel(filterTypeModel);
-    }
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//sets the close operation to dispose
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        this.studentTable.setModel(pop.Students());//sets the stdeuntTable model to the student model
+        this.studentTable.setAutoCreateRowSorter(true);//enable the row sorter for the table
+        DefaultComboBoxModel filterTypeModel = new DefaultComboBoxModel(pop.populateStudentFilterTypeComboBox());//creates a combo box model for the filter types
+        this.filterTypeComboBox.setModel(filterTypeModel);//sets the filtercombobox to the filterTypeModel
+    }//closes the constructor
     
-    public void setTableModel(DefaultTableModel model) {
-        this.studentTable.setModel(model);
-    }
+    public void setTableModel(DefaultTableModel model) {//creates a method to reset the table to the model passed in
+        this.studentTable.setModel(model);//sets the model to the one passed in
+    }//closes the setTableModel method
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -269,73 +269,72 @@ public class student extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backToDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToDashboardActionPerformed
-        lessonDataArray la = new lessonDataArray();
-        la.sortArray();
-        this.setVisible(false);
+        lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
+        la.sortArray();//sorts the lessonDataArray array list
+        this.setVisible(false);//discontinues the current JFrame
     }//GEN-LAST:event_backToDashboardActionPerformed
 
     private void displayAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayAllButtonActionPerformed
-        populateComboBoxes pop = new populateComboBoxes();
-        this.studentTable.setModel(pop.Students());
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        this.studentTable.setModel(pop.Students());//resets the studentsTable table model
     }//GEN-LAST:event_displayAllButtonActionPerformed
 
     private void editStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editStudentButtonActionPerformed
-        editStudentForm esf = new editStudentForm();
-        if (!this.studentTable.getSelectionModel().isSelectionEmpty()) {
-            esf.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a student (row) first :)");
+        editStudentForm esf = new editStudentForm();//creates an object for the editStudentForm class
+        if (!this.studentTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a row selected by the user
+            esf.setVisible(true);//sets the editStudentForm JFrame visible
+        } else {//if there is no row selected
+            JOptionPane.showMessageDialog(null, "Please select a student first");//instructs the user to select a row
         }
     }//GEN-LAST:event_editStudentButtonActionPerformed
 
     private void deleteSelectedLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSelectedLessonButtonActionPerformed
-        if (!this.studentTable.getSelectionModel().isSelectionEmpty()) {
+        if (!this.studentTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a row selected
             try {
-                studentsArray sa = new studentsArray();
-                int row = this.studentTable.getSelectedRow();
-                int column = 1;
-                String name = this.studentTable.getModel().getValueAt(row, 0).toString();
-                sa.deleteStudent(name);
+                studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+                int row = this.studentTable.getSelectedRow();//creates an int for the row selected
+                String name = this.studentTable.getModel().getValueAt(row, 0).toString();//creates a string for the name selected
+                sa.deleteStudent(name);//deletes the selected student
             } catch (SQLException ex) {
-                Logger.getLogger(student.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(student.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user of the error deleting the student
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a student (row) first :)");
+        } else {//if there is no row selected
+            JOptionPane.showMessageDialog(null, "Please select a student first");//instructs the user to select a row
         }
     }//GEN-LAST:event_deleteSelectedLessonButtonActionPerformed
 
     private void infoOnSelectedLessonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoOnSelectedLessonButtonActionPerformed
-        if (!this.studentTable.getSelectionModel().isSelectionEmpty()) {
-            MoreInfoStudentForm misf = new MoreInfoStudentForm();
-            misf.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a student (row) first :)");
+        if (!this.studentTable.getSelectionModel().isSelectionEmpty()) {//checks if there is a row selected
+            MoreInfoStudentForm misf = new MoreInfoStudentForm();//creates an object for the MoreInfoStudentForm class
+            misf.setVisible(true);//sets the MoreInfoStudentForm JFrame visible
+        } else {//if there is no row selected
+            JOptionPane.showMessageDialog(null, "Please select a student first");//instructs the user to select a row
         }
     }//GEN-LAST:event_infoOnSelectedLessonButtonActionPerformed
 
     private void studentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentTableMouseClicked
-        STUDENT_NAME = this.studentTable.getModel().getValueAt(this.studentTable.getSelectedRow(), 0).toString();
-        notesForm.name = STUDENT_NAME;
+        STUDENT_NAME = this.studentTable.getModel().getValueAt(this.studentTable.getSelectedRow(), 0).toString();//sets the student name string to the selected student name
+        notesForm.name = STUDENT_NAME;//sets the name of the notesform to the selected student for their notes
     }//GEN-LAST:event_studentTableMouseClicked
 
     private void searchTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyTyped
-        populateComboBoxes pop = new populateComboBoxes();
-        switch (this.filterTypeComboBox.getSelectedItem().toString()) {
-            case "Student Name":
-                this.studentTable.setModel(pop.StudentsByName(this.searchTextField.getText()));
-                break;
-            case "Mother Name":
-                this.studentTable.setModel(pop.StudentsByMotherName(this.searchTextField.getText()));
-                break;
-            case "School":
-                this.studentTable.setModel(pop.StudentsBySchool(this.searchTextField.getText()));
-                break;
+        populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        switch (this.filterTypeComboBox.getSelectedItem().toString()) {//pens the switch case statement for the the filter type
+            case "Student Name"://opens the student name case
+                this.studentTable.setModel(pop.StudentsByName(this.searchTextField.getText()));//filters the table accordingly
+                break;//discontinues the current case
+            case "Mother Name"://opens the parent name case
+                this.studentTable.setModel(pop.StudentsByMotherName(this.searchTextField.getText()));//filters the table accordingly
+                break;//discontinues the current case
+            case "School"://opens the school name case
+                this.studentTable.setModel(pop.StudentsBySchool(this.searchTextField.getText()));//filters the table accordingly
+                break;//discontinues the current case
         }
     }//GEN-LAST:event_searchTextFieldKeyTyped
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-         populateComboBoxes pop = new populateComboBoxes();
-        this.studentTable.setModel(pop.Students());
+         populateComboBoxes pop = new populateComboBoxes();//creates an object for the populateComboBoxes class
+        this.studentTable.setModel(pop.Students());//resets the studentTable model
     }//GEN-LAST:event_formWindowGainedFocus
 
     /**

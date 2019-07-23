@@ -49,7 +49,7 @@ public class addLessonForm extends javax.swing.JFrame {//creates a class to hand
         SpinnerListModel hourModel = new SpinnerListModel(pop.populateHourSpinner());//creates a default list model populated with the hours string array
         this.HourSpinner.setModel(hourModel);//sets the model of the hours spinner to the hourModel model
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
-        this.lessonKey = la.generateLessonKey();//sets the lessonKey String to the generated lesson key
+        this.lessonKey = la.generateLessonKey();//sets the lessonKey String to the generated lesson key 
         this.helpCostButton.setToolTipText("Please enter cost in rands, do not include cents");//sets tool tip text for cost help button
     }//closes the class constructor
     /**

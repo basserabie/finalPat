@@ -98,7 +98,7 @@ public class studentsArray {//creates a class to handle the students
             try {
                 if (ma.getMotherIDFromMotherName(mfname + " " + mlname) == 0) {//checks if the parent is not already part of the database
                     int motherID = 1;//creates an int for the mother id
-                    if (ma.getMothersArray().isEmpty()) {//checks if there are already parents in the database
+                    if (!ma.getMothersArray().isEmpty()) {//checks if there are already parents in the database
                         motherID = ma.getMothersArray().get(ma.getMothersArray().size()-1).getMotherID()+1;//sets the new mother id accordingly
                         String pushMother = "INSERT INTO mothers (motherfName, motherLName, motherEmail, motherCell) VALUES('" + mfname + "', '"
                                 + mlname + "', '" + memail + "', '" + mcell + "')";//creates a string for the SQL query used to add the parent

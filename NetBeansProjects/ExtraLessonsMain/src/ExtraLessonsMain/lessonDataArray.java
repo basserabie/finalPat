@@ -437,87 +437,6 @@ public class lessonDataArray {//creates a class to handle and process the lesson
          return finalDay;//returns the formatted day
     }//closes the formatedDay method
     
-    public void addLessonForEdit(String venue, String date, String time, String day, int size, String name, int frequency, int duration, String lessonKeyToAdd, boolean paid, int cost) {//creates a method to re-add the lessons to the database after an edit to students attending or date and time
-        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
-        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
-        keysArray ka = new keysArray();//creates an object for the keysArray class
-        paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
-        venueArray va = new venueArray();//creates an object for the venueArray class
-        //int countDisplayMessages = 0;//creates an int to count the number of displayed messages
-        //int countLessonIDForKeys = 1;//creates an int to 
-        
-        if (!this.checkIfInPast(date, time)) {//checks if the lesson is not set to be in the past
-        int id = sa.studentIDFromName(name);//creates an integer for the student id
-        //create a date fromatter
-        DateFormat sdf = new SimpleDateFormat("yyyy/dd/MM");//creates a dateFormatter
-        Calendar cal = Calendar.getInstance();//instantiates a calendar object
-        try {//opens the trycatch statement
-            cal.setTime(sdf.parse(date));//sets the date of the cal object to the date passed in
-        } catch (ParseException ex) {//opens the cacth
-            Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error setting the date of cal
-        }//closes the catch
-        String insert;//instatntiates a string for the SQL query used to insert the lesson object
-        String insertKey;//instatntiates a string for the SQL query used to insert the key object
-        String insertPaid;//instatntiates a string for the SQL query used to insert the payment object
-        if (frequency == 0) {//checks if the frequency passed in is 0 i.e. once off
-            insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES (" + id + ", " 
-                    + va.venueIDFromVenue(venue) + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", '" + day + "')";//sets the insertlesson string to the formatted query
-            insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";//sets the insertkey string to the formatted query
-            insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) VALUES "
-                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", " + cost + ")";//sets the insertpayments string to the formatted query
-            try {//opens the trycacth statement
-                db.UpdateDatabase(insert);//inserts the lesson
-                db.UpdateDatabase(insertKey);//inserts the key
-                db.UpdateDatabase(insertPaid);//inserts the payment
-            } catch (SQLException ex) {//opens the catch statement
-                Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error adding the lesson
-            }//closes the catch
-        } else {//if the frequency is not 0
-            if (frequency == 1) {//checks if the frequency is 1 i.e. weekly
-                for (int i = 0; i < 52; i++) {//starts a for loop from 0 to 51 (weeks in the year)
-                    insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES (" + id + ", " 
-                    + va.venueIDFromVenue(venue) + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", '" + day + "')";//sets the insertlesson string to the formatted query
-                    insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";//sets the insertkey string to the formatted query
-                    insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) VALUES "
-                    + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", " + cost + ")";//sets the insertpayments string to the formatted query
-                    try {//opens the trycacth statement
-                        db.UpdateDatabase(insert);//inserts the lesson
-                        db.UpdateDatabase(insertKey);//inserts the key
-                        db.UpdateDatabase(insertPaid);//inserts the payment
-                    } catch (SQLException ex) {//opens the catch statement
-                        Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error adding the lesson
-                    }//closes the catch
-                    cal.add(cal.DATE, 7);//adds a week to the date
-                }
-            } else {//if the frequency is not 1
-                if (frequency == 2) {//checks if the frequency is 2 i.e. monthly
-                    for (int i = 0; i < 12; i++) {//starts a for loop from 0 to 11 (months in the year)
-                        insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES (" + id + ", " 
-                        + va.venueIDFromVenue(venue) + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", '" + day + "')";//sets the insertlesson string to the formatted query
-                        insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + lessonKeyToAdd + "')";//sets the insertkey string to the formatted query
-                        insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) VALUES "
-                        + "(" + id + ", " + paid + ", '" + sdf.format(cal.getTime()) + "', '" + time + "', " + duration + ", " + cost + ")";//sets the insertpayments string to the formatted query
-                        try {//opens the trycacth statement
-                            db.UpdateDatabase(insert);//inserts the lesson
-                            db.UpdateDatabase(insertKey);//inserts the key
-                            db.UpdateDatabase(insertPaid);//inserts the payment
-                        } catch (SQLException ex) {//opens the catch statement
-                            Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error adding the lesson
-                        }//closes the catch
-                        cal.add(cal.MONTH, 1);//adds a week to the date
-                    }
-                }
-            }
-        }
-        STUDENTS_ADDED_TO_LESSON++;//ups the students_added_to_lesson static int
-        if (STUDENTS_ADDED_TO_LESSON == size) {//checks if the students_added_to_lesson static int is equal to the number of students set to be attending the lesson
-            JOptionPane.showMessageDialog(null, "the lesson(s) have been added");//alerts the user that the lessons have been added
-        }
-        } else {//if the date set is in the past
-            JOptionPane.showMessageDialog(null, "please do not try to book a lesson in the past");//alerts the user that they must not book a lesson in the past
-        }
-    }//closes the addLessonForEdit method
-    
     public void addLesson(String venue, String date, String time, String day, int size, String name, int frequency, int duration, String lessonKeyToAdd, boolean paid, int cost) {//creates a method to add a lesson to the database
         ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
         lessonDataArray la = new lessonDataArray();
@@ -776,54 +695,96 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return freqInt;//returns the freqInt integer
     }//closes the formatFrequency method
     
-    //TPOOOODOOOOOOO: fix edit lessons with regard to the payment information
-    
     public void editAllLessonStudents(ArrayList<String> list, int id, String date, String time) {//creates a method to edit all lesson within a key group
        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
        keysArray ka = new keysArray();//creates an object for the keysArray class
        CalendarHandler ch = new CalendarHandler();//creates an object for the calendarHandler class
        paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
-       studentsArray sa = new studentsArray();//creates an object for the studentsArray class
        venueArray va = new venueArray();//creates an object for the venueArray class
+       studentsArray sa = new studentsArray();
        
-       String [] studentsOriginal = ch.studentsFromLessonDateAndTime(date, time);
+       String [] studentsOriginal = ch.studentsFromLessonDateAndTime(date, time);//creates a string array for the students who were attending the lesson
+       ArrayList<String> origList = this.ArrayListFromNamesArray(studentsOriginal);//creates an array list representation of the above array
+       
+       ArrayList<String> listRetains = new ArrayList<>();//creates an object for the students retained in a lesson
+       for (int i = 0; i < list.size(); i++) {//iterates through the students in the passed in list
+           listRetains.add(list.get(i));//adds the iterated student to the listRetains array list
+       }
      
-       String deleteKey = ka.getKeyFromLessonID(id);//creates a string to hold the key of the lesson passed in
-       String newKey = this.generateLessonKey();//creates a string of a newly generated key
-       int frequency = this.formatFrequency(this.getFrequencyFromKey(deleteKey));//creates an integer for the frequency of the lesson
+       String Key = ka.getKeyFromLessonID(id);//creates a string to hold the key of the lesson passed in
+       int frequency = this.formatFrequency(this.getFrequencyFromKey(Key));//creates an integer for the frequency of the lesson
        int cost = pa.getCostFromLessonID(id);//creates an int for the cost
        boolean paid = pa.getIfPaidFromLessonID(id);//creates a boolean indicating whether the students have paid
        int venueID = va.getVenueIDFromLessonID(id);//creates an integer for the venue id of the lesson
        String venue = va.venueNameFromID(venueID);//creates a string for the venue name
        String day = this.getLessonDayFromLessonID(id);//creates a string for the day
        int duration = this.getDurationFromTimeAndDate(time, date);//creates an integer regarding the duration of the lesson
-       //pushes lesson
+
         for (int i = 0; i < list.size(); i++) {//iterates through the students list passed in
-            this.addLessonForEdit(venue, date, time, day, list.size(), list.get(i),frequency,duration,newKey,paid, cost);//adds the lesson
-        }
-       editLessonForm.ADDED_ARRAY.removeAll(editLessonForm.ADDED_ARRAY);//removes the items (student names) from the list displayed to the user as the JFrame dicontinues
-       
-       pa.deletePaymentsFromDateAndTime(date, time);//deletes the outdated payment information
-       this.deletStudentsInAllLesson(date, time, deleteKey);//deletes the outdated lesson information
-       ka.deleteKeyFromDateAndTime(date, time);//deletes the outdated key information
-       this.fixEditedPayments(list, this.ArrayListFromNamesArray(studentsOriginal), id, date, time);
-   }//closes the editAllLessonStudents method
-    
-    public void fixEditedPayments(ArrayList<String> newList, ArrayList<String> list, int id, String date, String time) {
-        ConnectDB db = new ConnectDB();
-        for (int i = 0; i < list.size(); i++) {
-               System.out.println(list.get(i));
-           }
-        fixedPaymentsArray fa = new fixedPaymentsArray(newList, list, id, date, time);
-        
-        for (int i = 0; i < fa.getCount(); i++) {
-            String fixPayments = "UPDATE sPayTable SET paid = " + fa.getArr()[i].getPaid() + "WHERE StudID = " + fa.getArr()[i].getStudentID();
-            try {
-                db.UpdateDatabase(fixPayments);
-            } catch (SQLException ex) {
-                Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);
+            if (!origList.contains(list.get(i))) {//checks if the the itetrated student does not already part of the lesson
+                for (int k = 0; k < this.lessonDataArray.size(); k++) {//iterates through the lessons
+                    String itDate = this.lessonDataArray.get(k).getLessonDate();//creates a string for the iterated lesson date
+                    String itTime = this.lessonDataArray.get(k).getLessonTime();//creates a string for the iterated lesson time
+                    ArrayList<String> attendingIteratedStudents = new ArrayList<>();//creates an array list for the students attending the iterated lesson
+                    for (int s = 0; s < ch.studentsFromLessonDateAndTime(itDate, itTime).length; s++) {//iterates through the students attending
+                        attendingIteratedStudents.add(ch.studentsFromLessonDateAndTime(itDate, itTime)[s]);//adds the iterated student to the attendingIteratedStudents array list
+                    }
+                    if (!attendingIteratedStudents.contains(list.get(i))) {//checks if the student is not already attending
+                        if (this.getLessonKey(this.lessonDataArray.get(k).getLessonID()).equals(Key)) {//checks if the iterated key is the same as the lesson being edited
+                            int studentID = sa.studentIDFromName(list.get(i));//creates an integer for the iterated student id
+                            String insert = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) VALUES (" + studentID + ", " 
+                                    + this.lessonDataArray.get(k).getVenueID() + ", '" + itDate + "', '" + itTime + "', " + this.lessonDataArray.get(k).getLessonDuration() + ", '" + this.lessonDataArray.get(k).getDay() + "')";//sets the insertlesson string to the formatted query
+                            String insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + Key + "')";//sets the insertkey string to the formatted query
+                            String insertPaid = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) VALUES "
+                                    + "(" + studentID + ", " + false + ", '" + itDate + "', '" + itTime + "', " + this.lessonDataArray.get(k).getLessonDuration() + ", " + pa.getCostFromLessonID(this.lessonDataArray.get(k).getLessonID()) + ")";//sets the insertpayments string to the formatted query
+                            try {//opens the trycacth statement
+                                db.UpdateDatabase(insert);//inserts the lesson
+                                db.UpdateDatabase(insertKey);//inserts the key
+                                db.UpdateDatabase(insertPaid);//inserts the payment
+                            } catch (SQLException ex) {//opens the catch statement
+                                Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an error adding the lesson
+                            }//closes the catch
+                        }
+                    }
+                    
+                }
+                //this.addLessonForEdit(venue, date, time, day, list.size(), list.get(i),frequency,duration,Key, false, cost);//adds the lesson for the iterated student
             }
         }
+       editLessonForm.ADDED_ARRAY.removeAll(editLessonForm.ADDED_ARRAY);//removes the items (student names) from the list displayed to the user as the JFrame dicontinues
+       if (origList.size() >= listRetains.size()) {//checks if the original list is bigger than the retains list
+           for (int i = 0; i < origList.size(); i++) {//iterates through the original list
+               if (!listRetains.contains(origList.get(i))) {//checks if the retains list does not contain the iterated student
+                   this.deleteStudentFromLesson(origList.get(i), Key);//deletes the iterated student from the lesson group
+               }
+           }
+       }
+   }//closes the editAllLessonStudents method
+    
+    public void deleteStudentFromLesson(String name, String key) {//creates a method to delete a student from a lesson group
+        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
+       keysArray ka = new keysArray();//creates an object for the keysArray class
+       CalendarHandler ch = new CalendarHandler();//creates an object for the calendarHandler class
+       paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
+       studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+       venueArray va = new venueArray();//creates an object for the venueArray class
+       
+       for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
+           int lessonID = this.lessonDataArray.get(i).getLessonID();//creates an integer for the lesson id according to the iterated student id
+           int studentID = this.lessonDataArray.get(i).getStudentID();//creates an integer for the iterated student id
+           if (ka.getKeyFromLessonID(lessonID).equals(key) && sa.studentNameFromID(studentID).equals(name)) {//checks if the iterated key is the same as the passed in key
+               String deleteKey = "DELETE * FROM lessonKeys WHERE lessonID = " + lessonID;//creates a string holding the SQL quary used to delete the lesson keys
+                String deletePayments = "DELETE * FROM sPayTable WHERE lessonID = " + lessonID;//creates a string holding the SQL quary used to delete the lesson payments information
+                String deleteLesson = "DELETE * FROM lessonData WHERE LessonID = " + lessonID;//creates a string holding the SQL quary used to delete the lesson lessons
+                try {//opens the trycatch statement
+                    db.UpdateDatabase(deleteKey);//deletes the keys
+                    db.UpdateDatabase(deletePayments);//deletes the payments
+                    db.UpdateDatabase(deleteLesson);//deletes the lessons
+                } catch (SQLException ex) {//opens the catch statement
+                    Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the class user that there was an arror deleteng the lessons
+                }
+            }
+       }
     }
     
    public void editSelectedLessonStudents(ArrayList<String> list, int id, String date, String time) {//creates a method to delete a selected lesson
@@ -840,37 +801,37 @@ public class lessonDataArray {//creates a class to handle and process the lesson
        String day = this.getLessonDayFromLessonID(id);//creates a string for the day
        int duration = this.getDurationFromTimeAndDate(time, date);//creates an int for the duration
        
-       String [] studentsOriginal = ch.studentsFromLessonDateAndTime(date, time);
+       String [] studentsOriginal = ch.studentsFromLessonDateAndTime(date, time);;//creates an array representation of the students originally attending the lesson
+       ArrayList<String> origList = this.ArrayListFromNamesArray(studentsOriginal);//creates an array list representation of the above array
        
-           this.deleteStudentsInSpecificLesson(date, time);//deletes the non-updated lessons
            for (int i = 0; i < list.size(); i++) {//iterates through the list of students passed in
-               int studentID = sa.studentIDFromName(list.get(i));//creates an integer for the iterated student id
-               int lessonID = this.getLessoIDFromDateTimeAndStudentID(date, time, studentID);//creates an integer fo the iterated students lesson id
-               boolean paid = pa.getIfPaidFromLessonID(lessonID);//creates a boolean indicating whther the students have paid
-               String insertLesson = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) "
-                       + "VALUES ('" + studentID + "', '" + venueID + "', '" + date + "', '" + time + "', '" + duration + "', '" + day + "')";//creates a string for the SQL query used to insert the updated lesson
-               String insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + key + "')";//creates a string for the SQL query used to insert the updated key
-               String insertPayment = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) "
-                       + "VALUES ('" + studentID + "', '" + paid + "', '" + date + "', '" + time + "', '" + duration + "', '" + cost + "')";//creates a string for the SQL query used to insert the updated payment info
-               try {//opens the trycatch statement
-                   db.UpdateDatabase(insertLesson);//inserts the lessons
-                   db.UpdateDatabase(insertKey);//inserts the key
-                   db.UpdateDatabase(insertPayment);//inserts the payment info
-               } catch (SQLException ex) {//opens the catch statement
-                   Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the user that there was an error editing the lessons
-               }//closes the catch statement
+               if (!origList.contains(list.get(i))) {//checks if the the itetrated student does not already part of the lesson
+                    int studentID = sa.studentIDFromName(list.get(i));//creates an integer for the iterated student id
+                    int lessonID = this.getLessoIDFromDateTimeAndStudentID(date, time, studentID);//creates an integer fo the iterated students lesson id
+                    boolean paid = pa.getIfPaidFromLessonID(lessonID);//creates a boolean indicating whther the students have paid
+                    String insertLesson = "INSERT INTO lessonData (studentID, venueID, lessonDate, lessonTime, lessonDuration, lessonDay) "
+                            + "VALUES ('" + studentID + "', '" + venueID + "', '" + date + "', '" + time + "', '" + duration + "', '" + day + "')";//creates a string for the SQL query used to insert the updated lesson
+                    String insertKey = "INSERT INTO lessonKeys (lessonKey) VALUES ('" + key + "')";//creates a string for the SQL query used to insert the updated key
+                    String insertPayment = "INSERT INTO sPayTable (StudID, Paid, PayDate, PayTime, PayDuration, Cost) "
+                            + "VALUES ('" + studentID + "', '" + false + "', '" + date + "', '" + time + "', '" + duration + "', '" + cost + "')";//creates a string for the SQL query used to insert the updated payment info
+                    try {//opens the trycatch statement
+                        db.UpdateDatabase(insertLesson);//inserts the lessons
+                        db.UpdateDatabase(insertKey);//inserts the key
+                        db.UpdateDatabase(insertPayment);//inserts the payment info
+                    } catch (SQLException ex) {//opens the catch statement
+                        Logger.getLogger(lessonDataArray.class.getName()).log(Level.SEVERE, null, ex);//alerts the user that there was an error editing the lessons
+                    }//closes the catch statement
+               }
            }
-           this.fixEditedPayments(list, this.ArrayListFromNamesArray(studentsOriginal), id, date, time);
    }//closes the editSelectedLessonStudents method
    
-   public ArrayList<String> ArrayListFromNamesArray(String [] arr) {
-       studentsArray sa = new studentsArray();
-       ArrayList<String> ids = new ArrayList<>();
-       for (int i = 0; i < arr.length; i++) {
-           ids.add(arr[i]);
+   public ArrayList<String> ArrayListFromNamesArray(String [] arr) {//creates a method to create an array list from an array of students
+       ArrayList<String> names = new ArrayList<>();//creates an array list for the students
+       for (int i = 0; i < arr.length; i++) {//iterates through the students in the passed in array
+           names.add(arr[i]);//adds the iterated student to the array list
        }
-       return ids;
-   }
+       return names;//returns the array list
+   }//closes the ArrayListFromNamesArray method
    
    public ArrayList<Integer> idsFromKey(String key) {//creates a method to get the lesson ids from a key passed in
        keysArray ka = new keysArray();//creates an object for the keysArray class

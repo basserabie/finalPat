@@ -111,7 +111,6 @@ public class dashboard extends javax.swing.JFrame {//creates a class handling th
         signOutButton = new javax.swing.JButton();
         accountButton = new javax.swing.JButton();
         chuckNoris = new javax.swing.JButton();
-        help = new javax.swing.JButton();
         requests = new javax.swing.JButton();
         playTutuorial = new javax.swing.JButton();
         iconPanel3 = new javax.swing.JPanel();
@@ -381,13 +380,6 @@ public class dashboard extends javax.swing.JFrame {//creates a class handling th
             }
         });
 
-        help.setText("Get Help");
-        help.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                helpActionPerformed(evt);
-            }
-        });
-
         requests.setText("View Emails");
         requests.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -413,8 +405,6 @@ public class dashboard extends javax.swing.JFrame {//creates a class handling th
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chuckNoris)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(help)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(requests)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(playTutuorial)
@@ -423,15 +413,12 @@ public class dashboard extends javax.swing.JFrame {//creates a class handling th
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(requests)
-                        .addComponent(playTutuorial))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(accountButton)
-                        .addComponent(signOutButton)
-                        .addComponent(chuckNoris)
-                        .addComponent(help)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(accountButton)
+                    .addComponent(signOutButton)
+                    .addComponent(chuckNoris)
+                    .addComponent(requests)
+                    .addComponent(playTutuorial))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -599,11 +586,6 @@ public class dashboard extends javax.swing.JFrame {//creates a class handling th
         r.setVisible(true);
     }//GEN-LAST:event_requestsActionPerformed
 
-    private void helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpActionPerformed
-        loginSignUpHandler h = new loginSignUpHandler();//creates an object for the loginSignUpHandler class
-        h.getHelp();
-    }//GEN-LAST:event_helpActionPerformed
-
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         try {
                 Image myPicture = ImageIO.read(new File(takeIcon.getPath()));
@@ -677,7 +659,6 @@ public class dashboard extends javax.swing.JFrame {//creates a class handling th
     private javax.swing.JButton chuckNoris;
     private javax.swing.JLabel dashboardIconLabel;
     private javax.swing.JLabel dateLabel;
-    private javax.swing.JButton help;
     private javax.swing.JPanel iconPanel3;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel4;

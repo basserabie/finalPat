@@ -232,19 +232,19 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="change parent email to: "/>
+                <Property name="text" type="java.lang.String" value="Change Parent Email To: "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="change parent cell to: "/>
+                <Property name="text" type="java.lang.String" value="Change Parent Cell To: "/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JButton" name="cancelButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="cancel"/>
+            <Property name="text" type="java.lang.String" value="Cancel"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>
@@ -256,7 +256,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="confirmUpdateButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="confirm update"/>
+            <Property name="text" type="java.lang.String" value="Confirm Update"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmUpdateButtonActionPerformed"/>

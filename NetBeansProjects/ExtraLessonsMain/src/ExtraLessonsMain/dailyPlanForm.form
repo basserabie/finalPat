@@ -172,7 +172,7 @@
         </Container>
         <Component class="javax.swing.JButton" name="backButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="back"/>
+            <Property name="text" type="java.lang.String" value="Back"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backButtonActionPerformed"/>
@@ -180,7 +180,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="showDay">
           <Properties>
-            <Property name="text" type="java.lang.String" value="show day"/>
+            <Property name="text" type="java.lang.String" value="Show Day"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showDayActionPerformed"/>

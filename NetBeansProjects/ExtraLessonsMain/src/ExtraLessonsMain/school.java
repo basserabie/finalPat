@@ -55,7 +55,7 @@ public class school extends javax.swing.JFrame {//creates a class to handle the 
 
         jPanel3.setBackground(new java.awt.Color(255, 204, 255));
 
-        jLabel1.setText("schools");
+        jLabel1.setText("Schools");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -74,7 +74,7 @@ public class school extends javax.swing.JFrame {//creates a class to handle the 
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        backToDashboard.setText("back");
+        backToDashboard.setText("Back");
         backToDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backToDashboardActionPerformed(evt);
@@ -175,7 +175,7 @@ public class school extends javax.swing.JFrame {//creates a class to handle the 
                     .addComponent(backToDashboard)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(contactSchoolButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)

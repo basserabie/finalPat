@@ -137,7 +137,7 @@ public class loginSignup extends javax.swing.JFrame {//creates a class to handle
 
         jPanel5.setBackground(new java.awt.Color(255, 204, 255));
 
-        passwordLableLogin.setText("password");
+        passwordLableLogin.setText("Password");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -269,7 +269,7 @@ public class loginSignup extends javax.swing.JFrame {//creates a class to handle
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jTabbedPane3.addTab("login!", jPanel2);
+        jTabbedPane3.addTab("Login", jPanel2);
 
         jPanel4.setBackground(new java.awt.Color(153, 204, 255));
 
@@ -443,7 +443,7 @@ public class loginSignup extends javax.swing.JFrame {//creates a class to handle
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
-        jTabbedPane3.addTab("sign up!", jPanel4);
+        jTabbedPane3.addTab("Sign up", jPanel4);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

@@ -277,7 +277,7 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="addVenueButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="add venue"/>
+                <Property name="text" type="java.lang.String" value="Add Venue"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addVenueButtonActionPerformed"/>
@@ -285,7 +285,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="addschoolButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="add school"/>
+                <Property name="text" type="java.lang.String" value="Add School"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addschoolButtonActionPerformed"/>
@@ -293,7 +293,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="addStudentButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="add student"/>
+                <Property name="text" type="java.lang.String" value="Add Student"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addStudentButtonActionPerformed"/>
@@ -350,7 +350,7 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="lessonButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="lessons"/>
+                <Property name="text" type="java.lang.String" value="Lessons"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lessonButtonActionPerformed"/>
@@ -358,7 +358,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="paymentsButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="payments"/>
+                <Property name="text" type="java.lang.String" value="Payments"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="paymentsButtonActionPerformed"/>
@@ -366,7 +366,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="studentsButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="students"/>
+                <Property name="text" type="java.lang.String" value="Students"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="studentsButtonActionPerformed"/>
@@ -374,7 +374,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="parentsButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="parents"/>
+                <Property name="text" type="java.lang.String" value="Parents"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="parentsButtonActionPerformed"/>
@@ -382,7 +382,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="schoolButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="schools"/>
+                <Property name="text" type="java.lang.String" value="Schools"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="schoolButtonActionPerformed"/>
@@ -477,7 +477,7 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="cc" red="99" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="add lesson"/>
+                <Property name="text" type="java.lang.String" value="Add Lesson"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addlessonButtonActionPerformed"/>
@@ -527,7 +527,7 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="signOutButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="sign out"/>
+                <Property name="text" type="java.lang.String" value="Sign Out"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signOutButtonActionPerformed"/>

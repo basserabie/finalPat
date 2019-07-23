@@ -76,7 +76,7 @@ public class paymentsForm extends javax.swing.JFrame {//creates a class to handl
 
         jPanel5.setBackground(new java.awt.Color(255, 204, 255));
 
-        jLabel1.setText("payments");
+        jLabel1.setText("Payments");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -254,7 +254,7 @@ public class paymentsForm extends javax.swing.JFrame {//creates a class to handl
             }
         });
 
-        backToDashBoard.setText("back");
+        backToDashBoard.setText("Back");
         backToDashBoard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backToDashBoardActionPerformed(evt);
@@ -350,7 +350,6 @@ public class paymentsForm extends javax.swing.JFrame {//creates a class to handl
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addPayementButton, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(removePaymentButton))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13))
         );

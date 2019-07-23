@@ -126,7 +126,7 @@
         </Container>
         <Component class="javax.swing.JButton" name="backToAddVenueForm">
           <Properties>
-            <Property name="text" type="java.lang.String" value="cancel"/>
+            <Property name="text" type="java.lang.String" value="Cancel"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backToAddVenueFormActionPerformed"/>
@@ -186,12 +186,12 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="venue to delete:"/>
+                <Property name="text" type="java.lang.String" value="Venue To Delete:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="replacement venue:"/>
+                <Property name="text" type="java.lang.String" value="Replacement Venue:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="repvenueComboBox">
@@ -231,7 +231,7 @@
         </Container>
         <Component class="javax.swing.JButton" name="deleteVenuesButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="delete venue"/>
+            <Property name="text" type="java.lang.String" value="Delete Venue"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteVenuesButtonActionPerformed"/>

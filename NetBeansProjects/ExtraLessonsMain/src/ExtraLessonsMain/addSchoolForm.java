@@ -64,7 +64,7 @@ public class addSchoolForm extends javax.swing.JFrame {//creates a class to hand
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 255));
 
-        jLabel1.setText("add school!");
+        jLabel1.setText("Add School");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -85,13 +85,13 @@ public class addSchoolForm extends javax.swing.JFrame {//creates a class to hand
 
         jPanel3.setBackground(new java.awt.Color(255, 204, 255));
 
-        jLabel2.setText("school name");
+        jLabel2.setText("School Name");
 
-        jLabel3.setText("principal fist name");
+        jLabel3.setText("Principal Fist Name");
 
-        jLabel4.setText("principal last name");
+        jLabel4.setText("Principal Last Name");
 
-        jLabel5.setText("principal email");
+        jLabel5.setText("Principal Email");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -128,7 +128,7 @@ public class addSchoolForm extends javax.swing.JFrame {//creates a class to hand
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        backToDashboardButton.setText("back");
+        backToDashboardButton.setText("Back");
         backToDashboardButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backToDashboardButtonActionPerformed(evt);
@@ -181,7 +181,7 @@ public class addSchoolForm extends javax.swing.JFrame {//creates a class to hand
                                 .addComponent(PFNameT, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(PLNameT, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(PEmailT, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

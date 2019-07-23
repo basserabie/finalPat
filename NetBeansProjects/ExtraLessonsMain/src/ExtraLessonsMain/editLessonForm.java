@@ -514,7 +514,7 @@ public class editLessonForm extends javax.swing.JFrame {//creates a class to han
 
         jPanel9.setBackground(new java.awt.Color(255, 204, 255));
 
-        studentsAddedLabel.setText("students added:");
+        studentsAddedLabel.setText("Students Added:");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -617,7 +617,7 @@ public class editLessonForm extends javax.swing.JFrame {//creates a class to han
         editStudentPanel.setBackground(new java.awt.Color(255, 204, 255));
         editStudentPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel4.setText("add student:");
+        jLabel4.setText("Add Student:");
 
         addStudentGradeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "11", "12" }));
         addStudentGradeComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -626,7 +626,7 @@ public class editLessonForm extends javax.swing.JFrame {//creates a class to han
             }
         });
 
-        jLabel5.setText("grade:");
+        jLabel5.setText("Grade:");
 
         studentBeingAddedTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -648,14 +648,14 @@ public class editLessonForm extends javax.swing.JFrame {//creates a class to han
 
         jLabel7.setText("Or Start Typing The Name:");
 
-        deleteStudentFromLessonButton.setText("delete student");
+        deleteStudentFromLessonButton.setText("Delete Student");
         deleteStudentFromLessonButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteStudentFromLessonButtonActionPerformed(evt);
             }
         });
 
-        addStudentToLessonButton.setText("add student");
+        addStudentToLessonButton.setText("Add Student");
         addStudentToLessonButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addStudentToLessonButtonActionPerformed(evt);
@@ -668,11 +668,11 @@ public class editLessonForm extends javax.swing.JFrame {//creates a class to han
             editStudentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editStudentPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(editStudentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(editStudentPanelLayout.createSequentialGroup()
+                .addGroup(editStudentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, editStudentPanelLayout.createSequentialGroup()
                         .addComponent(addStudentToLessonButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(deleteStudentFromLessonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(deleteStudentFromLessonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(editStudentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(editStudentPanelLayout.createSequentialGroup()
@@ -839,7 +839,7 @@ public class editLessonForm extends javax.swing.JFrame {//creates a class to han
             }
         });
 
-        cancelButton.setText("cancel");
+        cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
@@ -866,7 +866,8 @@ public class editLessonForm extends javax.swing.JFrame {//creates a class to han
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(editSelectedLessonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(editAllLessonsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addComponent(editAllLessonsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -922,7 +923,7 @@ public class editLessonForm extends javax.swing.JFrame {//creates a class to han
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 731, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

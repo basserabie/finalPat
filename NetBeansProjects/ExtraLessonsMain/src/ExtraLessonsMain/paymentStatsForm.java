@@ -122,7 +122,7 @@ public class paymentStatsForm extends javax.swing.JFrame {//creates a class to h
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        backButton.setText("back");
+        backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
@@ -213,7 +213,7 @@ public class paymentStatsForm extends javax.swing.JFrame {//creates a class to h
 
         jLabel9.setText("Get Student Information:");
 
-        jLabel11.setText("grade:");
+        jLabel11.setText("Grade:");
 
         addStudentGradeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "11", "12" }));
         addStudentGradeComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -402,14 +402,14 @@ public class paymentStatsForm extends javax.swing.JFrame {//creates a class to h
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        realIncomeGraph.setText("graph of monthly incomes");
+        realIncomeGraph.setText("Actual Monthly Incomes");
         realIncomeGraph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 realIncomeGraphActionPerformed(evt);
             }
         });
 
-        projectedMonthlyIncomes.setText("projected monthly incomes");
+        projectedMonthlyIncomes.setText("Projected Monthly Incomes");
         projectedMonthlyIncomes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 projectedMonthlyIncomesActionPerformed(evt);

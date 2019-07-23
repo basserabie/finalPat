@@ -184,21 +184,21 @@ public class dashboard extends javax.swing.JFrame {//creates a class handling th
         jPanel1.setBackground(new java.awt.Color(255, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        addVenueButton.setText("add venue");
+        addVenueButton.setText("Add Venue");
         addVenueButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addVenueButtonActionPerformed(evt);
             }
         });
 
-        addschoolButton.setText("add school");
+        addschoolButton.setText("Add School");
         addschoolButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addschoolButtonActionPerformed(evt);
             }
         });
 
-        addStudentButton.setText("add student");
+        addStudentButton.setText("Add Student");
         addStudentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addStudentButtonActionPerformed(evt);
@@ -237,35 +237,35 @@ public class dashboard extends javax.swing.JFrame {//creates a class handling th
         jPanel7.setBackground(new java.awt.Color(255, 204, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        lessonButton.setText("lessons");
+        lessonButton.setText("Lessons");
         lessonButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lessonButtonActionPerformed(evt);
             }
         });
 
-        paymentsButton.setText("payments");
+        paymentsButton.setText("Payments");
         paymentsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 paymentsButtonActionPerformed(evt);
             }
         });
 
-        studentsButton.setText("students");
+        studentsButton.setText("Students");
         studentsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentsButtonActionPerformed(evt);
             }
         });
 
-        parentsButton.setText("parents");
+        parentsButton.setText("Parents");
         parentsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 parentsButtonActionPerformed(evt);
             }
         });
 
-        schoolButton.setText("schools");
+        schoolButton.setText("Schools");
         schoolButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 schoolButtonActionPerformed(evt);
@@ -334,7 +334,7 @@ public class dashboard extends javax.swing.JFrame {//creates a class handling th
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         addlessonButton.setBackground(new java.awt.Color(153, 204, 255));
-        addlessonButton.setText("add lesson");
+        addlessonButton.setText("Add Lesson");
         addlessonButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addlessonButtonActionPerformed(evt);
@@ -359,7 +359,7 @@ public class dashboard extends javax.swing.JFrame {//creates a class handling th
 
         jPanel3.setBackground(new java.awt.Color(255, 204, 255));
 
-        signOutButton.setText("sign out");
+        signOutButton.setText("Sign Out");
         signOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signOutButtonActionPerformed(evt);

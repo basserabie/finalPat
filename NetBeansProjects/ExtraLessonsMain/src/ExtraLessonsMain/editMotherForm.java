@@ -119,9 +119,9 @@ public class editMotherForm extends javax.swing.JFrame {//creates a method handl
 
         jPanel4.setBackground(new java.awt.Color(255, 204, 255));
 
-        jLabel2.setText("change parent email to: ");
+        jLabel2.setText("Change Parent Email To: ");
 
-        jLabel3.setText("change parent cell to: ");
+        jLabel3.setText("Change Parent Cell To: ");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -144,14 +144,14 @@ public class editMotherForm extends javax.swing.JFrame {//creates a method handl
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        cancelButton.setText("cancel");
+        cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
 
-        confirmUpdateButton.setText("confirm update");
+        confirmUpdateButton.setText("Confirm Update");
         confirmUpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmUpdateButtonActionPerformed(evt);

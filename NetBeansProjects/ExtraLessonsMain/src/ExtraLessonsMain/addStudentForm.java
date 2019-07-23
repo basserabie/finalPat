@@ -98,7 +98,7 @@ public class addStudentForm extends javax.swing.JFrame {//creates a class for th
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
-        backToDashboardButton.setText("back");
+        backToDashboardButton.setText("Back");
         backToDashboardButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backToDashboardButtonActionPerformed(evt);
@@ -123,7 +123,7 @@ public class addStudentForm extends javax.swing.JFrame {//creates a class for th
 
         jLabel12.setText("F");
 
-        addStudentButton.setText("add student!");
+        addStudentButton.setText("Add Student");
         addStudentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addStudentButtonActionPerformed(evt);
@@ -132,23 +132,23 @@ public class addStudentForm extends javax.swing.JFrame {//creates a class for th
 
         jPanel3.setBackground(new java.awt.Color(255, 204, 255));
 
-        jLabel2.setText("first name");
+        jLabel2.setText("First Name");
 
-        jLabel3.setText("last name");
+        jLabel3.setText("Last Name");
 
-        jLabel4.setText("grade");
+        jLabel4.setText("Grade");
 
-        jLabel5.setText("school");
+        jLabel5.setText("School");
 
         jLabel10.setText("Gender:");
 
-        jLabel6.setText("mother first name");
+        jLabel6.setText("Mother First Name");
 
-        jLabel7.setText("mother last name");
+        jLabel7.setText("Mother Last Name");
 
-        jLabel8.setText("mother email");
+        jLabel8.setText("Mother Email");
 
-        jLabel9.setText("mother cell");
+        jLabel9.setText("Mother Cell");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -200,7 +200,7 @@ public class addStudentForm extends javax.swing.JFrame {//creates a class for th
 
         jPanel4.setBackground(new java.awt.Color(255, 204, 255));
 
-        jLabel1.setText("add student!");
+        jLabel1.setText("Add Student");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);

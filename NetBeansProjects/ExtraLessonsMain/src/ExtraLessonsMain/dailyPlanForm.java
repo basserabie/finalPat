@@ -123,14 +123,14 @@ public class dailyPlanForm extends javax.swing.JFrame {//creates a class handlin
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        backButton.setText("back");
+        backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
 
-        showDay.setText("show day");
+        showDay.setText("Show Day");
         showDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showDayActionPerformed(evt);

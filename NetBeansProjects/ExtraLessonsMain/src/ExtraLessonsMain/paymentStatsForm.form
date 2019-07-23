@@ -160,7 +160,7 @@
         </Container>
         <Component class="javax.swing.JButton" name="backButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="back"/>
+            <Property name="text" type="java.lang.String" value="Back"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backButtonActionPerformed"/>
@@ -386,7 +386,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
-                <Property name="text" type="java.lang.String" value="grade:"/>
+                <Property name="text" type="java.lang.String" value="Grade:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="addStudentGradeComboBox">
@@ -628,7 +628,7 @@
         </Container>
         <Component class="javax.swing.JButton" name="realIncomeGraph">
           <Properties>
-            <Property name="text" type="java.lang.String" value="graph of monthly incomes"/>
+            <Property name="text" type="java.lang.String" value="Actual Monthly Incomes"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="realIncomeGraphActionPerformed"/>
@@ -636,7 +636,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="projectedMonthlyIncomes">
           <Properties>
-            <Property name="text" type="java.lang.String" value="projected monthly incomes"/>
+            <Property name="text" type="java.lang.String" value="Projected Monthly Incomes"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="projectedMonthlyIncomesActionPerformed"/>

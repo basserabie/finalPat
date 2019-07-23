@@ -77,7 +77,7 @@ public class seeStudentsForm extends javax.swing.JFrame {//creates a class for t
         });
         jScrollPane1.setViewportView(studentsList);
 
-        doneButton.setText("done");
+        doneButton.setText("Done");
         doneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 doneButtonActionPerformed(evt);

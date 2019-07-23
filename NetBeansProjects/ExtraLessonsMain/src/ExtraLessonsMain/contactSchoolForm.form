@@ -49,7 +49,7 @@
                           <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="287" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="285" max="32767" attributes="0"/>
                       </Group>
                       <Component id="sendButton" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
@@ -131,7 +131,7 @@
         </Container>
         <Component class="javax.swing.JButton" name="cancelButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="cancel"/>
+            <Property name="text" type="java.lang.String" value="Cancel"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>
@@ -139,7 +139,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="sendButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Send Email!"/>
+            <Property name="text" type="java.lang.String" value="Send Email"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendButtonActionPerformed"/>

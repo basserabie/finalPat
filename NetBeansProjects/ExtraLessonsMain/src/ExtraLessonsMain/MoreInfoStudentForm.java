@@ -65,7 +65,7 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {//creates the MoreI
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
-        back.setText("back");
+        back.setText("Back");
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backActionPerformed(evt);
@@ -108,7 +108,7 @@ public class MoreInfoStudentForm extends javax.swing.JFrame {//creates the MoreI
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 255));
 
-        jLabel2.setText("details");
+        jLabel2.setText("Details:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

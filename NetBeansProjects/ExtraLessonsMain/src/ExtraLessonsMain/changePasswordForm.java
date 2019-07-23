@@ -108,7 +108,7 @@ public class changePasswordForm extends javax.swing.JFrame {//creates a class al
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        cancel.setText("cancel");
+        cancel.setText("Cancel");
         cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelActionPerformed(evt);

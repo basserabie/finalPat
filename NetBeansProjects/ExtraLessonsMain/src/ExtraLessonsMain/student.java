@@ -99,21 +99,21 @@ public class student extends javax.swing.JFrame {//creates a class to handle the
         jPanel3.setBackground(new java.awt.Color(255, 204, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        editStudentButton.setText("edit selected student");
+        editStudentButton.setText("Edit Selected Student");
         editStudentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editStudentButtonActionPerformed(evt);
             }
         });
 
-        deleteSelectedLessonButton.setText("delete selected student");
+        deleteSelectedLessonButton.setText("Delete Selected Student");
         deleteSelectedLessonButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteSelectedLessonButtonActionPerformed(evt);
             }
         });
 
-        infoOnSelectedLessonButton.setText("get more info on selected student");
+        infoOnSelectedLessonButton.setText("More Info On Selected Student");
         infoOnSelectedLessonButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 infoOnSelectedLessonButtonActionPerformed(evt);
@@ -145,7 +145,7 @@ public class student extends javax.swing.JFrame {//creates a class to handle the
         jPanel4.setBackground(new java.awt.Color(255, 204, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setText("search by:");
+        jLabel2.setText("Search By:");
 
         filterTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -181,14 +181,14 @@ public class student extends javax.swing.JFrame {//creates a class to handle the
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        backToDashboard.setText("back");
+        backToDashboard.setText("Back");
         backToDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backToDashboardActionPerformed(evt);
             }
         });
 
-        displayAllButton.setText("display all!");
+        displayAllButton.setText("Display All");
         displayAllButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 displayAllButtonActionPerformed(evt);
@@ -243,7 +243,7 @@ public class student extends javax.swing.JFrame {//creates a class to handle the
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backToDashboard))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

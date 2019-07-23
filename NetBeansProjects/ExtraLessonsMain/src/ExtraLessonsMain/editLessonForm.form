@@ -579,11 +579,12 @@
                               <Group type="102" attributes="0">
                                   <Component id="editSelectedLessonButton" min="-2" pref="269" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="editAllLessonsButton" max="32767" attributes="0"/>
+                                  <Component id="editAllLessonsButton" min="-2" pref="285" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -753,7 +754,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="studentsAddedLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="students added:"/>
+                <Property name="text" type="java.lang.String" value="Students Added:"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -905,11 +906,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="addStudentToLessonButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="deleteStudentFromLessonButton" min="-2" pref="115" max="-2" attributes="0"/>
+                              <Component id="deleteStudentFromLessonButton" min="-2" pref="121" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                               <Component id="jLabel4" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
@@ -958,7 +959,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="add student:"/>
+                <Property name="text" type="java.lang.String" value="Add Student:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="addStudentGradeComboBox">
@@ -980,7 +981,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="grade:"/>
+                <Property name="text" type="java.lang.String" value="Grade:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="studentBeingAddedTextField">
@@ -1017,7 +1018,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="deleteStudentFromLessonButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="delete student"/>
+                <Property name="text" type="java.lang.String" value="Delete Student"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteStudentFromLessonButtonActionPerformed"/>
@@ -1025,7 +1026,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="addStudentToLessonButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="add student"/>
+                <Property name="text" type="java.lang.String" value="Add Student"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addStudentToLessonButtonActionPerformed"/>
@@ -1242,7 +1243,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="cancelButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="cancel"/>
+            <Property name="text" type="java.lang.String" value="Cancel"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>

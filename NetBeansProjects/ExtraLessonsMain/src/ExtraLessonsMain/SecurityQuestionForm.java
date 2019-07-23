@@ -109,7 +109,7 @@ public class SecurityQuestionForm extends javax.swing.JFrame {//creates a class 
             }
         });
 
-        cancelButton.setText("cancel");
+        cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);

@@ -57,7 +57,7 @@ public class addVenueForm extends javax.swing.JFrame {//creates a class handling
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 255));
 
-        jLabel1.setText("add venue");
+        jLabel1.setText("Add Venue");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -78,7 +78,7 @@ public class addVenueForm extends javax.swing.JFrame {//creates a class handling
 
         jPanel3.setBackground(new java.awt.Color(255, 204, 255));
 
-        jLabel2.setText("venue name");
+        jLabel2.setText("Venue Name");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -97,21 +97,21 @@ public class addVenueForm extends javax.swing.JFrame {//creates a class handling
                 .addContainerGap())
         );
 
-        backToDashboardButton.setText("back");
+        backToDashboardButton.setText("Back");
         backToDashboardButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backToDashboardButtonActionPerformed(evt);
             }
         });
 
-        addVenueButton.setText("add venue");
+        addVenueButton.setText("Add Venue");
         addVenueButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addVenueButtonActionPerformed(evt);
             }
         });
 
-        deleteAVenueButton.setText("view/delete a venue?");
+        deleteAVenueButton.setText("View/Delete a venue?");
         deleteAVenueButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteAVenueButtonActionPerformed(evt);

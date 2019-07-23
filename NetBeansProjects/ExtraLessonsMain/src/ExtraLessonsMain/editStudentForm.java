@@ -144,7 +144,7 @@ public class editStudentForm extends javax.swing.JFrame {//creates a class to ha
                 .addContainerGap())
         );
 
-        cancelButton.setText("cancel");
+        cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);

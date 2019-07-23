@@ -79,7 +79,7 @@
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       <Component id="backToDashboard" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jPanel4" max="32767" attributes="0"/>
                       <Component id="jPanel3" max="32767" attributes="0"/>
@@ -169,7 +169,7 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="editStudentButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="edit selected student"/>
+                <Property name="text" type="java.lang.String" value="Edit Selected Student"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editStudentButtonActionPerformed"/>
@@ -177,7 +177,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="deleteSelectedLessonButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="delete selected student"/>
+                <Property name="text" type="java.lang.String" value="Delete Selected Student"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteSelectedLessonButtonActionPerformed"/>
@@ -185,7 +185,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="infoOnSelectedLessonButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="get more info on selected student"/>
+                <Property name="text" type="java.lang.String" value="More Info On Selected Student"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="infoOnSelectedLessonButtonActionPerformed"/>
@@ -239,7 +239,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="search by:"/>
+                <Property name="text" type="java.lang.String" value="Search By:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="filterTypeComboBox">
@@ -266,7 +266,7 @@
         </Container>
         <Component class="javax.swing.JButton" name="backToDashboard">
           <Properties>
-            <Property name="text" type="java.lang.String" value="back"/>
+            <Property name="text" type="java.lang.String" value="Back"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backToDashboardActionPerformed"/>
@@ -274,7 +274,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="displayAllButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="display all!"/>
+            <Property name="text" type="java.lang.String" value="Display All"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayAllButtonActionPerformed"/>

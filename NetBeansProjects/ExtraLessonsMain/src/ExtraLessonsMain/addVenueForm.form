@@ -126,7 +126,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="add venue"/>
+                <Property name="text" type="java.lang.String" value="Add Venue"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -161,14 +161,14 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="venue name"/>
+                <Property name="text" type="java.lang.String" value="Venue Name"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JButton" name="backToDashboardButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="back"/>
+            <Property name="text" type="java.lang.String" value="Back"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backToDashboardButtonActionPerformed"/>
@@ -178,7 +178,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="addVenueButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="add venue"/>
+            <Property name="text" type="java.lang.String" value="Add Venue"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addVenueButtonActionPerformed"/>
@@ -186,7 +186,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="deleteAVenueButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="view/delete a venue?"/>
+            <Property name="text" type="java.lang.String" value="View/Delete a venue?"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteAVenueButtonActionPerformed"/>

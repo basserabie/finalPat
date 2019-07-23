@@ -51,7 +51,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
     }//closes the populatePrimaryFilterTpeLessonsComboBox method
     
     public String [] populateStudentFilterTypeComboBox() {//creates a method to populate the student filter type
-        String types [] = {"Student Name", "Mother Name", "School"};//creates an array of the filter types
+        String types [] = {"Student Name", "Parent Name", "School"};//creates an array of the filter types
         return types;//returns the types
     }//closes the populateStudentFilterTypeComboBox method
     

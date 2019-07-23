@@ -82,7 +82,7 @@ public class deleteVenueForm extends javax.swing.JFrame {//creates a class handl
                 .addContainerGap())
         );
 
-        backToAddVenueForm.setText("cancel");
+        backToAddVenueForm.setText("Cancel");
         backToAddVenueForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backToAddVenueFormActionPerformed(evt);
@@ -92,9 +92,9 @@ public class deleteVenueForm extends javax.swing.JFrame {//creates a class handl
         jPanel1.setBackground(new java.awt.Color(255, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setText("venue to delete:");
+        jLabel1.setText("Venue To Delete:");
 
-        jLabel2.setText("replacement venue:");
+        jLabel2.setText("Replacement Venue:");
 
         repvenueComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -136,7 +136,7 @@ public class deleteVenueForm extends javax.swing.JFrame {//creates a class handl
                 .addGap(16, 16, 16))
         );
 
-        deleteVenuesButton.setText("delete venue");
+        deleteVenuesButton.setText("Delete Venue");
         deleteVenuesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteVenuesButtonActionPerformed(evt);

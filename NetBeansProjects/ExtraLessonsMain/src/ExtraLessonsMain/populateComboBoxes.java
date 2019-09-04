@@ -30,7 +30,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return sdf.format(today.getTime());//returns the current date
     }//closes the populateTodayDateLabel method
     
-    //methid to populate grade combo boxes
+    //method to populate grade combo boxes
     public String [] populateGrades() {//creates a method to populate the grade combo boxes
         String grades [] = {"10", "11", "12"};//creates a string array of the grade
         return grades;///returns the grades string array
@@ -70,6 +70,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return types;//returns the types
     }//closes the populateParentFilterTypeComboBox method
     
+    // in: lesson id
     public String populateSelectedLessonLabel(int id) {//creates a method to populate the lesson label
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         venueArray va = new venueArray();//creates an object for the venuesArray class
@@ -87,6 +88,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return lessonData;//returns the lesson data string
     }//closes the populateSelectedLessonLabel method
     
+    // in: lesson id
     public String [] populateSelectedLessonStudentsList(int lessonID) {//creates a method to populate the students list
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         CalendarHandler ch = new CalendarHandler();//creates an object for the CalendarHandler class
@@ -105,6 +107,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return venues;//returns the array
     }//closes the populateVenues method
     
+    // in: parent name
     public String [] getStudentsFromMotherName(String name) {//gets the students from themother name (children)
         mothersArray ma = new mothersArray();//creates an object for the mothersArray class
         ArrayList<String> students = new ArrayList<>();//creates an array list for the students
@@ -122,7 +125,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return studentsArray;//returns the studentsArray
     }
     
-    //populates the lessons for a given parentName
+    //populates the lessons for a given parentName in: parent name
     public String [] getLessonsFromMotherName(String name) {
         mothersArray ma = new mothersArray();//creates an object for the mothersArray class
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
@@ -138,7 +141,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return StringLessonDataArray;//returns the string array
     }//closes the getLessonsFromMotherName method
     
-    //populates a list of lessons from a given student name
+    //populates a list of lessons from a given student name in: student name
     public String [] getLessonsFromStudentName(String name) {
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
@@ -152,7 +155,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
     }//closes the getLessonsFromStudentName method
     
     
-    //populates a corrected combo box of students according to grade
+    //populates a corrected combo box of students according to grade in: grade
     public String [] correctStudentsAccordingToGrade(String gradeSelected) {
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
         ArrayList<String> studentList = new ArrayList<>();//creates an array list for the students
@@ -168,6 +171,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return students;//returns the students
     }//closes the correctStudentsAccordingToGrade method
     
+    // in: grade and student name
     public String [] correctStudentsAccordingToSearchTextField(String gradeSelected, String nameInputted) {//creates a method to correct the students array according to name and grade being typed
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
         ArrayList<String> studentList = new ArrayList<>();//creates an array list for the students
@@ -196,6 +200,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return hours;//returns the hours
     }//closes the populateHourSpinner method
     
+    // in: hour chosen
     public String [] populateMinuteComboBoxAccordingToHour(String hourSelected) {//creates a method to populate the minutes according to the hour passed in
         String minutes [] = new String[4];//creates an array for the minutes
         int min = 15;//creates an integer for the minutes
@@ -227,6 +232,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
      }//closes the schools method
     
+    // in: school name
     public DefaultTableModel schoolsByName(String name) {//creates a method for the table model filtered by name passed in
          schoolsArray sa = new schoolsArray();//creates an object for the schoolsArray class
          DefaultTableModel model = null;//instantiates a default table model
@@ -263,6 +269,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
      }//closes the lessons method
     
+    // in: date
     public DefaultTableModel LessonsByDate(String dateInputted) {//creates a method for a table model of lessons by date
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         venueArray va = new venueArray();//creates an object for the venuesArray class
@@ -285,6 +292,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
      }//closes the LessonsByDate method
     
+    // in: venue
     public DefaultTableModel LessonsByVenue(String venueInputted) {//creates a method for a table model of lessons by venue
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         venueArray va = new venueArray();//creates an object for the venuesArray class
@@ -308,6 +316,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
      }//closes the LessonsByVenue method
     
+    // in: student name
     public DefaultTableModel LessonsByStudentName(String nameInputted) {//creates a method for a table model of lessons by student name
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         venueArray va = new venueArray();//creates an object for the venuesArray class
@@ -330,6 +339,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
      }//closes the LessonsByStudentName method
     
+    // in: parent name
     public DefaultTableModel LessonsByParentSName(String nameInputted) {//creates a method for a table model of lessons parent name
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         mothersArray ma = new mothersArray();//creates an object for the mothersArray class
@@ -354,6 +364,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
      }//closes the LessonsByParentSName method
     
+    // in: school name
     public DefaultTableModel LessonsBySchool(String schoolInputted) {//creates a method for a table model of lessons by school
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         mothersArray ma = new mothersArray();//creates an object for the mothersArray class
@@ -379,6 +390,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
      }//closes the LessonsBySchool method
     
+    // in: parent name
     public DefaultTableModel StudentsByMotherName(String name) {//creates a method to filter the table model of students by mother name
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         schoolsArray sca = new schoolsArray();//creates an object for the schoolsArray class
@@ -420,6 +432,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
      }//closes the StudentsByMotherName model
     
+    // in: school name
     public DefaultTableModel StudentsBySchool(String inputtedSchool) {//creates a method to filter the table model of students by school
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         schoolsArray sca = new schoolsArray();//creates an object for the schoolsArray class
@@ -461,6 +474,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
      }//closes the StudentsBySchool model
     
+    // in: student name
     public DefaultTableModel StudentsByName(String name) {//creates a method to filter the table model of students by student name
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         schoolsArray sca = new schoolsArray();//creates an object for the schoolsArray class
@@ -540,6 +554,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
      }//closes the students method
     
+    // in: student id
     public DefaultTableModel StudentInfo(int id) {//creates a method for the student info table model by id
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         schoolsArray sca = new schoolsArray();//creates an object for the schoolsArray class
@@ -595,6 +610,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
     }//closes the parents method
     
+    // in: parent name
     public DefaultTableModel parentsByParentName(String nameInputted) {//creates a method for the parents table model filtered by parent name
         mothersArray ma = new mothersArray();//creates an object for the mothersArray class
          DefaultTableModel model = null;//instantiates a default table model
@@ -617,6 +633,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
     }//closes the parentsByParentName method
     
+    // in: student name (child name)
     public DefaultTableModel parentsByChildName(String nameInputted) {//creates a method for the parents table model filtered by child name
         mothersArray ma = new mothersArray();//creates an object for the mothersArray class
          DefaultTableModel model = null;//instantiates a default table model
@@ -674,6 +691,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
     }//closes the payments method
     
+    // in: date
     public DefaultTableModel paymentsByDateAndTime(String dateInputted) {//creates a method for the payments table model filtered by date and time
          mothersArray ma = new mothersArray();//creates an object for the mothersArray class
          studentsArray sa = new studentsArray();//creates an object for the studentsArray class
@@ -710,6 +728,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
     }//closes the paymentsByDateAndTime method
     
+    // in: student name
     public DefaultTableModel paymentsByStudentName(String nameInputted) {//creates a method for the payments table model filtered by student name
          mothersArray ma = new mothersArray();//creates an object for the mothersArray class
          studentsArray sa = new studentsArray();//creates an object for the studentsArray class
@@ -769,6 +788,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
     }//closes the paymentsPaid method
     
+    // in: date
     public DefaultTableModel paymentsPaidByDateAndTime(String dateInputted) {//creates a method for the payments table model filtered by date and time and paid
          mothersArray ma = new mothersArray();//creates an object for the mothersArray class
          studentsArray sa = new studentsArray();//creates an object for the studentsArray class
@@ -793,6 +813,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
     }//closes the paymentsPaidByDateAndTime method
     
+    // in: student name
     public DefaultTableModel paymentsPaidByStudentName(String nameInputted) {//creates a method for the payments table model filtered by student name and paid
          mothersArray ma = new mothersArray();//creates an object for the mothersArray class
          studentsArray sa = new studentsArray();//creates an object for the studentsArray class
@@ -842,6 +863,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
     }//closes the paymentsNotPaid method
     
+    // in: date
     public DefaultTableModel paymentsNotPaidByDateAndTime(String dateInputted) {//creates a method for the payments table model filtered by date and time and unpaid
          mothersArray ma = new mothersArray();//creates an object for the mothersArray class
          studentsArray sa = new studentsArray();//creates an object for the studentsArray class
@@ -867,6 +889,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
     }//closes the paymentsNotPaidByDateAndTime method
     
+    // in: student name
     public DefaultTableModel paymentsNotPaidByStudentName(String nameInputted) {//creates a method for the payments table model filtered by student name and unpaid
          mothersArray ma = new mothersArray();//creates an object for the mothersArray class
          studentsArray sa = new studentsArray();//creates an object for the studentsArray class
@@ -892,6 +915,7 @@ public class populateComboBoxes {//creates a class to handle to populating of co
         return model;//returns the model
     }//closes the paymentsNotPaidByStudentName method
     
+    // in: date and time
     public DefaultTableModel PaymentsByLesson(String dateInputted, String timeInputted1) {//creates a method for the payments table model filtered by lesson
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class

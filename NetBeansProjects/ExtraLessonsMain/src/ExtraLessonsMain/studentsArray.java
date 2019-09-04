@@ -47,6 +47,7 @@ public class studentsArray {//creates a class to handle the students
         return studentArray;//returns the array list
     }//closes the getStudentArray method
     
+    // in: student name
     public int schoolIDFromStudentName(String name) {//creates a method to get the school id from the student name
         int id = 0;//creates an int for the id
         for (int i = 0; i < this.studentArray.size(); i++) {//iterates through the students
@@ -57,6 +58,7 @@ public class studentsArray {//creates a class to handle the students
         return id;//returns the id
     }//closes the schoolIDFromStudentName method
     
+    // in: student name
     public int studentIDFromName(String name) {//creates a method to get the id form the name
         int id = 0;//creates an int for the id
         String fname = name.substring(0, name.indexOf(" "));//creates a string for the first name
@@ -69,6 +71,7 @@ public class studentsArray {//creates a class to handle the students
         return id;//returns the id
     }//coses the studentIDFromName method
     
+    // in: student id
     public String studentNameFromID(int id) {//gets the student name from the id
         String name = "";//creates a string for the name
         for (int i = 0; i < this.studentArray.size(); i++) {//iterates through the students
@@ -79,6 +82,7 @@ public class studentsArray {//creates a class to handle the students
         return name;//returns the name
     }//closes the studentNameFromID method
     
+    // in: parent name
     public String addParentEmail(String name) {//creates a method to format the parent email according to the parent passed in
         fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacher class
         String email = "Congratulations Mr/Mrs " + name + ", you have successfully been added to the extra lessons register\n"
@@ -88,6 +92,7 @@ public class studentsArray {//creates a class to handle the students
         return email;//returns the email string
     }//closes the addParentEmail method
     
+    // in: first name, last name, frade, school, parent first name, parent last name, parent email, parent cell number
     public void addStudent(String fname, String lname, String grade, String school, String mfname, String mlname, String memail, String mcell) {//creates a method to add a student
         try {
             ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
@@ -130,6 +135,7 @@ public class studentsArray {//creates a class to handle the students
         }
     }//closes the addStudent method
     
+    // in: student id
     public int StudentIndexFromStudentID(int id) {//creates a method to get the index from the id
         int index = 0;//creates an int for the index
         for (int i = 0; i < this.studentArray.size(); i++) {//iterates through the students
@@ -141,6 +147,7 @@ public class studentsArray {//creates a class to handle the students
         return index;//returns the index
     }//closes the StudentIndexFromStudentID method
     
+    // in: parent id
     public int StudentIndexFromMotherID(int id) {//creates a method to get the index from the mother id
         int index = 0;//creates an int for the index
         for (int i = 0; i < this.studentArray.size(); i++) {//iterates through the students
@@ -152,27 +159,18 @@ public class studentsArray {//creates a class to handle the students
         return index;//returns the index
     }//closes the StudentIndexFromMotherID method
     
-    //DUPLICATE
-    public int MotherIndexFromStudentID(int id) {//
-        int index = 0;
+    // in: student id
+    public int MotherIndexFromStudentID(int id) {//creates a method to get the mother index from the student id passed in
+        int index = 0;//creates an integer for the index of the parent
         for (int i = 0; i < this.studentArray.size(); i++) {//iterates through the students
-            if (this.studentArray.get(i).getStudentID() == id) {
-                index = i;
+            if (this.studentArray.get(i).getStudentID() == id) {//checks if the iterated student is the same as the one passed in
+                index = i;//sets the index to i
             }
         }
-        return index;
-    }
+        return index;//returns the index
+    }//closes the MotherIndexFromStudentID method
     
-//    public int getIDFromIndex(int index) {
-//        int id = 0;
-//        for (int i = 0; i < this.studentArray.size(); i++) {//iterates through the students
-//            if (i == index) {
-//                id = this.studentArray.get(i).getStudentID();
-//            }
-//        }
-//        return id;
-//    }
-    
+    // in: student name
     public int getMotherIDFromStudentName(String name) {//creates a method to get the mother id from the student name
         int id = 0;//creates an int for the id
         for (int i = 0; i < this.studentArray.size(); i++) {//iterates through the students
@@ -183,6 +181,7 @@ public class studentsArray {//creates a class to handle the students
         return id;//returns the id
     }//closes the getMotherIDFromStudentName method
     
+    // in: parent name
     public int [] findSiblingIDs(String name) {//creates a method to get an array of the passed in student's siblings
         ArrayList<Integer> siblings = new ArrayList<>();//creates an array list for the siblings
         for (int i = 0; i < this.studentArray.size(); i++) {//iterates through the students
@@ -194,6 +193,7 @@ public class studentsArray {//creates a class to handle the students
         return siblingIDsArray;//returns the array
     }//closes the findSiblingIDs method
     
+    // in: student name
     public void deleteStudent(String name) throws SQLException {//creates a method to delete a student
         AddStudentNote add = new AddStudentNote();//creates an object for the AddStudentNote method
         
@@ -277,6 +277,7 @@ public class studentsArray {//creates a class to handle the students
             
     }//closes the deleteStudent method
 
+    // in: student id
     public String [] lessonKeysFromStudentID(int id) {//creates a method to get the keys of the lessons of a student passed in
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         keysArray ka = new keysArray();//creates an object for the keysArray class
@@ -301,6 +302,7 @@ public class studentsArray {//creates a class to handle the students
         return keysArray;//returns the array
     }//closes the lessonKeysFromStudentID method
     
+    // in: student id
     public String [] lessonStringArrayFromKeyArray(int id) {//creates a method to get a string reoresentation of a lesson for the key passed in
         CalendarHandler ch = new CalendarHandler();//creates an object for the CalendarHandler class
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
@@ -331,32 +333,11 @@ public class studentsArray {//creates a class to handle the students
                     lessonIntro = "This is a monthly lesson:\n";//sets the lessonIntro accordingly
                     break;//discontinues the current case
             }//closes the switchcase statement
-//                if (la.getFrequencyFromKey(keys[i]).equals("once-off")) {
-//                    lessonIntro = "This is a once-off lesson:\n";
-//                    date = "Date: " + getDate + "\n";
-//                    time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
-//                    venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
-//                    students = "Student(s): " + ch.studentsStringFromArrayForParent(ch.studentsFromLessonDateAndTime(getDate, ch.StartTimeFromLessonKey(keys[i])));
-//                    lessonsData.add(lessonIntro + date + time + venue + students + "\n");
-//                } else {
-//                    if (la.getFrequencyFromKey(keys[i]).equals("weekly")) {
-//                        lessonIntro = "This is a weekly lesson:\n";
-//                        date = "Date: " + getDate + "\n";
-//                        time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";
-//                        venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";
-//                        students = "Student(s): " + ch.studentsStringFromArrayForParent(ch.studentsFromLessonDateAndTime(getDate, ch.StartTimeFromLessonKey(keys[i])));
-//                        lessonsData.add(lessonIntro + date + time + venue + students + "\n");
-//                    } else {
-//                        if (la.getFrequencyFromKey(keys[i]).equals("monthly")) {
-//                            lessonIntro = "This is a monthly lesson:\n";
                             date = "Date: " + getDate + "\n";//formats the date
                             time = "Time: " + ch.timeFromLessonKey(keys[i]) + "\n";//formats the time
                             venue = "Venue: " + ch.venueFromLessonKey(keys[i]) + "\n";//formats the venue
                             students = "Student(s): " + ch.studentsStringFromArrayForParent(ch.studentsFromLessonDateAndTime(getDate, ch.StartTimeFromLessonKey(keys[i])));//formats the stduents
                             lessonsData.add(lessonIntro + date + time + venue + students + "\n");//formats the lesson string
-                        //}
-                    //}
-                //}
             }
         } else {//if there are no lessons booked by 
             lessonsData.add("this parent's children have no lessons booked");//adds the no lesson message to the lessonDataArray
@@ -365,6 +346,7 @@ public class studentsArray {//creates a class to handle the students
         return  lessonsStringArray;//returns the array
     }//closes the lessonStringArrayFromKeyArray method
     
+    // in: name and school
     public void editStudent(String name, String school) {//creates a method to edit a student (grades update automatically)
         int yes = JOptionPane.YES_OPTION;//creates an int for the JOptionPane yes option
         int confirmResult = JOptionPane.showConfirmDialog(null, "are you sure you would like to update " + name + "'s school?", "Update School", JOptionPane.YES_NO_OPTION);//asks the user to confirm
@@ -373,7 +355,7 @@ public class studentsArray {//creates a class to handle the students
             schoolsArray sa = new schoolsArray();//creates an object for the schoolsArray class
             String updateSchool = "";//creates a string for the SQL query used to update the school
             if (!school.equals("")) {//checks if the school is not blank
-                updateSchool = "UPDATE sDetTable SET schoolID = '" + sa.getSchoolIDFromName(school) + "' WHERE StudID = " + this.studentIDFromName(name);//formats the SQL query
+                updateSchool = "UPDATE sDetTable SET schoolID = '" + sa.getSchoolID(school) + "' WHERE StudID = " + this.studentIDFromName(name);//formats the SQL query
                 try {
                     db.UpdateDatabase(updateSchool);//updates the school
                 } catch (SQLException ex) {

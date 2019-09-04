@@ -38,7 +38,7 @@ public class ConnectDB {//creates a class called ConnectDB to handle connections
         }//closes the catch statement
     }//closes the constructor
 
-    public ResultSet getResults(String Query) {//creates a method that returns a resultSet of the database
+    public ResultSet getResults(String Query) {//creates a method that returns a resultSet of the database in: sqlQuery as a string
         try {//opens the trycatch statement
             rs = stmt.executeQuery(Query);//The query that has been sent in via the String query is executed              
         } catch (Exception e) {//opens the catch statement
@@ -47,7 +47,7 @@ public class ConnectDB {//creates a class called ConnectDB to handle connections
         return rs;//returns the resultset to the class user to be used
     }//closes the getResults method
     
-    public void UpdateDatabase(String G) throws SQLException{//creates a method that will update the dtatabse according to the passed in SQL query
+    public void UpdateDatabase(String G) throws SQLException{//creates a method that will update the dtatabse according to the passed in SQL query in: sqlQuery as a string
         stmt.executeUpdate(G);//exexutes the updating of the database according to the passed in SQL query
     }//closes the UpdateDatabase method
 

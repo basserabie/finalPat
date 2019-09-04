@@ -45,8 +45,8 @@ public class fetchingEmail {//creates a class handling the fetching of emails
     
     private static ArrayList<String> emailsArray = new ArrayList<>();//creates an array list to contain the emails recieved
 
-   public static void check(String host, String storeType, String user,
-      String password) {//creates a method to check the emails recieved
+    // in: host name, storage type, username, password
+   public static void check(String host, String storeType, String user, String password) {//creates a method to check the emails recieved
       try {//opens the trycatch statement
       //create properties field
       Properties properties = new Properties();//instantiates a properties object
@@ -114,174 +114,8 @@ public class fetchingEmail {//creates a class handling the fetching of emails
 
       check(host, mailStoreType, username, password);//gets the emails
     }//closes the doEmail method
-    
-//   public static void fetch(String pop3Host, String storeType, String user,
-//      String password) {
-//      try {
-//         // create properties field
-//         Properties properties = new Properties();
-//         properties.put("mail.store.protocol", "pop3");
-//         properties.put("mail.pop3.host", pop3Host);
-//         properties.put("mail.pop3.port", "995");
-//         properties.put("mail.pop3.starttls.enable", "true");
-//         Session emailSession = Session.getDefaultInstance(properties);
-//         // emailSession.setDebug(true);
-//
-//         // create the POP3 store object and connect with the pop server
-//         Store store = emailSession.getStore("pop3s");
-//
-//         store.connect(pop3Host, user, password);
-//
-//         // create the folder object and open it
-//         Folder emailFolder = store.getFolder("INBOX");
-//         emailFolder.open(Folder.READ_WRITE);
-//
-//         BufferedReader reader = new BufferedReader(new InputStreamReader(
-//	      System.in));
-//
-//         // retrieve the messages from the folder in an array and print it
-//         Message[] messages = emailFolder.getMessages();
-//         System.out.println("messages.length---" + messages.length);
-//
-//         for (int i = 0; i < messages.length; i++) {
-//            Message message = messages[i];
-//            System.out.println("---------------------------------");
-//            writePart(message);
-//            String line = reader.readLine();
-//            if ("YES".equals(line)) {
-//               message.writeTo(System.out);
-//            } else if ("QUIT".equals(line)) {
-//               break;
-//            }
-//         }
-//
-//         // close the store and folder objects
-//         emailFolder.close(false);
-//         store.close();
-//
-//      } catch (NoSuchProviderException e) {
-//         e.printStackTrace();
-//      } catch (MessagingException e) {
-//         e.printStackTrace();
-//      } catch (IOException e) {
-//         e.printStackTrace();
-//      } catch (Exception e) {
-//         e.printStackTrace();
-//      }
-//   }
-
-//   public static void writePart(Part p) throws Exception {//creates a method to format the write part of the passed in part of the message
-//      if (p instanceof Message)//checks if the part passed in is a message
-//         //Call methos writeEnvelope
-//         writeEnvelope((Message) p);//casts p to a message and writes it to an envelope to be formatted here
-//
-//      System.out.println("----------------------------");
-//      System.out.println("CONTENT-TYPE: " + p.getContentType());
-//
-//      //check if the content is plain text
-//      if (p.isMimeType("text/plain")) {
-//         System.out.println("This is plain text");
-//         System.out.println("---------------------------");
-//         System.out.println((String) p.getContent());
-//      } 
-//      //check if the content has attachment
-//      else if (p.isMimeType("multipart/*")) {
-//         System.out.println("This is a Multipart");
-//         System.out.println("---------------------------");
-//         Multipart mp = (Multipart) p.getContent();
-//         int count = mp.getCount();
-//         for (int i = 0; i < count; i++)
-//            writePart(mp.getBodyPart(i));
-//      } 
-//      //check if the content is a nested message
-//      else if (p.isMimeType("message/rfc822")) {
-//         System.out.println("This is a Nested Message");
-//         System.out.println("---------------------------");
-//         writePart((Part) p.getContent());
-//      } 
-//      //check if the content is an inline image
-//      else if (p.isMimeType("image/jpeg")) {
-//         System.out.println("--------> image/jpeg");
-//         Object o = p.getContent();
-//
-//         InputStream x = (InputStream) o;
-//         // Construct the required byte array
-//         System.out.println("x.length = " + x.available());
-//         int i = 0;
-//         byte[] bArray = new byte[x.available()];;
-//         while ((i = (int) ((InputStream) x).available()) > 0) {
-//            int result = (int) (((InputStream) x).read(bArray));
-//            if (result == -1)
-//         i = 0;
-//            break;
-//         }
-//         FileOutputStream f2 = new FileOutputStream("/tmp/image.jpg");
-//         f2.write(bArray);
-//      } 
-//      else if (p.getContentType().contains("image/")) {
-//         System.out.println("content type" + p.getContentType());
-//         File f = new File("image" + new Date().getTime() + ".jpg");
-//         DataOutputStream output = new DataOutputStream(
-//            new BufferedOutputStream(new FileOutputStream(f)));
-//            com.sun.mail.util.BASE64DecoderStream test = 
-//                 (com.sun.mail.util.BASE64DecoderStream) p
-//                  .getContent();
-//         byte[] buffer = new byte[1024];
-//         int bytesRead;
-//         while ((bytesRead = test.read(buffer)) != -1) {
-//            output.write(buffer, 0, bytesRead);
-//         }
-//      } 
-//      else {
-//         Object o = p.getContent();
-//         if (o instanceof String) {
-//            System.out.println("This is a string");
-//            System.out.println("---------------------------");
-//            System.out.println((String) o);
-//         } 
-//         else if (o instanceof InputStream) {
-//            System.out.println("This is just an input stream");
-//            System.out.println("---------------------------");
-//            InputStream is = (InputStream) o;
-//            is = (InputStream) o;
-//            int c;
-//            while ((c = is.read()) != -1)
-//               System.out.write(c);
-//         } 
-//         else {
-//            System.out.println("This is an unknown type");
-//            System.out.println("---------------------------");
-//            System.out.println(o.toString());
-//         }
-//      }
-//
-//   }
-//   /*
-//   * This method would print FROM,TO and SUBJECT of the message
-//   */
-//   public static void writeEnvelope(Message m) throws Exception {
-//      System.out.println("This is the message envelope");
-//      System.out.println("---------------------------");
-//      Address[] a;
-//
-//      // FROM
-//      if ((a = m.getFrom()) != null) {
-//         for (int j = 0; j < a.length; j++)
-//         System.out.println("FROM: " + a[j].toString());
-//      }
-//
-//      // TO
-//      if ((a = m.getRecipients(Message.RecipientType.TO)) != null) {
-//         for (int j = 0; j < a.length; j++)
-//         System.out.println("TO: " + a[j].toString());
-//      }
-//
-//      // SUBJECT
-//      if (m.getSubject() != null)
-//         System.out.println("SUBJECT: " + m.getSubject());
-//
-//   }
    
+   // in: unformatted email
    public String formatRequest(String raw1) {//creates a method to format the incoming string representation of the message
        paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
        String rawT = pa.formattOutHTMLTags(raw1);//removes the HTML headers of the incoming string
@@ -301,17 +135,6 @@ public class fetchingEmail {//creates a class handling the fetching of emails
         }
         return from + "\n" + req;//returns the formatted message (sender information and then the message)
     }//closes the formatRequests method
-   
-//   public String toPrettyString(String raw) {
-//       paymentsArray pa = new paymentsArray();
-//       String temp1 = raw.replaceAll("<br>", "mustbreaklinehere");
-//       String temp2 = pa.formattOutHTMLTags(temp1);
-//       String finalReq = temp2.replaceAll("mustbreaklinehere", "\n");
-////       String temp2 = temp1.replaceAll("<div>", "");
-////       String temp3 = temp2.replace("<div dir=\"ltr\">", "");
-////       String finalReq = temp3.replaceAll("<\\div>", "");
-//       return finalReq;
-//   }
   
 
     @Override

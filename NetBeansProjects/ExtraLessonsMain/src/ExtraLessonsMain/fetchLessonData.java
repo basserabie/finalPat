@@ -12,7 +12,7 @@ package ExtraLessonsMain;
 public class fetchLessonData {//creates a class repserenting a lesson object
     private int lessonID, studentID, venueID, lessonDuration;//creates private integers to store the lessonID, studentID, venueID, and lessonDuration of the lesson object
     private String lessonDate, lessonTime, day;//creates private strings to store the lessonDate, lessonTime, and lessonDay of the lesson object
-
+         //in: lesson id, student id, venueid, lessonDuration, date, time, day of lesson
     public fetchLessonData(int lessonID, int studentID, int venueID, int lessonDuration, String lessonDate, String lessonTime, String day) {//creates a constructor for the current class to instantiate a lesson object
         this.lessonID = lessonID;//assignes the lessonID passed in to the lessonID of the object
         this.studentID = studentID;//assignes the studentID passed in to the studentID of the object
@@ -27,7 +27,7 @@ public class fetchLessonData {//creates a class repserenting a lesson object
         return lessonID;//returns the lessonID
     }//closes the getter method
 
-    public void setLessonID(int lessonID) {//creates a method to set the lessonID
+    public void setLessonID(int lessonID) {//creates a method to set the lessonID in: lesson id to set to
         this.lessonID = lessonID;//sets the lessonID
     }//closes the setter method
 
@@ -35,7 +35,7 @@ public class fetchLessonData {//creates a class repserenting a lesson object
         return studentID;//returns the studentID
     }//closes the getter method
 
-    public void setStudentID(int studentID) {//creates a method to set the studentID
+    public void setStudentID(int studentID) {//creates a method to set the studentID in: student id to set to
         this.studentID = studentID;//sets the studentID
     }//closes the setter method
 
@@ -43,7 +43,7 @@ public class fetchLessonData {//creates a class repserenting a lesson object
         return venueID;//returns the venueID
     }//closes the getter method
 
-    public void setVenueID(int venueID) {//creates a method to set the venueID
+    public void setVenueID(int venueID) {//creates a method to set the venueID in: venue id to set to
         this.venueID = venueID;//sets the venueID
     }//closes the setter method
 
@@ -51,7 +51,7 @@ public class fetchLessonData {//creates a class repserenting a lesson object
         return lessonDuration;//returns the lessonDuration
     }//closes the getter method
 
-    public void setLessonDuration(int lessonDuration) {//creates a method to set the lessonDuration
+    public void setLessonDuration(int lessonDuration) {//creates a method to set the lessonDuration in: lesson duration to set to
         this.lessonDuration = lessonDuration;//sets the lessonDuration
     }//closes the setter method
 
@@ -59,7 +59,7 @@ public class fetchLessonData {//creates a class repserenting a lesson object
         return lessonDate;//returns the lessonDate
     }//closes the getter method
 
-    public void setLessonDate(String lessonDate) {//creates a method to set the lessonDate
+    public void setLessonDate(String lessonDate) {//creates a method to set the lessonDate in: lesson date to set to
         this.lessonDate = lessonDate;//sets the lessonDate
     }//closes the setter method
 
@@ -67,7 +67,7 @@ public class fetchLessonData {//creates a class repserenting a lesson object
         return lessonTime;//returns the lessonTime
     }//closes the getter method
 
-    public void setLessonTime(String lessonTime) {//creates a method to set the lessonTime
+    public void setLessonTime(String lessonTime) {//creates a method to set the lessonTime in: lesson time to set to
         this.lessonTime = lessonTime;//sets the lessonTime
     }//closes the setter method
 
@@ -75,7 +75,7 @@ public class fetchLessonData {//creates a class repserenting a lesson object
         return day;//returns the lesson Day
     }//closes the getter method
 
-    public void setDay(String day) {//creates a method to set the lesson Day
+    public void setDay(String day) {//creates a method to set the lesson Day in: lesson day to set to
         this.day = day;//sets the lesson Day
     }//closes the setter method
     

@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
 public class paymentsArray {//creates a class to handle the payments
     private ArrayList<fetchPayments> paymentArray = new ArrayList<>();//creates an array list for the payment objects
 
-    public paymentsArray() {//creates the cosntructor
+    public paymentsArray() {//creates the cosntructor for the current class and instantiates a payment object
         ConnectDB  db = new ConnectDB();//creates an object for the Connect db class
         ResultSet r = db.getResults("SELECT * FROM sPayTable");//creates a result set for the payment objects
         try {
@@ -42,12 +42,11 @@ public class paymentsArray {//creates a class to handle the payments
         this.sortArray();//sorts the payments array
     }//closes the constructor
 
-    public ArrayList<fetchPayments> getPaymentArray() {//creates a mehtod to get the array
+    public ArrayList<fetchPayments> getPaymentArray() {//creates a method to return the array list of payments
         return paymentArray;//returns the array
     }//closes the getPaymentArray method
     
-    //method sorts the array list
-    public void sortArray() {
+    public void sortArray() {//method sorts the array list
         //sorts by dates and times
          Collections.sort(this.paymentArray, new Comparator<fetchPayments>() {//sorts with comparator
              public int compare(fetchPayments m1, fetchPayments m2) {//creates a method to compare the objects
@@ -69,11 +68,13 @@ public class paymentsArray {//creates a class to handle the payments
          });//closes the sort comparator
     }//closes the sort method
     
+    // in: text to have tags removed
     public String formattOutHTMLTags(String input) {//creates a method to remove HTML tags from text
         String output = input.replaceAll("\\<.*?\\>", "");//creates a string without tags
         return output;//returns the output string
     }//closes the formattOutHTMLTags method
     
+    // in: lesson id
     public int getCostFromLessonID(int id) {//creates a method to get cost from id
         int cost = 0;//creates an int for the cost
         for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
@@ -84,6 +85,7 @@ public class paymentsArray {//creates a class to handle the payments
         return cost;//returns the cost
     }
     
+    // in: lesson id
     public boolean getIfPaidFromLessonID(int id) {//creates a method to get if paid from lesson id
         boolean paid = false;//creates a boolean i.e. if paid
         for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
@@ -94,6 +96,7 @@ public class paymentsArray {//creates a class to handle the payments
         return paid;//returns paid
     }//closes the getIfPaidFromLessonID method
     
+    // in: date and time and studentID
     public int getLessonPayIDFromDateTimeStudentID(String date, String time, int studentID) {//creates a method to get id from date time and student id
         int id = 0;//creates an in for the id
         for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
@@ -107,6 +110,7 @@ public class paymentsArray {//creates a class to handle the payments
         return id;//returns id
     }//cloes the getLessonPayIDFromDateTimeStudentID method
 
+    // in: lesson id
     public void addPayment(int lessonID) {//creates a method to add a payment
         ConnectDB db = new ConnectDB();//creates an object for the Connect DB class
         String addPaymentString = "UPDATE sPaytable SET Paid = true WHERE lessonID = " + lessonID;//creates a string for the SQL query used to add a payment
@@ -185,6 +189,7 @@ public class paymentsArray {//creates a class to handle the payments
         return Parr;//returns the int array
     }//closes the totalPaymentsForAllMonthsArrayForProjectedChart method
     
+    // in: lesson id
     public void removePayment(int lessonID) {//creates a method to remove a payment
         ConnectDB db = new ConnectDB();//creates an object for the Connect DB class
         String addPaymentString = "UPDATE sPaytable SET Paid = false WHERE lessonID = " + lessonID;//creates a string for the SQL query used to remove the payment
@@ -267,6 +272,7 @@ public class paymentsArray {//creates a class to handle the payments
         return total;//returns the total
     }//cloes the totalOutstandingForCurrentMonth method
     
+    // in: student name
     public int getStudentTotal(String name) {//creates a method to get the sudent total
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
@@ -282,6 +288,7 @@ public class paymentsArray {//creates a class to handle the payments
         return total;//returns the total
     }//closes the getStudentTotal method
     
+    // in: student name
     public int getStudentTotalForMonth(String name) {//creates a method to get the student total for the month
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
@@ -311,6 +318,7 @@ public class paymentsArray {//creates a class to handle the payments
         return total;//returns the total
     }//closes the getStudentTotalForMonth method
     
+    // in: student name
     public int getStudentPaid(String name) {//creates a method to get the amount a student has paid
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
@@ -326,6 +334,7 @@ public class paymentsArray {//creates a class to handle the payments
         return total;//returns the total
     }//closes the getStudentPaid method
     
+    // in: student name
     public int getStudentPaidForMonth(String name) {//creates a method to get the payments aid for the month of a student
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
@@ -357,6 +366,7 @@ public class paymentsArray {//creates a class to handle the payments
         return total;//returns the total
     }//returns the getStudentPaidForMonth method
         
+    // in: student name
     public int getStudentOwed(String name) {//gets the amount a student owes
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
@@ -372,7 +382,8 @@ public class paymentsArray {//creates a class to handle the payments
         return total;//returns the total
     }//closes the getStudentOwed method
     
-    public int getStudentOwedForMonth(String name) {
+    // in: student name
+    public int getStudentOwedForMonth(String name) {//creates a method that takes in a name and returns the amount the student owes for the current month
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
         int total = 0;//creates an int for the total
@@ -403,6 +414,7 @@ public class paymentsArray {//creates a class to handle the payments
         return total;//returns the total
     }//closes the getStudentOwedForMonth method
     
+    // in: lesson id
     public String getPaymentsLessonDateFromLessonID(int id) {//creates a method to get the date form the id
         String date = "";//creates a string for the date
         for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
@@ -413,6 +425,7 @@ public class paymentsArray {//creates a class to handle the payments
         return date;//returns the date
     }//closes the getPaymentsLessonDateFromLessonID method
     
+    // in: lesson id
     public String getPaymentsLessonTimeFromLessonID(int id) {//creates a method to get the time form the id
         String time = "";//creates a string for the time
         for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
@@ -423,7 +436,8 @@ public class paymentsArray {//creates a class to handle the payments
         return time;//returns the time
     }//closes the getPaymentsLessonTimeFromLessonID method
     
-    public boolean getPaidFromID(int id) {
+    // in: lesson id
+    public boolean getPaidFromID(int id) {//creates a method that takes in a lessonID and returns whether that lesson has been paid for
         boolean paid = false;//creates a boolean indicating if the is paid or not
         for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments
             if (this.paymentArray.get(i).getLessonID() == id) {//chec is the iterated and reference ids match
@@ -485,6 +499,7 @@ public class paymentsArray {//creates a class to handle the payments
         }
     }
     
+    // in: date and time
     public void deletePaymentsFromDateAndTime(String date, String time) {//creates a method to delete payments from date and time
         ConnectDB db = new ConnectDB();//creates an object for the Connect DB class
         for (int i = 0; i < this.paymentArray.size(); i++) {//iterates through the payments

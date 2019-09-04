@@ -57,6 +57,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return names;//returns the array list
     }//closes the getter method
 
+    // in: names arrayList
     public void setNames(ArrayList<String> names) {//creates a method to set the names array list
         this.names = names;//sets the array list
     }//closes the setter method
@@ -65,11 +66,12 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return lessonKey;//returns the lessonKey
     }//closes the getter method
 
+    // in: lesson key String
     public void setLessonKey(String lessonKey) {//creates a method to set the lesson key
         this.lessonKey = lessonKey;//sets the lesson key
     }//closes the setter method
 
-    
+    //in: ArrayList
     public void setNamesList(ArrayList<String> list) {//creates a method to set the names array list
         boolean alreadyIn = false;//creates a boolean indicating whether the names has already been added
         for (int i = 0; i < list.size(); i++) {//iterates through the list passed in
@@ -85,6 +87,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         }
     }//closes the setNamesList method
     
+    // in: lesson id
     public int getIndexFromID(int id) {//creates a method to get the index of a lesson object from the passed in ID
         int index = 0;//creates an int to store the index
         for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
@@ -95,7 +98,8 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return index;//returns index
     }//closes the getIndexfromID method
     
-    public int getStudentIDFromIndex(int index) {//creates a method to the ther student id from the lesson index
+    // in: lesson index
+    public int getStudentIDFromIndex(int index) {//creates a method to return the student id from the lesson index
         int student  = 0;//creates 
         for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
             if (i == index) {//checks if i is equal to the index passed in
@@ -105,6 +109,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return student;//returns the student id
     }//closes the getStudentIDFromIndex method
     
+    // in: lesson index
     public String getStartTimeFromIndex(int index) {//creates a method to get the start time of a lesson from the index passed in
         String time  = "";//creates a string to store the time
         for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
@@ -115,6 +120,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return time;//returns time
     }//closes the getStartTimeFromIndex method
     
+    // in: two String representations of lesson keys
     public boolean compareTimesFromKeys(String key1, String key2) {//creates a method to check if one time is before the other
         keysArray ka = new keysArray();//creates an object for the keysArray class
         boolean before = false;//creates a boolean indicating whether the one time is before the other
@@ -127,6 +133,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return before;//returns the before boolean
     }//closes the compareTimesFromKeys method
     
+    // in: lessonKey
     public String getFrequencyFromKey(String lessonKey) {//creates a method to get the frequency of a lesson from the key passed in
         keysArray ka = new keysArray();//creates an object for the keysArray class
         String frequency = "once-off";//creates a string to indicate the frequency
@@ -157,6 +164,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return frequency;//returns the frequency
     }//closes the getFrequencyFromKey method
     
+    // in: date
     public boolean isLeapYear(String date) {//creates a method to check if a date passed in is in a leap year
         boolean leap = false;//creates a boolean to indicate whether the date passed in is in a leap year
         int year = Integer.parseInt(date.substring(0, 4));//creates an integer representation of the year
@@ -170,6 +178,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return leap;//returns leap
     }//closes the isLeapYear method
     
+    // in: date
     public int checkDaysInMonth(String date) {//creates a method to format the days passed in
         int days = 0;//creates an int to store the day
         int month = Integer.parseInt(date.substring(8, 10));//creates an int for the month
@@ -256,6 +265,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return days;//return days
     }//closes the checkDaysInMonth method
     
+    // in: two dates
     public boolean isWeekApart(String date1, String date2) {//creates a method to check if two dates are a week apart
         boolean weekly = false;//creates a boolean indicating whether the dates are a week apart
         
@@ -278,7 +288,8 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return weekly;//returns weekly
     }//closes the isWeekApart method
     
-    public boolean isMonthArpart(String date1, String date2) {//creates if two passed in are month
+    // in: two dates
+    public boolean isMonthArpart(String date1, String date2) {//creates a method to check if two passed in are month
         boolean monthly = false;//creates a boolean indicating whether the dates are a month apart
         
         int day1 = Integer.parseInt(date1.substring(5, 7));//creates an integer representation of the day1 passed in
@@ -294,17 +305,20 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return monthly;//returns monthly
     }//closes the isMonthApart method
     
+    // in: student name
     public void AddStudentsAdded(String name) {//creates a method to add student to the names array
         this.names.add(name);//adds the passed in student
     }//closes the addStudentAdded method
     
-    public void removeStudentAdded(String name) {//creates a method to remove student from the names array
+    // in: student name
+    public void removeStudentAdded(String name) {//creates a method to remove a student to the names array
         this.names.remove(name);//removes the passed in student
     }
     
-    public String getArrayOfStudentsAdded(int index) {
-        String namesArray [] = this.names.toArray(new String[this.names.size()]);
-        return namesArray[index];
+    // in: index of student
+    public String getArrayOfStudentsAdded(int index) {//creates a method to get the String name of an attending student at a passed in index
+        String namesArray [] = this.names.toArray(new String[this.names.size()]);//creates a string array of the names of the students attending the lesson
+        return namesArray[index];//returns the String name of the student at the passed in index
     }//closes the removeStudentAdded method
     
     public String [] getArrayOfStudentsAddedNoIndex() {//creates a method to return a string array representation of the names array list
@@ -312,6 +326,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return namesArray;//returns namesArray
     }//closes the getArrayOfStudentsAddedNoIndex method
     
+    // in: student name
     public void addToNamesList(String name) {//creates a method to add a student to the names list
         if (!names.contains(name)) {//checks if the passed in name does not already exists in the names ist
             this.AddStudentsAdded(name);//adds the passed in name to the list
@@ -339,6 +354,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
          });//closes the comparator
     }//closes the sortArray method
     
+    // in: date
     public String formatDate(String date) {//creates a method to format a parsed in date string from the JDateChooser
         String finalDate = "";//creates a string to the formatted date
         //create a date fromatter
@@ -402,11 +418,13 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return sdf.format(cal.getTime());//returns the formatted date
     }//closes the formatDate method
     
+    // in: date
     public String formatTime(String date) {//creates a method to format the time of a passed in date
         String time = date.substring(11, 16);//creates a string of the formatted time
         return time;//returns the formatted time
     }//closes the formatTime method
     
+    // in: day
     public String formatDay(String day) {//creates a method to format the day of the date passed in
         String finalDay = "";//creates a string to hold the formatted day
         //gets substring of day from given full date
@@ -437,6 +455,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
          return finalDay;//returns the formatted day
     }//closes the formatedDay method
     
+    // in: venue, date, time, day, number of students attending the lesson, name of student, frequency, duration, lessonKeyToAdd, whether the lesson has been paid, cost of the lesson
     public void addLesson(String venue, String date, String time, String day, int size, String name, int frequency, int duration, String lessonKeyToAdd, boolean paid, int cost) {//creates a method to add a lesson to the database
         ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
         lessonDataArray la = new lessonDataArray();
@@ -524,21 +543,8 @@ public class lessonDataArray {//creates a class to handle and process the lesson
             JOptionPane.showMessageDialog(null, "please do not try to book a lesson in the past");//alerts the user to not book a lesson in the past
         }
     }//closes the addLesson method
-
-//    public String [] notInNewStudents(String [] list1, ArrayList<String> list2) { 
-//        ArrayList<String> notIn = new ArrayList(Arrays.asList(list1));
-//        for (int i = 0; i < list2.size(); i++) {
-//            if (notIn.contains(list2.get(i))) {
-//                notIn.remove(list2.get(i));
-//            } else {
-//                notIn.add(list2.get(i));
-//                studentLost = list1[i];
-//            }
-//        }
-//         String StringArray [] = notIn.toArray(new String[notIn.size()]);
-//         return StringArray;
-//    }
     
+    // in: lesson id, date, time, lesson string
     public void deleteLesson(int lessonID, String date, String time, String lesson) {//creates a method to delete a lesson
         ConnectDB  db = new ConnectDB();//creates an object for the ConnectDB class
         keysArray ka = new keysArray();//creates an object for the keysArray class
@@ -621,6 +627,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         } 
     }//closes the deleteLesson method
     
+    // in: lesson id
     public String getLessonDayFromLessonID(int id) {//gets the day of the lesson from the passed in lesson id
         String day = "";//creates a string to hold the day
         for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
@@ -631,6 +638,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return day;//returns the day string
     }//closes the getLessonDayFromLessonID method
     
+    // in: date and time
     public void deleteStudentsInSpecificLesson(String date, String time) {//creates a method to delete all students from a selected lesson (used in the editing method)
        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
        keysArray ka = new keysArray();//creates an object for the keysArray class
@@ -656,6 +664,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
        }
     }//closes the deleteStudentsInSpecificLesson method
     
+    // in: date, time, and key
     public void deletStudentsInAllLesson(String date, String time, String key) {//creates a method to delete all students from a lesson group (by key) (used in the editing method)
        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
        keysArray ka = new keysArray();//creates an object for the keysArray class
@@ -683,7 +692,8 @@ public class lessonDataArray {//creates a class to handle and process the lesson
        }
     }//closes the deletStudentsInAllLesson method
     
-    public int formatFrequency(String freq) {//creates a method to format the frequency string passed in to an integer
+    // in: frequency
+    public int formatFrequency(String freq) {//creates a method to format the String frequency string passed in to an integer
         int freqInt = 0;//creates an int to store the frequency
         if (freq.toLowerCase().startsWith("week")) {//checks if the frequency passed in is weekly
             freqInt = 1;//sets the frequency integer to 1
@@ -695,6 +705,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return freqInt;//returns the freqInt integer
     }//closes the formatFrequency method
     
+    // in: ArrayList of attending students, id, date and time
     public void editAllLessonStudents(ArrayList<String> list, int id, String date, String time) {//creates a method to edit all lesson within a key group
        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
        keysArray ka = new keysArray();//creates an object for the keysArray class
@@ -761,6 +772,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
        }
    }//closes the editAllLessonStudents method
     
+    // in: name and key
     public void deleteStudentFromLesson(String name, String key) {//creates a method to delete a student from a lesson group
         ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
        keysArray ka = new keysArray();//creates an object for the keysArray class
@@ -787,6 +799,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
        }
     }
     
+    // in: ArrayList of attending students, id, date and time
    public void editSelectedLessonStudents(ArrayList<String> list, int id, String date, String time) {//creates a method to delete a selected lesson
        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
        keysArray ka = new keysArray();//creates an object for the keysArray class
@@ -825,6 +838,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
            }
    }//closes the editSelectedLessonStudents method
    
+   // in: array of students attedning
    public ArrayList<String> ArrayListFromNamesArray(String [] arr) {//creates a method to create an array list from an array of students
        ArrayList<String> names = new ArrayList<>();//creates an array list for the students
        for (int i = 0; i < arr.length; i++) {//iterates through the students in the passed in array
@@ -833,6 +847,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
        return names;//returns the array list
    }//closes the ArrayListFromNamesArray method
    
+   // in: key
    public ArrayList<Integer> idsFromKey(String key) {//creates a method to get the lesson ids from a key passed in
        keysArray ka = new keysArray();//creates an object for the keysArray class
        ArrayList<Integer> ids = new ArrayList<>();//creates an array list for the ids
@@ -844,6 +859,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
        return ids;//returns the list
    }
    
+   // in: date, time, and key
    public ArrayList<Boolean> paidForEditing(String date, String time, String key) {//creates a method to return a list of the payment info regarding a key
        paymentsArray pa = new paymentsArray();//creates an object for the paymentsArray class
        ArrayList<Boolean> pays  = new ArrayList<>();//creates an array list for the booleans
@@ -853,6 +869,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
       return pays;//returns the pays list
    }
    
+   // in: originalDate, originalTime, newDateIn, newTime, newDuration for the lesson
    public void updateLessonDateTime(String originalDate, String originalTime, String newDateIn, String newTime, String newDuration) {//creates a method to update the date and time of a lesson
        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
        keysArray ka = new keysArray();//creates an object for the keysArray class
@@ -876,6 +893,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
        }
    }//closes the updateLessonDateTime method
     
+   // in: venue, date and time
    public void editAllLessonVenue(String  venue, String date, String time) {//creates a method to update all the venues of the lessons in a key group
        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
        venueArray va = new venueArray();//creates an object for the venueArray class
@@ -896,7 +914,8 @@ public class lessonDataArray {//creates a class to handle and process the lesson
        }
    }//closes the editAllLessonVenue method
    
-   public void editSelectedLessonVenue(String  venue, String date, String time) {//
+   // in: venue, date and time
+   public void editSelectedLessonVenue(String venue, String date, String time) {//creates a method to update the venue of the lesson selected
        ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
        venueArray va = new venueArray();//creates an object for the venueArray class
        keysArray ka = new keysArray();//creates an object for the keysArray class
@@ -916,6 +935,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
        }
    }//closes the editSelectedLessonVenue method
    
+   // in: date and time
     public int getDurationFromTimeAndDate(String time, String date) {//creates a method to get the duration from the date an time of a lesson
         int duration = 0;//creates an integer to hold the duration
         for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
@@ -926,6 +946,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return duration;//returns the duration integer
     }//closes the getDurationFromTimeAndDate method
     
+    // in: date and time, duration, number of students attending, lessonKeyTocheck of the lesson
     public void checkIfDoubleBookingForEdit(String date, String time, int duration, int size, String lessonKeyToCheck) {//creates a method to indicate whether the attempted date and time in a lesson edit will result in a double book
         if (!this.checkIfDoublebooking(date, time, duration, size, lessonKeyToCheck).contains("Venue")) {//checks if no double booking occurs
             EDIT_DOUBLE_BOOKED = false;//sets the double booked boolean to false
@@ -934,6 +955,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         }
     }//closes the checkIfDoubleBookingForEdit method
     
+    // in: date, time, duration, number of students attending, lessonKeyToCheck of the lesson
     public String checkIfDoublebooking(String date, String time, int duration, int size, String lessonKeyToCheck) {//creates a method to check if an attempted lesson booking will result in a double booking
         ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
         lessonDataArray la = new lessonDataArray();
@@ -1017,7 +1039,8 @@ public class lessonDataArray {//creates a class to handle and process the lesson
     return tempReturn;//returns the display message
     }//closes the checkIfDoublebooking method
     
-    public String getLessonKey(int lessonID) {
+    // in: lesson id
+    public String getLessonKey(int lessonID) {//creates a method to return the String lessonKey from the passed in lessonID
         keysArray ka = new keysArray();//creates an object for the keysArray class
         String key = "";
         for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
@@ -1035,6 +1058,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return uuid;//returns the uuid
     }//closes the generateLessonKey method
     
+    // in: time and duration
     public String getEndTime(String time, int duration) {//creates a method to get the endtime
         String endTime = "";//creates a string for the endTime
         int endHour = 0;//creates an int to represent the end time hour
@@ -1048,7 +1072,8 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         }
         return endTime;//returns the end time
     }//closes the getEndTime method
-
+    
+    // in: duration, startTime, and index
     public String GetEndTimeForSpecificStudent(int duration, String startTime, int i) {//creates a method to get the endTime of a lesson for an iterated student
         String endTime = "";//creates a string for the end time
         int endHour = 0;//creates an integer for the hour of the end time
@@ -1063,7 +1088,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return endTime;//returns the end time
     }//closes the GetEndTimeForSpecificStudent method
     
-    
+    // in: reference date and time
     public boolean checkIfInPast(String refDate, String refTime) {//creates a method to check if a date and time is in the past
         boolean inPast = false;//creates a boolean indicating whether the date is in the past
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM HH:mm");//creates a date formatter
@@ -1096,6 +1121,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         }
     }//closes the DeletePastLessonsAndLessonKeys method
     
+    // in: student id
     public String upcomingDate(int studentID) {//creates a method to get the date of the upcoming lesson of a student
         boolean booked = false;//creates a boolean indicating whether the student has any lessos booked
         //checks if in fact booked a lesson
@@ -1119,6 +1145,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         }
     }//closes the upcomingDate method
     
+    // in: student id and upcoming date
     public String upcomingTime(int studentID, String upcomingDate) {//creates a method to get the time of a students upcoming lesson
         if (!this.upcomingDate(studentID).equals("N/A")) {//checks if the students has booked a lesson
             String time = "";//creates a string to store the time
@@ -1133,6 +1160,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         }
     }//closes the upcomingTime method
     
+    // in: student id, upcoming date and time
     public String upcomingVenue(int studentID, String upcomingDate, String upcomingTime) {//creates a method to get the venue of an upcoming lesson of a student
         if (!this.upcomingDate(studentID).equals("N/A")) {//checks if the student has booked a lesson
             venueArray va = new venueArray();//creates an object for the venueArray class
@@ -1149,7 +1177,8 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         }
     }//closes the upcomingVenue method
     
-    public String upcomingDay(int studentID, String upcomingDate, String upcomingTime) {//creates a method to get the venue of a students upcoming lesson
+    // in: student id, upcoming date and time
+    public String upcomingDay(int studentID, String upcomingDate, String upcomingTime) {//creates a method to get the day of a students upcoming lesson
         if (!this.upcomingDate(studentID).equals("N/A")) {//checks if the student has booked a lesson
             String day = "";//creates a string for the day
         for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
@@ -1164,6 +1193,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         }
     }//closes the upcomingDay method
     
+    // in: lesson id
     public String getLessonStartTimeFromLessonID(int id) {//creates a method to get the start time from the lesosn id
         String time = "";//creates a string for the time
         for (int i = 0;  i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
@@ -1172,8 +1202,9 @@ public class lessonDataArray {//creates a class to handle and process the lesson
             }
         }
         return time;//returns the time
-    }//closes rhe getLessonStartTimeFromLessonID method
+    }//closes the getLessonStartTimeFromLessonID method
     
+    // in: lesson id
     public String getLessonDateFromLessonID(int id) {//creates a method to get the date from the lesosn id
         String date = "";//creates a string for the date
         for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
@@ -1184,6 +1215,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
           return date;   //returns the date   
     }//closes the getLessonDateFromLessonID method
     
+    // in: lesson id
     public String getLessonEndTimeFromLessonID(int id) {//creates a method to get the end time from the lesosn id
         String time = "";//creates a string for the time
         for (int i = 0;  i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
@@ -1194,11 +1226,13 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return time;//returns the end time
     }//closes the getLessonEndTimeFromLessonID method
     
+    // in: startTime and duration
     public String getLessonTimeFromStartTimeAndDuration(String startTime, int duration) {//creates a method to get the formatted string of the time of a lesson
         String time = startTime + " - " + this.getEndTime(startTime, duration);//creates a formatted string of the time
         return time;//returns the time
     }//closes the getLessonTimeFromStartTimeAndDuration method
     
+    // in: lesson id
     public String getTimeFromLessonID(int id) {//creates a method to get the formatted time from the lesson id passed in 
         String time = "";//creates a string for the time
         for (int i = 0;  i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
@@ -1209,6 +1243,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return time;//returns the time
     }//closes the getTimeFromLessonID method
     
+    // in: lessonID
     public int countLessonsFromStudentID(int id) {//creates a method to count the lessons a student a student has booked
         int lessons = 0;//creates an integer for the count
         for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
@@ -1219,6 +1254,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return lessons;//returns the lessons count
     }//closes the countLessonsFromStudentID method
     
+    // in: key and id
     public String getDateFromKeyAndStudentID(String key, int id) {//gets the date of a lesson from the key and student id
         keysArray ka = new keysArray();//creates an object for the keysArray class
         String date = "";//creates a string for the date
@@ -1232,6 +1268,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return date;//returns the date
     }//closes the getDateFromKeyAndStudentID method
     
+    // in: date and time, student id
     public int getLessoIDFromDateTimeAndStudentID(String date, String time, int studentID) {//creates a method to get the lesson id from date time and student id
         int id = 0;//creates an integer for the id
         for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
@@ -1245,6 +1282,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return id;//returns the id
     }//closes the getLessoIDFromDateTimeAndStudentID method
     
+    // in: date and time
     public int getLessonIDFromDateAndTime(String date, String time) {//creates a method to get the lesson id from date and time
         int id = 0;//creates an integer for the id
         for (int i = 0; i < this.lessonDataArray.size(); i++) {//iterates through the lesson objects in the lessonDataArray list
@@ -1255,6 +1293,7 @@ public class lessonDataArray {//creates a class to handle and process the lesson
         return id;//returns the id
     }//closes the getLessonIDFromDateAndTime method
     
+    // in: date and duringTime Strings
     public int getLessonIDFromDuringTimeAndDate(String date, String duringTime) {//creates a method to get the lesson id from the date and time during a lesson
         CalendarHandler ch = new CalendarHandler();//creates an object for the calendarHandler class
         int id = 0;//creates an integer for the id

@@ -24,7 +24,7 @@ import javax.swing.JPanel;
  
 public class SwingPaint {//creates a ethod that runs and displays the draw Area for the input of the user' signiture
  
-  JButton clearBtn, done;//instantiates two JButtons to clear and to finish drawing
+  public JButton clearBtn, done;//instantiates two JButtons to clear and to finish drawing
   DrawArea drawArea = new DrawArea();//instantiates a draw Area object from the class DrawArea
   public static JFrame frame;//instantiates a static JFrame for the draw Area display
   public static boolean sigchange = false;//creates a variable boolean to indicate whether the user is inserting or changing thier signiture

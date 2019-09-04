@@ -12,7 +12,7 @@ package ExtraLessonsMain;
 public class fetchSchools {//creates a class representing a school object
     private int schoolID;//creates an integer holding the schoolID of the school object
     private String schoolName, PFName, PLName, PEmail;//creates string to hold the schoolName, principal first name, principal last name, princpal email address of the school object
-
+        // in: school id, principal details
     public fetchSchools(int schoolID, String schoolName, String PFName, String PLName, String PEmail) {//creates the cosntructor for the current class instantiating the school object
         this.schoolID = schoolID;//assignes the schoolID passed in to the schoolID of the object
         this.schoolName = schoolName;//assignes the schoolName passed in to the schoolName of the object
@@ -25,7 +25,7 @@ public class fetchSchools {//creates a class representing a school object
         return schoolID;//returns the schoolID
     }//closes the getter method
 
-    public void setSchoolID(int schoolID) {//creates a method to set the schoolID
+    public void setSchoolID(int schoolID) {//creates a method to set the schoolID in: school id to set to
         this.schoolID = schoolID;//sets the schoolID
     }//closes the setter method
 
@@ -33,7 +33,7 @@ public class fetchSchools {//creates a class representing a school object
         return schoolName;//returns the schoolName
     }//closes the getter method
 
-    public void setSchoolName(String schoolName) {//creates a method to set the schoolName
+    public void setSchoolName(String schoolName) {//creates a method to set the schoolName in: school name to set to
         this.schoolName = schoolName;//sets the schoolName
     }//closes the setter method
 
@@ -41,7 +41,7 @@ public class fetchSchools {//creates a class representing a school object
         return PFName;//returns the PFName
     }//closes the getter method
 
-    public void setPFName(String PFName) {//creates a method to set the PFName
+    public void setPFName(String PFName) {//creates a method to set the PFName in: school principal first name to set to
         this.PFName = PFName;//sets the PFName
     }//closes the setter method
 
@@ -49,7 +49,7 @@ public class fetchSchools {//creates a class representing a school object
         return PLName;//returns the PLName
     }//closes the getter method
 
-    public void setPLName(String PLName) {//creates a method to set the PLName
+    public void setPLName(String PLName) {//creates a method to set the PLName in: school principal last name to set to
         this.PLName = PLName;//sets the PLName
     }//closes the setter method
 
@@ -57,7 +57,7 @@ public class fetchSchools {//creates a class representing a school object
         return PEmail;//returns the PEmail
     }//closes the getter method
 
-    public void setPEmail(String PEmail) {//creates a method to set the PEmail
+    public void setPEmail(String PEmail) {//creates a method to set the PEmail in: school principal email address to set to
         this.PEmail = PEmail;//sets the PEmail
     }//closes the setter method
     

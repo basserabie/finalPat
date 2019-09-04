@@ -205,6 +205,7 @@ public class takeIcon extends JFrame {//creates a class to handle the icon of th
             return realPath;//returns the path
         }//closes the getNoIconPath method
         
+        // in: image name
         public static void deleteImage(String name) {//creates a method to delete the image
         //file name only
         File file = new File(name);//creates a file object of the file name passed in

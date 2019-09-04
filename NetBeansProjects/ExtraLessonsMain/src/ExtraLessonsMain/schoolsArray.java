@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class schoolsArray {//creates a class to handles the schools
     private ArrayList<fetchSchools> schoolsDataArray = new ArrayList<>();//creates an array list for the schools
 
-    public schoolsArray() {//creates the constructor
+    public schoolsArray() {//creates the constructor for the current class and instantiates a school array object
         ConnectDB  db = new ConnectDB();//creates an object for the connectDB class
         ResultSet r = db.getResults("SELECT * FROM schools");//creates a result set for the schools
         try {
@@ -39,6 +39,7 @@ public class schoolsArray {//creates a class to handles the schools
         return schoolsDataArray;//returns the list
     }//closes the getSchoolsDataArray method
     
+    // in: school name
     public int getSchoolID(String name) {//creates a method to get the id from the name
         int temp = 0;//creates an int for the id
         for (int i = 0; i < schoolsDataArray.size(); i++) {//iterates through the schools
@@ -49,6 +50,7 @@ public class schoolsArray {//creates a class to handles the schools
         return temp;//returns temp
     }//closes the getSchoolID method
     
+    // in: school id
     public String getSchoolNameFromID(int id) {//creates a method to get the name from id
         String school = "";//creates a string for the name
         for (int i = 0; i < this.schoolsDataArray.size(); i++) {//iterates through the schools
@@ -59,6 +61,7 @@ public class schoolsArray {//creates a class to handles the schools
         return school;//returns the school
     }//closes the getSchoolNameFromID method
     
+    // in: school name, principal details
     public void addSchool(String school, String pfname, String plname, String email) {//creates a method to add a school
         ConnectDB db = new ConnectDB();//creates an object for the connectDB
         String insert = "INSERT INTO schools (schoolName, PFName, PLName, PEmail) VALUES ('" + school + "', '" + pfname + "', '" + plname + "', '" + email + "')";//creates a string for the SQL query to add a school
@@ -69,6 +72,7 @@ public class schoolsArray {//creates a class to handles the schools
         }
     }//closes the addSchool method
     
+    // in: school name
     public void deleteSchool(String school) {//creates a method to delete a school
         int yes = JOptionPane.YES_OPTION;//creates an int for the yes JOptionPane oprion
         int dialogResult = JOptionPane.showConfirmDialog(null, "are you sure you want to delete this school?", "delete school confirmation", JOptionPane.YES_NO_OPTION);//asks if the user would like to delete
@@ -85,17 +89,7 @@ public class schoolsArray {//creates a class to handles the schools
         }
     }//closes the deleteSchool method
     
-    //DUPLICATE
-    public int getSchoolIDFromName(String name) {//creates a method returning the id from the name
-        int id = 0;
-        for (int i = 0; i < this.schoolsDataArray.size(); i++) {
-            if (this.schoolsDataArray.get(i).getSchoolName().equals(name)) {
-                id = this.schoolsDataArray.get(i).getSchoolID();
-            }
-        }
-        return id;
-    }
-    
+    // in: student id
     public String getSchoolFtomStudentID(int id) {//creates a method to get the school from the student id
         String school = "";//creates a string for the school
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class

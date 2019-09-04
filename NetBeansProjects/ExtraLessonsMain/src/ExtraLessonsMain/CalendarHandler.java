@@ -79,7 +79,7 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
         }
     }//closes the setArray method
     
-    public String getFormattedDateFromJCalendar(String UDate) {//creates a method that returns the formatted date selected
+    public String getFormattedDateFromJCalendar(String UDate) {//creates a method that returns the formatted date selected from the inputted unformatted date String
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         String formattedDate = "";//instantiates a string that will hold the final formatted date to be returned
         
@@ -141,7 +141,7 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
          LAST_END_TIME = endTime;////sets the static string to the gotten last end time
      }//closes the getLastEndTime method
     
-    public int getStartTimeIndexfromStartTime(String date, String startTime) {//creates a method that gets the index of an inputted start time in the static String array 'START_TIMES'
+    public int getStartTimeIndexfromStartTime(String date, String startTime) {//creates a method that gets the index of an inputted start time in the static String array 'START_TIMES' from the inputted date and startTime
         int index = 0;//creates an integer that will store the index of the inpuuted start time and be returned
         for (int i = 0; i < START_TIMES.length; i++) {//starts a for loop iteration through the start times of the selected date
             if (START_TIMES[i].equals(startTime)) {//checks if the iterated start time is equal to the one inputted
@@ -151,7 +151,7 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
         return index;//returns the index integer
     }//closes the getStartTimeIndexfromStartTime method
 
-    public String floorStartTime(String attemptedTime, String date) {//creates a method that return the start time of any 15 minute time segment inputted
+    public String floorStartTime(String attemptedTime, String date) {//creates a method that return the start time of any 15 minute time segment inputted and date inputted
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         TreeSet<Date> times = new TreeSet<>();//creates a tree set to store the start times of the date selected
         String time = "";//creates a string to store the start time of the inputted segment
@@ -315,7 +315,7 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
        return  lessonsOnDayData;//returns the formatted lessonsOnDayData string
     }//closes the getLessonDataOnThatDateAndTime method
     
-    public String studentsStringFromArray(String [] studentsArray) {//creates a method to format the display of the students attending the selected lesson
+    public String studentsStringFromArray(String [] studentsArray) {//creates a method to format the display of the students attending the selected lesson in: students attending String array
         String students = "";//creates a string that will store the formatted list of the attending students
         for (int i = 0; i < studentsArray.length; i++) {//starts a for loop iterating through each student in the students array
             students += studentsArray[i] + "\n                  ";//adds the formatted event of each student to the final student's string
@@ -323,23 +323,13 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
         return students;//returns the formatted students string
     }//closes the studentsStringFromArray method
     
-    public String studentsStringFromArrayForParent(String [] studentsArray) {//creates a method to get a formatted string of students according to an inputted array of students
+    public String studentsStringFromArrayForParent(String [] studentsArray) {//creates a method to get a formatted string of students according to an inputted array of students in: students attending String array
         String students = "";//creates a string to hold the formatted string of students and be returned
         for (int i = 0; i < studentsArray.length; i++) {//starts a for loop iterating through the students array
             students += studentsArray[i] + ", ";//adds a formatted event of a student to the students string
         }
         return students;//returns the students string
     }//closes the studentsStringFromArrayForParent method
-    
-//    public String getKeyFromPositionInDayAndDate(int index, String date) {//creates a method to get the key from the position of the associated lesson on the selected date
-//        String key = "";//creates a string that will store the gotten key and will be returned
-//        for (int i = 0; i < KEYS_ON_DAY.length; i++) {//starts a for loop iterating through the key array
-//            if (i == index) {//checks if i is equal to the passed in index
-//                key = KEYS_ON_DAY[i];//sets the key string to the key at the index if i;
-//            }
-//        }
-//        return key;
-//    }
     
     public String [] keysOnDayTest() {//creates a method that gets the keys of the lessons on the selected date
         ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
@@ -430,7 +420,7 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
         return venue;//returns the gotton venue
     }//closes the venueFromLessonKey method
     
-    public String [] studentsFromLessonDateAndTime(String date, String time) {//creates a method that fetches an array of students attending a specific lesson
+    public String [] studentsFromLessonDateAndTime(String date, String time) {//creates a method that fetches an array of students attending a specific lesson in: date and time of lesson
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         keysArray ka = new keysArray();//creates an object for the keysArray class
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
@@ -445,7 +435,7 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
         return studentsArray;//returns the studentsArray
     }//closes the studentsFromLessonDateAndTime method
     
-    public String getEndSegTime(String segStartTime, String date) {//creates a method to get the end time of a 15 minute time segment
+    public String getEndSegTime(String segStartTime, String date) {//creates a method to get the end time of a 15 minute time segment in: segment start time and date
         DateFormat sdf = new SimpleDateFormat("yyy/dd/MM HH:mm");//creates a date formatter
         Calendar time = Calendar.getInstance(); //creates a calendar object
         try {//opens a trycatch statement
@@ -458,7 +448,7 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
         return StringTime;//returns the StringTime string
     }//closes the getEndSegTime method
     
-    public boolean TimeHasLesson(String date, String time) {//creates a method that checks if a time segment is during a lesson
+    public boolean TimeHasLesson(String date, String time) {//creates a method that checks if a time segment is during a lesson in: date and time
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         keysArray ka = new keysArray();//creates an object for the keysArray class
         boolean segHasLessonBooked = false;//creates a boolean to indicate whether the segment has a lesson or not
@@ -496,7 +486,7 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
         return segHasLessonBooked;//returns the segHasLessonBooked boolean
     }//closes the timeHasLesson method
     
-    public String formatEventAtHour(String date, String time, String startTime) {//creates a method to format the lesson event at each time seg (15 minutes) to be displayed in the corresponding column
+    public String formatEventAtHour(String date, String time, String startTime) {//creates a method to format the lesson event at each time seg (15 minutes) to be displayed in the corresponding column in: date, time, and startTime
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         
         String lessonDataEventFiller = "";//creates a string to hold the string that will be displayed for the corresponding tiem seg
@@ -548,7 +538,7 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
          }
      }//closes the lessonOnDay method
      
-     public String formatTime(int iterate) {//creates a method that formates a string representation of the next timesegment as the column name of the dailyPlanner table
+     public String formatTime(int iterate) {//creates a method that formates a string representation of the next timesegment as the column name of the dailyPlanner table in: index of segment time
          String ts = "05:45";//sets string to the string representation of a 05:45 calendar object
          DateFormat sdf = new SimpleDateFormat("HH:mm");//creates a date formatter
          Calendar time = Calendar.getInstance();//creates a calendar object
@@ -564,7 +554,7 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
         return StringTime;//return the string StringTime
      }//closes the formatTime method
      
-     public DefaultTableModel schedModel(String date) {//creates a method returning a tabelModel that is the daily planner
+     public DefaultTableModel schedModel(String date) {//creates a method returning a tabelModel that is the daily planner in: date
         DefaultTableModel model = null;//instantiates a defaultTableModel temporarily setting it to null
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         keysArray ka = new keysArray();//creates an object for the keysArray class
@@ -601,8 +591,9 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
                  segEvent[i] = "";//sets the segTime item at i to an empty string
              }
         }
-        
         model.addRow(segEvent);//adds the row (segEvent) to the table model
+        COLOUR = 0;//resets the colour integer to 0
+        countOnDay = 0;//resets the countOnDay integer to 0 for the next click
         return model;//returns tje table model
      }//closes the schedModel method
     
@@ -624,7 +615,7 @@ public class CalendarHandler {//creates a class called CalendarHandler to handle
         return model;//returns the model
     }//closes the DefModel method
 
-    public void passToDailyPlan(String date) {//creates a method to pass the selected date on the JCalendar object to the dailyPlan form
+    public void passToDailyPlan(String date) {//creates a method to pass the selected date on the JCalendar object to the dailyPlan form in: date
         dailyPlanForm dp = new dailyPlanForm();//creates an object for the dailyPlanForm class
         dp.setDateLabel(date);//sets the dateLable on the JFrame to the date passed in
         dp.setVisible(true);//sets the JFrame visible

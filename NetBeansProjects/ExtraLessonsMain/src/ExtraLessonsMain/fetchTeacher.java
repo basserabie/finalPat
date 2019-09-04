@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 public class fetchTeacher {//creates a class representing a teacher (user) object
     private String fname, lname, cell, email, password, currentYear, question, answer, path;//creates string holding the first name, last name, cell, email, password, current date logged in, security question and answer, and absolute path to icon of the teacher object
     private String signUpProblems = "";//creates a string to holf the laert messages for the user regarding invalid sign up data
-    boolean signedUp = false;//creates a boolean indiciating whether the current user has signed up before
+    public boolean signedUp = false;//creates a boolean indiciating whether the current user has signed up before
 
     //constructor fecthes teacherData from teacherTable
     public fetchTeacher() {//creates the cosntructor for the current class and instantiates a teacher object (there will only ever be one)
@@ -60,7 +60,7 @@ public class fetchTeacher {//creates a class representing a teacher (user) objec
         return fname;//returns the first name
     }//closes the getter method
 
-    public void setFname(String fname) {//creates a method to set the first name
+    public void setFname(String fname) {//creates a method to set the first name in: first name to set to
         this.fname = fname;//sets the first name
     }//closes the setter method
 
@@ -68,7 +68,7 @@ public class fetchTeacher {//creates a class representing a teacher (user) objec
         return lname;//returns the last name
     }//closes the getter method
 
-    public void setLname(String lname) {//creates a method to set the last name
+    public void setLname(String lname) {//creates a method to set the last name in: last name to set to
         this.lname = lname;//sets the last name
     }//closes the setter method
 
@@ -76,7 +76,7 @@ public class fetchTeacher {//creates a class representing a teacher (user) objec
         return cell;//returns the cell
     }//closes the getter method
 
-    public void setCell(String cell) {//creates a method to set the cell
+    public void setCell(String cell) {//creates a method to set the cell in: cell to set to
         this.cell = cell;//sets the cell
     }//closes the setter method
 
@@ -84,7 +84,7 @@ public class fetchTeacher {//creates a class representing a teacher (user) objec
         return email;//returns the email
     }//closes the getter method
 
-    public void setEmail(String email) {//creates a method to set the email
+    public void setEmail(String email) {//creates a method to set the email in: cell number to set to
         this.email = email;//sets the email
     }//closes the setter method
 
@@ -92,7 +92,7 @@ public class fetchTeacher {//creates a class representing a teacher (user) objec
         return password;//returns the password
     }//closes the getter method
 
-    public void setPassword(String password) {//creates a method to set the password
+    public void setPassword(String password) {//creates a method to set the password in: password to set to
         this.password = password;//sets the password
     }//closes the setter method
 
@@ -100,15 +100,15 @@ public class fetchTeacher {//creates a class representing a teacher (user) objec
         return signedUp;//returns the state of login
     }//closes the getter method
 
-    public void SetSignedUp() {//creates a method to set the state of login
-        this.signedUp = signedUp;//sets the state of the login
+    public void SetSignedUp(boolean s) {//creates a method to set the state of login in: signedUp state to set to
+        this.signedUp = s;//sets the state of the login
     }//closes the setter method
 
     public String getCurrentYear() {//creates a method to return the current date of login
         return currentYear;//returns the current date
     }//closes the getter method
 
-    public void setCurrentYear(String currentYear) {//creates a method to set the current date of login
+    public void setCurrentYear(String currentYear) {//creates a method to set the current date of login in: date to set to
         this.currentYear = currentYear;//sets the current date of login
     }//closes the setter method
 
@@ -116,7 +116,7 @@ public class fetchTeacher {//creates a class representing a teacher (user) objec
         return question;//returns the security question
     }//closes the getter method
 
-    public void setQuestion(String question) {//creates a method to set the security question
+    public void setQuestion(String question) {//creates a method to set the security question in: question to set to
         this.question = question;//sets the security question
     }//closes the setter method
 
@@ -124,7 +124,7 @@ public class fetchTeacher {//creates a class representing a teacher (user) objec
         return answer;//returns the security answer
     }//closes the getter method
 
-    public void setAnswer(String answer) {//creates a method to set the security answer
+    public void setAnswer(String answer) {//creates a method to set the security answer in: answer to set to
         this.answer = answer;//sets the security answer
     }//closes the setter method
 
@@ -132,11 +132,11 @@ public class fetchTeacher {//creates a class representing a teacher (user) objec
         return path;//returns the image path
     }//closes the getter method
 
-    public void setPath(String path) {//creates a method to set the icon path
+    public void setPath(String path) {//creates a method to set the icon path in: icon path to set to
         this.path = path;//sets the icon path
     }//closes the setter method
     
-    public void changeSecurity(String question, String ans) {//creates a method to change the security and answer
+    public void changeSecurity(String question, String ans) {//creates a method to change the security and answer in: question and answer of the user
         ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
         loginSignUpHandler h = new loginSignUpHandler();//creates an object for the loginSignUpHandler class
         String decryptedPass = h.decryptPassword(password);//creates a string holding the decrypted password
@@ -169,11 +169,10 @@ public class fetchTeacher {//creates a class representing a teacher (user) objec
         }
     }//closes the getSecurityAnswerForm class
     
-    public boolean validateSignUp(String fname, String lname, String email, 
-            String cell, String password, String confirmPassword) {//creates a method to validate the sign up data
+    // in: first name, last name,,, email address, cell number, password, confirmation password to check
+    public boolean validateSignUp(String fname, String lname, String email, String cell, String password, String confirmPassword) {//creates a method to validate the sign up data
         dataValidation vd = new dataValidation();//creates an object for the dataValidation class
         boolean ok = true;//creates a boolean indicating that the data is valid
-        
         if (!vd.checkName(fname, "f")) {//checks if the first name inputted is not valid
             ok = false;//flips ok to false
             this.signUpProblems += vd.getProblems();//adds the first name error maessage to the problems string
@@ -196,6 +195,7 @@ public class fetchTeacher {//creates a class representing a teacher (user) objec
         return ok;//returns ok
     }//closes the validateSignUp method
     
+    // in: old password for validation, new password to set to, new password verification
     public void changePassword(String oldP, String newP, String CnewP) {//creates a method allwoing the user to change their password
         ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
         dataValidation dv = new dataValidation();//creates an object for the dataValidation class
@@ -210,7 +210,7 @@ public class fetchTeacher {//creates a class representing a teacher (user) objec
         }//closes the catch
     }//closes the changePassword method
     
-    public void changeCell(String cell) {//creates a method to chenge the cell number of the user
+    public void changeCell(String cell) {//creates a method to chenge the cell number of the user in: cell to change to
         ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
         dataValidation dv = new dataValidation();//creates an object for the dataValidation class
             String updateCell = "UPDATE teacherTable SET cell = '" + cell + "'";//creates a string to hold the SQL query to update the cell
@@ -221,7 +221,7 @@ public class fetchTeacher {//creates a class representing a teacher (user) objec
             }//closes the catch statement
     }//closes the changeCell method
     
-    public void changeEmail(String email) {//creates a method to change the user email
+    public void changeEmail(String email) {//creates a method to change the user email in: email to change to
         ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
         dataValidation dv = new dataValidation();//creates an object for the dataValidation class
             String updateEmail = "UPDATE teacherTable SET email = '" + email + "'";//creates a string holding the SQL query used to update the email address

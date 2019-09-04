@@ -41,7 +41,8 @@ import javax.swing.JOptionPane;
 public class sendEmail {//creates a class for handling the emails
     public static boolean sent = false;//creates a boolean indicating whether the email was sent
 
-    public void send(String to, String subject, String text) {//
+    // in: reciever address, subject string, email body
+    public void send(String to, String subject, String text) {//creates a method to send an email to the reciever address from the sender address according to the text passed in
                 try {
             String host = "smtp.gmail.com";//creates a string for the host
             String user = "yourextralessons@gmail.com";//creates a string for the email address

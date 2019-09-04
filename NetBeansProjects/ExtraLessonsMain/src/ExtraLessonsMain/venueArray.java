@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 public class venueArray {//creates a class to handle the venues
     private ArrayList<fetchVenue> venuesArray = new ArrayList<>();//creates an array list for the venues
 
-    public venueArray() {//creates the class constrcutor
+    public venueArray() {//creates the class constrcutor instantiating a venueArray object
         ConnectDB db = new ConnectDB();//creates an object for the ConnectBD class
         ResultSet r = db.getResults("SELECT * FROM venues");//creates a resultSet for the venues
         try {
@@ -37,6 +37,7 @@ public class venueArray {//creates a class to handle the venues
         return venuesArray;//returns the array list
     }//closes the getVenuesArray method
     
+    // in: venue name
     public int venueIDFromVenue(String venue) {//creates a method to get the venueID from the name
         int id = 0;//creates an int for the id
         for (int i = 0; i < venuesArray.size(); i++) {//iterates through the venues
@@ -47,6 +48,7 @@ public class venueArray {//creates a class to handle the venues
         return id;//returns the id
     }//closes the venueIDFromVenue method
     
+    // in: venue id
     public String venueNameFromID(int id) {//creates a method to get the name from id
         String name = "";//creates a string for the name
         for (int i = 0; i < this.venuesArray.size(); i++) {//iterates through the venues
@@ -57,6 +59,7 @@ public class venueArray {//creates a class to handle the venues
         return name;//returns the name
     }//closes the venueNameFromID method
     
+    // in: lesson id
     public int getVenueIDFromLessonID(int lessonID) {//creates a method to get the venue id of a lesson
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         int venueID = 0;//creates an int for the venue id
@@ -68,6 +71,7 @@ public class venueArray {//creates a class to handle the venues
         return venueID;//returns the venue id
     }//closes the getVenueIDFromLessonID method
     
+    // in: venue to delete and venue to add
     public void deleteVenue(String Delvenue, String repVenue) {//creates a method to delete a venue
         ConnectDB db = new ConnectDB();//creates an object for the ConnectBD class
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
@@ -98,6 +102,7 @@ public class venueArray {//creates a class to handle the venues
         } 
     }//closes the deleteVenue method
     
+    // in: venue name
     public void addVenue(String venue) {//creates a method to add a venue
         ConnectDB db = new ConnectDB();//creates an object for the ConnectBD class
         String insert = "INSERT INTO venues (venue) VALUES ('" + venue + "')";//creates a string for the SQL query used to insert the venue

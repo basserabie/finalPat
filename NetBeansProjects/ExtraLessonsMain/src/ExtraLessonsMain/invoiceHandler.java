@@ -11,11 +11,13 @@ package ExtraLessonsMain;
  */
 public class invoiceHandler {//creates a class to handle the invoice formatting
     
+    // in: date and time of unpaid lesson
     public String getInvoiceSubjectTemplate(String date, String time) {//creates a method to format the subject of the invoice email according to the date and time passed in
         String subjectTemplate = "Invoice Regarding The Lesson On " + date + " at " + time;//creates a string holding the formatted subject
         return subjectTemplate;//returns the subject string
     }//closes the getInvoiceSubjectTemplate method
     
+    // in: date, time, parent name, cost of unpaid lesson
     public String getInvoiceTemplate(String date, String time, String parent, String cost) {//creates a method to format the invoivce email body text
         fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacher class
         

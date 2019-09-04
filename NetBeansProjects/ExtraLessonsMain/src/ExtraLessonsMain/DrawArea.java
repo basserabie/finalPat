@@ -71,7 +71,7 @@ public class DrawArea extends JComponent {//creates class called DrawArea handli
     });//closes the mouse listener
   }//closes the Draw Area constructor
  
-  protected void paintComponent(Graphics g) {//creates a method that instantiates the paint component used to draw
+  protected void paintComponent(Graphics g) {//creates a method that instantiates the paint component used to draw in: a graphic g
     if (image == null) {//checks if the image is clear (null)
       // image to draw null ==> we create
       image = createImage(getSize().width, getSize().height);//creates an image to draw to
@@ -85,7 +85,7 @@ public class DrawArea extends JComponent {//creates class called DrawArea handli
     g.drawImage(image, 0, 0, null);//draws the image to the g graphic passed in
   }//closes the paitnComponent method
  
-  public void clear() {//creates method to creal the drawArea
+  public void clear() {//creates method to clear the drawArea
     g2.setPaint(Color.white);//sets the paint colour to white
     // draw white on entire draw area to clear
     g2.fillRect(0, 0, getSize().width, getSize().height);//fills the area with white
@@ -93,7 +93,7 @@ public class DrawArea extends JComponent {//creates class called DrawArea handli
     repaint();//refreshes the area to clear
   }//closes the clear method
  
-  public void createImage(DrawArea panel) {//creates a method to create a png file from the drawn image
+  public void createImage(DrawArea panel) {//creates a method to create a png file from the drawn image in: DrawArea panel
     int w = panel.getWidth();//creates an integer representing the width of the draw area
     int h = panel.getHeight();//creates an integer representing the height of the draw area
     BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);//creates a new buffered image object of sepcified dimensions according to the draw area
@@ -117,7 +117,7 @@ public class DrawArea extends JComponent {//creates class called DrawArea handli
         }else System.out.println("File file.txt doesn't exist in the project root directory");//alerts the class user that the file does not exist
     }//closes the deleteSig method
   
-  public void createImage(DrawArea panel, boolean changing) {//creates a method to create the signitutr image file if the user is changing their signiture
+  public void createImage(DrawArea panel, boolean changing) {//creates a method to create the signature image file if the user is changing their signature in: DrawArea panel and whether the icon is being changed boolean
     this.deleteSig();//calls the method that deletes the signiture png file
       
     int w = panel.getWidth();//creates an integer representing the width of the draw area

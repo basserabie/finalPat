@@ -18,7 +18,7 @@ public class dataValidation {//creates a class to handle data validation
         return problems;//returns the problems string
     }//closes the getProblems method
     
-    public String fixEntries(String entry) {//creates a method to add capital letters the the beggining of any strings inserted into the program
+    public String fixEntries(String entry) {//creates a method to add capital letters the the beggining of any strings inserted into the program in: string to be fixed
         String fix = "";//creates a string to hold the formatted version of inputted data
         String temp = entry;//creates a string to remove spaces from the end of strings inputte 
         if (entry.endsWith(" ")) {//checks if the string ends in a space
@@ -38,7 +38,7 @@ public class dataValidation {//creates a class to handle data validation
         return temp2.charAt(0) + fix;//returns the final formatted string
     }//closes the fixEntries method
     
-    public boolean checkName(String input, String ForL) {//checks if a name string is valid
+    public boolean checkName(String input, String ForL) {//checks if a name string is valid in: name to be checked
         boolean ok = true;//creates variable that holds value of valid/non-valid
         if (!input.equals("")) {//checks if something is entered
             for (int i = 0; i < input.length(); i++) {//loops through inputted string
@@ -80,7 +80,7 @@ public class dataValidation {//creates a class to handle data validation
         return ok;//returns ok
     }//closes the checkName method
     
-    public boolean checkNum(String inputString, int start, int end) {//checks if a number is valid
+    public boolean checkNum(String inputString, int start, int end) {//checks if a number is valid in: num to be checked
         boolean ok = true;//creates variable that holds value of valid/non-valid
         if (!inputString.equals("")) {//checks if somethng is entered
             int input = Integer.parseInt(inputString);//converts string imputString to int input
@@ -93,7 +93,7 @@ public class dataValidation {//creates a class to handle data validation
         return ok;//returns ok
     }//closes the checkNum message
     
-    public boolean checkCell(String cell) {//creates a method to validate a cell phone number
+    public boolean checkCell(String cell) {//creates a method to validate a cell phone number in: cell number to be checked
         boolean ok = true;//creates a boolean indicating whether the cell inputted is valid or not
         if (cell.equals("")) {//checks if the cell inputted is blank
             problems += "()you have left cell blank!\n";//adds the blank message to the problems string
@@ -107,7 +107,7 @@ public class dataValidation {//creates a class to handle data validation
         return ok;//returns ok
     }//closes the checkCell method
     
-    public boolean checkEmail(String input) {//validates inputted email address
+    public boolean checkEmail(String input) {//validates inputted email address in: email address to be checked
         boolean ok = true;//creates variable that holds value of valid/non-valid
         if (!input.equals("")) {//checks if something was entered
             if (!input.contains("@") || !input.contains(".")) {//checks if the email does not contain an '@' sign or a '.'
@@ -121,7 +121,7 @@ public class dataValidation {//creates a class to handle data validation
         return ok;//returns ok
     }//closes the checkCell method
     
-    public boolean checkPassword(String password, String confirmPassword) {//creates a method to validate password data
+    public boolean checkPassword(String password, String confirmPassword) {//creates a method to validate password data in: password and confirmation password to be checked
         boolean ok = true;//creates a boolean indicating whether the password data is valid or not
         if (!password.equals("")) {//checks if the password enetered is not null
             if (password.length() < 8) {//checks if the password lenght is less than 8
@@ -139,7 +139,7 @@ public class dataValidation {//creates a class to handle data validation
         return ok;//returns ok
     }//closes the checkPassword method
     
-    public boolean checkSchool(String school) {//creates a method to validate a school entry
+    public boolean checkSchool(String school) {//creates a method to validate a school entry in: school name to be checked
         boolean ok = true;//creates a boolean indicating whether the school inputted is valid or not
         if (!school.equals("")) {//checks if the school entered is not null
             for (int i = 0; i < school.length(); i++) {//starts a for loop iterating through the characters in the school
@@ -158,7 +158,7 @@ public class dataValidation {//creates a class to handle data validation
         return ok;//returns ok
     }//closes the checkSchool method
     
-    public boolean checkOldPassword(String password) {//creates a method to check if a password enetered is correct
+    public boolean checkOldPassword(String password) {//creates a method to check if a password enetered is correct in: password to be checked
         fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacher  class
         loginSignUpHandler h = new loginSignUpHandler();//creates an object for the loginSignUpHandler class
         boolean ok = true;//creates a boolean to indicate whether the password is correct or not
@@ -169,7 +169,7 @@ public class dataValidation {//creates a class to handle data validation
         return ok;//returns ok
     }//closes the checkOldPassword method
     
-    public boolean checkBlank(String input) {//creates a method to check if an inputted string is blank
+    public boolean checkBlank(String input) {//creates a method to check if an inputted string is blank in: text to be checked
         boolean ok = true;//creates a boolean indicating if the inputted string is blank
         if (input.equals("")) {//check if the string is blank
             ok = !ok;//flips ok to false
@@ -177,7 +177,7 @@ public class dataValidation {//creates a class to handle data validation
         return ok;//returns ok
     }//closes the checkBlank method 
     
-    public boolean checkCost(String cost) {//creates a method to validate an inputted cost
+    public boolean checkCost(String cost) {//creates a method to validate an inputted cost in: cost attempt to be checked
         boolean ok = true;//creates a boolean indicating whether the inputted cost is valid or not
         boolean alphabetical = false;//creates a boolean showing whether there is an alpabetical character in the cost
         boolean negative = false;//creates a boolean to show if the cost is negative
@@ -211,7 +211,7 @@ public class dataValidation {//creates a class to handle data validation
         return ok;//returns ok
     }//closes the checkCost method
     
-    public boolean checkAddLesson(String date, String time, int students, String cost) {//creates a method to validate adding a lesson
+    public boolean checkAddLesson(String date, String time, int students, String cost) {//creates a method to validate adding a lesson in: date, time, students, cost to be checked
         boolean ok = true;//creates a boolean to indicate validity of data
         if (time.equals("0")) {//if time equals 0 i.e not entered
             ok = false;//flips ok to false
@@ -227,7 +227,7 @@ public class dataValidation {//creates a class to handle data validation
         return ok;//returns ok
     }//closes the checkAddLesson method
     
-    public boolean checkAddStudent(String sfname, String slname, String mfname, String mlname, String email, String cell) {//creates a method to validate entering a student
+    public boolean checkAddStudent(String sfname, String slname, String mfname, String mlname, String email, String cell) {//creates a method to validate entering a student in: student name, mothername, email and cell number to be checked
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
         boolean ok = true;//creates a boolean indicating the validity of the data
         
@@ -253,10 +253,10 @@ public class dataValidation {//creates a class to handle data validation
             if (!this.checkName(mlname, "ml")) {//checks if the parent last name is not valid
                 ok = false;//flips ok to false
             }
-            if (!this.checkEmail(email)) {
+            if (!this.checkEmail(email)) {//checks if the email is not valid
                 ok = false;//flips ok to false
             }
-            if (!this.checkCell(cell)) {
+            if (!this.checkCell(cell)) {//checks if the cell is not valid
                 ok = false;//flips ok to false
             }
             if (!ok) {//checks if ok is false
@@ -266,7 +266,7 @@ public class dataValidation {//creates a class to handle data validation
         return ok;//returns ok
     }//closes the checkAddStudent method
     
-    public boolean checkAddVenue(String venue) {//creates a method to check a venue being added
+    public boolean checkAddVenue(String venue) {//creates a method to check a venue being added in: venue name to be checked
         venueArray va = new venueArray();//creates an object for the venuesArray class
         boolean ok = true;//creates a boolean to indicate the validity of the data
         
@@ -304,7 +304,7 @@ public class dataValidation {//creates a class to handle data validation
         return ok;//returns ok
     }//closes the checkAddVenue method
     
-    public boolean checkIfSchoolAlreadyAdded(String school) {//creates a method to check if a school has already been added
+    public boolean checkIfSchoolAlreadyAdded(String school) {//creates a method to check if a school has already been added in: school name to be checked
         schoolsArray sa = new schoolsArray();//creates an object for the schoolsArray class
         boolean ok = true;//creates a boolean indicating the presence of the school
         for (int i = 0; i < sa.getSchoolsDataArray().size(); i++) {//starts a for loop iterating though the schools added already
@@ -315,7 +315,7 @@ public class dataValidation {//creates a class to handle data validation
         return ok;//returns ok
     }//closes the checkIfSchoolAlreadyAdded method
     
-    public boolean checkAddSchool(String school, String pfname, String plname, String email) {//creates a method to validate the adding of a school
+    public boolean checkAddSchool(String school, String pfname, String plname, String email) {//creates a method to validate the adding of a school in: school name, principal details to be checked
         boolean ok = true;//creates a boolean indicating the validity of the data
         if (this.checkIfSchoolAlreadyAdded(school)) {//checks if the school has already been added
             if (!this.checkSchool(school)) {//checks if the school is not valid

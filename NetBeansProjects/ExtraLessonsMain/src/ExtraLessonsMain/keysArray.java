@@ -42,12 +42,8 @@ public class keysArray {//creates a class to handle the lesson keys
     public ArrayList<fetchKeys> getKeyArray() {//creates a method to return the keysArray array list
         return keyArray;//returns the keysArray
     }//closes the getKeyArray method
-
-//    public void setKeyArray(ArrayList<fetchKeys> keyArray) {
-//        this.keyArray = keyArray;
-//    }
     
-    public String getKeyFromLessonID(int id) {//creates a method to return the key for the inputted lesson id
+    public String getKeyFromLessonID(int id) {//creates a method to return the key for the inputted lesson id in: lesson id
         String key = "";//creates a string to hold the key
         for (int i = 0; i < this.keyArray.size(); i++) {//iterates through the keyArray
             if (this.keyArray.get(i).getLessonID() == id) {//checks if the itetrated id is the same as the id passed in
@@ -57,7 +53,7 @@ public class keysArray {//creates a class to handle the lesson keys
         return key;//returns the key string
     }//closes the getKeyFromLessonID method
     
-    public int getLessonIDFromKey(String key) {//creates a method to get the lessonID from the key passed
+    public int getLessonIDFromKey(String key) {//creates a method to get the lessonID from the key passed in: key
         int id = 0;//creates an integer for the id
         for (int i = 0; i < this.keyArray.size(); i++) {//iterates through the keysArray
             if (this.keyArray.get(i).getLessonKey().equals(key)) {//checks if the iterated key is the same as the key passed in
@@ -67,6 +63,7 @@ public class keysArray {//creates a class to handle the lesson keys
         return id;//returns id
     }//closes the getFirstLessonIDFromKey method
     
+     // in: key
     public String getStartTimeFromKey(String key) {//creates a method to get the start time of a lesson according to the passed in key
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         String startTime = "";//creates a string to store the start time
@@ -78,16 +75,8 @@ public class keysArray {//creates a class to handle the lesson keys
         return startTime;//returns startTime
     }//closes the getStartTimeFromKey method
     
-//    public int getLessonIDFromKey(String key) {//creates a method to het the lessonID from the key
-//        int id = 0;
-//        for (int i = 0; i < this.keyArray.size(); i++) {
-//            if (this.keyArray.get(i).getLessonKey().equals(key)) {
-//                id = this.keyArray.get(i).getLessonID();
-//            }
-//        }
-//        return id;
-//    }
     
+    // in: key
     public String getDateFromKey(String key) {//creates a method to get the date of the lesson according to the passed key
         lessonDataArray la = new lessonDataArray();//creates an obejct for the lessonDataArray class
         String date = "";//creates a string for the date
@@ -99,6 +88,7 @@ public class keysArray {//creates a class to handle the lesson keys
         return date;//returns the date
     }//closes the getDateFromKey method
     
+    // in: key
     public String getEndTimeFromKey(String key) {//creates a method to get the end time of the lesson according to the key passed in
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         String startTime = "";//creates a string to store the start time
@@ -112,6 +102,7 @@ public class keysArray {//creates a class to handle the lesson keys
         return endTime;//retuns the end time
     }//closes the getEndTimeFromKey method
     
+    // in: date and time
     public String getKeyFromDateAndTime(String date, String time) {//creates a method to get the key from a date and time of a lesson passed in
         lessonDataArray la = new lessonDataArray();//creates an object for the lessonDataArray class
         String key = "";//creates a string to store the key
@@ -146,6 +137,7 @@ public class keysArray {//creates a class to handle the lesson keys
         }
     }//closes the sortArray method
     
+    // in: key
     public int [] getLessonIDSFromKey(String key) {//creates a method to get the lesson ids of the lesson corresponding to the lesson key passed in
         ArrayList<Integer> idList = new ArrayList<>();//creates a array list for the ids
         for (int i  = 0; i < this.keyArray.size(); i++) {//iterates through keysArray 
@@ -157,6 +149,7 @@ public class keysArray {//creates a class to handle the lesson keys
         return idArray;//returns the idArray
     }//closes the getLessonIDSFromKey method
     
+    // in: key
     public void deleteKeyFromDateAndTime(String date, String time) {//creates a method to delete a key object from the database according to the date and time passed in
         ConnectDB db = new ConnectDB();//creates an object for the ConnectDB class
         String keyToDelete = this.getKeyFromDateAndTime(date, time);//creates a string for the key of the lesson according to the date and time passed in

@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author YishaiBasserabie
  */
 public class mothersArray {//creates a class to handle the parents
-    public ArrayList<fetchMothers> mothersArray = new ArrayList<>();//creates an array list for the parent objects
+    private ArrayList<fetchMothers> mothersArray = new ArrayList<>();//creates an array list for the parent objects
 
     public mothersArray() {//opens the constructor for the current class
         ConnectDB  db = new ConnectDB();//creates an object for the ConnectDB class
@@ -38,6 +38,7 @@ public class mothersArray {//creates a class to handle the parents
         return mothersArray;//returns the array list
     }//closes the getMothersArray method
     
+    // in: mother id
     public String getMotherNameForLessonArray(int id) {//creates a method to get the name from the student id
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
         String name = "";//creates a string for the name
@@ -48,18 +49,20 @@ public class mothersArray {//creates a class to handle the parents
         }
         return name;//returns the name
     }//closes the getMotherNameForLessonArray method
-    //DUPLICATE
+    
+    // in: student id
     public String getMotherNameFromStudentID(int id) {//gets the mother name from student id
-        studentsArray sa = new studentsArray();
-        String name = "";
-        for (int i = 0; i < this.mothersArray.size(); i++) {
-            if (sa.getStudentArray().get(sa.MotherIndexFromStudentID(id)).getMotherID() == this.mothersArray.get(i).getMotherID()) {
-                name = this.mothersArray.get(i).getMotherFName() + " " + this.mothersArray.get(i).getMotherLName();
+        studentsArray sa = new studentsArray();//creates an object for the studentsArray class
+        String name = "";//creates a string for the name
+        for (int i = 0; i < this.mothersArray.size(); i++) {//iterates through the parents
+            if (sa.getStudentArray().get(sa.MotherIndexFromStudentID(id)).getMotherID() == this.mothersArray.get(i).getMotherID()) {//checks if the iterated student id is the same as the one passed in
+                name = this.mothersArray.get(i).getMotherFName() + " " + this.mothersArray.get(i).getMotherLName();//sets the name string to the iterated name
             }
         }
-        return name;
-    } 
+        return name;//returns the name
+    } //closes the getMotherNameFromStudentID method
     
+    // in: index
     public String getMotherNameFromIndex(int index) {//gets the mother name from index
         String name = "";//creates a string for the name
         for (int i = 0; i < this.mothersArray.size(); i++) {//iterates through the mothers
@@ -70,6 +73,7 @@ public class mothersArray {//creates a class to handle the parents
         return name;//returns the name
     }//closes the getMotherNameFromIndex method
     
+    // in: email address
     public String getMotherNameFromEmail(String email) {//creates a method to to get the name from the email
         String name = "";//creates a string for the name
         for (int i = 0; i < this.mothersArray.size(); i++) {//iterates through the mothers
@@ -80,6 +84,7 @@ public class mothersArray {//creates a class to handle the parents
         return name;//returns the name
     }//closes the getMotherNameFromEmail methos
     
+    // in: mother name
     public String [] getStudentsFromMotherName(String name) {//creates a method to get the students from a parent name
         ArrayList<String> students = new ArrayList<>();//creates an array list for the students
         studentsArray sa = new studentsArray();//creates an object for the studentsArray class
@@ -96,6 +101,7 @@ public class mothersArray {//creates a class to handle the parents
         return studentsArray;//returns the studentsArray
     }//closes the getStudentsFromMotherName method
     
+    // in: parent name
     public int getMotherIDFromName(String name) {//creates a method to get the mother id from name
         int id = 0;//creates an int for the id
         for (int i = 0; i < this.mothersArray.size(); i++) {//iterates through the mothers
@@ -106,7 +112,8 @@ public class mothersArray {//creates a class to handle the parents
         return id;//returns the id
     }//closes the getMotherIDFromName method
     
-    public String getMotherEmailFromMotherName(String name) {//creates a metgod to the get the email from name
+    // in: parent name
+    public String getMotherEmailFromMotherName(String name) {//creates a method to the get the email from name
         int mid = this.getMotherIDFromMotherName(name);//creates an int for the mother id
         String email = "";//creates a string for the email
         for (int i = 0; i < this.mothersArray.size(); i++) {//iterates through the mothers
@@ -117,6 +124,7 @@ public class mothersArray {//creates a class to handle the parents
         return email;//returns the email
     }//closes the getMotherEmailFromMotherName method
     
+    // in: parent name
     public void passSelectedMotherNameToEdit(String name) {//creates a method to pass the mother name to the edit mother screen
         editMotherForm emf = new editMotherForm();//creates an object for the motehr edoit form class
         emf.setParentNameText(name);//stes the parent name label to the name passed in
@@ -140,6 +148,7 @@ public class mothersArray {//creates a class to handle the parents
         return id;//returns the id
     }//closes the getMotherIDFromMotherName method
     
+    // in: parent id
     public String getMotherEmailFromID(int id) {//creates a method to get the email from id
         String email = "";//creates a string for the email
         for (int i = 0; i < this.mothersArray.size(); i++) {//iterates through the mothers
@@ -150,6 +159,7 @@ public class mothersArray {//creates a class to handle the parents
         return email;//returns the email
     }//closes the getMotherEmailFromID method
     
+    // in: parent name, email, and cell number
     public void editMother(String name, String email, String cell) {//creates a method to edit a parent
         ConnectDB db = new ConnectDB();//creates an object for the connectDB class
         int id = this.getMotherIDFromName(name);//creates an int for the id

@@ -21,7 +21,7 @@ public class fetchKeys {//creates a class representing a lessonKey object
     private int lessonID;//creates a private integer holding the lesson id of the key object
     private String lessonKey;//creates a private string holding the key string of the key object
 
-    public fetchKeys(int lessonID, String lessonKey) {//creates the constructor for the current class instantiating a key object
+    public fetchKeys(int lessonID, String lessonKey) {//creates the constructor for the current class instantiating a key object in: lesson id and lessonKey
         this.lessonID = lessonID;//assigns the passed in lessonID to the lessonID belonging to the object
         this.lessonKey = lessonKey;//assigns the passed in lessonKey to the lessonKey belonging to the object
     }//closes the constructor
@@ -30,7 +30,7 @@ public class fetchKeys {//creates a class representing a lessonKey object
         return lessonID;//returns the lessonID of the key object
     }//closes the getLessonID class
 
-    public void setLessonID(int lessonID) {//creates a method that sets the lessonID
+    public void setLessonID(int lessonID) {//creates a method that sets the lessonID in: lessonID to set to
         this.lessonID = lessonID;//sets the lessonID of the key object
     }//closes the setLessonID class
 
@@ -38,7 +38,7 @@ public class fetchKeys {//creates a class representing a lessonKey object
         return lessonKey;//returns the lessonKey of the key object
     }//closes the getLessonKey class
 
-    public void setLessonKey(String lessonKey) {//creates a method that sets the lessonKey
+    public void setLessonKey(String lessonKey) {//creates a method that sets the lessonKey in: lessonkey to set to
         this.lessonKey = lessonKey;//sets the lessonKey of the key object
     }//closes the setLessonKey class
     

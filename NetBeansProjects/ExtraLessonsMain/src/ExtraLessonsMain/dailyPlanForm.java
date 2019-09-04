@@ -218,7 +218,7 @@ public class dailyPlanForm extends javax.swing.JFrame {//creates a class handlin
         if (CalendarHandler.DAY_HAS_LESSON) {//if there is a lesson(s) on the selected date
             this.dayTable.setModel(ch.schedModel(this.dateLabel.getText()));//stes the model to the schedule model accroding to the selected date
             this.loadingLabel.setText("NOW SHOWING LESSONS:");//sets the text of the loadingLabel indicating that the lessons are being dosplayed
-            CalendarHandler.countOnDay = 0;//sets the countOnDay integer back to 0 for the nect time the showDay button is clicked
+            CalendarHandler.countOnDay = 0;//sets the countOnDay integer back to 0 for the next time the showDay button is clicked
         } else {//if there are no lessons on the selected date
             this.dayTable.setModel(ch.noLessonModel());//sets the dayTable ti the noLessonModel inficating the lack of lessons
             this.loadingLabel.setText("NO LESSONS ON THIS DAY :), WATCH A MOVIE!");//sets the loadingLabel text, indicating tht there are no lessons on the selected date

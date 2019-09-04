@@ -65,7 +65,7 @@ public class image {//creates a class handling the facial recognition
         private final Header contentType;//creates a header to store the content type of the entity
         private final Header contentEncoding;//creates a hear to store the contentEncodings of the entity
         
-        public HttpEntityWrapper(HttpEntity entity) {//creates the constructor for the HTTPEntityWrapper class
+        public HttpEntityWrapper(HttpEntity entity) {//creates the constructor for the HTTPEntityWrapper class in: the HTTPEntity
             contentType = entity.getContentType();//assignes the content type of the object to the content type of the entity passed in
             contentEncoding = entity.getContentEncoding();//assignes the content encodings of the object to the content encodings of the entity passed in
             try {//opens the trycatch statement
@@ -132,6 +132,7 @@ public class image {//creates a class handling the facial recognition
     public static String addUserURL = "https://api.chooch.ai/predict/face?person_name=Generic Name&model_id=119&apikey=4df35e9e-77d1-43b8-b5a0-b3588c017ee5&command=create_person";//creates a static holding the url used to create a user profile in  the API
     public static String validateURL = "";//creates a static string to hold the url used to validate a ogin attempt
     
+    // in: API profile id
     public void createIDFileAndSetPath(String id) {//creates a method to create the file for the ID of the user profile from the API
         AddStudentNote add = new AddStudentNote();//creates an object for the addStudentNote class
         add.createNote("faceID");//creates a text file to store the ID
@@ -170,6 +171,7 @@ public class image {//creates a class handling the facial recognition
         webcam.close();//closes the webcam
     }//closes the take method
     
+    // in: filepath to the image taken to be posted to the api profile
     public String imagePost(String localFilePath) throws FileNotFoundException, IOException {//creates a method to post an image to user profile
        CloseableHttpClient httpClient = HttpClients.createDefault();//creaters a closableHTTPCleint object
        HttpPost uploadFile = new HttpPost(addImageURL);//creates a new HttpPost object and adds the the addImageURL to it
@@ -225,6 +227,7 @@ public class image {//creates a class handling the facial recognition
        return faceRecognised;//returns faceRecognised
     }//closes the validateFace method
     
+    // in: unformatted String representation of the JSON response of adding a new user
     public String formattAddUserToGetID(String raw) {//creates a method to format the httpresponse containing the new user profile id from the API
         String id = raw.substring(raw.lastIndexOf(":")+1, raw.lastIndexOf(":")+5);//formats the response to extract the id
         return id;//returns the id
@@ -253,12 +256,11 @@ public class image {//creates a class handling the facial recognition
         this.createIDFileAndSetPath(id);//creates a text file storing the gotten id
         }//closes the addUser method
     
+    // in: unformatted String representation of the JSON response of validating a face
     public String formattValidation(String raw) {//creates a method to formatt the validation response (accertain whether the face is valid or not)
         String hit = raw.substring(raw.indexOf("face_recog_hit\":") + 17, raw.indexOf("face_recog_hit\":") + 21);//creates a string to determine whether the face detected is valid
         return hit;//returns the hit string
     }//closes the formattValidation repsonse
-    
-    
     
     public void pushValidatedFace() {//creates a method to add the pvalidated picture to the database of the user profile in the API
         addImageURL = "https://api.chooch.ai/predict/face?person_id_filter=" + image.readFaceID() + "&apikey=4df35e9e-77d1-43b8-b5a0-b3588c017ee5&command=insert_person_image";//formats the addImageURL acording to the user profile id read from the text file

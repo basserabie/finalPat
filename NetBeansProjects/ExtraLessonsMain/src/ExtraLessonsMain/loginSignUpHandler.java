@@ -36,6 +36,7 @@ public class loginSignUpHandler {//creates a class to handle the login signup pr
     
     public static boolean allGood = false;//creates a static boolean indicating whether the user details are correct
     
+    // in: boolean indicating whether the face is recognised
     public void loginWithFace(boolean recognised) {//creates a method to allow the user to log in with facial recognition
         loginSignup ls = new loginSignup();//creates an object for the loginSignUp class
         fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacher class
@@ -59,6 +60,7 @@ public class loginSignUpHandler {//creates a class to handle the login signup pr
         }
     }//closes the loginWithFace method
     
+    // in: attempted password
     public void login(String passwordPassed) {//creates a method allowing the user to login with a password
         loginSignup ls = new loginSignup();//creates an object for the loginSignUp class
         fetchTeacher ft = new fetchTeacher();//creates a method for the fetchTeacher class
@@ -83,6 +85,7 @@ public class loginSignUpHandler {//creates a class to handle the login signup pr
         }
     }//closes the login method
     
+    // in: answer
     public boolean validateSecurityQuestion(String ans) {//creates a method to validate the attempted security question
         fetchTeacher ft = new fetchTeacher();//creates an object for the fetchTeacher class
         boolean ok = false;//creates a boolean indicating whether the security answer is correct
@@ -92,6 +95,7 @@ public class loginSignUpHandler {//creates a class to handle the login signup pr
         return ok;//returns ok
     }//closes the validateSecurityQuestion method
     
+    // in: first name, last name, email, cell number, password, verification password, question, answer of the user (teacher)
     public void signUp(String fName, String lName, String email, String cell, String password1, String password2, String question, String answer) {//creates a method allowing the user to sign up
         try {//opens the trycatch statement
             loginSignup ls = new loginSignup();//creates an object for the loginSignup class
@@ -154,6 +158,7 @@ public class loginSignUpHandler {//creates a class to handle the login signup pr
         }//closes the catch statement 
     }//closes the addLogInTime method
     
+    // in: answer
     public String prepareKeyFromAnswer(String ans) {//creates a method to prepare an encryption key based on the answer to the user's security question
         String key = "";//creates a string for the key
         if (ans.length() > 16) {//checks if the lenght of the answer is bigger than 16
@@ -171,8 +176,8 @@ public class loginSignUpHandler {//creates a class to handle the login signup pr
         return key;//returns the key
     }//closes the prepareKeyFromAnswer method
     
+    // in: password to encrypt, answer to security question to be used as key
      public String encryptPassword(String passwordin, String answer) {//creates a method to encrypt the password according to the answer key
-        
          EncryptDecrypt encDec = new EncryptDecrypt();//creates a EncryptDecrypt object called encDec
             String Password = "";//creates a string variale called Password
         
@@ -207,6 +212,7 @@ public class loginSignUpHandler {//creates a class to handle the login signup pr
         return Password;//returns the encrypted password
      }//closes the encryptPassword method
     
+     // in: password to decrypt
     public String decryptPassword(String password) {//creates a method to decrypt the password according to the answer key
         fetchTeacher ft = new fetchTeacher();
         String decrypin = password;//creates a string varable to store the cyper text
@@ -238,15 +244,6 @@ public class loginSignUpHandler {//creates a class to handle the login signup pr
             decryptpass = EncryptDecrypt.decrypt(decryptpass);//Parsing the String to the method decrypt
         return decryptpass;//returns the decrpted password
     }//closes the decryptPassword method
-    
-    public void getHelp() {
-        File htmlFile = new File("help.html");
-        try {//opens the trycatch statement
-            Desktop.getDesktop().browse(htmlFile.toURI());
-        } catch (IOException ex) {//opens the catch statement
-            Logger.getLogger(ExtraLessonsMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
     public void changeIcon() {//creates a method to allow the user to change their icon
         takeIcon.changing = true;//sets the changing boolean to false i.e the icon is being changed not added for the first time

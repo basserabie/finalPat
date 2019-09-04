@@ -40,7 +40,7 @@ public class chuckNoris {//creates a class to handle the chuck norris facts
             }//closes the catch statement
         }//closes the getFact method
     
-    public String formatFact(String raw) {//creates a method to format the String version of the JSON object representation of the fact
+    public String formatFact(String raw) {//creates a method to format the String version of the JSON object representation of the fact in: unformatted raw String representation of the gotten JSON
         String factLong = raw.substring(raw.indexOf("value")+8, raw.indexOf(",\"url\":\"https://")-1);//creates a string holding on the fatc text
         String fact = "";//creates a string to hold the formatted fact
         boolean lineBroken = false;//creates a boolean to check if there has been a line break
